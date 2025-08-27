@@ -29,7 +29,16 @@
       min-height:100vh;
       text-align:center;
       padding:0 16px;
+
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
     }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
     img.logo{
       width:90px;
       margin-bottom:24px;
@@ -205,7 +214,7 @@
       error.style.display = 'none';
 
       const val = email.value.trim();
-      const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+      const ok = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(val);
       if(!ok){
         error.textContent = 'Please enter a valid email address.';
         error.style.display = 'block';
