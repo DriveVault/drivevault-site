@@ -20,7 +20,8 @@
     *{box-sizing:border-box; margin:0; padding:0}
     body{
       font-family:Inter, system-ui, sans-serif;
-      background: radial-gradient(1200px 600px at 50% -10%, rgba(115,164,255,.18), rgba(0,0,0,0)), var(--bg);
+      background: linear-gradient(-45deg, #0b0d12, #1a2a6c, #6a11cb, #2575fc);
+      background-size: 400% 400%;
       color:var(--text);
       display:flex;
       flex-direction:column;
@@ -30,7 +31,6 @@
       text-align:center;
       padding:0 16px;
 
-      background-size: 400% 400%;
       animation: gradientShift 15s ease infinite;
     }
     @keyframes gradientShift {
@@ -214,7 +214,7 @@
       error.style.display = 'none';
 
       const val = email.value.trim();
-      const ok = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(val);
+      const ok = /^[^\\s@]+@[^\s@]+\\.[^\\s@]+$/.test(val);
       if(!ok){
         error.textContent = 'Please enter a valid email address.';
         error.style.display = 'block';
