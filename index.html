@@ -95,6 +95,24 @@
     .success,.error{display:none; margin-top:16px; font-size:14px;}
     .success{color:#5cffb0}
     .error{color:#ff7d9c}
+
+    .coming-soon{
+      margin-top:28px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      font-size:14px;
+      color:var(--muted);
+      opacity:0;
+      animation: fadeInUp 1s ease 1.2s forwards;
+    }
+    .coming-soon img{
+      width:18px;
+      height:18px;
+      filter: invert(1);
+    }
+
     footer{
       margin-top:60px;
       font-size:13px;
@@ -140,6 +158,10 @@
     </form>
     <div id="success" class="success">Thanks! You’re on the waitlist. We’ll be in touch soon.</div>
     <div id="error" class="error">Something went wrong. Please try again.</div>
+    <div class="coming-soon">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple Logo">
+      <span>Coming soon to the App Store</span>
+    </div>
   </main>
   <footer>
     © <span id="year"></span> DriveVault
