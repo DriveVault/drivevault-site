@@ -193,39 +193,50 @@ button:active {
       to{opacity:1; transform:translateY(0)}
     }
 
-/* ========== FEATURE ICON MARQUEE ========== */
+/* ========== FEATURE ICON MARQUEE (UPDATED) ========== */
 .marquee-wrap{
   position:relative;
-  margin-top:28px;
+  margin:28px auto 0;
+  width:min(100%, 1100px);           /* limit width so it doesn't span full screen */
   overflow:hidden;
-  width:100%;
 }
+
 .marquee-row{
-  --speed: 40s;              /* adjust speed */
+  --speed: 40s;
   display:flex;
   gap:20px;
   white-space:nowrap;
   will-change: transform;
   opacity:.9;
   padding:10px 0;
-  mask-image: linear-gradient(to right, transparent 0, black 8%, black 92%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0, black 8%, black 92%, transparent 100%);
+  /* extra-feather so icons disappear sooner */
+  mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
 }
-.marquee-row.slower{ --speed: 55s; opacity:.8; }
+.marquee-row.slower{ --speed: 55s; opacity:.85; }
+
 .marquee-track{
   display:flex; gap:20px; align-items:center;
   animation: scroll-left var(--speed) linear infinite;
 }
-.marquee-row.reverse .marquee-track{
-  animation-name: scroll-right;
+.marquee-row.reverse .marquee-track{ animation-name: scroll-right; }
+
+@keyframes scroll-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes scroll-right { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+
+/* feather overlays (works even if mask-image is unsupported) */
+.marquee-wrap::before,
+.marquee-wrap::after{
+  content:"";
+  position:absolute; top:0; bottom:0; width:80px; pointer-events:none;
 }
-@keyframes scroll-left {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }  /* because we duplicate content */
+.marquee-wrap::before{
+  left:0;
+  background: linear-gradient(to right, rgba(11,13,18,1), rgba(11,13,18,0));
 }
-@keyframes scroll-right {
-  from { transform: translateX(-50%); }
-  to   { transform: translateX(0); }
+.marquee-wrap::after{
+  right:0;
+  background: linear-gradient(to left, rgba(11,13,18,1), rgba(11,13,18,0));
 }
 
 /* Icon pill */
@@ -234,11 +245,11 @@ button:active {
   padding:10px 14px; border-radius:999px;
   background: rgba(255,255,255,.05);
   border:1px solid rgba(255,255,255,.08);
-  color:#cfd6e4; font-size:14px; line-height:1; 
+  color:#cfd6e4; font-size:14px; line-height:1;
 }
 .ico svg{ width:18px; height:18px; stroke: currentColor; }
 
-/* Respect users who prefer reduced motion */
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce){
   .marquee-track{ animation: none; }
 }
@@ -269,7 +280,7 @@ button:active {
       <span><small>Coming soon on the</small><br>App Store</span>
     </a>
 
-<!-- Icons marquee -->
+<!-- Icons marquee (UPDATED) -->
 <div class="marquee-wrap" aria-hidden="true">
   <!-- Row 1: moves left -->
   <div class="marquee-row">
@@ -286,118 +297,111 @@ button:active {
         Tags & Notes
       </span>
       <span class="ico">
-        <!-- Compare -->
+        <!-- Drive Compare -->
         <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4"></path><path d="M14 20h4a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-4"></path><path d="M10 12h4"></path></svg>
-        Compare Drives
+        Drive Compare
       </span>
       <span class="ico">
-        <!-- Report -->
+        <!-- Generate Reports -->
         <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M7 3h10v18H7z"></path><path d="M9 7h6M9 11h6M9 15h6"></path></svg>
-        Reports
+        Generate Reports
       </span>
       <span class="ico">
-        <!-- Folder templates -->
+        <!-- Folder Templates -->
         <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M3 7h6l2 2h10v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
         Folder Templates
       </span>
       <span class="ico">
-        <!-- Backup check (not backup) -->
+        <!-- Backup Check -->
         <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 6v6l4 2"></path><circle cx="12" cy="12" r="9"></circle></svg>
-        Backup Audit
+        Backup Check
       </span>
       <span class="ico">
-        <!-- Import/Export -->
+        <!-- Import/Export Library -->
         <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 5v14"></path><path d="M8 9l4-4 4 4"></path><path d="M16 15l-4 4-4-4"></path></svg>
-        Import/Export
+        Import/Export Library
       </span>
       <span class="ico">
-        <!-- Metadata -->
+        <!-- Rich Metadata -->
         <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M4 6h16M4 12h10M4 18h7"></path></svg>
         Rich Metadata
+      </span>
+      <span class="ico">
+        <!-- Offline Images -->
+        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M8 13l3-3 5 6H6z"></path></svg>
+        Offline Images
+      </span>
+      <span class="ico">
+        <!-- Smart Collections -->
+        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><circle cx="7" cy="7" r="3"></circle><circle cx="17" cy="7" r="3"></circle><path d="M4 17h16"></path></svg>
+        Smart Collections
+      </span>
+      <span class="ico">
+        <!-- Icon View -->
+        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><rect x="4" y="4" width="6" height="6" rx="1"></rect><rect x="14" y="4" width="6" height="6" rx="1"></rect><rect x="4" y="14" width="6" height="6" rx="1"></rect><rect x="14" y="14" width="6" height="6" rx="1"></rect></svg>
+        Icon View
+      </span>
+      <span class="ico">
+        <!-- Column View -->
+        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M3 6h18"></path><path d="M3 12h18"></path><path d="M3 18h18"></path></svg>
+        Column View
+      </span>
+      <span class="ico">
+        <!-- Create Projects -->
+        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M4 6h8v6H4zM12 6h8v12H4v-6"></path></svg>
+        Create Projects
       </span>
 
-      <!-- DUPLICATE the same set for seamless loop -->
-      <span class="ico">
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><circle cx="11" cy="11" r="6"></circle><path d="M20 20l-3.5-3.5"></path></svg>
-        Powerful Search
-      </span>
-      <span class="ico">
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M20 13l-8 8-9-9 8-8h6l3 3v6z"></path><path d="M16 8h.01"></path></svg>
-        Tags & Notes
-      </span>
-      <span class="ico">
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4"></path><path d="M14 20h4a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-4"></path><path d="M10 12h4"></path></svg>
-        Compare Drives
-      </span>
-      <span class="ico">
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M7 3h10v18H7z"></path><path d="M9 7h6M9 11h6M9 15h6"></path></svg>
-        Reports
-      </span>
-      <span class="ico">
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M3 7h6l2 2h10v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
-        Folder Templates
-      </span>
-      <span class="ico">
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 6v6l4 2"></path><circle cx="12" cy="12" r="9"></circle></svg>
-        Backup Audit
-      </span>
-      <span class="ico">
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 5v14"></path><path d="M8 9l4-4 4 4"></path><path d="M16 15l-4 4-4-4"></path></svg>
-        Import/Export
-      </span>
-      <span class="ico">
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M4 6h16M4 12h10M4 18h7"></path></svg>
-        Rich Metadata
-      </span>
+      <!-- DUPLICATE for seamless loop -->
+      <!-- (copy the same spans again) -->
+      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><circle cx="11" cy="11" r="6"></circle><path d="M20 20l-3.5-3.5"></path></svg>Powerful Search</span>
+      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M20 13l-8 8-9-9 8-8h6l3 3v6z"></path><path d="M16 8h.01"></path></svg>Tags & Notes</span>
+      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4"></path><path d="M14 20h4a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-4"></path><path d="M10 12h4"></path></svg>Drive Compare</span>
+      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M7 3h10v18H7z"></path><path d="M9 7h6M9 11h6M9 15h6"></path></svg>Generate Reports</span>
+      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M3 7h6l2 2h10v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>Folder Templates</span>
+      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 6v6l4 2"></path><circle cx="12" cy="12" r="9"></circle></svg>Backup Check</span>
+      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 5v14"></path><path d="M8 9l4-4 4 4"></path><path d="M16 15l-4 4-4-4"></path></svg>Import/Export Library</span>
+      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M4 6h16M4 12h10M4 18h7"></path></svg>Rich Metadata</span>
+      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M8 13l3-3 5 6H6z"></path></svg>Offline Images</span>
+      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><circle cx="7" cy="7" r="3"></circle><circle cx="17" cy="7" r="3"></circle><path d="M4 17h16"></path></svg>Smart Collections</span>
+      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><rect x="4" y="4" width="6" height="6" rx="1"></rect><rect x="14" y="4" width="6" height="6" rx="1"></rect><rect x="4" y="14" width="6" height="6" rx="1"></rect><rect x="14" y="14" width="6" height="6" rx="1"></rect></svg>Icon View</span>
+      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M3 6h18"></path><path d="M3 12h18"></path><path d="M3 18h18"></path></svg>Column View</span>
+      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M4 6h8v6H4zM12 6h8v12H4v-6"></path></svg>Create Projects</span>
     </div>
   </div>
 
   <!-- Row 2: moves right (slower + reverse) -->
   <div class="marquee-row slower reverse">
     <div class="marquee-track">
-      <!-- repeat the same set, then duplicate again -->
-      <span class="ico">
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M4 6h16M4 12h10M4 18h7"></path></svg>
-        Rich Metadata
-      </span>
-      <span class="ico">
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 5v14"></path><path d="M8 9l4-4 4 4"></path><path d="M16 15l-4 4-4-4"></path></svg>
-        Import/Export
-      </span>
-      <span class="ico">
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 6v6l4 2"></path><circle cx="12" cy="12" r="9"></circle></svg>
-        Backup Audit
-      </span>
-      <span class="ico">
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M3 7h6l2 2h10v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
-        Folder Templates
-      </span>
-      <span class="ico">
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M7 3h10v18H7z"></path><path d="M9 7h6M9 11h6M9 15h6"></path></svg>
-        Reports
-      </span>
-      <span class="ico">
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4"></path><path d="M14 20h4a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-4"></path><path d="M10 12h4"></path></svg>
-        Compare Drives
-      </span>
-      <span class="ico">
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M20 13l-8 8-9-9 8-8h6l3 3v6z"></path><path d="M16 8h.01"></path></svg>
-        Tags & Notes
-      </span>
-      <span class="ico">
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><circle cx="11" cy="11" r="6"></circle><path d="M20 20l-3.5-3.5"></path></svg>
-        Powerful Search
-      </span>
-
-      <!-- duplicate for seamless loop -->
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M4 6h16M4 12h10M4 18h7"></path></svg>Rich Metadata</span>
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 5v14"></path><path d="M8 9l4-4 4 4"></path><path d="M16 15l-4 4-4-4"></path></svg>Import/Export</span>
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 6v6l4 2"></path><circle cx="12" cy="12" r="9"></circle></svg>Backup Audit</span>
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M3 7h6l2 2h10v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>Folder Templates</span>
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M7 3h10v18H7z"></path><path d="M9 7h6M9 11h6M9 15h6"></path></svg>Reports</span>
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4"></path><path d="M14 20h4a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-4"></path><path d="M10 12h4"></path></svg>Compare Drives</span>
+      <!-- SAME SET AS ABOVE, order can differ; then duplicate again -->
+      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M8 13l3-3 5 6H6z"></path></svg>Offline Images</span>
+      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><circle cx="7" cy="7" r="3"></circle><circle cx="17" cy="7" r="3"></circle><path d="M4 17h16"></path></svg>Smart Collections</span>
+      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M7 3h10v18H7z"></path><path d="M9 7h6M9 11h6M9 15h6"></path></svg>Generate Reports</span>
+      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><rect x="4" y="4" width="6" height="6" rx="1"></rect><rect x="14" y="4" width="6" height="6" rx="1"></rect><rect x="4" y="14" width="6" height="6" rx="1"></rect><rect x="14" y="14" width="6" height="6" rx="1"></rect></svg>Icon View</span>
+      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M3 6h18"></path><path d="M3 12h18"></path><path d="M3 18h18"></path></svg>Column View</span>
+      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M4 6h8v6H4zM12 6h8v12H4v-6"></path></svg>Create Projects</span>
+      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4"></path><path d="M14 20h4a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-4"></path><path d="M10 12h4"></path></svg>Drive Compare</span>
       <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M20 13l-8 8-9-9 8-8h6l3 3v6z"></path><path d="M16 8h.01"></path></svg>Tags & Notes</span>
       <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><circle cx="11" cy="11" r="6"></circle><path d="M20 20l-3.5-3.5"></path></svg>Powerful Search</span>
+      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M3 7h6l2 2h10v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>Folder Templates</span>
+      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 6v6l4 2"></path><circle cx="12" cy="12" r="9"></circle></svg>Backup Check</span>
+      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 5v14"></path><path d="M8 9l4-4 4 4"></path><path d="M16 15l-4 4-4-4"></path></svg>Import/Export Library</span>
+      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M4 6h16M4 12h10M4 18h7"></path></svg>Rich Metadata</span>
+
+      <!-- duplicate set for seamless loop -->
+      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M8 13l3-3 5 6H6z"></path></svg>Offline Images</span>
+      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><circle cx="7" cy="7" r="3"></circle><circle cx="17" cy="7" r="3"></circle><path d="M4 17h16"></path></svg>Smart Collections</span>
+      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M7 3h10v18H7z"></path><path d="M9 7h6M9 11h6M9 15h6"></path></svg>Generate Reports</span>
+      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><rect x="4" y="4" width="6" height="6" rx="1"></rect><rect x="14" y="4" width="6" height="6" rx="1"></rect><rect x="4" y="14" width="6" height="6" rx="1"></rect><rect x="14" y="14" width="6" height="6" rx="1"></rect></svg>Icon View</span>
+      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M3 6h18"></path><path d="M3 12h18"></path><path d="M3 18h18"></path></svg>Column View</span>
+      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M4 6h8v6H4zM12 6h8v12H4v-6"></path></svg>Create Projects</span>
+      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4"></path><path d="M14 20h4a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-4"></path><path d="M10 12h4"></path></svg>Drive Compare</span>
+      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M20 13l-8 8-9-9 8-8h6l3 3v6z"></path><path d="M16 8h.01"></path></svg>Tags & Notes</span>
+      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><circle cx="11" cy="11" r="6"></circle><path d="M20 20l-3.5-3.5"></path></svg>Powerful Search</span>
+      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M3 7h6l2 2h10v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>Folder Templates</span>
+      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 6v6l4 2"></path><circle cx="12" cy="12" r="9"></circle></svg>Backup Check</span>
+      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 5v14"></path><path d="M8 9l4-4 4 4"></path><path d="M16 15l-4 4-4-4"></path></svg>Import/Export Library</span>
+      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M4 6h16M4 12h10M4 18h7"></path></svg>Rich Metadata</span>
     </div>
   </div>
 </div>
