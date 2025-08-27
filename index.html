@@ -96,21 +96,36 @@
     .success{color:#5cffb0}
     .error{color:#ff7d9c}
 
-    .coming-soon{
-      margin-top:28px;
-      display:flex;
+    .app-badge{
+      margin-top:32px;
+      display:inline-flex;
       align-items:center;
       justify-content:center;
+      padding:10px 16px;
+      background:#000;
+      border-radius:8px;
       gap:10px;
+      text-decoration:none;
+      color:#fff;
       font-size:14px;
-      color:var(--muted);
+      font-weight:500;
       opacity:0;
       animation: fadeInUp 1s ease 1.2s forwards;
     }
-    .coming-soon img{
-      width:18px;
-      height:18px;
+    .app-badge img{
+      width:20px;
+      height:20px;
       filter: invert(1);
+    }
+    .app-badge span{
+      display:block;
+      text-align:left;
+      line-height:1.2;
+    }
+    .app-badge small{
+      font-size:11px;
+      font-weight:400;
+      color:#ccc;
     }
 
     footer{
@@ -158,10 +173,11 @@
     </form>
     <div id="success" class="success">Thanks! You’re on the waitlist. We’ll be in touch soon.</div>
     <div id="error" class="error">Something went wrong. Please try again.</div>
-    <div class="coming-soon">
+
+    <a href="#" class="app-badge">
       <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple Logo">
-      <span>Coming soon to the App Store</span>
-    </div>
+      <span><small>Coming soon on the</small><br>App Store</span>
+    </a>
   </main>
   <footer>
     © <span id="year"></span> DriveVault
