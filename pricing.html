@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pricing – DriveVault</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b0d12; --text:#e6e9ef; --muted:#9aa3b2; --accent:#6aa2ff;
+      --ok:#27d980; --warn:#ffb020; --pro:#a874ff; --starter:#2f81ff; --ultimate:#ff9d2b; --unlimited:#2bd95c;
+      --card:#10141d; --cardBorder:rgba(255,255,255,.08);
+    }
+    *{box-sizing:border-box; margin:0; padding:0}
+    body{
+      font-family:Inter, system-ui, sans-serif;
+      background:var(--bg); color:var(--text);
+      min-height:100vh; line-height:1.7;
+      padding:40px 20px; overflow-y:auto; overflow-x:hidden;
+    }
+    /* Mesh background */
+    .mesh-bg{position:fixed; inset:0; z-index:-1;
+      background:
+        radial-gradient(circle at 25% 30%, rgba(30,60,114,.25), transparent 60%),
+        radial-gradient(circle at 75% 40%, rgba(36,99,175,.20), transparent 60%),
+        radial-gradient(circle at 50% 70%, rgba(15,32,60,.30), transparent 60%);
+      background-size:200% 200%;
+      animation:meshShift 25s ease-in-out infinite alternate;
+      filter:blur(80px); pointer-events:none}
+    @keyframes meshShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+    main{max-width:1200px; margin:0 auto; padding-bottom:80px}
+    header{ text-align:center; margin-bottom:28px;}
+    h1{font-size:40px; font-weight:900; letter-spacing:.2px;}
+    .sub{color:var(--muted); margin-top:6px}
+
+    /* Cards row */
+    .plans{display:grid; gap:18px; grid-template-columns:repeat(1,1fr);}
+    @media (min-width:900px){ .plans{grid-template-columns:repeat(4,1fr);} }
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+      border:1px solid var(--cardBorder);
+      border-radius:22px; padding:22px; position:relative;
+      box-shadow:0 10px 30px rgba(0,0,0,.25);
+    }
+    .card.popular{
+      background:linear-gradient(180deg, rgba(168,116,255,.14), rgba(168,116,255,.06));
+      border-color:rgba(168,116,255,.4);
+      outline:1px solid rgba(168,116,255,.4);
+    }
+    .badge{
+      position:absolute; top:16px; right:16px;
+      background:#ffd36b; color:#2b1a00; font-weight:800; font-size:12px;
+      padding:6px 10px; border-radius:999px;
+    }
+
+    .plan-title{font-size:26px; font-weight:800}
+    .muted{color:var(--muted)}
+    .price{font-size:28px; font-weight:900; margin:12px 0}
+    .price.starter{color:var(--starter)}
+    .price.pro{color:#fff}
+    .price.ultimate{color:var(--ultimate)}
+    .price.unlimited{color:var(--unlimited)}
+    .sep{height:1px; background:var(--cardBorder); margin:12px 0 14px}
+
+    ul.features{list-style:none; display:grid; gap:12px; margin-bottom:18px}
+    .feat{display:flex; align-items:center; gap:10px; font-size:15px;}
+    .tick,.dash{
+      width:18px; height:18px; display:inline-block; border-radius:50%;
+      border:1.8px solid currentColor;
+    }
+    .tick{ color:var(--ok); position:relative}
+    .tick::after{content:""; position:absolute; left:3px; top:3px; width:8px; height:8px; border-right:2px solid currentColor; border-bottom:2px solid currentColor; transform:rotate(45deg)}
+    .dash{ color:#7a8496; position:relative}
+    .dash::after{content:""; position:absolute; left:3px; right:3px; top:50%; height:0; border-top:2px solid currentColor; transform:translateY(-50%)}
+
+    .cta{
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      width:100%; padding:14px 16px; border-radius:12px; border:0; cursor:pointer;
+      background:linear-gradient(135deg, #7ab5ff, #b28dff); color:#0b0d12; font-weight:800;
+      box-shadow:0 10px 22px rgba(0,0,0,.35); transition:transform .2s ease, box-shadow .2s ease, opacity .2s ease;
+    }
+    .cta:hover{ transform:translateY(-2px); box-shadow:0 16px 28px rgba(0,0,0,.45)}
+    .cta:active{ transform:translateY(0)}
+    .cta.ghost{ background:rgba(255,255,255,.06); color:#fff; border:1px solid var(--cardBorder)}
+
+    /* Comparison table */
+    .table-wrap{margin-top:34px; border:1px solid var(--cardBorder); border-radius:18px; overflow:hidden; background:rgba(255,255,255,.02)}
+    table{width:100%; border-collapse:collapse; font-size:15px}
+    thead th{background:rgba(255,255,255,.03); text-align:left; padding:14px 16px; color:#cbd3e1; font-weight:700}
+    tbody td, tbody th{ padding:14px 16px; border-top:1px solid var(--cardBorder)}
+    tbody tr:nth-child(even){ background:rgba(255,255,255,.02)}
+    tbody th{ font-weight:600; color:#dfe5f2}
+    td.center{ text-align:center}
+    .t-check{ color:var(--ok)}
+    .t-dash{ color:#7a8496}
+    .note{ color:var(--muted); font-size:14px; margin-top:14px}
+
+    footer{margin-top:28px; text-align:center; color:var(--muted); font-size:14px}
+    footer a{ color:#9aa3b2; text-decoration:none}
+    footer a:hover{ text-decoration:underline}
+  </style>
+</head>
+<body>
+  <div class="mesh-bg"></div>
+  <main>
+    <header>
+      <h1>Choose the plan that fits your workflow</h1>
+      <p class="sub">Upgrade any time as your needs grow.</p>
+    </header>
+
+    <!-- Plans -->
+    <section class="plans">
+      <!-- Free -->
+      <article class="card">
+        <div class="plan-title">Free</div>
+        <div class="muted">Up to 2 drives</div>
+        <div class="price">Free</div>
+        <div class="sep"></div>
+        <ul class="features">
+          <li class="feat"><span class="tick"></span> Basic drive scanning</li>
+          <li class="feat"><span class="tick"></span> File search</li>
+          <li class="feat"><span class="tick"></span> Column view</li>
+          <li class="feat"><span class="tick"></span> Basic file info</li>
+          <li class="feat"><span class="dash"></span> Drive renaming</li>
+          <li class="feat"><span class="dash"></span> Star ratings</li>
+          <li class="muted">+ 10 more features</li>
+        </ul>
+        <button class="cta ghost">Current Plan</button>
+      </article>
+
+      <!-- Starter -->
+      <article class="card">
+        <div class="plan-title">Starter</div>
+        <div class="muted">Up to 5 drives</div>
+        <div class="price starter">£4.99/month</div>
+        <div class="sep"></div>
+        <ul class="features">
+          <li class="feat"><span class="tick"></span> Basic drive scanning</li>
+          <li class="feat"><span class="tick"></span> File search</li>
+          <li class="feat"><span class="tick"></span> Column view</li>
+          <li class="feat"><span class="tick"></span> Basic file info</li>
+          <li class="feat"><span class="tick"></span> Drive renaming</li>
+          <li class="feat"><span class="tick"></span> Star ratings</li>
+          <li class="muted">+ 10 more features</li>
+        </ul>
+        <button class="cta" style="background:linear-gradient(135deg,#2f81ff,#6aa2ff); color:#fff;">Upgrade Now →</button>
+      </article>
+
+      <!-- Pro (Popular) -->
+      <article class="card popular">
+        <div class="badge">POPULAR</div>
+        <div class="plan-title">Pro</div>
+        <div class="muted">Up to 10 drives</div>
+        <div class="price pro">£9.99/month</div>
+        <div class="sep"></div>
+        <ul class="features">
+          <li class="feat"><span class="tick"></span> Basic drive scanning</li>
+          <li class="feat"><span class="tick"></span> File search</li>
+          <li class="feat"><span class="tick"></span> Column view</li>
+          <li class="feat"><span class="tick"></span> Basic file info</li>
+          <li class="feat"><span class="tick"></span> Drive renaming</li>
+          <li class="feat"><span class="tick"></span> Star ratings</li>
+          <li class="muted">+ 10 more features</li>
+        </ul>
+        <button class="cta" style="background:linear-gradient(135deg,#8aa6ff,#a874ff);">Upgrade Now →</button>
+      </article>
+
+      <!-- Ultimate -->
+      <article class="card">
+        <div class="plan-title">Ultimate</div>
+        <div class="muted">Up to 20 drives</div>
+        <div class="price ultimate">£19.99/month</div>
+        <div class="sep"></div>
+        <ul class="features">
+          <li class="feat"><span class="tick"></span> Basic drive scanning</li>
+          <li class="feat"><span class="tick"></span> File search</li>
+          <li class="feat"><span class="tick"></span> Column view</li>
+          <li class="feat"><span class="tick"></span> Basic file info</li>
+          <li class="feat"><span class="tick"></span> Drive renaming</li>
+          <li class="feat"><span class="tick"></span> Star ratings</li>
+          <li class="muted">+ 10 more features</li>
+        </ul>
+        <button class="cta" style="background:linear-gradient(135deg,#ffb347,#ff9d2b); color:#0b0d12;">Upgrade Now →</button>
+      </article>
+
+      <!-- Unlimited -->
+      <article class="card">
+        <div class="plan-title">Unlimited</div>
+        <div class="muted">Unlimited drives</div>
+        <div class="price unlimited">£29.99/month</div>
+        <div class="sep"></div>
+        <ul class="features">
+          <li class="feat"><span class="tick"></span> Basic drive scanning</li>
+          <li class="feat"><span class="tick"></span> File search</li>
+          <li class="feat"><span class="tick"></span> Column view</li>
+          <li class="feat"><span class="tick"></span> Basic file info</li>
+          <li class="feat"><span class="tick"></span> Drive renaming</li>
+          <li class="feat"><span class="tick"></span> Star ratings</li>
+          <li class="muted">+ everything in Pro/Ultimate</li>
+        </ul>
+        <button class="cta" style="background:linear-gradient(135deg,#6bff9f,#2bd95c); color:#0b0d12;">Upgrade Now →</button>
+      </article>
+    </section>
+
+    <!-- Comparison Table -->
+    <section class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:38%">Features</th>
+            <th>Free</th>
+            <th>Starter</th>
+            <th>Pro</th>
+            <th>Ultimate</th>
+            <th>Unlimited</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th>Basic drive scanning</th><td class="center t-check">✔</td><td class="center t-check">✔</td><td class="center t-check">✔</td><td class="center t-check">✔</td><td class="center t-check">✔</td></tr>
+          <tr><th>File search</th><td class="center t-check">✔</td><td class="center t-check">✔</td><td class="center t-check">✔</td><td class="center t-check">✔</td><td class="center t-check">✔</td></tr>
+          <tr><th>Column view</th><td class="center t-check">✔</td><td class="center t-check">✔</td><td class="center t-check">✔</td><td class="center t-check">✔</td><td class="center t-check">✔</td></tr>
+          <tr><th>Basic file info</th><td class="center t-check">✔</td><td class="center t-check">✔</td><td class="center t-check">✔</td><td class="center t-check">✔</td><td class="center t-check">✔</td></tr>
+
+          <tr><th>Drive renaming</th><td class="center t-dash">—</td><td class="center t-check">✔</td><td class="center t-check">✔</td><td class="center t-check">✔</td><td class="center t-check">✔</td></tr>
+          <tr><th>Star ratings</th><td class="center t-dash">—</td><td class="center t-check">✔</td><td class="center t-check">✔</td><td class="center t-check">✔</td><td class="center t-check">✔</td></tr>
+
+          <tr><th>Export/Import drives</th><td class="center t-dash">—</td><td class="center t-dash">—</td><td class="center t-check">✔</td><td class="center t-check">✔</td><td class="center t-check">✔</td></tr>
+          <tr><th>Password protection</th><td class="center t-dash">—</td><td class="center t-dash">—</td><td class="center t-check">✔</td><td class="center t-check">✔</td><td class="center t-check">✔</td></tr>
+          <tr><th>Projects</th><td class="center t-dash">—</td><td class="center t-dash">—</td><td class="center t-check">✔</td><td class="center t-check">✔</td><td class="center t-check">✔</td></tr>
+          <tr><th>Advanced search</th><td class="center t-dash">—</td><td class="center t-dash">—</td><td class="center t-check">✔</td><td class="center t-check">✔</td><td class="center t-check">✔</td></tr>
+          <tr><th>Bulk operations</th><td class="center t-dash">—</td><td class="center t-dash">—</td><td class="center t-check">✔</td><td class="center t-check">✔</td><td class="center t-check">✔</td></tr>
+          <tr><th>Smart collections</th><td class="center t-dash">—</td><td class="center t-dash">—</td><td class="center t-check">✔</td><td class="center t-check">✔</td><td class="center t-check">✔</td></tr>
+          <tr><th>Drive comparison</th><td class="center t-dash">—</td><td class="center t-dash">—</td><td class="center t-check">✔</td><td class="center t-check">✔</td><td class="center t-check">✔</td></tr>
+          <tr><th>Report generation</th><td class="center t-dash">—</td><td class="center t-dash">—</td><td class="center t-check">✔</td><td class="center t-check">✔</td><td class="center t-check">✔</td></tr>
+          <tr><th>Folder templates</th><td class="center t-dash">—</td><td class="center t-dash">—</td><td class="center t-check">✔</td><td class="center t-check">✔</td><td class="center t-check">✔</td></tr>
+          <tr><th>Icon view</th><td class="center t-dash">—</td><td class="center t-dash">—</td><td class="center t-check">✔</td><td class="center t-check">✔</td><td class="center t-check">✔</td></tr>
+
+          <tr><th>Drive limit</th><td>Up to 2</td><td>Up to 5</td><td>Up to 10</td><td>Up to 20</td><td>Unlimited</td></tr>
+          <tr><th>Price (GBP)</th><td>Free</td><td>£4.99/mo</td><td>£9.99/mo</td><td>£19.99/mo</td><td>£29.99/mo</td></tr>
+        </tbody>
+      </table>
+      <p class="note">Subscriptions are billed via Apple and auto-renew unless canceled at least 24 hours before the end of the period. Manage or cancel in your App Store account settings. See our <a href="/terms.html">Terms of Service</a> for details.</p>
+    </section>
+
+    <footer>
+      © <span id="year"></span> DriveVault •
+      <a href="/privacy.html">Privacy Policy</a> •
+      <a href="/terms.html">Terms of Service</a>
+    </footer>
+  </main>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
