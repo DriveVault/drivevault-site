@@ -8,21 +8,45 @@
   <style>
     :root { --bg:#0b0d12; --text:#e6e9ef; --muted:#9aa3b2; --accent:#6aa2ff; }
     * { box-sizing:border-box; margin:0; padding:0; }
-    body { font-family:Inter, sans-serif; background:var(--bg); color:var(--text);
-           min-height:100vh; padding:40px 20px; line-height:1.7; overflow:hidden; }
-    .mesh-bg{position:fixed; inset:0; z-index:-1;
+    body {
+      font-family:Inter, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      min-height:100vh;
+      padding:40px 20px;
+      line-height:1.7;
+      overflow-y:auto;    /* enable vertical scroll */
+      overflow-x:hidden;  /* prevent sideways scroll */
+    }
+    .mesh-bg {
+      position:fixed; inset:0; z-index:-1;
       background:
         radial-gradient(circle at 25% 30%, rgba(30,60,114,.25), transparent 60%),
         radial-gradient(circle at 75% 40%, rgba(36,99,175,.20), transparent 60%),
         radial-gradient(circle at 50% 70%, rgba(15,32,60,.30), transparent 60%);
-      background-size:200% 200%; animation:meshShift 25s ease-in-out infinite alternate; filter:blur(80px);}
-    @keyframes meshShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-    main{max-width:900px; margin:0 auto; position:relative; z-index:1;}
+      background-size:200% 200%;
+      animation:meshShift 25s ease-in-out infinite alternate;
+      filter:blur(80px);
+      pointer-events:none; /* don't block scroll/clicks */
+    }
+    @keyframes meshShift {
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+    main {
+      max-width:900px;
+      margin:0 auto;
+      position:relative;
+      z-index:1;
+      padding-bottom:80px; /* breathing room for footer */
+    }
     h1{font-size:36px; font-weight:800; margin-bottom:20px; text-align:center;}
     h2{font-size:22px; font-weight:600; margin:36px 0 12px; color:var(--accent);}
     p,li{font-size:16px; margin-bottom:14px;}
     ul{padding-left:20px; margin-bottom:8px;}
-    a{color:var(--accent); text-decoration:none;} a:hover{text-decoration:underline;}
+    a{color:var(--accent); text-decoration:none;}
+    a:hover{text-decoration:underline;}
     footer{margin-top:60px; font-size:14px; color:var(--muted); text-align:center;}
     .meta{color:var(--muted); text-align:center; margin-bottom:24px;}
   </style>
@@ -33,7 +57,78 @@
     <h1>DriveVault Terms of Service</h1>
     <p class="meta">Last updated: August 27, 2025</p>
 
-    <!-- Sections 1–11 unchanged from previous draft -->
+    <h2>Important Notice</h2>
+    <p>By downloading, installing, or using DriveVault, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service. If you do not agree to these Terms, do not use the application.</p>
+
+    <h2>1. Acceptance of Terms</h2>
+    <p>These Terms of Service (“Terms”) govern your use of DriveVault (“the Application,” “the Software,” “the App”) provided by the DriveVault development team (“we,” “us,” “our”). By accessing or using DriveVault, you agree to comply with and be bound by these Terms.</p>
+
+    <h2>2. Description of Service</h2>
+    <p>DriveVault is a drive scanning and cataloging application for macOS that:</p>
+    <ul>
+      <li>Creates offline catalogs of external drives and storage devices through read-only scanning.</li>
+      <li>Optionally creates folder structures at user-selected locations with explicit permission.</li>
+      <li>Generates file previews and metadata for organizational purposes.</li>
+      <li>Allows export and import of drive catalogs for sharing and backup.</li>
+      <li>Provides file organization and search capabilities.</li>
+    </ul>
+
+    <h2>Critical Liability Disclaimer</h2>
+    <p><strong>Read-only scanning:</strong> DriveVault’s core drive-scanning functionality operates exclusively in read-only mode and does not write to, modify, delete, or alter existing files or data on your drives during scanning operations. The application uses macOS sandboxing and security frameworks to support safe operation.</p>
+    <p><strong>Controlled write operations:</strong> The optional Folder Templates feature may create new folders and directory structures, but only at locations you explicitly select and authorize. This feature (i) requires explicit user permission and location selection; (ii) never modifies or overwrites existing files; (iii) only creates new, empty folder structures; and (iv) uses secure, sandboxed file operations.</p>
+    <p><strong>No liability for hardware issues:</strong> We disclaim liability for hardware failures, drive corruption, data loss, or any other technical issues that may occur coincidentally while using DriveVault. Any such issues are not caused by DriveVault’s read-only scanning operations.</p>
+    <p><strong>Technical safeguards include:</strong></p>
+    <ul>
+      <li>macOS App Sandbox restrictions.</li>
+      <li>Read-only access for all scanning operations.</li>
+      <li>User-authorized write operations only for optional folder creation.</li>
+      <li>Error handling and recovery protections.</li>
+      <li>Security-scoped resource management.</li>
+      <li>No ability to modify or delete existing user data during scanning.</li>
+    </ul>
+
+    <h2>3. User Responsibilities</h2>
+    <ul>
+      <li>Maintain regular backups of important data.</li>
+      <li>Ensure your drives are in good working condition before scanning.</li>
+      <li>Use the application in accordance with these Terms.</li>
+      <li>Protect your own data and privacy.</li>
+      <li>Comply with all applicable laws and regulations.</li>
+    </ul>
+
+    <h2>4. Prohibited Uses</h2>
+    <ul>
+      <li>Reverse engineering, decompiling, or disassembling the application.</li>
+      <li>Using the application for illegal purposes.</li>
+      <li>Redistributing or selling the application without permission.</li>
+      <li>Circumventing security measures.</li>
+      <li>Using the application to violate others’ privacy rights.</li>
+    </ul>
+
+    <h2>5. Privacy and Data Collection</h2>
+    <p>DriveVault is designed with privacy as a core principle:</p>
+    <ul>
+      <li>All data processing occurs locally on your Mac.</li>
+      <li>No personal data is transmitted to external servers.</li>
+      <li>No analytics, tracking, or telemetry data is collected by the application.</li>
+      <li>You have complete control over exported data.</li>
+    </ul>
+    <p>For more information, see our <a href="/privacy.html">Privacy Policy</a>.</p>
+
+    <h2>6. Limitation of Liability</h2>
+    <p>TO THE MAXIMUM EXTENT PERMITTED BY LAW: (i) DriveVault is provided “AS IS” without warranty of any kind; (ii) we disclaim all warranties, express or implied, including merchantability and fitness for a particular purpose; (iii) we shall not be liable for any direct, indirect, incidental, special, or consequential damages; (iv) our total liability shall not exceed the amount paid for the software license or subscription, if any; and (v) we are not responsible for any data loss, hardware failure, or system damage.</p>
+
+    <h2>7. Disclaimer of Warranties</h2>
+    <p>THE SOFTWARE IS PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND. WE DISCLAIM ALL WARRANTIES, WHETHER EXPRESS, IMPLIED, STATUTORY, OR OTHERWISE, INCLUDING WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.</p>
+
+    <h2>8. Indemnification</h2>
+    <p>You agree to indemnify and hold harmless the DriveVault development team from any claims, damages, losses, or expenses arising from your use of the application or violation of these Terms.</p>
+
+    <h2>9. Software Updates</h2>
+    <p>We may provide updates to improve functionality and security. Updates may modify features or system requirements. Continued use after updates constitutes acceptance of the updated Terms where applicable.</p>
+
+    <h2>10. Termination</h2>
+    <p>These Terms remain in effect until terminated. You may terminate by discontinuing use and deleting the application. We may suspend or terminate access for violations of these Terms.</p>
 
     <h2>11. Governing Law</h2>
     <p>These Terms are governed by the laws of our primary place of business, without regard to conflict-of-law principles. Any disputes shall be resolved in the courts with jurisdiction over that location.</p>
