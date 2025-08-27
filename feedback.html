@@ -8,8 +8,7 @@
   <style>
     :root { --bg:#0b0d12; --text:#e6e9ef; --muted:#9aa3b2; --accent:#6aa2ff; }
     *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:Inter,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow:hidden;line-height:1.6}
-    /* Mesh gradient */
+    body{font-family:Inter,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6;overflow:hidden}
     .mesh-bg{position:fixed;inset:0;z-index:-1;
       background:
         radial-gradient(circle at 25% 30%, rgba(30,60,114,.25), transparent 60%),
@@ -19,7 +18,7 @@
       animation:meshShift 25s ease-in-out infinite alternate; filter:blur(80px)}
     @keyframes meshShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
     header{padding:24px 16px;text-align:center;font-weight:800;font-size:24px}
-    #canny-container{max-width:1000px;margin:0 auto;padding:0 12px 24px}
+    #canny-board{max-width:1000px;margin:0 auto;padding:0 12px 24px}
     footer{text-align:center;padding:20px;font-size:14px;color:var(--muted)}
   </style>
 </head>
@@ -27,27 +26,28 @@
   <div class="mesh-bg"></div>
   <header>💡 DriveVault Feedback</header>
 
-  <!-- Canny widget mounts here -->
-  <div id="canny-container" data-canny></div>
+  <!-- This is where the Canny board will render -->
+  <div id="canny-board"></div>
 
   <footer>© <span id="year"></span> DriveVault</footer>
 
-  <!-- Canny SDK -->
+  <!-- Load the Canny SDK -->
   <script>
-  !function(w,d,i,s){function l(){if(!d.getElementById(i)){var f=d.getElementsByTagName(s)[0],e=d.createElement(s);
-  e.type="text/javascript",e.async=!0,e.src="https://canny.io/sdk.js",f.parentNode.insertBefore(e,f)}}
-  if("function"!=typeof w.Canny){var c=function(){c.q.push(arguments)};c.q=[],w.Canny=c,
-  "complete"===d.readyState?l():w.attachEvent?w.attachEvent("onload",l):w.addEventListener("load",l,!1)}}(window,document,"canny-jssdk","script");
+    (function(w,d,i,s){function l(){if(!d.getElementById(i)){var f=d.getElementsByTagName(s)[0],e=d.createElement(s);
+    e.type="text/javascript";e.async=true;e.src="https://canny.io/sdk.js";e.id=i;f.parentNode.insertBefore(e,f)}}
+    if(typeof w.Canny!=="function"){var c=function(){c.q.push(arguments)};c.q=[];w.Canny=c;
+    if(d.readyState==="complete"){l()}else if(w.attachEvent){w.attachEvent("onload",l)}else{w.addEventListener("load",l,false)}}})(window,document,"canny-jssdk","script");
   </script>
 
- <script>
-  Canny('render', {
-    boardToken: 'f9f70018-3274-216a-aef5-dfc0001d82e8',
-    basePath: '/feedback',
-    theme: 'dark'
-  });
+  <script>
+    Canny('render', {
+      boardToken: 'f9f70018-3274-216a-aef5-dfc0001d82e8',
+      basePath: '/feedback',
+      theme: 'dark',
+      container: '#canny-board'
+    });
 
-  document.getElementById('year').textContent = new Date().getFullYear();
-</script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
