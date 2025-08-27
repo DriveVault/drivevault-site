@@ -40,16 +40,14 @@
   "complete"===d.readyState?l():w.attachEvent?w.attachEvent("onload",l):w.addEventListener("load",l,!1)}}(window,document,"canny-jssdk","script");
   </script>
 
-  <script>
-    // Render your Feature Requests board
-    Canny('render', {
-      boardToken: 'f9f70018-3274-216a-aef5-dfc0001d82e8',   // <-- replace this (see note below)
-      basePath: '/feedback',            // keeps URLs in sync: /feedback/... 
-      theme: 'dark'
-      // ssoToken: null // optional; add later if you want logged-in identity
-    });
+ <script>
+  Canny('render', {
+    boardToken: 'f9f70018-3274-216a-aef5-dfc0001d82e8',
+    basePath: '/feedback',
+    theme: 'dark'
+  });
 
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
 </body>
 </html>
