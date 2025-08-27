@@ -193,11 +193,10 @@ button:active {
       to{opacity:1; transform:translateY(0)}
     }
 
-/* ========== FEATURE ICON MARQUEE (UPDATED) ========== */
 .marquee-wrap{
   position:relative;
   margin:28px auto 0;
-  width:min(100%, 1100px);           /* limit width so it doesn't span full screen */
+  width:min(100%, 1100px);
   overflow:hidden;
 }
 
@@ -209,7 +208,7 @@ button:active {
   will-change: transform;
   opacity:.9;
   padding:10px 0;
-  /* extra-feather so icons disappear sooner */
+  /* fade into transparent, not dark */
   mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
 }
@@ -224,19 +223,21 @@ button:active {
 @keyframes scroll-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 @keyframes scroll-right { from { transform: translateX(-50%); } to { transform: translateX(0); } }
 
-/* feather overlays (works even if mask-image is unsupported) */
+/* remove the dark gradient overlays */
 .marquee-wrap::before,
-.marquee-wrap::after{
-  content:"";
-  position:absolute; top:0; bottom:0; width:80px; pointer-events:none;
+.marquee-wrap::after{ display:none; }
+
+.ico{
+  display:inline-flex; align-items:center; gap:10px;
+  padding:10px 14px; border-radius:999px;
+  background: rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+  color:#cfd6e4; font-size:14px; line-height:1;
 }
-.marquee-wrap::before{
-  left:0;
-  background: linear-gradient(to right, rgba(11,13,18,1), rgba(11,13,18,0));
-}
-.marquee-wrap::after{
-  right:0;
-  background: linear-gradient(to left, rgba(11,13,18,1), rgba(11,13,18,0));
+.ico svg{ width:18px; height:18px; stroke: currentColor; }
+
+@media (prefers-reduced-motion: reduce){
+  .marquee-track{ animation: none; }
 }
 
 /* Icon pill */
