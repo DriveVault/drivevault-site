@@ -35,8 +35,18 @@
     .sub{color:var(--muted); margin-top:6px}
 
     /* Cards row */
-    .plans{display:grid; gap:18px; grid-template-columns:repeat(1,1fr);}
-    @media (min-width:900px){ .plans{grid-template-columns:repeat(4,1fr);} }
+   .plans {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 18px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  -webkit-overflow-scrolling: touch;
+}
+.plans::-webkit-scrollbar { display: none; }
+.card {
+  flex: 0 0 260px; /* each card has a fixed min width */
+}
 
     .card{
       background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
