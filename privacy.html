@@ -2,35 +2,88 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>DriveVault Privacy Policy</title>
+  <title>Privacy Policy - DriveVault</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
   <style>
-    body { font-family: Inter, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 16px; line-height: 1.6; color: #333; }
-    h1 { font-size: 28px; margin-bottom: 20px; }
-    h2 { font-size: 20px; margin-top: 32px; }
-    p { margin-bottom: 16px; }
+    body {
+      font-family: Inter, sans-serif;
+      background: radial-gradient(1200px 600px at 50% -10%, rgba(115,164,255,.18), rgba(0,0,0,0)), #0b0d12;
+      color: #e6e9ef;
+      margin: 0;
+      padding: 40px 20px;
+      line-height: 1.7;
+    }
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+    h2 {
+      font-size: 22px;
+      font-weight: 600;
+      margin-top: 40px;
+      margin-bottom: 12px;
+      color: #6aa2ff;
+    }
+    p {
+      margin-bottom: 16px;
+      font-size: 16px;
+    }
+    a {
+      color: #6aa2ff;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    footer {
+      margin-top: 60px;
+      font-size: 14px;
+      color: #9aa3b2;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
-  <h1>Privacy Policy</h1>
-  <p>DriveVault respects your privacy. This Privacy Policy explains how we collect, use, and protect your information when you use our app and website.</p>
+  <main>
+    <h1>Privacy Policy</h1>
+    <p>At DriveVault, we respect your privacy. This Privacy Policy explains how we handle your information when you use our app and website.</p>
 
-  <h2>Information We Collect</h2>
-  <p>We collect your email address when you sign up for the beta waitlist. We do not collect files, metadata, or any personal content from your drives.</p>
+    <h2>Information We Collect</h2>
+    <p>We only collect your email address when you sign up for the beta waitlist. We do not collect, store, or transfer files or personal data from your drives.</p>
 
-  <h2>How We Use Information</h2>
-  <p>Your email address is used only to provide beta access, send product updates, and notify you of our launch.</p>
+    <h2>How We Use Information</h2>
+    <p>Your email address is used solely to provide beta access, send product updates, and notify you of our launch.</p>
 
-  <h2>Data Sharing</h2>
-  <p>We do not sell or share your personal information with third parties.</p>
+    <h2>Data Sharing</h2>
+    <p>We do not sell or share your personal information with third parties.</p>
 
-  <h2>Data Security</h2>
-  <p>We use industry-standard security practices to protect your information.</p>
+    <h2>Data Security</h2>
+    <p>We use industry-standard security practices to protect your information.</p>
 
-  <h2>Your Rights</h2>
-  <p>You can unsubscribe from our emails at any time. To request data deletion, contact us at <a href=\"mailto:hello@drivevault.io\">hello@drivevault.io</a>.</p>
+    <h2>Your Rights</h2>
+    <p>You can unsubscribe from our emails at any time. To request data deletion, please contact us at 
+      <a href="mailto:hello@drivevault.io">hello@drivevault.io</a>.
+    </p>
 
-  <h2>Contact Us</h2>
-  <p>If you have any questions, please contact us at <a href=\"mailto:hello@drivevault.io\">hello@drivevault.io</a>.</p>
+    <h2>Contact Us</h2>
+    <p>If you have any questions about this Privacy Policy, please contact us at 
+      <a href="mailto:hello@drivevault.io">hello@drivevault.io</a> 
+      or visit <a href="https://www.drivevault.io">www.drivevault.io</a>.
+    </p>
+
+    <footer>
+      © <span id="year"></span> DriveVault
+    </footer>
+  </main>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
