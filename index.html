@@ -3,343 +3,194 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>DriveVault – Join the Beta Waitlist</title>
+  <title>DriveVault – Beta Waitlist</title>
   <meta name="description" content="Join the DriveVault beta – the offline hard drive cataloguer. Search, browse, compare, and report on your drives without plugging them in." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
   <style>
     :root{
       --bg: #0b0d12;
-      --panel:#0f1219;
-      --muted:#9aa3b2;
       --text:#e6e9ef;
+      --muted:#9aa3b2;
       --accent:#6aa2ff;
       --accent-2:#9a6aff;
       --ok:#27d980;
-      --warn:#ffb020;
-      --error:#ff4d6d;
-      --radius:18px;
-      --shadow:0 20px 60px rgba(0,0,0,.45), 0 2px 10px rgba(0,0,0,.3);
-      --glass:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
+    *{box-sizing:border-box; margin:0; padding:0}
     body{
-      margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
-      color:var(--text); background:radial-gradient(1200px 600px at 10% -10%, rgba(115,164,255,.18), rgba(0,0,0,0)),
-                        radial-gradient(900px 500px at 100% 10%, rgba(178,121,255,.20), rgba(0,0,0,0)),
-                        var(--bg);
-      line-height:1.5;
+      font-family:Inter, system-ui, sans-serif;
+      background: radial-gradient(1200px 600px at 50% -10%, rgba(115,164,255,.18), rgba(0,0,0,0)), var(--bg);
+      color:var(--text);
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      min-height:100vh;
+      text-align:center;
+      padding:0 16px;
     }
-    a{color:inherit}
-    .wrap{max-width:1120px; margin:0 auto; padding: clamp(16px, 2vw, 28px)}
-    header{position:sticky; top:0; backdrop-filter: blur(14px); background:rgba(11,13,18,.5); border-bottom:1px solid rgba(255,255,255,.06); z-index:10}
-    .nav{display:flex; align-items:center; justify-content:space-between}
-    .brand{display:flex; align-items:center; gap:12px; font-weight:700}
-    .logo{width:36px; height:36px; border-radius:10px; background: conic-gradient(from 210deg, var(--accent), var(--accent-2), #62ffc8);
-      box-shadow:0 8px 30px rgba(120,160,255,.35), inset 0 0 30px rgba(255,255,255,.25)}
-    .beta{padding:6px 10px; border-radius:999px; font-size:12px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08)}
-
-    .hero{display:grid; grid-template-columns: 1.1fr .9fr; gap:40px; align-items:center; padding: 64px 0 40px}
-    .hero h1{font-size: clamp(40px, 6vw, 74px); line-height:1.03; margin: 6px 0 14px; letter-spacing:-.02em;
-      background: linear-gradient(90deg, var(--accent), var(--accent-2)); -webkit-background-clip:text; background-clip:text; color:transparent}
-    .hero p{font-size: clamp(16px, 2.1vw, 20px); color:var(--muted); max-width: 56ch}
-    .cta{display:flex; gap:12px; margin-top:22px; flex-wrap:wrap}
-    .card{background: var(--glass); border:1px solid rgba(255,255,255,.08); border-radius: var(--radius); box-shadow:var(--shadow)}
-
-    .form-card{padding:18px}
-    form{display:flex; gap:10px; flex-wrap:wrap}
-    input[type=email]{flex:1 1 280px; min-width:240px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.12); border-radius:12px; padding:14px 14px; color:var(--text); outline:none}
+    img.logo{
+      width:90px;
+      margin-bottom:24px;
+      opacity:0;
+      animation: fadeIn 1.2s ease forwards;
+    }
+    h1{
+      font-size:clamp(36px,6vw,72px);
+      font-weight:900;
+      margin-bottom:8px;
+      opacity:0;
+      animation: fadeInUp 1s ease .4s forwards;
+    }
+    h2{
+      font-size:clamp(16px,2vw,20px);
+      font-weight:400;
+      color:var(--muted);
+      margin-bottom:24px;
+      opacity:0;
+      animation: fadeInUp 1s ease .6s forwards;
+    }
+    p{
+      font-size:clamp(16px,2vw,20px);
+      color:var(--muted);
+      max-width:600px;
+      margin:0 auto 28px;
+      opacity:0;
+      animation: fadeInUp 1s ease .8s forwards;
+    }
+    form{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:12px;
+      max-width:500px;
+      margin:0 auto;
+      width:100%;
+      opacity:0;
+      animation: fadeInUp 1s ease 1s forwards;
+    }
+    input[type=email]{
+      flex:1;
+      padding:14px 16px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,.1);
+      background:rgba(255,255,255,.06);
+      color:var(--text);
+      font-size:16px;
+      outline:none;
+      min-width:220px;
+    }
     input[type=email]::placeholder{color:#7e8797}
-    button.primary{background:linear-gradient(180deg, var(--accent), var(--accent-2)); border:none; padding:14px 18px; border-radius:12px; color:white; font-weight:700; cursor:pointer}
-    .legal{font-size:12px; color:#8d96a6; margin-top:10px}
-    .trust{display:flex; gap:16px; align-items:center; margin-top:18px; color:#9aa3b2; font-size:13px}
-    .trust .dot{width:8px; height:8px; border-radius:99px; background:var(--ok); box-shadow:0 0 12px var(--ok)}
-
-    .ui-card{padding:24px; position:relative; overflow:hidden}
-    .grid{display:grid; grid-template-columns: repeat(3, 1fr); gap:16px; margin-top:12px}
-    .tile{padding:16px; border-radius:14px; border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.04)}
-    .tile h4{margin:8px 0 6px; font-size:15px}
-    .tile p{margin:0; font-size:13px; color:var(--muted)}
-
-    .section{padding: 40px 0}
-    .kpis{display:grid; grid-template-columns: repeat(4, 1fr); gap:14px}
-    .kpi{padding:18px; text-align:center; border-radius:16px; border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.04)}
-    .kpi .num{font-size:28px; font-weight:800}
-    .kpi .label{font-size:12px; color:var(--muted)}
-
-    .features{display:grid; grid-template-columns: repeat(3, 1fr); gap:18px}
-    .feature{padding:20px; border-radius:18px; border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.04)}
-    .feature h3{margin:8px 0}
-    .feature p{color:var(--muted)}
-
-    .faq{display:grid; grid-template-columns:1fr 1fr; gap:18px}
-    .faq-item{padding:18px; border-radius:16px; border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.04)}
-    .faq-item h4{margin:4px 0 8px}
-    .faq-item p{margin:0; color:var(--muted)}
-
-    .footer{padding:28px 0 60px; color:#8c95a4; font-size:13px; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap}
-    .footer a{color:#b9c2d3; text-decoration:none}
-
-    .badge{font-size:12px; padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04)}
-
-    .success, .error{display:none; margin-top:10px; padding:12px 14px; border-radius:12px; font-size:14px}
-    .success{background:rgba(39,217,128,.1); border:1px solid rgba(39,217,128,.35); color:#c5ffe3}
-    .error{background:rgba(255,77,109,.08); border:1px solid rgba(255,77,109,.35); color:#ffd0da}
-
-    /* Responsive */
-    @media (max-width: 980px){
-      .hero{grid-template-columns:1fr; gap:28px}
-      .grid{grid-template-columns: 1fr 1fr}
-      .features{grid-template-columns: 1fr 1fr}
-      .faq{grid-template-columns:1fr}
-      .kpis{grid-template-columns:1fr 1fr}
+    button{
+      padding:14px 20px;
+      border:none;
+      border-radius:8px;
+      font-weight:600;
+      font-size:16px;
+      background:linear-gradient(90deg, var(--accent), var(--accent-2));
+      color:white;
+      cursor:pointer;
     }
-    @media (max-width: 560px){
-      .grid{grid-template-columns: 1fr}
-      .features{grid-template-columns: 1fr}
+    .success,.error{display:none; margin-top:16px; font-size:14px;}
+    .success{color:#5cffb0}
+    .error{color:#ff7d9c}
+    footer{
+      margin-top:60px;
+      font-size:13px;
+      color:#666;
     }
 
-    /* Subtle floating orbs */
-    .orb{position:absolute; width:220px; height:220px; border-radius:50%; filter:blur(40px); opacity:.35; mix-blend:screen; animation: drift 18s ease-in-out infinite alternate}
-    .orb.one{background: radial-gradient(circle at 40% 40%, #7eb3ff, transparent 60%); top:-40px; right:-20px}
-    .orb.two{background: radial-gradient(circle at 60% 60%, #ae86ff, transparent 60%); bottom:-40px; left:-20px; animation-delay: -6s}
-    @keyframes drift{from{transform:translateY(0)} to{transform:translateY(-16px)}}
+    /* Glowing dot */
+    .glow-dot{
+      width:12px;
+      height:12px;
+      border-radius:50%;
+      background:var(--ok);
+      margin:16px auto 24px;
+      box-shadow:0 0 12px var(--ok),0 0 24px var(--ok);
+      animation: pulse 2s infinite;
+    }
+
+    /* Animations */
+    @keyframes pulse{
+      0%,100%{opacity:.6; transform:scale(1)}
+      50%{opacity:1; transform:scale(1.3)}
+    }
+    @keyframes fadeIn{
+      to{opacity:1}
+    }
+    @keyframes fadeInUp{
+      from{opacity:0; transform:translateY(20px)}
+      to{opacity:1; transform:translateY(0)}
+    }
   </style>
 </head>
 <body>
-  <header>
-    <div class="wrap nav">
-      <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
-        <div>DriveVault</div>
-        <span class="beta">Beta waitlist</span>
-      </div>
-      <div class="badge">Private TestFlight • macOS</div>
-    </div>
-  </header>
-
   <main>
-    <section class="wrap hero">
-      <div>
-        <div class="badge">Offline drive cataloguer</div>
-        <h1>Search your drives — even when they’re offline.</h1>
-        <p>DriveVault lets you scan any hard drive once and browse it anytime. Lightning-fast search, comparisons, reports, tags, notes, and more — all without plugging the drive back in.</p>
-
-        <div class="card form-card">
-          <form id="waitlist-form" novalidate>
-            <input id="email" type="email" placeholder="Enter your email" autocomplete="email" required />
-            <button class="primary" type="submit" id="submit-btn">Join the waitlist</button>
-            <input type="hidden" id="utm" name="utm" />
-          </form>
-          <div class="legal">No spam. We’ll only email you for beta access and launch updates. Opt out anytime.</div>
-          <div id="success" class="success">You’re on the list! We’ll email you a TestFlight invite as soon as a slot opens.</div>
-          <div id="error" class="error">Hmm, that didn’t work. Please check your email and try again.</div>
-          <div class="trust"><span class="dot"></span> Spaces are limited. Early testers may receive extended trial perks.</div>
-        </div>
-
-        <div class="cta">
-          <div class="badge">macOS 13+</div>
-          <div class="badge">Designed for Apple silicon</div>
-          <div class="badge">Made for creators</div>
-        </div>
-      </div>
-
-      <div class="card ui-card">
-        <div class="orb one"></div>
-        <div class="orb two"></div>
-        <h3 style="margin-top:0">What you’ll test</h3>
-        <div class="grid">
-          <div class="tile">
-            <h4>Lightning search</h4>
-            <p>Find files across scanned drives with filters for type, date, tags, and more.</p>
-          </div>
-          <div class="tile">
-            <h4>Column browser</h4>
-            <p>Navigate nested folders like Finder’s column view — even when the drive’s offline.</p>
-          </div>
-          <div class="tile">
-            <h4>Drive compare</h4>
-            <p>Spot missing files between a primary and backup in seconds.</p>
-          </div>
-          <div class="tile">
-            <h4>Reports</h4>
-            <p>Export summaries by file type, size, tags, and time added.</p>
-          </div>
-          <div class="tile">
-            <h4>Tags & notes</h4>
-            <p>Add context you can actually search. Great for large projects.</p>
-          </div>
-          <div class="tile">
-            <h4>Templates (write)</h4>
-            <p>Install clean folder structures to empty drives before a shoot.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="wrap section">
-      <div class="kpis">
-        <div class="kpi"><div class="num" id="kpi1">0</div><div class="label">Creators on the waitlist</div></div>
-        <div class="kpi"><div class="num">10,000</div><div class="label">External TestFlight cap</div></div>
-        <div class="kpi"><div class="num">100%</div><div class="label">Free to beta testers</div></div>
-        <div class="kpi"><div class="num">3</div><div class="label">Subscription tiers at launch</div></div>
-      </div>
-    </section>
-
-    <section class="wrap section">
-      <h2 style="margin:0 0 14px">Why join early?</h2>
-      <div class="features">
-        <div class="feature">
-          <h3>Priority access</h3>
-          <p>We’ll invite in waves. The waitlist gets first dibs.</p>
-        </div>
-        <div class="feature">
-          <h3>Influence the roadmap</h3>
-          <p>Tell us what you need — your feedback shapes DriveVault.</p>
-        </div>
-        <div class="feature">
-          <h3>Launch perks</h3>
-          <p>Early testers may get extended trials or discounted first-year pricing.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="wrap section">
-      <h2 style="margin:0 0 14px">FAQ</h2>
-      <div class="faq">
-        <div class="faq-item">
-          <h4>Is the beta free?</h4>
-          <p>Yes. TestFlight builds are always free. No payment required while testing.</p>
-        </div>
-        <div class="faq-item">
-          <h4>How do I access the beta?</h4>
-          <p>You’ll receive a private TestFlight link via email when a spot opens.</p>
-        </div>
-        <div class="faq-item">
-          <h4>Will my data carry over?</h4>
-          <p>Your local catalogs remain on your Mac. On launch day, just install the App Store build.</p>
-        </div>
-        <div class="faq-item">
-          <h4>Which macOS versions are supported?</h4>
-          <p>macOS 13 Ventura or later. Apple silicon recommended for best performance.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="wrap section">
-      <div class="card form-card">
-        <h3 style="margin:0 0 10px">Be first in line</h3>
-        <form id="waitlist-form-bottom" novalidate>
-          <input id="email-bottom" type="email" placeholder="name@email.com" required />
-          <button class="primary" type="submit">Join the waitlist</button>
-          <input type="hidden" id="utm-bottom" name="utm" />
-        </form>
-        <div class="legal">We’ll only contact you about DriveVault beta and launch. Unsubscribe anytime.</div>
-        <div id="success-bottom" class="success">Thanks! You’re on the list — watch your inbox for a TestFlight invite.</div>
-        <div id="error-bottom" class="error">Couldn’t submit just now. Please try again.</div>
-      </div>
-    </section>
+    <img class="logo" src="https://i.ibb.co/BVGTLYq3/Drive-Vault-Logo.png" alt="DriveVault Logo">
+    <h1>DriveVault</h1>
+    <h2>Your drives. Always searchable.</h2>
+    <div class="glow-dot"></div>
+    <p>Join the beta waitlist and be the first to try the offline drive cataloguer.</p>
+    <form id="waitlist-form" novalidate>
+      <input id="email" type="email" placeholder="Enter your email" required />
+      <button type="submit">Join Waitlist</button>
+      <input type="hidden" id="utm" name="utm" />
+    </form>
+    <div id="success" class="success">Thanks! You’re on the waitlist. We’ll be in touch soon.</div>
+    <div id="error" class="error">Something went wrong. Please try again.</div>
   </main>
-
   <footer>
-    <div class="wrap footer">
-      <div>© <span id="year"></span> DriveVault. All rights reserved.</div>
-      <div style="display:flex; gap:12px; align-items:center">
-        <span class="badge">Privacy-first</span>
-        <a href="#" aria-label="Privacy Policy">Privacy</a>
-        <span aria-hidden="true">•</span>
-        <a href="#" aria-label="Terms of Use">Terms</a>
-      </div>
-    </div>
+    © <span id="year"></span> DriveVault
   </footer>
 
   <script>
-    // ======= CONFIGURE THIS =======
-    // Replace with your form endpoint (e.g., Formspree, Beehiiv, Mailchimp webhook, Supabase/Cloudflare Worker).
-    // Example with Formspree: https://formspree.io/f/xxxxxx
-    const FORM_ENDPOINT = ""; // leave blank to simulate success locally
-
-    // Optional: Put your current waitlist size here to animate the KPI.
-    const CURRENT_WAITLIST_COUNT = 0; // update after you export/import emails
-
-    // ======= UTIL =======
+    const FORM_ENDPOINT = "https://formspree.io/f/xpwjwzrv";
     const yearEl = document.getElementById('year');
     yearEl.textContent = new Date().getFullYear();
 
-    const animateNumber = (el, to, duration=1000) => {
-      let start = 0, startTs=null;
-      const step = ts => {
-        if(!startTs) startTs = ts;
-        const p = Math.min((ts - startTs) / duration, 1);
-        el.textContent = Math.floor(p * to).toLocaleString();
-        if(p < 1) requestAnimationFrame(step);
-      };
-      requestAnimationFrame(step);
-    };
-    animateNumber(document.getElementById('kpi1'), CURRENT_WAITLIST_COUNT);
-
-    // get UTM params for basic attribution
     const params = new URLSearchParams(location.search);
     const utm = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content']
       .map(k => `${k}=${params.get(k) || ''}`).join('&');
     document.getElementById('utm').value = utm;
-    document.getElementById('utm-bottom').value = utm;
 
-    // Minimal client-side validation + submission
-    function handleForm(formId, emailId, successId, errorId){
-      const form = document.getElementById(formId);
-      const email = document.getElementById(emailId);
-      const success = document.getElementById(successId);
-      const error = document.getElementById(errorId);
+    const form = document.getElementById('waitlist-form');
+    const email = document.getElementById('email');
+    const success = document.getElementById('success');
+    const error = document.getElementById('error');
 
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        success.style.display = 'none';
-        error.style.display = 'none';
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      success.style.display = 'none';
+      error.style.display = 'none';
 
-        const val = email.value.trim();
-        const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
-        if(!ok){
-          error.textContent = 'Please enter a valid email address.';
-          error.style.display = 'block';
-          return;
+      const val = email.value.trim();
+      const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+      if(!ok){
+        error.textContent = 'Please enter a valid email address.';
+        error.style.display = 'block';
+        return;
+      }
+
+      const payload = { email: val, utm, ts: new Date().toISOString() };
+
+      try{
+        const res = await fetch(FORM_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if(res.ok){
+          success.style.display = 'block';
+          form.reset();
+        } else {
+          throw new Error('Bad response');
         }
-
-        const payload = { email: val, utm, ts: new Date().toISOString() };
-
-        try{
-          if(!FORM_ENDPOINT){
-            // No endpoint configured: simulate success and persist locally for export.
-            const key = 'drivevault_waitlist_local';
-            const list = JSON.parse(localStorage.getItem(key) || '[]');
-            list.push(payload);
-            localStorage.setItem(key, JSON.stringify(list));
-            success.style.display = 'block';
-            form.reset();
-            return;
-          }
-
-          const res = await fetch(FORM_ENDPOINT, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-          });
-          if(res.ok){
-            success.style.display = 'block';
-            form.reset();
-          } else {
-            throw new Error('Bad response');
-          }
-        }catch(err){
-          error.style.display = 'block';
-        }
-      });
-    }
-
-    handleForm('waitlist-form','email','success','error');
-    handleForm('waitlist-form-bottom','email-bottom','success-bottom','error-bottom');
+      }catch(err){
+        error.style.display = 'block';
+      }
+    });
   </script>
 </body>
 </html>
