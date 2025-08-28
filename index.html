@@ -10,335 +10,144 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg: #0b0d12;
-      --text:#e6e9ef;
-      --muted:#9aa3b2;
-      --accent:#6aa2ff;
-      --accent-2:#9a6aff;
-      --ok:#27d980;
+      --bg:#0b0d12; --text:#e6e9ef; --muted:#9aa3b2; --accent:#6aa2ff; --accent-2:#9a6aff; --ok:#27d980;
     }
     *{box-sizing:border-box; margin:0; padding:0}
+
+    /* Layout */
     body{
       font-family:Inter, system-ui, sans-serif;
-      background: var(--bg);
+      background:var(--bg);
       color:var(--text);
       display:flex;
       flex-direction:column;
-      justify-content:center;
       align-items:center;
       min-height:100vh;
       text-align:center;
-      padding:0 16px;
-      overflow:hidden; /* hide scrollbars from background blobs */
+      /* Top breathing room so the H1 sits near middle on load */
+      padding:clamp(56px, 12vh, 140px) 16px 0;
+      overflow-x:hidden;             /* keep mesh clean, but allow scrolling */
     }
-
-.mockup{
-  margin-top: 60px;
-  display: flex;
-  justify-content: center;
-}
-
-.mockup img{
-  max-width: 1050px;   /* 👈 50% bigger than before */
-  width: 95%;          /* responsive scaling */
-  height: auto;
-  border-radius: 0;    /* remove rounded corners */
-  box-shadow: none;    /* remove drop shadow */
-  transition: transform .5s ease;
-}
-
-.mockup img:hover{
-  transform: scale(1.02);  /* subtle hover zoom only */
-}
 
     /* Mesh gradient background */
-  .mesh-bg {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  z-index: -1;
-  background: radial-gradient(circle at 25% 30%, rgba(30, 60, 114, 0.25), transparent 60%),
-              radial-gradient(circle at 75% 40%, rgba(36, 99, 175, 0.2), transparent 60%),
-              radial-gradient(circle at 50% 70%, rgba(15, 32, 60, 0.3), transparent 60%);
-  background-size: 200% 200%;
-  animation: meshShift 25s ease-in-out infinite alternate;
-  filter: blur(80px);
-}
+    .mesh-bg{
+      position:fixed; inset:0; z-index:-1;
+      background:
+        radial-gradient(circle at 25% 30%, rgba(30,60,114,.25), transparent 60%),
+        radial-gradient(circle at 75% 40%, rgba(36,99,175,.20), transparent 60%),
+        radial-gradient(circle at 50% 70%, rgba(15,32,60,.30), transparent 60%);
+      background-size:200% 200%;
+      animation:meshShift 25s ease-in-out infinite alternate;
+      filter:blur(80px);
+    }
+    @keyframes meshShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 
-    @keyframes meshShift {
-      0%   { background-position: 0% 50%; }
-      50%  { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+    img.logo{ width:90px; margin-bottom:24px; opacity:0; animation:fadeIn 1.2s ease forwards; }
+    h1{ font-size:clamp(36px,6vw,72px); font-weight:900; margin-bottom:8px; opacity:0; animation:fadeInUp 1s ease .4s forwards; }
+    h2{ font-size:clamp(16px,2vw,20px); font-weight:400; color:var(--muted); margin-bottom:24px; opacity:0; animation:fadeInUp 1s ease .6s forwards; }
+    p{  font-size:clamp(16px,2vw,20px); color:var(--muted); max-width:600px; margin:0 auto 28px; opacity:0; animation:fadeInUp 1s ease .8s forwards; }
 
-    img.logo{
-      width:90px;
-      margin-bottom:24px;
-      opacity:0;
-      animation: fadeIn 1.2s ease forwards;
-    }
-    h1{
-      font-size:clamp(36px,6vw,72px);
-      font-weight:900;
-      margin-bottom:8px;
-      opacity:0;
-      animation: fadeInUp 1s ease .4s forwards;
-    }
-    h2{
-      font-size:clamp(16px,2vw,20px);
-      font-weight:400;
-      color:var(--muted);
-      margin-bottom:24px;
-      opacity:0;
-      animation: fadeInUp 1s ease .6s forwards;
-    }
-    p{
-      font-size:clamp(16px,2vw,20px);
-      color:var(--muted);
-      max-width:600px;
-      margin:0 auto 28px;
-      opacity:0;
-      animation: fadeInUp 1s ease .8s forwards;
-    }
     form{
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      gap:12px;
-      max-width:500px;
-      margin:0 auto;
-      width:100%;
-      opacity:0;
-      animation: fadeInUp 1s ease 1s forwards;
+      display:flex; justify-content:center; align-items:center; gap:12px;
+      max-width:500px; margin:0 auto; width:100%; opacity:0; animation:fadeInUp 1s ease 1s forwards;
     }
     input[type=email]{
-      flex:1;
-      padding:14px 16px;
-      border-radius:8px;
-      border:1px solid rgba(255,255,255,.1);
-      background:rgba(255,255,255,.06);
-      color:var(--text);
-      font-size:16px;
-      outline:none;
-      min-width:220px;
+      flex:1; padding:14px 16px; border-radius:8px;
+      border:1px solid rgba(255,255,255,.1); background:rgba(255,255,255,.06);
+      color:var(--text); font-size:16px; outline:none; min-width:220px;
     }
     input[type=email]::placeholder{color:#7e8797}
-  button {
-  padding: 14px 24px;
-  border: none;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 16px;
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  color: white;
-  cursor: pointer;
-  transition: all 0.25s ease;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
 
-button:hover {
-  background: linear-gradient(135deg, #7ab5ff, #b28dff);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.35), 0 0 12px rgba(106,162,255,0.6);
-  transform: translateY(-2px);
-}
+    button{
+      padding:14px 24px; border:none; border-radius:12px; font-weight:600; font-size:16px;
+      background:linear-gradient(135deg, var(--accent), var(--accent-2)); color:#fff; cursor:pointer;
+      transition:all .25s ease; box-shadow:0 4px 12px rgba(0,0,0,.2);
+    }
+    button:hover{ background:linear-gradient(135deg,#7ab5ff,#b28dff); box-shadow:0 6px 18px rgba(0,0,0,.35), 0 0 12px rgba(106,162,255,.6); transform:translateY(-2px); }
+    button:active{ transform:translateY(1px); box-shadow:0 3px 8px rgba(0,0,0,.25); }
 
-button:active {
-  transform: translateY(1px);
-  box-shadow: 0 3px 8px rgba(0,0,0,0.25);
-}
     .success,.error{display:none; margin-top:16px; font-size:14px;}
-    .success{color:#5cffb0}
-    .error{color:#ff7d9c}
+    .success{color:#5cffb0} .error{color:#ff7d9c}
 
     .app-badge{
-      margin-top:32px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding:10px 16px;
-      background:#000;
-      border-radius:8px;
-      gap:10px;
-      text-decoration:none;
-      color:#fff;
-      font-size:14px;
-      font-weight:500;
-      opacity:0;
-      animation: fadeInUp 1s ease 1.2s forwards;
+      margin-top:32px; display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:10px 16px; background:#000; border-radius:8px; text-decoration:none; color:#fff; font-size:14px; font-weight:500;
+      opacity:0; animation:fadeInUp 1s ease 1.2s forwards;
     }
-    .app-badge img{
-      width:20px;
-      height:20px;
-      filter: invert(1);
-    }
-    .app-badge span{
-      display:block;
-      text-align:left;
-      line-height:1.2;
-    }
-    .app-badge small{
-      font-size:11px;
-      font-weight:400;
-      color:#ccc;
-    }
+    .app-badge img{ width:20px; height:20px; filter:invert(1); }
+    .app-badge small{ font-size:11px; font-weight:400; color:#ccc; }
 
-    footer{
-      margin-top:60px;
-      font-size:13px;
-      color:#666;
-    }
+    footer{ margin-top:60px; font-size:13px; color:#666; }
 
     /* Glowing dot */
     .glow-dot{
-      width:12px;
-      height:12px;
-      border-radius:50%;
-      background:var(--ok);
-      margin:16px auto 24px;
-      box-shadow:0 0 12px var(--ok),0 0 24px var(--ok);
-      animation: pulse 2s infinite;
+      width:12px; height:12px; border-radius:50%; background:var(--ok);
+      margin:16px auto 24px; box-shadow:0 0 12px var(--ok),0 0 24px var(--ok); animation:pulse 2s infinite;
     }
 
     /* Animations */
-    @keyframes pulse{
-      0%,100%{opacity:.6; transform:scale(1)}
-      50%{opacity:1; transform:scale(1.3)}
+    @keyframes pulse{0%,100%{opacity:.6; transform:scale(1)} 50%{opacity:1; transform:scale(1.3)}}
+    @keyframes fadeIn{to{opacity:1}}
+    @keyframes fadeInUp{from{opacity:0; transform:translateY(20px)} to{opacity:1; transform:translateY(0)}}
+
+    /* Marquee */
+    .marquee-wrap{ position:relative; margin:28px auto 0; width:min(100%,1100px); overflow:hidden; }
+    .marquee-row{
+      --speed:40s; display:flex; gap:20px; white-space:nowrap; will-change:transform; opacity:.9; padding:10px 0;
+      mask-image:linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+      -webkit-mask-image:linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
     }
-    @keyframes fadeIn{
-      to{opacity:1}
+    .marquee-row.slower{ --speed:55s; opacity:.85; }
+    .marquee-track{ display:flex; gap:20px; align-items:center; animation:scroll-left var(--speed) linear infinite; }
+    .marquee-row.reverse .marquee-track{ animation-name:scroll-right; }
+    @keyframes scroll-left{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    @keyframes scroll-right{ from{transform:translateX(-50%)} to{transform:translateX(0)} }
+
+    .ico{
+      display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border-radius:999px;
+      background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08); color:#cfd6e4; font-size:14px; line-height:1;
     }
-    @keyframes fadeInUp{
-      from{opacity:0; transform:translateY(20px)}
-      to{opacity:1; transform:translateY(0)}
+    .ico svg{ width:18px; height:18px; stroke:currentColor; }
+
+    /* Product mockup (bigger, clean PNG) */
+    .mockup{ margin-top:48px; display:flex; justify-content:center; }
+    .mockup img{
+      max-width:1300px;   /* ~25% larger than before */
+      width:96%;
+      height:auto;
+      border-radius:0;
+      box-shadow:none;
+      transition:transform .5s ease;
+    }
+    .mockup img:hover{ transform:scale(1.02); }
+
+    /* Mobile polish */
+    @media (max-width:600px){
+      body{ padding: clamp(40px, 10vh, 100px) 14px 0; }
+      img.logo{ width:72px; margin-bottom:16px; }
+      h1{ font-size:clamp(28px,9vw,40px); }
+      h2{ font-size:clamp(14px,4.2vw,18px); margin-bottom:14px; }
+      p{ font-size:15px; margin-bottom:18px; }
+      form{ flex-direction:column; align-items:stretch; gap:10px; max-width:480px; }
+      input[type=email]{ min-width:0; width:100%; padding:13px 14px; font-size:16px; }
+      button[type=submit]{ width:100%; padding:13px 16px; font-size:16px; }
+      .app-badge{ margin-top:14px; transform:scale(.94); }
+      .glow-dot{ width:10px; height:10px; margin:10px auto 16px; }
+      .marquee-wrap{ width:92vw; margin-top:16px; }
+      .marquee-row{
+        gap:12px; padding:6px 0;
+        mask-image:linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+        -webkit-mask-image:linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+      }
+      .ico{ padding:8px 10px; font-size:13px; }
+      .ico svg{ width:16px; height:16px; }
+      .mockup{ margin-top:36px; }
+      footer{ margin-top:28px; font-size:12px; }
     }
 
-.marquee-wrap{
-  position:relative;
-  margin:28px auto 0;
-  width:min(100%, 1100px);
-  overflow:hidden;
-}
-
-.marquee-row{
-  --speed: 40s;
-  display:flex;
-  gap:20px;
-  white-space:nowrap;
-  will-change: transform;
-  opacity:.9;
-  padding:10px 0;
-  /* fade into transparent, not dark */
-  mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
-}
-.marquee-row.slower{ --speed: 55s; opacity:.85; }
-
-.marquee-track{
-  display:flex; gap:20px; align-items:center;
-  animation: scroll-left var(--speed) linear infinite;
-}
-.marquee-row.reverse .marquee-track{ animation-name: scroll-right; }
-
-@keyframes scroll-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-@keyframes scroll-right { from { transform: translateX(-50%); } to { transform: translateX(0); } }
-
-/* remove the dark gradient overlays */
-.marquee-wrap::before,
-.marquee-wrap::after{ display:none; }
-
-.ico{
-  display:inline-flex; align-items:center; gap:10px;
-  padding:10px 14px; border-radius:999px;
-  background: rgba(255,255,255,.05);
-  border:1px solid rgba(255,255,255,.08);
-  color:#cfd6e4; font-size:14px; line-height:1;
-}
-.ico svg{ width:18px; height:18px; stroke: currentColor; }
-
-@media (prefers-reduced-motion: reduce){
-  .marquee-track{ animation: none; }
-}
-
-/* Icon pill */
-.ico{
-  display:inline-flex; align-items:center; gap:10px;
-  padding:10px 14px; border-radius:999px;
-  background: rgba(255,255,255,.05);
-  border:1px solid rgba(255,255,255,.08);
-  color:#cfd6e4; font-size:14px; line-height:1;
-}
-.ico svg{ width:18px; height:18px; stroke: currentColor; }
-
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce){
-  .marquee-track{ animation: none; }
-}
-/* ===== Mobile polish ===== */
-@media (max-width: 600px){
-  body{
-    padding: 0 14px;                 /* tighter side padding */
-  }
-
-  img.logo{ width:72px; margin-bottom:16px; }
-
-  h1{ font-size: clamp(28px, 9vw, 40px); }
-  h2{ font-size: clamp(14px, 4.2vw, 18px); margin-bottom:14px; }
-  p { font-size: 15px; margin-bottom:18px; }
-
-  /* Form: stack vertically so it never overflows */
-  form{
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
-    max-width: 480px;
-  }
-  input[type=email]{
-    min-width: 0;           /* allow shrinking */
-    width: 100%;
-    padding: 13px 14px;
-    font-size: 16px;        /* avoid iOS zoom */
-  }
-  button[type=submit]{
-    width: 100%;
-    padding: 13px 16px;
-    font-size: 16px;
-  }
-
-  /* App Store badge */
-  .app-badge{
-    margin-top: 14px;
-    transform: scale(.94);
-  }
-
-  /* Glow dot smaller & closer */
-  .glow-dot{
-    width: 10px; height: 10px;
-    margin: 10px auto 16px;
-  }
-
-  /* Marquee: narrower container, smaller chips, no overflow */
-  .marquee-wrap{
-    width: 92vw;            /* don’t span full screen */
-    margin-top: 16px;
-  }
-  .marquee-row{
-    gap: 12px;
-    padding: 6px 0;
-    mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
-  }
-  .ico{
-    padding: 8px 10px;
-    font-size: 13px;
-  }
-  .ico svg{ width:16px; height:16px; }
-
-  footer{ margin-top: 28px; font-size: 12px; }
-}
-
-/* Make sure nothing can create a sideways scroll */
-html, body { overflow-x: hidden; }
-    
+    @media (prefers-reduced-motion:reduce){
+      .marquee-track{ animation:none; }
+    }
   </style>
 </head>
 <body>
@@ -351,6 +160,7 @@ html, body { overflow-x: hidden; }
     <h2>All Of Your Hard Drives. Always Searchable.</h2>
     <div class="glow-dot"></div>
     <p>Join the beta waitlist and be the first to try the most comprehensive offline hard drive cataloguer for Mac users.</p>
+
     <form id="waitlist-form" novalidate>
       <input id="email" type="email" placeholder="Enter your email" required />
       <button type="submit">Join Waitlist</button>
@@ -364,157 +174,94 @@ html, body { overflow-x: hidden; }
       <span><small>Coming soon on the</small><br>App Store</span>
     </a>
 
-<!-- Icons marquee (UPDATED) -->
-<div class="marquee-wrap" aria-hidden="true">
-  <!-- Row 1: moves left -->
-  <div class="marquee-row">
-    <div class="marquee-track">
-      <!-- ONE SET -->
-      <span class="ico">
-        <!-- Search -->
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><circle cx="11" cy="11" r="6"></circle><path d="M20 20l-3.5-3.5"></path></svg>
-        Powerful Search
-      </span>
-      <span class="ico">
-        <!-- Tag -->
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M20 13l-8 8-9-9 8-8h6l3 3v6z"></path><path d="M16 8h.01"></path></svg>
-        Tags & Notes
-      </span>
-      <span class="ico">
-        <!-- Drive Compare -->
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4"></path><path d="M14 20h4a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-4"></path><path d="M10 12h4"></path></svg>
-        Drive Compare
-      </span>
-      <span class="ico">
-        <!-- Generate Reports -->
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M7 3h10v18H7z"></path><path d="M9 7h6M9 11h6M9 15h6"></path></svg>
-        Generate Reports
-      </span>
-      <span class="ico">
-        <!-- Folder Templates -->
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M3 7h6l2 2h10v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
-        Folder Templates
-      </span>
-      <span class="ico">
-        <!-- Backup Check -->
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 6v6l4 2"></path><circle cx="12" cy="12" r="9"></circle></svg>
-        Backup Check
-      </span>
-      <span class="ico">
-        <!-- Import/Export Library -->
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 5v14"></path><path d="M8 9l4-4 4 4"></path><path d="M16 15l-4 4-4-4"></path></svg>
-        Import/Export Library
-      </span>
-      <span class="ico">
-        <!-- Rich Metadata -->
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M4 6h16M4 12h10M4 18h7"></path></svg>
-        Rich Metadata
-      </span>
-      <span class="ico">
-        <!-- Offline Images -->
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M8 13l3-3 5 6H6z"></path></svg>
-        Offline Images
-      </span>
-      <span class="ico">
-        <!-- Smart Collections -->
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><circle cx="7" cy="7" r="3"></circle><circle cx="17" cy="7" r="3"></circle><path d="M4 17h16"></path></svg>
-        Smart Collections
-      </span>
-      <span class="ico">
-        <!-- Icon View -->
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><rect x="4" y="4" width="6" height="6" rx="1"></rect><rect x="14" y="4" width="6" height="6" rx="1"></rect><rect x="4" y="14" width="6" height="6" rx="1"></rect><rect x="14" y="14" width="6" height="6" rx="1"></rect></svg>
-        Icon View
-      </span>
-      <span class="ico">
-        <!-- Column View -->
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M3 6h18"></path><path d="M3 12h18"></path><path d="M3 18h18"></path></svg>
-        Column View
-      </span>
-      <span class="ico">
-        <!-- Create Projects -->
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M4 6h8v6H4zM12 6h8v12H4v-6"></path></svg>
-        Create Projects
-      </span>
+    <!-- Icons marquee -->
+    <div class="marquee-wrap" aria-hidden="true">
+      <!-- Row 1 -->
+      <div class="marquee-row">
+        <div class="marquee-track">
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><circle cx="11" cy="11" r="6"></circle><path d="M20 20l-3.5-3.5"></path></svg>Powerful Search</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M20 13l-8 8-9-9 8-8h6l3 3v6z"></path><path d="M16 8h.01"></path></svg>Tags & Notes</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4"></path><path d="M14 20h4a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-4"></path><path d="M10 12h4"></path></svg>Drive Compare</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M7 3h10v18H7z"></path><path d="M9 7h6M9 11h6M9 15h6"></path></svg>Generate Reports</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M3 7h6l2 2h10v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>Folder Templates</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 6v6l4 2"></path><circle cx="12" cy="12" r="9"></circle></svg>Backup Check</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 5v14"></path><path d="M8 9l4-4 4 4"></path><path d="M16 15l-4 4-4-4"></path></svg>Import/Export Library</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M4 6h16M4 12h10M4 18h7"></path></svg>Rich Metadata</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M8 13l3-3 5 6H6z"></path></svg>Offline Images</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><circle cx="7" cy="7" r="3"></circle><circle cx="17" cy="7" r="3"></circle><path d="M4 17h16"></path></svg>Smart Collections</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><rect x="4" y="4" width="6" height="6" rx="1"></rect><rect x="14" y="4" width="6" height="6" rx="1"></rect><rect x="4" y="14" width="6" height="6" rx="1"></rect><rect x="14" y="14" width="6" height="6" rx="1"></rect></svg>Icon View</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M3 6h18"></path><path d="M3 12h18"></path><path d="M3 18h18"></path></svg>Column View</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M4 6h8v6H4zM12 6h8v12H4v-6"></path></svg>Create Projects</span>
 
-      <!-- DUPLICATE for seamless loop -->
-      <!-- (copy the same spans again) -->
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><circle cx="11" cy="11" r="6"></circle><path d="M20 20l-3.5-3.5"></path></svg>Powerful Search</span>
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M20 13l-8 8-9-9 8-8h6l3 3v6z"></path><path d="M16 8h.01"></path></svg>Tags & Notes</span>
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4"></path><path d="M14 20h4a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-4"></path><path d="M10 12h4"></path></svg>Drive Compare</span>
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M7 3h10v18H7z"></path><path d="M9 7h6M9 11h6M9 15h6"></path></svg>Generate Reports</span>
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M3 7h6l2 2h10v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>Folder Templates</span>
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 6v6l4 2"></path><circle cx="12" cy="12" r="9"></circle></svg>Backup Check</span>
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 5v14"></path><path d="M8 9l4-4 4 4"></path><path d="M16 15l-4 4-4-4"></path></svg>Import/Export Library</span>
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M4 6h16M4 12h10M4 18h7"></path></svg>Rich Metadata</span>
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M8 13l3-3 5 6H6z"></path></svg>Offline Images</span>
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><circle cx="7" cy="7" r="3"></circle><circle cx="17" cy="7" r="3"></circle><path d="M4 17h16"></path></svg>Smart Collections</span>
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><rect x="4" y="4" width="6" height="6" rx="1"></rect><rect x="14" y="4" width="6" height="6" rx="1"></rect><rect x="4" y="14" width="6" height="6" rx="1"></rect><rect x="14" y="14" width="6" height="6" rx="1"></rect></svg>Icon View</span>
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M3 6h18"></path><path d="M3 12h18"></path><path d="M3 18h18"></path></svg>Column View</span>
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M4 6h8v6H4zM12 6h8v12H4v-6"></path></svg>Create Projects</span>
+          <!-- duplicate for seamless loop -->
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><circle cx="11" cy="11" r="6"></circle><path d="M20 20l-3.5-3.5"></path></svg>Powerful Search</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M20 13l-8 8-9-9 8-8h6l3 3v6z"></path><path d="M16 8h.01"></path></svg>Tags & Notes</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4"></path><path d="M14 20h4a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-4"></path><path d="M10 12h4"></path></svg>Drive Compare</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M7 3h10v18H7z"></path><path d="M9 7h6M9 11h6M9 15h6"></path></svg>Generate Reports</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M3 7h6l2 2h10v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>Folder Templates</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 6v6l4 2"></path><circle cx="12" cy="12" r="9"></circle></svg>Backup Check</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 5v14"></path><path d="M8 9l4-4 4 4"></path><path d="M16 15l-4 4-4-4"></path></svg>Import/Export Library</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M4 6h16M4 12h10M4 18h7"></path></svg>Rich Metadata</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M8 13l3-3 5 6H6z"></path></svg>Offline Images</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><circle cx="7" cy="7" r="3"></circle><circle cx="17" cy="7" r="3"></circle><path d="M4 17h16"></path></svg>Smart Collections</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><rect x="4" y="4" width="6" height="6" rx="1"></rect><rect x="14" y="4" width="6" height="6" rx="1"></rect><rect x="4" y="14" width="6" height="6" rx="1"></rect><rect x="14" y="14" width="6" height="6" rx="1"></rect></svg>Icon View</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M3 6h18"></path><path d="M3 12h18"></path><path d="M3 18h18"></path></svg>Column View</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M4 6h8v6H4zM12 6h8v12H4v-6"></path></svg>Create Projects</span>
+        </div>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="marquee-row slower reverse">
+        <div class="marquee-track">
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M8 13l3-3 5 6H6z"></path></svg>Offline Images</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><circle cx="7" cy="7" r="3"></circle><circle cx="17" cy="7" r="3"></circle><path d="M4 17h16"></path></svg>Smart Collections</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M7 3h10v18H7z"></path><path d="M9 7h6M9 11h6M9 15h6"></path></svg>Generate Reports</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><rect x="4" y="4" width="6" height="6" rx="1"></rect><rect x="14" y="4" width="6" height="6" rx="1"></rect><rect x="4" y="14" width="6" height="6" rx="1"></rect><rect x="14" y="14" width="6" height="6" rx="1"></rect></svg>Icon View</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M3 6h18"></path><path d="M3 12h18"></path><path d="M3 18h18"></path></svg>Column View</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M4 6h8v6H4zM12 6h8v12H4v-6"></path></svg>Create Projects</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4"></path><path d="M14 20h4a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-4"></path><path d="M10 12h4"></path></svg>Drive Compare</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M20 13l-8 8-9-9 8-8h6l3 3v6z"></path><path d="M16 8h.01"></path></svg>Tags & Notes</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><circle cx="11" cy="11" r="6"></circle><path d="M20 20l-3.5-3.5"></path></svg>Powerful Search</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M3 7h6l2 2h10v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>Folder Templates</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 6v6l4 2"></path><circle cx="12" cy="12" r="9"></circle></svg>Backup Check</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 5v14"></path><path d="M8 9l4-4 4 4"></path><path d="M16 15l-4 4-4-4"></path></svg>Import/Export Library</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M4 6h16M4 12h10M4 18h7"></path></svg>Rich Metadata</span>
+
+          <!-- duplicate -->
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M8 13l3-3 5 6H6z"></path></svg>Offline Images</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><circle cx="7" cy="7" r="3"></circle><circle cx="17" cy="7" r="3"></circle><path d="M4 17h16"></path></svg>Smart Collections</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M7 3h10v18H7z"></path><path d="M9 7h6M9 11h6M9 15h6"></path></svg>Generate Reports</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><rect x="4" y="4" width="6" height="6" rx="1"></rect><rect x="14" y="4" width="6" height="6" rx="1"></rect><rect x="4" y="14" width="6" height="6" rx="1"></rect><rect x="14" y="14" width="6" height="6" rx="1"></rect></svg>Icon View</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M3 6h18"></path><path d="M3 12h18"></path><path d="M3 18h18"></path></svg>Column View</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M4 6h8v6H4zM12 6h8v12H4v-6"></path></svg>Create Projects</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4"></path><path d="M14 20h4a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-4"></path><path d="M10 12h4"></path></svg>Drive Compare</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M20 13l-8 8-9-9 8-8h6l3 3v6z"></path><path d="M16 8h.01"></path></svg>Tags & Notes</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><circle cx="11" cy="11" r="6"></circle><path d="M20 20l-3.5-3.5"></path></svg>Powerful Search</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M3 7h6l2 2h10v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>Folder Templates</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 6v6l4 2"></path><circle cx="12" cy="12" r="9"></circle></svg>Backup Check</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 5v14"></path><path d="M8 9l4-4 4 4"></path><path d="M16 15l-4 4-4-4"></path></svg>Import/Export Library</span>
+          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M4 6h16M4 12h10M4 18h7"></path></svg>Rich Metadata</span>
+        </div>
+      </div>
     </div>
-  </div>
-
-  <!-- Row 2: moves right (slower + reverse) -->
-  <div class="marquee-row slower reverse">
-    <div class="marquee-track">
-      <!-- SAME SET AS ABOVE, order can differ; then duplicate again -->
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M8 13l3-3 5 6H6z"></path></svg>Offline Images</span>
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><circle cx="7" cy="7" r="3"></circle><circle cx="17" cy="7" r="3"></circle><path d="M4 17h16"></path></svg>Smart Collections</span>
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M7 3h10v18H7z"></path><path d="M9 7h6M9 11h6M9 15h6"></path></svg>Generate Reports</span>
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><rect x="4" y="4" width="6" height="6" rx="1"></rect><rect x="14" y="4" width="6" height="6" rx="1"></rect><rect x="4" y="14" width="6" height="6" rx="1"></rect><rect x="14" y="14" width="6" height="6" rx="1"></rect></svg>Icon View</span>
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M3 6h18"></path><path d="M3 12h18"></path><path d="M3 18h18"></path></svg>Column View</span>
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M4 6h8v6H4zM12 6h8v12H4v-6"></path></svg>Create Projects</span>
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4"></path><path d="M14 20h4a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-4"></path><path d="M10 12h4"></path></svg>Drive Compare</span>
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M20 13l-8 8-9-9 8-8h6l3 3v6z"></path><path d="M16 8h.01"></path></svg>Tags & Notes</span>
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><circle cx="11" cy="11" r="6"></circle><path d="M20 20l-3.5-3.5"></path></svg>Powerful Search</span>
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M3 7h6l2 2h10v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>Folder Templates</span>
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 6v6l4 2"></path><circle cx="12" cy="12" r="9"></circle></svg>Backup Check</span>
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 5v14"></path><path d="M8 9l4-4 4 4"></path><path d="M16 15l-4 4-4-4"></path></svg>Import/Export Library</span>
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M4 6h16M4 12h10M4 18h7"></path></svg>Rich Metadata</span>
-
-      <!-- duplicate set for seamless loop -->
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M8 13l3-3 5 6H6z"></path></svg>Offline Images</span>
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><circle cx="7" cy="7" r="3"></circle><circle cx="17" cy="7" r="3"></circle><path d="M4 17h16"></path></svg>Smart Collections</span>
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M7 3h10v18H7z"></path><path d="M9 7h6M9 11h6M9 15h6"></path></svg>Generate Reports</span>
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><rect x="4" y="4" width="6" height="6" rx="1"></rect><rect x="14" y="4" width="6" height="6" rx="1"></rect><rect x="4" y="14" width="6" height="6" rx="1"></rect><rect x="14" y="14" width="6" height="6" rx="1"></rect></svg>Icon View</span>
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M3 6h18"></path><path d="M3 12h18"></path><path d="M3 18h18"></path></svg>Column View</span>
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M4 6h8v6H4zM12 6h8v12H4v-6"></path></svg>Create Projects</span>
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4"></path><path d="M14 20h4a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-4"></path><path d="M10 12h4"></path></svg>Drive Compare</span>
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M20 13l-8 8-9-9 8-8h6l3 3v6z"></path><path d="M16 8h.01"></path></svg>Tags & Notes</span>
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><circle cx="11" cy="11" r="6"></circle><path d="M20 20l-3.5-3.5"></path></svg>Powerful Search</span>
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M3 7h6l2 2h10v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>Folder Templates</span>
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 6v6l4 2"></path><circle cx="12" cy="12" r="9"></circle></svg>Backup Check</span>
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 5v14"></path><path d="M8 9l4-4 4 4"></path><path d="M16 15l-4 4-4-4"></path></svg>Import/Export Library</span>
-      <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M4 6h16M4 12h10M4 18h7"></path></svg>Rich Metadata</span>
-    </div>
-  </div>
-</div>
-
 
     <!-- Product Mockup -->
     <section class="mockup">
       <img src="https://i.ibb.co/0RyG9FzX/Mac-Studio-Mockup-min.png" alt="DriveVault Mac App Mockup">
     </section>
-
-
-    
   </main>
-<footer>
-  
-    <a href="/terms.html" style="color:#9aa3b2; text-decoration:none;">Terms of Service</a>• 
-  <a href="/privacy.html" style="color:#9aa3b2; text-decoration:none;">Privacy Policy</a> • 
-  <a href="https://drivevault.canny.io/feature-requests" style="color:#9aa3b2; text-decoration:none;" target="_blank">Feature Requests</a>
 
-  <br>
-
-  © <span id="year"></span> DriveVault
- 
-</footer>
+  <footer>
+    <a href="/terms.html" style="color:#9aa3b2; text-decoration:none;">Terms of Service</a> •
+    <a href="/privacy.html" style="color:#9aa3b2; text-decoration:none;">Privacy Policy</a> •
+    <a href="https://drivevault.canny.io/feature-requests" style="color:#9aa3b2; text-decoration:none;" target="_blank">Feature Requests</a> •
+    <a href="https://drivevault.canny.io/report-bugs" style="color:#9aa3b2; text-decoration:none;" target="_blank">Report Bugs</a>
+    <br>© <span id="year"></span> DriveVault
+  </footer>
 
   <script>
     const FORM_ENDPOINT = "https://formspree.io/f/xpwjwzrv";
-    const yearEl = document.getElementById('year');
-    yearEl.textContent = new Date().getFullYear();
+    document.getElementById('year').textContent = new Date().getFullYear();
 
     const params = new URLSearchParams(location.search);
     const utm = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content']
@@ -532,7 +279,7 @@ html, body { overflow-x: hidden; }
       error.style.display = 'none';
 
       const val = email.value.trim();
-      const ok = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(val);
+      const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
       if(!ok){
         error.textContent = 'Please enter a valid email address.';
         error.style.display = 'block';
@@ -550,9 +297,7 @@ html, body { overflow-x: hidden; }
         if(res.ok){
           success.style.display = 'block';
           form.reset();
-        } else {
-          throw new Error('Bad response');
-        }
+        } else { throw new Error('Bad response'); }
       }catch(err){
         error.style.display = 'block';
       }
