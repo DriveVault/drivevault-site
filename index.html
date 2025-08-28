@@ -116,17 +116,26 @@
     }
     .ico svg{ width:18px; height:18px; stroke:currentColor; }
 
-    /* Product mockup (bigger, clean PNG) */
-    .mockup{ margin-top:48px; display:flex; justify-content:center; }
-    .mockup img{
-      max-width:1300px;   /* ~25% larger than before */
-      width:96%;
-      height:auto;
-      border-radius:0;
-      box-shadow:none;
-      transition:transform .5s ease;
-    }
-    .mockup img:hover{ transform:scale(1.05); }
+    .mockup {
+  margin-top: 60px;
+  display: flex;
+  justify-content: center;
+  opacity: 0;                               /* start hidden */
+  animation: fadeInUp 1.2s ease 1.4s forwards; /* ease in, delayed */
+}
+
+.mockup img {
+  max-width: 1250px;   /* current size +20/30% */
+  width: 95%;
+  height: auto;
+  border-radius: 0;
+  box-shadow: none;
+  transition: transform .5s ease;
+}
+
+.mockup img:hover {
+  transform: scale(1.02);
+}
 
     /* Mobile polish */
     @media (max-width:600px){
