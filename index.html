@@ -32,18 +32,21 @@
       overflow:hidden; /* hide scrollbars from background blobs */
     }
 
-    .mockup{
+ .mockup{
   margin-top: 60px;
   display: flex;
   justify-content: center;
 }
+
 .mockup img{
-  max-width: 100%;
+  max-width: 700px;   /* 👈 sets a reasonable limit */
+  width: 90%;         /* still scales down on mobile */
   height: auto;
   border-radius: 14px;
   box-shadow: 0 18px 40px rgba(0,0,0,.5);
   transition: transform .5s ease, box-shadow .5s ease;
 }
+
 .mockup img:hover{
   transform: scale(1.02);
   box-shadow: 0 28px 60px rgba(0,0,0,.65);
