@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
   <link rel="icon" href="https://i.ibb.co/fdsPzxk8/Drive-Vault-favicon.png" type="image/png" />
-<link rel="apple-touch-icon" href="https://i.ibb.co/fdsPzxk8/Drive-Vault-favicon.png" />
+  <link rel="apple-touch-icon" href="https://i.ibb.co/fdsPzxk8/Drive-Vault-favicon.png" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>DriveVault – Beta Waitlist</title>
-  <meta name="description" content="Join the DriveVault beta – the offline hard drive cataloguer. Search, browse, compare, and report on your drives without plugging them in." />
+  <title>DriveVault - Public Beta</title>
+  <meta name="description" content="DriveVault public beta is live - the offline hard drive cataloguer. Join the beta or join our mailing list for updates." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
@@ -26,9 +26,8 @@
       align-items:center;
       min-height:100vh;
       text-align:center;
-      /* Top breathing room so the H1 sits near middle on load */
       padding:clamp(56px, 12vh, 140px) 16px 0;
-      overflow-x:hidden;             /* keep mesh clean, but allow scrolling */
+      overflow-x:hidden;
     }
 
     /* Mesh gradient background */
@@ -49,9 +48,32 @@
     h2{ font-size:clamp(16px,2vw,20px); font-weight:400; color:var(--muted); margin-bottom:24px; opacity:0; animation:fadeInUp 1s ease .6s forwards; }
     p{  font-size:clamp(16px,2vw,20px); color:var(--muted); max-width:600px; margin:0 auto 28px; opacity:0; animation:fadeInUp 1s ease .8s forwards; }
 
+    /* Primary CTA */
+    .beta-cta{
+      display:inline-block;
+      margin:6px auto 22px;
+      padding:16px 28px;
+      border-radius:14px;
+      font-weight:700;
+      font-size:18px;
+      color:#fff;
+      text-decoration:none;
+      background:linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow:0 6px 18px rgba(0,0,0,.35), 0 0 14px rgba(106,162,255,.45);
+      transition:transform .2s ease, box-shadow .2s ease, filter .2s ease;
+      opacity:0; animation:fadeInUp 1s ease .9s forwards;
+    }
+    .beta-cta:hover{ transform:translateY(-2px); box-shadow:0 10px 24px rgba(0,0,0,.45), 0 0 16px rgba(154,106,255,.55); filter:saturate(1.05); }
+    .beta-cta:active{ transform:translateY(0); }
+
+    /* Mailing list form */
     form{
       display:flex; justify-content:center; align-items:center; gap:12px;
-      max-width:500px; margin:0 auto; width:100%; opacity:0; animation:fadeInUp 1s ease 1s forwards;
+      max-width:500px; margin:0 auto; width:100%; opacity:0; animation:fadeInUp 1s ease 1.1s forwards;
+    }
+    .form-label{
+      margin-top:6px; margin-bottom:10px; color:#c7cedb; font-size:14px; opacity:.9;
+      opacity:0; animation:fadeInUp 1s ease 1s forwards;
     }
     input[type=email]{
       flex:1; padding:14px 16px; border-radius:8px;
@@ -71,30 +93,20 @@
     .success,.error{display:none; margin-top:16px; font-size:14px;}
     .success{color:#5cffb0} .error{color:#ff7d9c}
 
-    .app-badge{
-      margin-top:32px; display:inline-flex; align-items:center; justify-content:center; gap:10px;
-      padding:10px 16px; background:#000; border-radius:8px; text-decoration:none; color:#fff; font-size:14px; font-weight:500;
-      opacity:0; animation:fadeInUp 1s ease 1.2s forwards;
-    }
-    .app-badge img{ width:20px; height:20px; filter:invert(1); }
-    .app-badge small{ font-size:11px; font-weight:400; color:#ccc; }
-
     footer{ margin-top:60px; font-size:13px; color:#666; }
 
     footer{
-  margin-top: 60px;
-  font-size: 13px;
-  color: #666;
-  padding-bottom: max(40px, env(safe-area-inset-bottom)); /* spacer under footer */
-}
+      margin-top: 60px;
+      font-size: 13px;
+      color: #666;
+      padding-bottom: max(40px, env(safe-area-inset-bottom));
+    }
 
-    /* Glowing dot */
     .glow-dot{
       width:12px; height:12px; border-radius:50%; background:var(--ok);
       margin:16px auto 24px; box-shadow:0 0 12px var(--ok),0 0 24px var(--ok); animation:pulse 2s infinite;
     }
 
-    /* Animations */
     @keyframes pulse{0%,100%{opacity:.6; transform:scale(1)} 50%{opacity:1; transform:scale(1.3)}}
     @keyframes fadeIn{to{opacity:1}}
     @keyframes fadeInUp{from{opacity:0; transform:translateY(20px)} to{opacity:1; transform:translateY(0)}}
@@ -119,25 +131,21 @@
     .ico svg{ width:18px; height:18px; stroke:currentColor; }
 
     .mockup {
-  margin-top: 60px;
-  display: flex;
-  justify-content: center;
-  opacity: 0;                               /* start hidden */
-  animation: fadeInUp 1.2s ease 1.4s forwards; /* ease in, delayed */
-}
-
-.mockup img {
-  max-width: 1250px;   /* current size +20/30% */
-  width: 95%;
-  height: auto;
-  border-radius: 0;
-  box-shadow: none;
-  transition: transform .5s ease;
-}
-
-.mockup img:hover {
-  transform: scale(1.02);
-}
+      margin-top: 60px;
+      display: flex;
+      justify-content: center;
+      opacity: 0;
+      animation: fadeInUp 1.2s ease 1.4s forwards;
+    }
+    .mockup img {
+      max-width: 1250px;
+      width: 95%;
+      height: auto;
+      border-radius: 0;
+      box-shadow: none;
+      transition: transform .5s ease;
+    }
+    .mockup img:hover { transform: scale(1.02); }
 
     /* Mobile polish */
     @media (max-width:600px){
@@ -146,10 +154,10 @@
       h1{ font-size:clamp(28px,9vw,40px); }
       h2{ font-size:clamp(14px,4.2vw,18px); margin-bottom:14px; }
       p{ font-size:15px; margin-bottom:18px; }
+      .beta-cta{ width:100%; padding:14px 16px; font-size:16px; }
       form{ flex-direction:column; align-items:stretch; gap:10px; max-width:480px; }
       input[type=email]{ min-width:0; width:100%; padding:13px 14px; font-size:16px; }
       button[type=submit]{ width:100%; padding:13px 16px; font-size:16px; }
-      .app-badge{ margin-top:14px; transform:scale(.94); }
       .glow-dot{ width:10px; height:10px; margin:10px auto 16px; }
       .marquee-wrap{ width:92vw; margin-top:16px; }
       .marquee-row{
@@ -175,22 +183,22 @@
   <main>
     <img class="logo" src="https://i.ibb.co/BVGTLYq3/Drive-Vault-Logo.png" alt="DriveVault Logo">
     <h1>DriveVault</h1>
-    <h2>All Of Your Hard Drives. Always Searchable.</h2>
-    <div class="glow-dot"></div>
-    <p>Join the beta waitlist and be the first to try the most comprehensive offline hard drive cataloguer for Mac users.</p>
+    <h2>Public Beta is live</h2>
+    <div class="glow-dot" aria-hidden="true"></div>
+    <p>Scan a drive once - search it forever. Join the public beta now or join our mailing list for updates and tips.</p>
 
-    <form id="waitlist-form" novalidate>
-      <input id="email" type="email" placeholder="Enter your email" required />
-      <button type="submit">Join Waitlist</button>
+    <!-- Primary CTA -->
+    <a class="beta-cta" href="https://testflight.apple.com/join/tVYkpxnm" target="_blank" rel="noopener">Join The Public Beta</a>
+
+    <!-- Mailing list -->
+    <div class="form-label">Join our mailing list</div>
+    <form id="waitlist-form" aria-label="Join our mailing list" novalidate>
+      <input id="email" type="email" placeholder="Enter your email" required aria-label="Email address" />
+      <button type="submit" aria-label="Subscribe to mailing list">Subscribe</button>
       <input type="hidden" id="utm" name="utm" />
     </form>
-    <div id="success" class="success">Thanks! You’re on the waitlist. We’ll be in touch soon.</div>
-    <div id="error" class="error">Something went wrong. Please try again.</div>
-
-    <a href="#" class="app-badge">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple Logo">
-      <span><small>Coming soon on the</small><br>App Store</span>
-    </a>
+    <div id="success" class="success" role="status" aria-live="polite">Thanks - you are on the list.</div>
+    <div id="error" class="error" role="alert" aria-live="assertive">Something went wrong. Please try again.</div>
 
     <!-- Icons marquee -->
     <div class="marquee-wrap" aria-hidden="true">
@@ -220,8 +228,6 @@
           <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 6v6l4 2"></path><circle cx="12" cy="12" r="9"></circle></svg>Backup Check</span>
           <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 5v14"></path><path d="M8 9l4-4 4 4"></path><path d="M16 15l-4 4-4-4"></path></svg>Import/Export Library</span>
           <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M4 6h16M4 12h10M4 18h7"></path></svg>Rich Metadata</span>
-          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M8 13l3-3 5 6H6z"></path></svg>Offline Images</span>
-          <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><circle cx="7" cy="7" r="3"></circle><circle cx="17" cy="7" r="3"></circle><path d="M4 17h16"></path></svg>Smart Collections</span>
           <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><rect x="4" y="4" width="6" height="6" rx="1"></rect><rect x="14" y="4" width="6" height="6" rx="1"></rect><rect x="4" y="14" width="6" height="6" rx="1"></rect><rect x="14" y="14" width="6" height="6" rx="1"></rect></svg>Icon View</span>
           <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M3 6h18"></path><path d="M3 12h18"></path><path d="M3 18h18"></path></svg>Column View</span>
           <span class="ico"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M4 6h8v6H4zM12 6h8v12H4v-6"></path></svg>Create Projects</span>
@@ -272,8 +278,8 @@
   <footer>
     <a href="/terms.html" style="color:#9aa3b2; text-decoration:none;">Terms of Service</a> •
     <a href="/privacy.html" style="color:#9aa3b2; text-decoration:none;">Privacy Policy</a> •
-    <a href="https://drivevault.canny.io/feature-requests" style="color:#9aa3b2; text-decoration:none;" target="_blank">Feature Requests</a> •
-    <a href="https://drivevault.canny.io/report-bugs" style="color:#9aa3b2; text-decoration:none;" target="_blank">Report Bugs</a>
+    <a href="https://drivevault.canny.io/feature-requests" style="color:#9aa3b2; text-decoration:none;" target="_blank" rel="noopener">Feature Requests</a> •
+    <a href="https://drivevault.canny.io/report-bugs" style="color:#9aa3b2; text-decoration:none;" target="_blank" rel="noopener">Report Bugs</a>
     <br>© <span id="year"></span> DriveVault
   </footer>
 
