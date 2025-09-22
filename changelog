@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DriveVault – Changelog</title>
+  <meta name="description" content="What's new in DriveVault. Latest features, improvements, and fixes." />
+  <link rel="icon" href="https://i.ibb.co/fdsPzxk8/Drive-Vault-favicon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="https://i.ibb.co/fdsPzxk8/Drive-Vault-favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root{ --bg:#0b0d12; --panel:#10141c; --panel-2:#0e1219; --border:rgba(255,255,255,.08); --text:#e6e9ef; --muted:#9aa3b2; --accent:#6aa2ff; --accent-2:#9a6aff; --ok:#27d980; }
+    *{ box-sizing:border-box; margin:0; padding:0 }
+    body{ font-family:Inter, system-ui, sans-serif; background:var(--bg); color:var(--text); overflow-x:hidden; }
+
+    /* Fixed top navigation (same as index) */
+    .topbar{
+      position:fixed; inset:0 0 auto 0; height:64px; z-index:50;
+      display:flex; align-items:center; justify-content:center;
+      backdrop-filter:saturate(140%) blur(10px);
+      background:linear-gradient(to bottom, rgba(8,10,15,.78), rgba(8,10,15,.55));
+      border-bottom:1px solid var(--border);
+    }
+    .topbar .wrap{ width:min(1200px,94vw); display:flex; align-items:center; gap:16px; }
+    .brand{ display:flex; align-items:center; gap:10px; text-decoration:none; color:#fff; font-weight:700; }
+    .brand img{ width:22px; height:22px }
+    .brand span{ font-size:16px; letter-spacing:.2px }
+    .nav{ margin-left:auto; display:flex; align-items:center; gap:18px; }
+    .nav a{ color:#cfd6e4; text-decoration:none; font-size:14px; padding:8px 10px; border-radius:8px; transition:color .2s ease, background .2s ease; }
+    .nav a:hover{ color:#fff; background:rgba(255,255,255,.06) }
+    .beta-btn{
+      margin-left:6px; padding:10px 14px; border-radius:10px; font-weight:700; font-size:14px; color:#fff; text-decoration:none;
+      background:linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow:0 6px 18px rgba(0,0,0,.35), 0 0 10px rgba(106,162,255,.45);
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .beta-btn:hover{ transform:translateY(-1px); box-shadow:0 10px 24px rgba(0,0,0,.45), 0 0 14px rgba(154,106,255,.55) }
+
+    main{ padding:calc(64px + 40px) 16px 60px; }
+    .container{ width:min(1100px, 94vw); margin:0 auto; }
+
+    .page-title{ text-align:center; margin-bottom:10px; font-size:clamp(28px,4.5vw,40px); font-weight:900; }
+    .page-sub{ text-align:center; color:var(--muted); margin-bottom:28px; }
+
+    /* Release card (using details/summary for native a11y expand) */
+    details.release{
+      background:linear-gradient(180deg, var(--panel), var(--panel-2));
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:0;
+      margin:16px 0;
+      overflow:hidden;
+      box-shadow:0 10px 30px rgba(0,0,0,.25);
+    }
+    .rel-head{
+      list-style:none;
+      display:flex; align-items:center; gap:14px; justify-content:space-between;
+      padding:16px 18px;
+      cursor:pointer;
+    }
+    .meta-left{ display:flex; align-items:center; gap:14px; flex-wrap:wrap }
+    .badge{ font-size:12px; padding:6px 10px; border-radius:999px; color:#cfe5ff; background:rgba(106,162,255,.15); border:1px solid rgba(106,162,255,.25); }
+    .ver{ font-weight:800; letter-spacing:.2px; }
+    .date{ color:var(--muted); font-size:13px; }
+    .chev{ margin-left:auto; transition:transform .25s ease; opacity:.75 }
+    details[open] .chev{ transform:rotate(180deg) }
+
+    .highlights{
+      padding:0 18px 16px 18px; color:#dbe3f3; border-top:1px solid var(--border);
+    }
+    .highlights ul{ margin:12px 0 0 0; padding-left:20px }
+    .highlights li{ margin:6px 0 }
+
+    .deep{
+      padding:16px 18px 18px 18px;
+      border-top:1px dashed var(--border);
+      display:grid; gap:10px;
+    }
+    .deep h4{ font-size:14px; color:#c7d0e2; text-transform:uppercase; letter-spacing:.2px; margin-top:6px }
+    .deep ul{ margin:6px 0 0 0; padding-left:20px }
+    .deep li{ margin:6px 0; color:#cfd6e4 }
+    .foot-note{ margin-top:6px; font-size:12px; color:var(--muted) }
+
+    /* Tag pills */
+    .tags{ display:flex; flex-wrap:wrap; gap:8px }
+    .tag{
+      font-size:11px; padding:4px 8px; border-radius:999px; border:1px solid var(--border); color:#aeb7c8;
+      background:rgba(255,255,255,.03);
+    }
+
+    /* Mobile */
+    @media (max-width:700px){
+      .rel-head{ align-items:flex-start; gap:8px; }
+      .meta-left{ flex-direction:column; align-items:flex-start; gap:8px }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top header -->
+  <header class="topbar" role="banner">
+    <div class="wrap">
+      <a class="brand" href="/">
+        <img src="https://i.ibb.co/fdsPzxk8/Drive-Vault-favicon.png" alt="DriveVault logo">
+        <span>DriveVault</span>
+      </a>
+      <nav class="nav" role="navigation" aria-label="Primary">
+        <a href="/pricing.html">Pricing</a>
+        <a href="/changelog.html" aria-current="page">Changelog</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/faq.html">FAQ</a>
+        <a class="beta-btn" href="https://testflight.apple.com/join/tVYkpxnm" target="_blank" rel="noopener">Join The Public Beta</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <h1 class="page-title">What’s New in DriveVault</h1>
+      <p class="page-sub">Stay up to date with the latest features, improvements, and fixes.</p>
+
+      <!-- Release: Public Beta -->
+      <details class="release" open>
+        <summary class="rel-head">
+          <div class="meta-left">
+            <span class="badge">New Features</span>
+            <span class="ver">v0.9.0 – Public Beta</span>
+            <span class="date">September 22, 2025</span>
+            <div class="tags">
+              <span class="tag">Offline Library</span>
+              <span class="tag">Search</span>
+              <span class="tag">UI</span>
+            </div>
+          </div>
+          <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </summary>
+
+        <!-- Main highlights always visible in the card -->
+        <div class="highlights">
+          <strong>Highlights</strong>
+          <ul>
+            <li>Public Beta launch with offline drive catalogs and global search.</li>
+            <li>Finder-style Column, Icon, and List views with quick previews.</li>
+            <li>Drive Library with custom icons, names, and online/offline status.</li>
+          </ul>
+        </div>
+
+        <!-- Deep notes revealed on expand -->
+        <div class="deep">
+          <h4>Deeper Notes</h4>
+          <ul>
+            <li>EXIF/metadata search (camera, lens, date taken) and file-type filters.</li>
+            <li>Smart Collections: Recent Photos, Large Files, and Unlabeled.</li>
+            <li>Analytics dashboard: library totals, file-type breakdown, capacity charts.</li>
+            <li>Performance: background scanning for 500k+ files and intelligent thumbnail caching.</li>
+            <li>Security: local-only storage; optional password lock (Starter+ preview).</li>
+          </ul>
+          <p class="foot-note">Known issues: thumbnails for some RAW formats may require an extra system codec; we’re on it.</p>
+        </div>
+      </details>
+
+      <!-- Release: Pre-Beta -->
+      <details class="release">
+        <summary class="rel-head">
+          <div class="meta-left">
+            <span class="badge" style="background:rgba(255,255,255,.07); color:#d9deea;">Improvements</span>
+            <span class="ver">v0.8.2 – Pre-Beta</span>
+            <span class="date">September 12, 2025</span>
+            <div class="tags">
+              <span class="tag">Performance</span>
+              <span class="tag">Thumbnails</span>
+            </div>
+          </div>
+          <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </summary>
+
+        <div class="highlights">
+          <strong>Highlights</strong>
+          <ul>
+            <li>2x faster initial scans on large photo/video drives.</li>
+            <li>Smoother column navigation and better breadcrumb history.</li>
+          </ul>
+        </div>
+
+        <div class="deep">
+          <h4>Deeper Notes</h4>
+          <ul>
+            <li>Reduced memory spikes on libraries with many small files.</li>
+            <li>Improved EXIF extraction for HEIC/HEIF variants.</li>
+            <li>Fixed rare freeze when switching between Icon and List views quickly.</li>
+          </ul>
+        </div>
+      </details>
+
+      <!-- Release: Alpha -->
+      <details class="release">
+        <summary class="rel-head">
+          <div class="meta-left">
+            <span class="badge" style="background:rgba(39,217,128,.15); color:#d6ffe9; border-color:rgba(39,217,128,.35)">Fixes</span>
+            <span class="ver">v0.7.0 – Alpha</span>
+            <span class="date">August 28, 2025</span>
+            <div class="tags">
+              <span class="tag">Stability</span>
+              <span class="tag">UX</span>
+            </div>
+          </div>
+          <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </summary>
+
+        <div class="highlights">
+          <strong>Highlights</strong>
+          <ul>
+            <li>Crash fixes during very large directory walks.</li>
+            <li>Refined empty states and tooltips across the app.</li>
+          </ul>
+        </div>
+
+        <div class="deep">
+          <h4>Deeper Notes</h4>
+          <ul>
+            <li>Improved error handling for disconnected network volumes.</li>
+            <li>Added first pass of drive personalization (custom icon & name).</li>
+            <li>Keyboard nav: ←/→ to move columns, ⌘K to jump to search.</li>
+          </ul>
+        </div>
+      </details>
+
+      <p class="foot-note" style="text-align:center; margin-top:18px;">Want something added? <a href="https://drivevault.canny.io/feature-requests" target="_blank" rel="noopener" style="color:#a7c4ff; text-decoration:none;">Request a feature</a>.</p>
+    </div>
+  </main>
+
+</body>
+</html>
