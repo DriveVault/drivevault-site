@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>How to Find Files on External Hard Drives Without Plugging Them In (Mac)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Tired of plugging in every external hard drive to find one file? Here's how to search your external drives offline on macOS using DriveVault." />
+
+  <!-- Favicon / Touch icon -->
+  <link rel="icon" href="https://i.ibb.co/fdsPzxk8/Drive-Vault-favicon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="https://i.ibb.co/fdsPzxk8/Drive-Vault-favicon.png" />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="How to Find Files on External Hard Drives Without Plugging Them In (Mac)">
+  <meta property="og:description" content="Search your external drives offline on macOS. Scan once, search forever with DriveVault.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=80">
+  <meta property="og:url" content="https://yourdomain.com/blog/find-files-without-plugging.html">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0b0d12; --panel:#10141c; --panel-2:#0e1219; --border:rgba(255,255,255,.08);
+      --text:#e6e9ef; --muted:#9aa3b2; --accent:#6aa2ff; --accent-2:#9a6aff; --ok:#27d980;
+      --maxw: 880px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
+
+    /* Fixed header (same as site) */
+    .topbar{
+      position:fixed; inset:0 0 auto 0; height:64px; z-index:50;
+      display:flex; align-items:center; justify-content:center;
+      backdrop-filter:saturate(140%) blur(10px);
+      background:linear-gradient(to bottom, rgba(8,10,15,.78), rgba(8,10,15,.55));
+      border-bottom:1px solid var(--border);
+    }
+    .topbar .wrap{ width:min(1200px,94vw); display:flex; align-items:center; gap:16px; }
+    .brand{ display:flex; align-items:center; gap:10px; text-decoration:none; color:#fff; font-weight:700; }
+    .brand img{ width:22px; height:22px } .brand span{ font-size:16px; letter-spacing:.2px }
+    .nav{ margin-left:auto; display:flex; align-items:center; gap:18px; }
+    .nav a{ color:#cfd6e4; text-decoration:none; font-size:14px; padding:8px 10px; border-radius:8px; transition:color .2s, background .2s; }
+    .nav a:hover{ color:#fff; background:rgba(255,255,255,.06) }
+    .beta-btn{
+      margin-left:6px; padding:10px 14px; border-radius:10px; font-weight:700; font-size:14px; color:#fff; text-decoration:none;
+      background:linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow:0 6px 18px rgba(0,0,0,.35), 0 0 10px rgba(106,162,255,.45);
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .beta-btn:hover{ transform:translateY(-1px); box-shadow:0 10px 24px rgba(0,0,0,.45), 0 0 14px rgba(154,106,255,.55) }
+
+    /* Page */
+    main{ padding:calc(64px + 24px) 16px 100px; }
+    .container{ width:min(var(--maxw), 94vw); margin:0 auto; }
+
+    /* Hero */
+    .hero{ text-align:center; margin-bottom:18px; }
+    .eyebrow{ color:#9fb1d4; font-size:12px; letter-spacing:.18em; text-transform:uppercase; }
+    h1{ font-size:clamp(26px,4.8vw,42px); font-weight:900; line-height:1.1; margin:8px 0 10px; }
+    .post-meta{ color:var(--muted); font-size:14px; }
+    .cover{ margin:18px 0 24px; border-radius:16px; overflow:hidden; border:1px solid var(--border); box-shadow:0 14px 36px rgba(0,0,0,.28); }
+    .cover img{ width:100%; height:auto; display:block; aspect-ratio:16/9; object-fit:cover; background:#0c1018; }
+
+    /* Body */
+    article{ background:linear-gradient(180deg, var(--panel), var(--panel-2)); border:1px solid var(--border); border-radius:18px; padding:24px; box-shadow:0 10px 30px rgba(0,0,0,.25); }
+    article p{ margin:14px 0; color:#dfe6f4; }
+    article h2{ font-size:22px; margin-top:18px; margin-bottom:6px; }
+    article h3{ font-size:18px; margin-top:14px; }
+    article ul{ margin:10px 0 10px 20px; }
+    article li{ margin:8px 0; }
+    .note{ color:#a7c4ff }
+
+    .tip{
+      margin:16px 0; padding:12px 14px; border-radius:12px;
+      background:rgba(255,255,255,.04); border:1px dashed var(--border);
+    }
+
+    /* CTA + nav */
+    .cta-box{
+      margin:20px 0; padding:18px; border-radius:14px;
+      background:rgba(255,255,255,.04); border:1px dashed var(--border); text-align:center;
+    }
+    .cta-box a{ display:inline-block; margin-top:10px; padding:12px 18px; border-radius:12px;
+      text-decoration:none; color:#fff; background:linear-gradient(135deg, var(--accent), var(--accent-2)); }
+    .post-nav{ margin-top:18px; display:flex; justify-content:space-between; gap:12px; }
+    .post-nav a{ flex:1; text-decoration:none; color:#e7f0ff; border:1px solid var(--border); background:rgba(255,255,255,.03); padding:14px; border-radius:12px; text-align:center; }
+    .post-nav a:hover{ background:rgba(255,255,255,.06); }
+
+    /* Floating CTA */
+    .float-cta{
+      position:fixed; right:16px; bottom:16px; z-index:40;
+      display:inline-flex; gap:8px; align-items:center;
+      padding:12px 14px; border-radius:12px; text-decoration:none; color:#fff;
+      background:linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow:0 14px 34px rgba(0,0,0,.38);
+    }
+    @media (max-width:640px){ .float-cta{ left:16px; right:auto; } }
+  </style>
+
+  <!-- Article JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Find Files on External Hard Drives Without Plugging Them In (Mac)",
+    "description": "Search your external drives offline on macOS. Scan once, search forever with DriveVault.",
+    "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=80",
+    "datePublished": "2025-09-18",
+    "author": { "@type": "Organization", "name": "DriveVault" },
+    "publisher": { "@type": "Organization", "name": "DriveVault", "logo": { "@type": "ImageObject", "url": "https://i.ibb.co/fdsPzxk8/Drive-Vault-favicon.png" } }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="topbar" role="banner">
+    <div class="wrap">
+      <a class="brand" href="/">
+        <img src="https://i.ibb.co/fdsPzxk8/Drive-Vault-favicon.png" alt="DriveVault logo">
+        <span>DriveVault</span>
+      </a>
+      <nav class="nav" role="navigation" aria-label="Primary">
+        <a href="/pricing.html">Pricing</a>
+        <a href="/changelog.html">Changelog</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/faq.html">FAQ</a>
+        <a class="beta-btn" href="https://testflight.apple.com/join/tVYkpxnm" target="_blank" rel="noopener">Join The Public Beta</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <header class="hero">
+        <div class="eyebrow">How-To</div>
+        <h1>How to Find Files on External Hard Drives Without Plugging Them In (Mac)</h1>
+        <p class="post-meta">Published September 18, 2025 • 6 min read</p>
+        <div class="cover">
+          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=80" alt="External hard drives on a desk">
+        </div>
+      </header>
+
+      <article>
+        <p>If you own multiple external hard drives, finding a single file can turn into a guessing game: which disk is it on, and where in the folder maze? Constantly plugging drives in and out wastes time and interrupts your flow.</p>
+
+        <p><strong>Good news:</strong> you can make every drive searchable <em>offline</em>. With DriveVault, you scan a drive once, and then browse and search its contents later—even when the drive isn’t connected.</p>
+
+        <h2>TL;DR</h2>
+        <ul>
+          <li>Install DriveVault and <strong>scan each external drive once</strong>.</li>
+          <li>DriveVault stores a <strong>local catalog</strong> (names, paths, sizes, metadata, thumbnails where possible).</li>
+          <li>Use <strong>global search</strong> to find files across all drives <em>without</em> plugging them in.</li>
+        </ul>
+
+        <h2>Step 1 — Scan a Drive Once</h2>
+        <p>Connect a drive and open DriveVault. Choose <span class="note">Scan Drive</span>. Scanning is read-only; your files aren’t modified or uploaded.</p>
+        <div class="tip"><strong>Tip:</strong> Give the drive a clear, human name (e.g., “ClientA_2024_Photos”). It makes later search and reports easier.</div>
+
+        <h2>Step 2 — Browse Offline Like Finder</h2>
+        <p>After scanning, disconnect the drive. Open DriveVault and browse its catalog anytime using <strong>Column</strong>, <strong>Icon</strong>, or <strong>List</strong> view. You’ll still see folder structure, file counts, and key metadata.</p>
+
+        <h2>Step 3 — Search by Name, Type, and Metadata</h2>
+        <p>Use global search to query every scanned drive at once. Helpful filters include:</p>
+        <ul>
+          <li><strong>File type</strong> (photos, video, audio, documents)</li>
+          <li><strong>Date</strong> (created/modified, “last 30 days”, custom range)</li>
+          <li><strong>Size</strong> (find large files quickly)</li>
+          <li><strong>EXIF</strong> for photos (camera, lens, ISO, date taken)</li>
+        </ul>
+        <div class="tip"><strong>Pro move:</strong> Save common searches (e.g., “Large RAW photos from 2023”) so you can run them with one click.</div>
+
+        <h2>Step 4 — Preview Before You Plug Anything In</h2>
+        <p>Quick previews and metadata panels help confirm you’ve found the right file. Need the original? DriveVault shows the drive name and path so you can plug in only what you need.</p>
+
+        <h2>Keep Your Library Searchable</h2>
+        <ul>
+          <li><strong>Tag &amp; note:</strong> Add tags (“wedding”, “deliverables”) and notes to make future discovery faster.</li>
+          <li><strong>Smart collections:</strong> Auto-group “Recent Photos”, “Large Files”, or “Unlabeled”.</li>
+          <li><strong>Compare drives:</strong> Verify backups and spot duplicates before you waste time hunting.</li>
+        </ul>
+
+        <h2>FAQs</h2>
+        <h3>Does DriveVault copy or upload my files?</h3>
+        <p>No. Scanning is read-only and local. DriveVault stores a catalog (plus optional thumbnails) on your Mac.</p>
+        <h3>What if thumbnails don’t appear?</h3>
+        <p>For certain RAW/video formats, macOS may need codecs to generate thumbnails. You’ll still get names, paths, and metadata; thumbnails populate as supported.</p>
+        <h3>How many files can it handle?</h3>
+        <p>DriveVault is designed for large libraries and background scanning. If you hit an edge case, report it via our <a class="note" href="https://drivevault.canny.io/report-bugs" target="_blank" rel="noopener">Bugs</a> board.</p>
+
+        <div class="cta-box">
+          <strong>Stop plugging in every drive just to find one file.</strong>
+          <p>Scan once, search forever — try DriveVault in the public beta.</p>
+          <a href="https://testflight.apple.com/join/tVYkpxnm" target="_blank" rel="noopener">Join The Public Beta</a>
+        </div>
+
+        <h2>Next Steps</h2>
+        <ul>
+          <li>Set clear drive names and add tags/notes for key projects.</li>
+          <li>Create saved searches for the queries you run all the time.</li>
+          <li>Use Compare to verify backups and clean duplicates.</li>
+        </ul>
+      </article>
+
+      <!-- Prev / Next -->
+      <nav class="post-nav" aria-label="Post navigation">
+        <a href="/blog/introducing-drivevault.html">← Previous: Introducing DriveVault</a>
+        <a href="/blog/organize-multiple-drives.html">Next: Organize Multiple External Drives →</a>
+      </nav>
+    </div>
+  </main>
+
+  <!-- Floating CTA -->
+  <a class="float-cta" href="https://testflight.apple.com/join/tVYkpxnm" target="_blank" rel="noopener" aria-label="Join the DriveVault Public Beta">
+    Join The Public Beta →
+  </a>
+
+</body>
+</html>
