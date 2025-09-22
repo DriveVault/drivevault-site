@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>DriveVault – Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="DriveVault blog: product updates, how-tos, and tips for managing large external drive libraries on macOS." />
+  <link rel="icon" href="https://i.ibb.co/fdsPzxk8/Drive-Vault-favicon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="https://i.ibb.co/fdsPzxk8/Drive-Vault-favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0b0d12; --panel:#10141c; --panel-2:#0e1219; --border:rgba(255,255,255,.08);
+      --text:#e6e9ef; --muted:#9aa3b2; --accent:#6aa2ff; --accent-2:#9a6aff; --ok:#27d980;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
+
+    /* Fixed header (same as other pages) */
+    .topbar{
+      position:fixed; inset:0 0 auto 0; height:64px; z-index:50;
+      display:flex; align-items:center; justify-content:center;
+      backdrop-filter:saturate(140%) blur(10px);
+      background:linear-gradient(to bottom, rgba(8,10,15,.78), rgba(8,10,15,.55));
+      border-bottom:1px solid var(--border);
+    }
+    .topbar .wrap{ width:min(1200px,94vw); display:flex; align-items:center; gap:16px; }
+    .brand{ display:flex; align-items:center; gap:10px; text-decoration:none; color:#fff; font-weight:700; }
+    .brand img{ width:22px; height:22px } .brand span{ font-size:16px; letter-spacing:.2px }
+    .nav{ margin-left:auto; display:flex; align-items:center; gap:18px; }
+    .nav a{ color:#cfd6e4; text-decoration:none; font-size:14px; padding:8px 10px; border-radius:8px; transition:color .2s, background .2s; }
+    .nav a:hover{ color:#fff; background:rgba(255,255,255,.06) }
+    .beta-btn{
+      margin-left:6px; padding:10px 14px; border-radius:10px; font-weight:700; font-size:14px; color:#fff; text-decoration:none;
+      background:linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow:0 6px 18px rgba(0,0,0,.35), 0 0 10px rgba(106,162,255,.45);
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .beta-btn:hover{ transform:translateY(-1px); box-shadow:0 10px 24px rgba(0,0,0,.45), 0 0 14px rgba(154,106,255,.55) }
+
+    /* Page layout */
+    main{ padding:calc(64px + 36px) 16px 80px; }
+    .container{ width:min(1100px, 94vw); margin:0 auto; }
+
+    .hero{
+      text-align:center; margin-bottom:20px;
+    }
+    .hero h1{ font-size:clamp(28px,4.5vw,40px); font-weight:900; }
+    .hero p{ color:var(--muted); margin-top:8px; }
+
+    /* Search + tags */
+    .controls{
+      margin:18px auto 26px; display:flex; flex-wrap:wrap; gap:10px; justify-content:center;
+    }
+    .search{
+      min-width:240px; width:min(440px, 90vw);
+      background:rgba(255,255,255,.06); border:1px solid var(--border); color:var(--text);
+      padding:12px 14px; border-radius:12px; outline:none;
+    }
+    .tags{ display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+    .tag{
+      font-size:12px; padding:8px 10px; border-radius:999px; border:1px solid var(--border);
+      background:rgba(255,255,255,.04); color:#cbd5ea; cursor:pointer; user-select:none;
+    }
+    .tag.active{ background:rgba(106,162,255,.15); color:#e7f0ff; border-color:rgba(106,162,255,.35); }
+
+    /* Post cards */
+    .grid{
+      display:grid; gap:18px; grid-template-columns:repeat(3, 1fr);
+    }
+    @media (max-width:980px){ .grid{ grid-template-columns:repeat(2, 1fr); } }
+    @media (max-width:640px){ .grid{ grid-template-columns:1fr; } }
+
+    .card{
+      display:flex; flex-direction:column; overflow:hidden;
+      background:linear-gradient(180deg, var(--panel), var(--panel-2));
+      border:1px solid var(--border); border-radius:18px;
+      transition:transform .18s ease, box-shadow .18s ease;
+      box-shadow:0 10px 28px rgba(0,0,0,.22);
+    }
+    .card:hover{ transform:translateY(-3px); box-shadow:0 14px 34px rgba(0,0,0,.32); }
+    .thumb{ width:100%; aspect-ratio:16/9; object-fit:cover; background:#0c1018; }
+    .meta{ display:flex; gap:10px; align-items:center; color:#9fb1d4; font-size:12px; }
+    .pill{ padding:4px 8px; border-radius:999px; border:1px solid var(--border); background:rgba(255,255,255,.03); }
+    .content{ padding:16px; display:flex; flex-direction:column; gap:10px; text-align:left; }
+    .title{ font-weight:800; font-size:18px; line-height:1.3; }
+    .excerpt{ color:#cfd6e4; font-size:14px; }
+    .more{ margin-top:auto; padding:14px 16px; display:flex; justify-content:space-between; align-items:center; text-decoration:none;
+      color:#fff; border-top:1px solid var(--border); background:rgba(255,255,255,.02); }
+    .more span{ opacity:.9 }
+    .more svg{ opacity:.9; transition:transform .18s ease }
+    .card:hover .more svg{ transform:translateX(3px) }
+
+    /* Footer */
+    footer{ text-align:center; color:var(--muted); font-size:14px; margin-top:26px; }
+    footer a{ color:#9aa3b2; text-decoration:none }
+    footer a:hover{ text-decoration:underline }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="topbar" role="banner">
+    <div class="wrap">
+      <a class="brand" href="/">
+        <img src="https://i.ibb.co/fdsPzxk8/Drive-Vault-favicon.png" alt="DriveVault logo">
+        <span>DriveVault</span>
+      </a>
+      <nav class="nav" role="navigation" aria-label="Primary">
+        <a href="/pricing.html">Pricing</a>
+        <a href="/changelog.html">Changelog</a>
+        <a href="/blog.html" aria-current="page">Blog</a>
+        <a href="/faq.html">FAQ</a>
+        <a class="beta-btn" href="https://testflight.apple.com/join/tVYkpxnm" target="_blank" rel="noopener">Join The Public Beta</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <section class="hero">
+        <h1>DriveVault Blog</h1>
+        <p>Product updates, workflows, and tips for managing big offline libraries on macOS.</p>
+      </section>
+
+      <!-- Search + tags -->
+      <section class="controls">
+        <input id="search" class="search" type="search" placeholder="Search posts…" aria-label="Search posts" />
+        <div id="tags" class="tags" role="listbox" aria-label="Filter by tag">
+          <button class="tag active" data-tag="all">All</button>
+          <button class="tag" data-tag="updates">Updates</button>
+          <button class="tag" data-tag="how-to">How-To</button>
+          <button class="tag" data-tag="photography">Photography</button>
+          <button class="tag" data-tag="video">Video</button>
+          <button class="tag" data-tag="tips">Tips</button>
+        </div>
+      </section>
+
+      <!-- Posts grid -->
+      <section id="posts" class="grid" aria-live="polite">
+        <!-- Post card template examples (link these to separate HTML pages in /blog/...) -->
+
+        <article class="card" data-title="Introducing DriveVault: Search Every Drive Offline" data-tags="updates,intro">
+          <img class="thumb" src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=60" alt="">
+          <div class="content">
+            <div class="meta">
+              <span>Sep 22, 2025</span>
+              <span class="pill">Updates</span>
+            </div>
+            <h2 class="title">Introducing DriveVault: Search Every Drive Offline</h2>
+            <p class="excerpt">Scan once, search forever. Why we built DriveVault and how it helps creators tame external storage.</p>
+          </div>
+          <a class="more" href="/blog/introducing-drivevault.html">
+            <span>Read post</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+        </article>
+
+        <article class="card" data-title="How to Organize Photo Archives Across Multiple Drives" data-tags="how-to,photography,tips">
+          <img class="thumb" src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1200&q=60" alt="">
+          <div class="content">
+            <div class="meta">
+              <span>Sep 18, 2025</span>
+              <span class="pill">How-To</span>
+            </div>
+            <h2 class="title">How to Organize Photo Archives Across Multiple Drives</h2>
+            <p class="excerpt">Folder templates, ratings, and smart collections to keep years of shoots discoverable.</p>
+          </div>
+          <a class="more" href="/blog/organize-photo-archives.html">
+            <span>Read post</span>
+            <svg width="18" height="18" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+          </a>
+        </article>
+
+        <article class="card" data-title="Faster Scans for Huge Libraries" data-tags="updates,video">
+          <img class="thumb" src="https://images.unsplash.com/photo-1527443154391-507e9dc6c5cc?auto=format&fit=crop&w=1200&q=60" alt="">
+          <div class="content">
+            <div class="meta">
+              <span>Sep 12, 2025</span>
+              <span class="pill">Updates</span>
+            </div>
+            <h2 class="title">Faster Scans for Huge Libraries</h2>
+            <p class="excerpt">What changed under the hood to make 500k+ file scans feel snappy.</p>
+          </div>
+          <a class="more" href="/blog/faster-scans.html">
+            <span>Read post</span>
+            <svg width="18" height="18" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+          </a>
+        </article>
+
+        <article class="card" data-title="Drive Comparison: Verify Your Backups" data-tags="how-to,tips">
+          <img class="thumb" src="https://images.unsplash.com/photo-1518779578993-ec3579fee39f?auto=format&fit=crop&w=1200&q=60" alt="">
+          <div class="content">
+            <div class="meta">
+              <span>Aug 28, 2025</span>
+              <span class="pill">How-To</span>
+            </div>
+            <h2 class="title">Drive Comparison: Verify Your Backups</h2>
+            <p class="excerpt">Use Compare to spot duplicates, gaps, and drift between project drives.</p>
+          </div>
+          <a class="more" href="/blog/drive-comparison.html">
+            <span>Read post</span>
+            <svg width="18" height="18" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+          </a>
+        </article>
+
+        <!-- Add more <article> cards as you publish -->
+      </section>
+
+      <footer>
+        © <span id="year"></span> DriveVault • <a href="/privacy.html">Privacy Policy</a> • <a href="/terms.html">Terms of Service</a>
+      </footer>
+    </div>
+  </main>
+
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Client-side search + tag filter
+    const searchInput = document.getElementById('search');
+    const tagBar = document.getElementById('tags');
+    const cards = [...document.querySelectorAll('.card')];
+
+    let activeTag = 'all';
+
+    function matches(card, query, tag){
+      const title = (card.dataset.title || '').toLowerCase();
+      const tags  = (card.dataset.tags  || '').toLowerCase();
+      const q = query.trim().toLowerCase();
+      const tagOk = tag === 'all' || tags.split(',').includes(tag);
+      const qOk = !q || title.includes(q);
+      return tagOk && qOk;
+    }
+
+    function render(){
+      const q = searchInput.value;
+      cards.forEach(c => {
+        c.style.display = matches(c, q, activeTag) ? '' : 'none';
+      });
+    }
+
+    // search typing
+    searchInput.addEventListener('input', render);
+
+    // tag clicks
+    tagBar.addEventListener('click', (e) => {
+      const btn = e.target.closest('.tag'); if(!btn) return;
+      [...tagBar.querySelectorAll('.tag')].forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      activeTag = btn.dataset.tag;
+      render();
+    });
+
+    // initial
+    render();
+  </script>
+</body>
+</html>
