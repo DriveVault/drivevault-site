@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>The Best Way to Organize Multiple External Hard Drives for Creatives (Mac)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="A practical workflow for photographers, filmmakers, and designers to organize multiple external hard drives on macOS: naming, folder templates, tags, notes, smart collections, and backups." />
+
+  <!-- Favicon / Touch icon -->
+  <link rel="icon" href="https://i.ibb.co/fdsPzxk8/Drive-Vault-favicon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="https://i.ibb.co/fdsPzxk8/Drive-Vault-favicon.png" />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="The Best Way to Organize Multiple External Hard Drives for Creatives (Mac)">
+  <meta property="og:description" content="Step-by-step workflow: drive naming, folder templates, tagging, notes, smart collections, reports, and backup checks—powered by DriveVault.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1600&q=80">
+  <meta property="og:url" content="https://yourdomain.com/blog/organize-multiple-drives.html">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0b0d12; --panel:#10141c; --panel-2:#0e1219; --border:rgba(255,255,255,.08);
+      --text:#e6e9ef; --muted:#9aa3b2; --accent:#6aa2ff; --accent-2:#9a6aff; --ok:#27d980;
+      --maxw: 880px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
+
+    /* Fixed header (site-wide) */
+    .topbar{
+      position:fixed; inset:0 0 auto 0; height:64px; z-index:50;
+      display:flex; align-items:center; justify-content:center;
+      backdrop-filter:saturate(140%) blur(10px);
+      background:linear-gradient(to bottom, rgba(8,10,15,.78), rgba(8,10,15,.55));
+      border-bottom:1px solid var(--border);
+    }
+    .topbar .wrap{ width:min(1200px,94vw); display:flex; align-items:center; gap:16px; }
+    .brand{ display:flex; align-items:center; gap:10px; text-decoration:none; color:#fff; font-weight:700; }
+    .brand img{ width:22px; height:22px } .brand span{ font-size:16px; letter-spacing:.2px }
+    .nav{ margin-left:auto; display:flex; align-items:center; gap:18px; }
+    .nav a{ color:#cfd6e4; text-decoration:none; font-size:14px; padding:8px 10px; border-radius:8px; transition:color .2s, background .2s; }
+    .nav a:hover{ color:#fff; background:rgba(255,255,255,.06) }
+    .beta-btn{
+      margin-left:6px; padding:10px 14px; border-radius:10px; font-weight:700; font-size:14px; color:#fff; text-decoration:none;
+      background:linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow:0 6px 18px rgba(0,0,0,.35), 0 0 10px rgba(106,162,255,.45);
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .beta-btn:hover{ transform:translateY(-1px); box-shadow:0 10px 24px rgba(0,0,0,.45), 0 0 14px rgba(154,106,255,.55) }
+
+    /* Page */
+    main{ padding:calc(64px + 24px) 16px 100px; }
+    .container{ width:min(var(--maxw), 94vw); margin:0 auto; }
+
+    /* Hero */
+    .hero{ text-align:center; margin-bottom:18px; }
+    .eyebrow{ color:#9fb1d4; font-size:12px; letter-spacing:.18em; text-transform:uppercase; }
+    h1{ font-size:clamp(26px,4.8vw,42px); font-weight:900; line-height:1.1; margin:8px 0 10px; }
+    .post-meta{ color:var(--muted); font-size:14px; }
+    .cover{ margin:18px 0 24px; border-radius:16px; overflow:hidden; border:1px solid var(--border); box-shadow:0 14px 36px rgba(0,0,0,.28); }
+    .cover img{ width:100%; height:auto; display:block; aspect-ratio:16/9; object-fit:cover; background:#0c1018; }
+
+    /* Body */
+    article{ background:linear-gradient(180deg, var(--panel), var(--panel-2)); border:1px solid var(--border); border-radius:18px; padding:24px; box-shadow:0 10px 30px rgba(0,0,0,.25); }
+    article p{ margin:14px 0; color:#dfe6f4; }
+    article h2{ font-size:22px; margin-top:18px; margin-bottom:6px; }
+    article h3{ font-size:18px; margin-top:14px; }
+    article ul{ margin:10px 0 10px 20px; }
+    article li{ margin:8px 0; }
+    .note{ color:#a7c4ff }
+
+    .tip{
+      margin:16px 0; padding:12px 14px; border-radius:12px;
+      background:rgba(255,255,255,.04); border:1px dashed var(--border);
+    }
+    .checklist{
+      margin:14px 0; padding:14px; border-radius:14px;
+      background:rgba(255,255,255,.04); border:1px dashed var(--border);
+    }
+
+    /* CTA + nav */
+    .cta-box{
+      margin:20px 0; padding:18px; border-radius:14px;
+      background:rgba(255,255,255,.04); border:1px dashed var(--border); text-align:center;
+    }
+    .cta-box a{ display:inline-block; margin-top:10px; padding:12px 18px; border-radius:12px;
+      text-decoration:none; color:#fff; background:linear-gradient(135deg, var(--accent), var(--accent-2)); }
+    .post-nav{ margin-top:18px; display:flex; justify-content:space-between; gap:12px; }
+    .post-nav a{ flex:1; text-decoration:none; color:#e7f0ff; border:1px solid var(--border); background:rgba(255,255,255,.03); padding:14px; border-radius:12px; text-align:center; }
+    .post-nav a:hover{ background:rgba(255,255,255,.06); }
+
+    /* Floating CTA */
+    .float-cta{
+      position:fixed; right:16px; bottom:16px; z-index:40;
+      display:inline-flex; gap:8px; align-items:center;
+      padding:12px 14px; border-radius:12px; text-decoration:none; color:#fff;
+      background:linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow:0 14px 34px rgba(0,0,0,.38);
+    }
+    @media (max-width:640px){ .float-cta{ left:16px; right:auto; } }
+  </style>
+
+  <!-- Article JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "The Best Way to Organize Multiple External Hard Drives for Creatives (Mac)",
+    "description": "A practical workflow for photographers, filmmakers, and designers to organize multiple external hard drives on macOS: naming, folder templates, tags, notes, smart collections, and backups.",
+    "image": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1600&q=80",
+    "datePublished": "2025-09-14",
+    "author": { "@type": "Organization", "name": "DriveVault" },
+    "publisher": { "@type": "Organization", "name": "DriveVault", "logo": { "@type": "ImageObject", "url": "https://i.ibb.co/fdsPzxk8/Drive-Vault-favicon.png" } }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="topbar" role="banner">
+    <div class="wrap">
+      <a class="brand" href="/">
+        <img src="https://i.ibb.co/fdsPzxk8/Drive-Vault-favicon.png" alt="DriveVault logo">
+        <span>DriveVault</span>
+      </a>
+      <nav class="nav" role="navigation" aria-label="Primary">
+        <a href="/pricing.html">Pricing</a>
+        <a href="/changelog.html">Changelog</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/faq.html">FAQ</a>
+        <a class="beta-btn" href="https://testflight.apple.com/join/tVYkpxnm" target="_blank" rel="noopener">Join The Public Beta</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <header class="hero">
+        <div class="eyebrow">How-To</div>
+        <h1>The Best Way to Organize Multiple External Hard Drives for Creatives (Mac)</h1>
+        <p class="post-meta">Published September 14, 2025 • 8 min read</p>
+        <div class="cover">
+          <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1600&q=80" alt="Organized external drives and storage cases">
+        </div>
+      </header>
+
+      <article>
+        <p>Photographers, filmmakers, and designers all hit the same wall: projects sprawl across multiple external drives and finding anything becomes a time sink. Here’s a simple, repeatable system to keep your archives neat—and searchable—using a few best practices and DriveVault.</p>
+
+        <h2>1) Start with Clear Drive Naming</h2>
+        <p>Use names that explain <em>who</em>, <em>what</em>, and <em>when</em>. Examples:</p>
+        <ul>
+          <li><span class="note">ClientA_2025Q1_Photos</span></li>
+          <li><span class="note">Studio_Reel_2024_Video</span></li>
+          <li><span class="note">Personal_Travel_2023_Backup</span></li>
+        </ul>
+        <div class="tip"><strong>Tip:</strong> In DriveVault, assign a custom icon to each drive and keep the naming style consistent. It’s much faster to spot disks visually.</div>
+
+        <h2>2) Use Folder Templates</h2>
+        <p>Create a consistent top-level structure so every project looks the same. For example:</p>
+        <div class="checklist">
+          <ul>
+            <li><strong>01_Source</strong> (RAW / Original footage / Assets)</li>
+            <li><strong>02_Working</strong> (Edits, project files)</li>
+            <li><strong>03_Exports</strong> (Deliverables, social cuts)</li>
+            <li><strong>04_Archive</strong> (Finals, handover zips)</li>
+            <li><strong>_Docs</strong> (Briefs, contracts, notes)</li>
+          </ul>
+        </div>
+        <p>DriveVault’s folder templates let you apply this structure in one click across projects, reducing mistakes and “where did we put that?” moments.</p>
+
+        <h2>3) Add Tags, Notes, and Ratings</h2>
+        <p>Finder labels don’t scale across offline drives—but DriveVault’s catalog does. Tag by client, shoot, or theme (e.g., <span class="note">wedding</span>, <span class="note">b-roll</span>, <span class="note">deliverables</span>), add quick notes, and star key selects.</p>
+        <div class="tip"><strong>Tip:</strong> Tag the <em>folder</em> and the <em>exports</em>. Future you will thank you when searching across years of work.</div>
+
+        <h2>4) Build Smart Collections</h2>
+        <p>Automate common views so you don’t hunt the same things over and over:</p>
+        <ul>
+          <li><strong>Recent Photos</strong> — “last 30 days” + file type = photo</li>
+          <li><strong>Large Files</strong> — size &gt; 1 GB to tidy space hogs</li>
+          <li><strong>Unlabeled</strong> — items missing tags or notes</li>
+        </ul>
+
+        <h2>5) Compare Drives to Verify Backups</h2>
+        <p>Use DriveVault’s Compare to check that your backup/mirror drive actually matches your master. It surfaces duplicates, missing files, and drift between folders.</p>
+
+        <h2>6) Generate Lightweight Reports</h2>
+        <p>Before handing off or archiving a project, generate a report: total size, file-type breakdown, last modified dates, and drive locations. It’s a clear snapshot for clients and collaborators.</p>
+
+        <h2>7) Adopt a Simple Backup Rule</h2>
+        <p>The 3-2-1 rule is still gold: 3 copies, 2 different types of media, 1 off-site. Even if you’re not there yet, use DriveVault’s Compare and Reports to move toward it with confidence.</p>
+
+        <h2>8) Keep Catalogs Fresh</h2>
+        <p>When a project wraps, scan the final drive one last time so DriveVault has the definitive state. If you change a drive later, run a quick rescan to update the catalog.</p>
+
+        <h2>Example: A Photographer’s Weekly Routine</h2>
+        <ul>
+          <li>Import new shoot → apply <strong>Folder Template</strong>.</li>
+          <li>Tag client + shoot type → add key <strong>Notes</strong>.</li>
+          <li>Pick selects → add <strong>Star Ratings</strong>.</li>
+          <li>Export finals → generate a <strong>Report</strong>.</li>
+          <li>Mirror to backup drive → <strong>Compare</strong> to verify.</li>
+          <li>Scan both drives → searchable offline forever.</li>
+        </ul>
+
+        <div class="cta-box">
+          <strong>Make your archives findable—even when your drives are on a shelf.</strong>
+          <p>Scan once, organize with templates and tags, and search across everything offline.</p>
+          <a href="https://testflight.apple.com/join/tVYkpxnm" target="_blank" rel="noopener">Join The Public Beta</a>
+        </div>
+
+        <h2>Quick Checklist</h2>
+        <div class="checklist">
+          <ul>
+            <li>Consistent <strong>drive names</strong> + custom icons</li>
+            <li>One-click <strong>folder templates</strong> per project</li>
+            <li><strong>Tags/Notes/Ratings</strong> for discovery</li>
+            <li><strong>Smart Collections</strong> for recurring views</li>
+            <li><strong>Compare</strong> to verify backups</li>
+            <li><strong>Reports</strong> for handoffs and audits</li>
+            <li>Rescan to keep catalogs up to date</li>
+          </ul>
+        </div>
+
+        <p>This system scales from a couple of drives to a studio library. The key is consistency—and keeping everything searchable with DriveVault.</p>
+      </article>
+
+      <!-- Prev / Next -->
+      <nav class="post-nav" aria-label="Post navigation">
+        <a href="/blog/find-files-without-plugging.html">← Previous: Find Files Without Plugging Drives In</a>
+        <a href="/blog/compare-two-drives.html">Next: Compare Two Drives & Detect Duplicates →</a>
+      </nav>
+    </div>
+  </main>
+
+  <!-- Floating CTA -->
+  <a class="float-cta" href="https://testflight.apple.com/join/tVYkpxnm" target="_blank" rel="noopener" aria-label="Join the DriveVault Public Beta">
+    Join The Public Beta →
+  </a>
+
+</body>
+</html>
