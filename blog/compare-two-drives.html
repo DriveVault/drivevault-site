@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>How to Compare Two Hard Drives and Detect Missing or Duplicate Files (Mac)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Learn how to compare two external drives on macOS, find missing files, and detect duplicates using DriveVault's powerful comparison tools." />
+
+  <!-- Favicon -->
+  <link rel="icon" href="https://i.ibb.co/fdsPzxk8/Drive-Vault-favicon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="https://i.ibb.co/fdsPzxk8/Drive-Vault-favicon.png" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="How to Compare Two Hard Drives and Detect Missing or Duplicate Files (Mac)">
+  <meta property="og:description" content="Compare drives, verify backups, and detect duplicates on macOS with DriveVault.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1587202372775-98974f1f24f9?auto=format&fit=crop&w=1600&q=80">
+  <meta property="og:url" content="https://yourdomain.com/blog/compare-two-drives.html">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root{ --bg:#0b0d12; --panel:#10141c; --panel-2:#0e1219; --border:rgba(255,255,255,.08);
+      --text:#e6e9ef; --muted:#9aa3b2; --accent:#6aa2ff; --accent-2:#9a6aff; --ok:#27d980; --maxw:880px; }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
+    .topbar{ position:fixed; top:0; left:0; right:0; height:64px; display:flex; align-items:center; justify-content:center;
+      backdrop-filter:saturate(140%) blur(10px); background:linear-gradient(to bottom, rgba(8,10,15,.78), rgba(8,10,15,.55)); border-bottom:1px solid var(--border); z-index:50; }
+    .topbar .wrap{ width:min(1200px,94vw); display:flex; align-items:center; gap:16px; }
+    .brand{ display:flex; align-items:center; gap:10px; text-decoration:none; color:#fff; font-weight:700; }
+    .brand img{ width:22px; height:22px }
+    .nav{ margin-left:auto; display:flex; gap:18px; }
+    .nav a{ color:#cfd6e4; text-decoration:none; font-size:14px; padding:8px 10px; border-radius:8px; }
+    .nav a:hover{ color:#fff; background:rgba(255,255,255,.06) }
+    .beta-btn{ padding:10px 14px; border-radius:10px; font-weight:700; font-size:14px; background:linear-gradient(135deg, var(--accent), var(--accent-2)); color:#fff; text-decoration:none; }
+    .beta-btn:hover{ box-shadow:0 8px 20px rgba(0,0,0,.45); }
+    main{ padding:calc(64px + 24px) 16px 100px; }
+    .container{ width:min(var(--maxw), 94vw); margin:0 auto; }
+    .hero{text-align:center;margin-bottom:18px}
+    h1{ font-size:clamp(26px,4.8vw,42px); font-weight:900; margin:8px 0 10px; }
+    .post-meta{ color:var(--muted); font-size:14px; }
+    .cover{ margin:18px 0 24px; border-radius:16px; overflow:hidden; border:1px solid var(--border); }
+    .cover img{ width:100%; aspect-ratio:16/9; object-fit:cover; }
+    article{ background:linear-gradient(180deg, var(--panel), var(--panel-2)); border:1px solid var(--border); border-radius:18px; padding:24px; }
+    article p{ margin:14px 0; color:#dfe6f4; }
+    article h2{ font-size:22px; margin-top:18px; }
+    article ul{ margin:12px 0 12px 20px; }
+    article li{ margin:6px 0; }
+    .cta-box{ margin:24px 0; padding:18px; border-radius:14px; background:rgba(255,255,255,.04); border:1px dashed var(--border); text-align:center; }
+    .cta-box a{ display:inline-block; margin-top:10px; padding:12px 18px; border-radius:12px; background:linear-gradient(135deg, var(--accent), var(--accent-2)); color:#fff; text-decoration:none; }
+    .post-nav{ margin-top:18px; display:flex; justify-content:space-between; gap:12px; }
+    .post-nav a{ flex:1; text-decoration:none; color:#e7f0ff; border:1px solid var(--border); background:rgba(255,255,255,.03); padding:14px; border-radius:12px; text-align:center; }
+    .float-cta{ position:fixed; right:16px; bottom:16px; padding:12px 14px; border-radius:12px; background:linear-gradient(135deg, var(--accent), var(--accent-2)); color:#fff; text-decoration:none; }
+  </style>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Compare Two Hard Drives and Detect Missing or Duplicate Files (Mac)",
+    "description": "Learn how to compare two external drives on macOS, find missing files, and detect duplicates using DriveVault.",
+    "image": "https://images.unsplash.com/photo-1587202372775-98974f1f24f9?auto=format&fit=crop&w=1600&q=80",
+    "datePublished": "2025-09-12",
+    "author": { "@type": "Organization", "name": "DriveVault" },
+    "publisher": { "@type": "Organization", "name": "DriveVault", "logo": { "@type": "ImageObject", "url": "https://i.ibb.co/fdsPzxk8/Drive-Vault-favicon.png" } }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="/">
+        <img src="https://i.ibb.co/fdsPzxk8/Drive-Vault-favicon.png" alt="DriveVault logo">
+        <span>DriveVault</span>
+      </a>
+      <nav class="nav">
+        <a href="/pricing.html">Pricing</a>
+        <a href="/changelog.html">Changelog</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/faq.html">FAQ</a>
+        <a class="beta-btn" href="https://testflight.apple.com/join/tVYkpxnm" target="_blank">Join The Public Beta</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <header class="hero">
+        <h1>How to Compare Two Hard Drives and Detect Missing or Duplicate Files (Mac)</h1>
+        <p class="post-meta">Published September 12, 2025 • 7 min read</p>
+        <div class="cover">
+          <img src="https://images.unsplash.com/photo-1587202372775-98974f1f24f9?auto=format&fit=crop&w=1600&q=80" alt="External hard drives and cables">
+        </div>
+      </header>
+
+      <article>
+        <p>Whether you’re backing up footage, syncing projects, or cleaning duplicates, comparing two hard drives on macOS is a chore. Doing it manually means hours of drag-and-drop checks and guesswork.</p>
+
+        <h2>The Smarter Way to Compare Drives</h2>
+        <p>DriveVault’s <strong>Drive Comparison</strong> feature scans two drives side by side, flagging missing files, duplicates, and mismatched folders. You’ll instantly see what’s safe, what’s redundant, and what’s missing.</p>
+
+        <ul>
+          <li><strong>Side-by-side view</strong> of two drive catalogs</li>
+          <li><strong>Duplicate detection</strong> across drives</li>
+          <li><strong>Missing file alerts</strong> so you know when a backup is incomplete</li>
+          <li><strong>Sync analysis</strong> to keep mirrors consistent</li>
+        </ul>
+
+        <h2>Why It Matters</h2>
+        <p>Redundant backups eat storage. Missing files risk projects. With DriveVault, you verify backups without plugging drives in and out endlessly, saving both time and data integrity.</p>
+
+        <h2>Step-by-Step: Using DriveVault Compare</h2>
+        <ol>
+          <li><strong>Scan both drives</strong> once into DriveVault.</li>
+          <li>Open the <span style="color:#a7c4ff">Compare</span> tool and select your two drives.</li>
+          <li>Review flagged duplicates, mismatches, and missing files.</li>
+          <li>Decide whether to clean, copy, or leave as is.</li>
+        </ol>
+
+        <div class="cta-box">
+          <strong>Stop guessing what’s on your backup drives.</strong>
+          <p>Compare, detect duplicates, and confirm backups in seconds.</p>
+          <a href="https://testflight.apple.com/join/tVYkpxnm" target="_blank">Join The Public Beta</a>
+        </div>
+
+        <h2>Pro Tips</h2>
+        <ul>
+          <li><strong>Run Compare before archiving</strong> to guarantee your backup matches the original.</li>
+          <li><strong>Delete duplicates smartly</strong> — confirm file size/date before removing.</li>
+          <li><strong>Generate a report</strong> for peace of mind when handing projects to clients.</li>
+        </ul>
+      </article>
+
+      <!-- Prev / Next -->
+      <nav class="post-nav">
+        <a href="/blog/organize-multiple-drives.html">← Previous: Organize Multiple Drives</a>
+        <a href="/blog.html">Back to Blog →</a>
+      </nav>
+    </div>
+  </main>
+
+  <!-- Floating CTA -->
+  <a class="float-cta" href="https://testflight.apple.com/join/tVYkpxnm" target="_blank">
+    Join The Public Beta →
+  </a>
+
+</body>
+</html>
