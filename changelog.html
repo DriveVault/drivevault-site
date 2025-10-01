@@ -121,6 +121,30 @@
       <h1 class="page-title">What’s New in DriveVault</h1>
       <p class="page-sub">Stay up to date with the latest features, improvements, and fixes.</p>
 
+
+      <!-- Version 1.13 -->
+<div class="changelog-item">
+  <button class="changelog-toggle">
+    <span>Version 1.13</span>
+    <span class="date">Oct 1, 2025</span>
+  </button>
+  <div class="changelog-content">
+    <ul>
+      <li><strong>Large Drive Scanning</strong> – Fixed failures/stalls for drives above 2TB (200,000+ files). Introduced new background partitioning logic for huge libraries. Scans now take ~3–6 mins per TB depending on complexity.</li>
+      <li><strong>Drive Scan UI Design</strong> – Completely redesigned UI with a clean, powerful look. “Full Scan with Offline Image Previews” is now the default.</li>
+      <li><strong>Lazy Loading</strong> – Implemented background lazy loading so large drives don’t stall/crash when browsing millions of files.</li>
+      <li><strong>Column Sorting</strong> – Fixed file size column sorting (now works on both first and second clicks).</li>
+      <li><strong>Library Stats Loading Screen</strong> – Added a loading screen when compiling stats so users know the app is working in the background. Large libraries may take longer to load.</li>
+      <li><strong>Upgraded Backup Mode</strong> – Smarter duplicate and backup detection. Files not backed up appear in <span style="color:#ff7d7d">red</span>, files found in multiple locations appear in <span style="color:#27d980">green</span>. Refreshes automatically after each scan.</li>
+      <li><strong>Updated Help Information</strong> – Help docs revised to reflect new features and changes.</li>
+      <li><strong>Removed “High Capacity Mode”</strong> – Feature replaced by the superior auto-partitioning system for large drive scans.</li>
+    </ul>
+    <p class="note">We’d love to hear your day-to-day feedback and see screenshots of your setups. Your input helps us build the best version of DriveVault possible — thank you!</p>
+  </div>
+</div>
+
+
+      
       <!-- Release: Public Beta -->
       <details class="release" open>
         <summary class="rel-head">
