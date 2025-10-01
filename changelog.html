@@ -44,12 +44,11 @@
     .page-title{ text-align:center; margin-bottom:10px; font-size:clamp(28px,4.5vw,40px); font-weight:900; }
     .page-sub{ text-align:center; color:var(--muted); margin-bottom:28px; }
 
-    /* Release card (using details/summary for native a11y expand) */
+    /* Release card */
     details.release{
       background:linear-gradient(180deg, var(--panel), var(--panel-2));
       border:1px solid var(--border);
       border-radius:14px;
-      padding:0;
       margin:16px 0;
       overflow:hidden;
       box-shadow:0 10px 30px rgba(0,0,0,.25);
@@ -67,51 +66,34 @@
     .chev{ margin-left:auto; transition:transform .25s ease; opacity:.75 }
     details[open] .chev{ transform:rotate(180deg) }
 
-    .highlights{
-      padding:0 18px 16px 18px; color:#dbe3f3; border-top:1px solid var(--border);
-    }
+    .highlights{ padding:0 18px 16px 18px; color:#dbe3f3; border-top:1px solid var(--border); }
     .highlights ul{ margin:12px 0 0 0; padding-left:20px }
     .highlights li{ margin:6px 0 }
 
-    .deep{
-      padding:16px 18px 18px 18px;
-      border-top:1px dashed var(--border);
-      display:grid; gap:10px;
-    }
+    .deep{ padding:16px 18px 18px 18px; border-top:1px dashed var(--border); display:grid; gap:10px; }
     .deep h4{ font-size:14px; color:#c7d0e2; text-transform:uppercase; letter-spacing:.2px; margin-top:6px }
     .deep ul{ margin:6px 0 0 0; padding-left:20px }
     .deep li{ margin:6px 0; color:#cfd6e4 }
     .foot-note{ margin-top:6px; font-size:12px; color:var(--muted) }
 
-    /* Tag pills */
     .tags{ display:flex; flex-wrap:wrap; gap:8px }
-    .tag{
-      font-size:11px; padding:4px 8px; border-radius:999px; border:1px solid var(--border); color:#aeb7c8;
-      background:rgba(255,255,255,.03);
-    }
-
-    /* Mobile */
-    @media (max-width:700px){
-      .rel-head{ align-items:flex-start; gap:8px; }
-      .meta-left{ flex-direction:column; align-items:flex-start; gap:8px }
-    }
+    .tag{ font-size:11px; padding:4px 8px; border-radius:999px; border:1px solid var(--border); color:#aeb7c8; background:rgba(255,255,255,.03); }
   </style>
 </head>
 <body>
 
-  <!-- Top header -->
   <header class="topbar" role="banner">
     <div class="wrap">
       <a class="brand" href="/">
         <img src="https://i.ibb.co/fdsPzxk8/Drive-Vault-favicon.png" alt="DriveVault logo">
         <span>DriveVault</span>
       </a>
-      <nav class="nav" role="navigation" aria-label="Primary">
+      <nav class="nav">
         <a href="/pricing.html">Pricing</a>
         <a href="/changelog.html" aria-current="page">Changelog</a>
         <a href="/blog.html">Blog</a>
         <a href="/faq.html">FAQ</a>
-        <a class="beta-btn" href="https://testflight.apple.com/join/tVYkpxnm" target="_blank" rel="noopener">Join The Public Beta</a>
+        <a class="beta-btn" href="https://testflight.apple.com/join/tVYkpxnm" target="_blank">Join The Public Beta</a>
       </nav>
     </div>
   </header>
@@ -121,32 +103,54 @@
       <h1 class="page-title">What’s New in DriveVault</h1>
       <p class="page-sub">Stay up to date with the latest features, improvements, and fixes.</p>
 
-
-      <!-- Version 1.13 -->
-<div class="changelog-item">
-  <button class="changelog-toggle">
-    <span>Version 1.13</span>
-    <span class="date">Oct 1, 2025</span>
-  </button>
-  <div class="changelog-content">
-    <ul>
-      <li><strong>Large Drive Scanning</strong> – Fixed failures/stalls for drives above 2TB (200,000+ files). Introduced new background partitioning logic for huge libraries. Scans now take ~3–6 mins per TB depending on complexity.</li>
-      <li><strong>Drive Scan UI Design</strong> – Completely redesigned UI with a clean, powerful look. “Full Scan with Offline Image Previews” is now the default.</li>
-      <li><strong>Lazy Loading</strong> – Implemented background lazy loading so large drives don’t stall/crash when browsing millions of files.</li>
-      <li><strong>Column Sorting</strong> – Fixed file size column sorting (now works on both first and second clicks).</li>
-      <li><strong>Library Stats Loading Screen</strong> – Added a loading screen when compiling stats so users know the app is working in the background. Large libraries may take longer to load.</li>
-      <li><strong>Upgraded Backup Mode</strong> – Smarter duplicate and backup detection. Files not backed up appear in <span style="color:#ff7d7d">red</span>, files found in multiple locations appear in <span style="color:#27d980">green</span>. Refreshes automatically after each scan.</li>
-      <li><strong>Updated Help Information</strong> – Help docs revised to reflect new features and changes.</li>
-      <li><strong>Removed “High Capacity Mode”</strong> – Feature replaced by the superior auto-partitioning system for large drive scans.</li>
-    </ul>
-    <p class="note">We’d love to hear your day-to-day feedback and see screenshots of your setups. Your input helps us build the best version of DriveVault possible — thank you!</p>
-  </div>
-</div>
-
-
-      
-      <!-- Release: Public Beta -->
+      <!-- Release: v1.13 -->
       <details class="release" open>
+        <summary class="rel-head">
+          <div class="meta-left">
+            <span class="badge">Improvements</span>
+            <span class="ver">v1.13</span>
+            <span class="date">October 1, 2025</span>
+            <div class="tags">
+              <span class="tag">Large Drive Scanning</span>
+              <span class="tag">UI</span>
+              <span class="tag">Performance</span>
+              <span class="tag">Backup</span>
+            </div>
+          </div>
+          <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </summary>
+
+        <div class="highlights">
+          <strong>Highlights</strong>
+          <ul>
+            <li>Fixed large drive scans failing or stalling at 50% with new auto-partitioning logic.</li>
+            <li>Redesigned Drive Scan UI with “Full Scan + Previews” default.</li>
+            <li>Added lazy loading for large libraries to prevent stalling.</li>
+            <li>Fixed column sorting for file size.</li>
+            <li>Added loading screen for Library Stats.</li>
+            <li>Smarter Backup Mode with refreshed duplicate detection.</li>
+          </ul>
+        </div>
+
+        <div class="deep">
+          <h4>Deeper Notes</h4>
+          <ul>
+            <li>New background partitioning handles drives above 2TB (200k+ files). Scans take ~3–6 mins per TB.</li>
+            <li>UI redesign aligns Drive Scan with DriveVault’s design standards.</li>
+            <li>Lazy loading ensures smooth navigation across massive catalogs.</li>
+            <li>Library Stats now shows a visible loading screen while compiling data.</li>
+            <li>Backup Mode refreshes automatically after each scan to highlight files not backed up (<span style="color:#ff7d7d">red</span>) and duplicates (<span style="color:#27d980">green</span>).</li>
+            <li>Help information updated to reflect new features.</li>
+            <li>Removed legacy “High Capacity Mode” — replaced with intelligent auto-partitioning.</li>
+          </ul>
+          <p class="foot-note">We’d love your feedback and screenshots — they help us make DriveVault the best it can be!</p>
+        </div>
+      </details>
+
+      <!-- Release: Public Beta -->
+      <details class="release">
         <summary class="rel-head">
           <div class="meta-left">
             <span class="badge">New Features</span>
@@ -162,8 +166,6 @@
             <path d="M6 9l6 6 6-6" />
           </svg>
         </summary>
-
-        <!-- Main highlights always visible in the card -->
         <div class="highlights">
           <strong>Highlights</strong>
           <ul>
@@ -172,18 +174,15 @@
             <li>Drive Library with custom icons, names, and online/offline status.</li>
           </ul>
         </div>
-
-        <!-- Deep notes revealed on expand -->
         <div class="deep">
           <h4>Deeper Notes</h4>
           <ul>
-            <li>EXIF/metadata search (camera, lens, date taken) and file-type filters.</li>
+            <li>EXIF/metadata search and file-type filters.</li>
             <li>Smart Collections: Recent Photos, Large Files, and Unlabeled.</li>
-            <li>Analytics dashboard: library totals, file-type breakdown, capacity charts.</li>
-            <li>Performance: background scanning for 500k+ files and intelligent thumbnail caching.</li>
-            <li>Security: local-only storage; optional password lock (Starter+ preview).</li>
+            <li>Analytics dashboard with file-type breakdown and charts.</li>
+            <li>Performance: background scanning for 500k+ files.</li>
+            <li>Security: local-only storage; optional password lock.</li>
           </ul>
-          <p class="foot-note"></p>
         </div>
       </details>
 
@@ -203,7 +202,6 @@
             <path d="M6 9l6 6 6-6" />
           </svg>
         </summary>
-
         <div class="highlights">
           <strong>Highlights</strong>
           <ul>
@@ -211,7 +209,6 @@
             <li>Smoother column navigation and better breadcrumb history.</li>
           </ul>
         </div>
-
         <div class="deep">
           <h4>Deeper Notes</h4>
           <ul>
@@ -238,7 +235,6 @@
             <path d="M6 9l6 6 6-6" />
           </svg>
         </summary>
-
         <div class="highlights">
           <strong>Highlights</strong>
           <ul>
@@ -246,7 +242,6 @@
             <li>Refined empty states and tooltips across the app.</li>
           </ul>
         </div>
-
         <div class="deep">
           <h4>Deeper Notes</h4>
           <ul>
@@ -260,6 +255,5 @@
       <p class="foot-note" style="text-align:center; margin-top:18px;">Want something added? <a href="https://drivevault.canny.io/feature-requests" target="_blank" rel="noopener" style="color:#a7c4ff; text-decoration:none;">Request a feature</a>.</p>
     </div>
   </main>
-
 </body>
 </html>
