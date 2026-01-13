@@ -152,17 +152,21 @@
 
     .note svg{ width: 16px; height: 16px; }
 
-    .note.n1{ left: 12%; top: 56%; }
-    .note.n2{ right: 10%; top: 42%; }
-    .note.n3{ left: 18%; top: 76%; }
-    .note.n4{ right: 18%; top: 62%; }
-    .note.n5{ left: 22%; top: 40%; }
-    .note.n6{ right: 22%; top: 30%; }
-    .note.n7{ left: 30%; top: 88%; }
-    .note.n8{ right: 30%; top: 84%; }
+    .note.n1{ left: 12%; top: 48%; }
+    .note.n2{ right: 10%; top: 34%; }
+    .note.n3{ left: 18%; top: 68%; }
+    .note.n4{ right: 18%; top: 54%; }
+    .note.n5{ left: 22%; top: 32%; }
+    .note.n6{ right: 22%; top: 22%; }
+    .note.n7{ left: 30%; top: 80%; }
+    .note.n8{ right: 30%; top: 76%; }
 
     @media (max-width: 900px){
       .note{ display:none; }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .note{ animation: none; }
     }
 
     @media (max-width: 520px){
