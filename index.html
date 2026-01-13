@@ -4,14 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>DriveVault - Offline Hard Drive Cataloguer for Mac</title>
-  <meta name="description" content="DriveVault scans your external drives once, then lets you browse and search them anytime - even when they are unplugged." />
+  <meta name="description" content="Scan once. Browse and search your external drives anytime - even when they are unplugged." />
 
-  <!-- Favicon (hosted on your domain) -->
   <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32">
   <link rel="shortcut icon" href="/favicon.png">
   <link rel="apple-touch-icon" href="/favicon.png">
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -20,13 +18,14 @@
     :root{
       --bg:#ffffff;
       --text:#0b0d12;
-      --muted:#5b6474;
+      --muted:#606a7a;
       --line:rgba(10,12,18,.10);
-      --shadow:0 18px 50px rgba(16,20,28,.10);
+      --shadow:0 24px 70px rgba(16,20,28,.10);
+      --shadow2:0 14px 40px rgba(16,20,28,.10);
       --accent:#2f6bff;
       --accent2:#6a5cff;
       --radius:22px;
-      --maxw:1160px;
+      --maxw:1180px;
     }
 
     *{box-sizing:border-box;margin:0;padding:0}
@@ -37,19 +36,19 @@
       overflow-x:hidden;
     }
 
-    /* Subtle Apple-ish background */
+    /* Subtle background */
     .bg{
       position:fixed; inset:0; z-index:-1;
       background:
-        radial-gradient(circle at 12% 10%, rgba(47,107,255,.10), transparent 46%),
-        radial-gradient(circle at 88% 18%, rgba(106,92,255,.10), transparent 46%),
-        radial-gradient(circle at 50% 88%, rgba(47,107,255,.06), transparent 54%);
+        radial-gradient(circle at 12% 12%, rgba(47,107,255,.10), transparent 45%),
+        radial-gradient(circle at 88% 18%, rgba(106,92,255,.10), transparent 45%),
+        radial-gradient(circle at 50% 92%, rgba(47,107,255,.06), transparent 55%);
     }
 
-    /* Topbar */
-    .topbar{
-      position:fixed;
-      top:0; left:0; right:0;
+    /* Header */
+    header{
+      position:sticky;
+      top:0;
       z-index:50;
       background:rgba(255,255,255,.82);
       backdrop-filter:saturate(140%) blur(10px);
@@ -58,241 +57,274 @@
     .wrap{
       width:min(var(--maxw), 94vw);
       margin:0 auto;
+      height:70px;
       display:flex;
       align-items:center;
       gap:14px;
-      height:66px;
     }
     .brand{
       display:flex; align-items:center; gap:10px;
       text-decoration:none; color:var(--text);
-      font-weight:800;
+      font-weight:900;
       letter-spacing:-.2px;
     }
     .brand img{ width:22px; height:22px; border-radius:6px; }
     .brand span{ font-size:15px; }
 
-    .nav{
+    nav{
       margin-left:auto;
       display:flex;
       align-items:center;
-      gap:10px;
+      gap:12px;
     }
-    .nav a{
+    nav a{
       text-decoration:none;
-      color:rgba(10,12,18,.72);
+      color:rgba(10,12,18,.70);
       font-size:14px;
       padding:10px 10px;
       border-radius:10px;
       transition:background .2s ease, color .2s ease;
     }
-    .nav a:hover{
+    nav a:hover{
       background:rgba(10,12,18,.05);
       color:rgba(10,12,18,.92);
     }
 
-    .cta-top{
-      margin-left:6px;
+    .cta{
+      margin-left:8px;
       display:inline-flex;
       align-items:center;
-      gap:8px;
+      justify-content:center;
       padding:10px 14px;
       border-radius:12px;
       font-size:14px;
-      font-weight:800;
+      font-weight:900;
       color:#fff;
       text-decoration:none;
       background:linear-gradient(135deg, var(--accent), var(--accent2));
-      box-shadow:0 10px 22px rgba(47,107,255,.18);
-      transition:transform .2s ease, box-shadow .2s ease;
+      box-shadow:0 14px 30px rgba(47,107,255,.18);
+      transition:transform .2s ease, box-shadow .2s ease, opacity .2s ease;
       white-space:nowrap;
     }
-    .cta-top:hover{
+    .cta:hover{
       transform:translateY(-1px);
-      box-shadow:0 16px 30px rgba(47,107,255,.22);
+      box-shadow:0 18px 36px rgba(47,107,255,.22);
+      opacity:.98;
     }
 
-    /* Main layout */
+    /* Page container */
     main{
       width:min(var(--maxw), 94vw);
       margin:0 auto;
-      padding:0 0 90px;
+      padding:44px 0 80px;
     }
 
-    /* Fullscreen hero */
+    /* HERO like the reference layout */
     .hero{
-      min-height:100vh;
-      padding-top:66px; /* offset fixed nav */
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap:28px;
+      align-items:start;
+      padding-top:10px;
     }
 
-    .hero-inner{
-      width:min(860px, 92vw);
-      padding:34px 18px 30px;
-      border-radius:28px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.74);
-      box-shadow:var(--shadow);
+    .hero-left{
+      padding-top:18px;
     }
 
-    .hero-logo{
-      width:70px;
-      height:70px;
+    .kicker{
       display:inline-flex;
       align-items:center;
-      justify-content:center;
-      border-radius:18px;
-      background:linear-gradient(135deg, rgba(47,107,255,.14), rgba(106,92,255,.12));
-      border:1px solid rgba(47,107,255,.18);
-      box-shadow:0 18px 40px rgba(16,20,28,.08);
-      margin-bottom:16px;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(47,107,255,.08);
+      border:1px solid rgba(47,107,255,.14);
+      color:rgba(47,107,255,.95);
+      font-size:13px;
+      font-weight:700;
+      width:fit-content;
+      margin-bottom:14px;
     }
-    .hero-logo img{
-      width:38px;
-      height:38px;
-      display:block;
-    }
-
-    .hero-brand{
-      font-size:15px;
-      font-weight:900;
-      letter-spacing:-.2px;
-      margin-bottom:10px;
-      color:rgba(10,12,18,.90);
+    .kdot{
+      width:8px;height:8px;border-radius:50%;
+      background:linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow:0 0 0 6px rgba(47,107,255,.10);
     }
 
     h1{
-      font-size:clamp(38px, 6vw, 68px);
-      line-height:1.02;
-      letter-spacing:-1.2px;
+      font-size:clamp(46px, 5.8vw, 72px);
+      line-height:1.03;
+      letter-spacing:-1.4px;
       font-weight:900;
       margin-bottom:12px;
     }
 
-    .hero-sub{
-      color:var(--muted);
-      font-size:clamp(16px, 1.6vw, 18px);
-      line-height:1.55;
-      max-width:60ch;
-      margin:0 auto 18px;
+    .hero-right-top{
+      padding-top:34px;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      gap:14px;
     }
 
-    /* App Store badge button */
-    .appstore-badge{
+    .hero-copy{
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.6;
+      text-align:right;
+      max-width:420px;
+    }
+
+    .hero-actions{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      justify-content:flex-end;
+      width:100%;
+    }
+
+    .btn{
       display:inline-flex;
       align-items:center;
+      justify-content:center;
       gap:10px;
       padding:12px 16px;
       border-radius:14px;
-      text-decoration:none;
-      background:#000;
-      color:#fff;
-      box-shadow:0 16px 34px rgba(0,0,0,.14);
-      transition:transform .2s ease, box-shadow .2s ease, opacity .2s ease;
-      user-select:none;
-    }
-    .appstore-badge:hover{
-      transform:translateY(-1px);
-      box-shadow:0 22px 44px rgba(0,0,0,.18);
-      opacity:.96;
-    }
-    .appstore-badge:active{
-      transform:translateY(0px);
-      box-shadow:0 14px 28px rgba(0,0,0,.14);
-    }
-    .appstore-badge svg{
-      width:18px;
-      height:18px;
-      fill:#fff;
-      flex:0 0 auto;
-    }
-    .appstore-text{
-      display:flex;
-      flex-direction:column;
-      line-height:1.05;
-      text-align:left;
-    }
-    .appstore-text small{
-      font-size:11px;
-      color:rgba(255,255,255,.72);
-      font-weight:600;
-      letter-spacing:.2px;
-    }
-    .appstore-text strong{
-      font-size:14px;
-      font-weight:900;
-      letter-spacing:.1px;
-    }
-
-    .hero-note{
-      margin-top:14px;
-      font-size:12px;
-      color:rgba(10,12,18,.55);
-    }
-
-    /* Below-hero content */
-    .section{
-      margin-top:18px;
       border:1px solid var(--line);
-      border-radius:var(--radius);
       background:#fff;
-      box-shadow:0 16px 45px rgba(16,20,28,.08);
-      overflow:hidden;
-    }
-    .section-inner{
-      padding:22px;
-      display:grid;
-      grid-template-columns:1.1fr .9fr;
-      gap:16px;
-      align-items:center;
-    }
-    .section h2{
-      font-size:22px;
+      color:rgba(10,12,18,.86);
+      text-decoration:none;
       font-weight:900;
-      letter-spacing:-.4px;
-      margin-bottom:10px;
-    }
-    .bullets{
-      display:grid;
-      gap:10px;
-      margin-top:6px;
-    }
-    .bullet{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      color:rgba(10,12,18,.72);
       font-size:14px;
-      line-height:1.5;
+      box-shadow:0 10px 25px rgba(16,20,28,.06);
+      transition:transform .2s ease, box-shadow .2s ease, background .2s ease;
+      white-space:nowrap;
     }
-    .check{
-      width:20px;height:20px;border-radius:8px;
-      background:rgba(39,217,128,.14);
-      border:1px solid rgba(39,217,128,.22);
-      display:flex;align-items:center;justify-content:center;
-      flex:0 0 auto;
-      margin-top:1px;
+    .btn:hover{
+      transform:translateY(-1px);
+      box-shadow:0 14px 32px rgba(16,20,28,.08);
+      background:rgba(10,12,18,.02);
     }
-    .check svg{ width:14px;height:14px; stroke:rgba(10,12,18,.85); fill:none; stroke-width:2; }
+
+    .btn.primary{
+      border:none;
+      background:linear-gradient(135deg, var(--accent), var(--accent2));
+      color:#fff;
+      box-shadow:0 16px 34px rgba(47,107,255,.18);
+    }
+    .btn.primary:hover{
+      background:linear-gradient(135deg, #2a62f0, #5e52f1);
+      box-shadow:0 20px 44px rgba(47,107,255,.22);
+    }
+
+    /* Big showcase */
+    .showcase{
+      grid-column:1 / -1;
+      margin-top:26px;
+      border-radius:28px;
+      border:1px solid var(--line);
+      background:#fff;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      position:relative;
+      min-height:520px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .showcase:before{
+      content:"";
+      position:absolute;
+      inset:-40% -20%;
+      background:
+        radial-gradient(circle at 35% 35%, rgba(47,107,255,.14), transparent 45%),
+        radial-gradient(circle at 70% 40%, rgba(106,92,255,.10), transparent 46%),
+        radial-gradient(circle at 50% 80%, rgba(10,12,18,.04), transparent 55%);
+      filter:blur(10px);
+      opacity:.9;
+    }
 
     .mock{
-      border:1px solid var(--line);
-      border-radius:18px;
+      position:relative;
+      width:min(780px, 86%);
+      border-radius:20px;
       overflow:hidden;
-      box-shadow:0 12px 28px rgba(16,20,28,.08);
+      border:1px solid rgba(10,12,18,.08);
+      box-shadow:0 26px 70px rgba(16,20,28,.16);
       background:#fff;
     }
-    .mock img{ width:100%; height:auto; display:block; }
+    .mock img{
+      width:100%;
+      height:auto;
+      display:block;
+    }
 
+    /* Floating callouts (like the reference) */
+    .callout{
+      position:absolute;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:12px 14px;
+      border-radius:14px;
+      background:#fff;
+      border:1px solid rgba(10,12,18,.10);
+      box-shadow:0 18px 50px rgba(16,20,28,.12);
+      color:rgba(10,12,18,.82);
+      font-size:13px;
+      font-weight:800;
+      white-space:nowrap;
+    }
+
+    .callout .chip{
+      width:30px;height:30px;border-radius:12px;
+      display:flex;align-items:center;justify-content:center;
+      background:rgba(47,107,255,.10);
+      border:1px solid rgba(47,107,255,.16);
+      flex:0 0 auto;
+    }
+    .callout svg{ width:16px;height:16px; stroke:rgba(10,12,18,.82); fill:none; stroke-width:2; }
+
+    .c1{ left:5.5%; top:44%; }
+    .c2{ right:6.5%; top:42%; }
+    .c3{ left:10%; bottom:16%; }
+
+    /* Trusted row */
+    .trusted{
+      margin-top:22px;
+      text-align:center;
+      color:rgba(10,12,18,.42);
+      font-size:13px;
+      font-weight:700;
+    }
+    .logos{
+      margin-top:12px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:22px;
+      justify-content:center;
+      opacity:.55;
+      user-select:none;
+    }
+    .logo-pill{
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(10,12,18,.08);
+      background:rgba(255,255,255,.7);
+      font-weight:900;
+      letter-spacing:.5px;
+      font-size:12px;
+    }
+
+    /* Footer */
     footer{
       width:min(var(--maxw), 94vw);
       margin:0 auto;
-      padding:28px 0 40px;
+      padding:26px 0 40px;
       border-top:1px solid var(--line);
-      color:rgba(10,12,18,.62);
+      color:rgba(10,12,18,.60);
       font-size:13px;
       display:flex;
       flex-wrap:wrap;
@@ -307,13 +339,24 @@
     }
     footer a:hover{ text-decoration:underline; }
 
+    /* Mobile */
     @media (max-width:980px){
-      .nav a{ display:none; }
-      .cta-top{ display:none; }
-      .section-inner{ grid-template-columns:1fr; }
-      .hero-inner{ padding:26px 16px 22px; }
-      .hero-logo{ width:62px;height:62px; border-radius:16px; }
-      .hero-logo img{ width:34px;height:34px; }
+      .hero{ grid-template-columns:1fr; gap:18px; }
+      .hero-right-top{ align-items:flex-start; padding-top:4px; }
+      .hero-copy{ text-align:left; }
+      .hero-actions{ justify-content:flex-start; flex-wrap:wrap; }
+      .showcase{ min-height:420px; }
+      .c1{ left:6%; top:16%; }
+      .c2{ right:6%; top:18%; }
+      .c3{ left:6%; bottom:10%; }
+    }
+    @media (max-width:720px){
+      nav a{ display:none; }
+      .cta{ display:none; }
+      h1{ font-size:clamp(38px, 9vw, 50px); }
+      .showcase{ min-height:360px; border-radius:22px; }
+      .callout{ font-size:12px; padding:10px 12px; }
+      .callout .chip{ width:28px;height:28px; border-radius:11px; }
     }
   </style>
 </head>
@@ -321,87 +364,90 @@
 <body>
   <div class="bg"></div>
 
-  <!-- Header -->
-  <header class="topbar" role="banner">
+  <header>
     <div class="wrap">
       <a class="brand" href="/">
         <img src="/favicon.png" alt="DriveVault logo">
         <span>DriveVault</span>
       </a>
 
-      <nav class="nav" role="navigation" aria-label="Primary">
+      <nav aria-label="Primary">
         <a href="/pricing.html">Pricing</a>
         <a href="/changelog.html">Changelog</a>
         <a href="/blog.html">Blog</a>
         <a href="/faq.html">FAQ</a>
-
-        <!-- Replace when live -->
-        <a class="cta-top" href="APP_STORE_URL_HERE" aria-label="Download on the App Store">Download on the App Store</a>
+        <a class="cta" href="APP_STORE_URL_HERE">Download on the App Store</a>
       </nav>
     </div>
   </header>
 
   <main>
-    <!-- FULLSCREEN HERO -->
     <section class="hero">
-      <div class="hero-inner">
-        <div class="hero-logo" aria-hidden="true">
-          <!-- Using your eye icon (favicon) as the hero icon -->
-          <img src="/favicon.png" alt="">
-        </div>
-
-        <div class="hero-brand">DriveVault</div>
-
-        <h1>Scan once. <br>Search forever.</h1>
-
-        <p class="hero-sub">
-          DriveVault scans your external drives once, then lets you browse and search them any time, even when they are unplugged.
-        </p>
-
-        <!-- App Store badge -->
-        <a class="appstore-badge" href="APP_STORE_URL_HERE" aria-label="Download now on the App Store">
-          <svg viewBox="0 0 384 512" aria-hidden="true">
-            <path d="M318.7 268.7c-.4-52.9 43.2-78.2 45.1-79.4-24.6-35.9-62.9-40.8-76.5-41.3-32.6-3.3-63.6 19.2-80.1 19.2-16.6 0-42.3-18.7-69.5-18.2-35.7.5-68.6 20.7-86.9 52.7-37 64.2-9.5 159.2 26.5 211.3 17.6 25.5 38.6 54.2 66.2 53.2 26.6-1.1 36.6-17.2 68.6-17.2 32 0 41 17.2 69.1 16.7 28.6-.5 46.7-26 64.2-51.6 20.2-29.6 28.6-58.3 29-59.8-.6-.3-55.6-21.4-56.1-85.8zM259.5 80.6c14.6-17.7 24.5-42.3 21.8-66.6-21.1.8-46.6 14.1-61.7 31.8-13.6 15.7-25.5 40.9-22.3 65 23.6 1.8 47.6-12 62.2-30.2z"/>
-          </svg>
-          <span class="appstore-text">
-            <small>Download now on the</small>
-            <strong>App Store</strong>
-          </span>
-        </a>
-
-        <div class="hero-note">Mac-first. Offline by design. Built for serious archives.</div>
+      <!-- Left: big headline -->
+      <div class="hero-left">
+        <div class="kicker"><span class="kdot"></span> Offline hard drive cataloguer for Mac</div>
+        <h1>Scan once.<br>Search forever.</h1>
       </div>
-    </section>
 
-    <!-- BELOW HERO: quick explanation + mock -->
-    <section class="section">
-      <div class="section-inner">
-        <div>
-          <h2>Built for people who live on external drives</h2>
-          <div class="bullets">
-            <div class="bullet">
-              <div class="check">
-                <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
-              </div>
-              <div>Browse your archive even when drives are unplugged. No more guessing where files are.</div>
-            </div>
-            <div class="bullet">
-              <div class="check">
-                <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
-              </div>
-              <div>Powerful search across names, file types, dates, metadata, tags, and notes.</div>
-            </div>
-            <div class="bullet">
-              <div class="check">
-                <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
-              </div>
-              <div>Compare drives and verify backups so you know what is duplicated and what is not backed up.</div>
-            </div>
-          </div>
+      <!-- Right: short copy + button aligned right like reference -->
+      <div class="hero-right-top">
+        <p class="hero-copy">
+          DriveVault turns external drives into an offline, searchable library so you can find anything instantly - even when drives are unplugged.
+        </p>
+        <div class="hero-actions">
+          <a class="btn primary" href="APP_STORE_URL_HERE">Download on the App Store</a>
+          <a class="btn" href="/faq.html">Learn more</a>
         </div>
+      </div>
 
+      <!-- Big image / mock section -->
+      <div class="showcase">
         <div class="mock">
           <img src="https://i.ibb.co/N6vPTTT8/Mac-Studio-Mockup2.png" alt="DriveVault app screenshot">
+        </div>
+
+        <!-- Floating callouts -->
+        <div class="callout c1">
+          <span class="chip">
+            <svg viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="6"></circle>
+              <path d="M20 20l-3.5-3.5"></path>
+            </svg>
+          </span>
+          Fast global search
+        </div>
+
+        <div class="callout c2">
+          <span class="chip">
+            <svg viewBox="0 0 24 24">
+              <path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4"></path>
+              <path d="M14 20h4a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-4"></path>
+              <path d="M10 12h4"></path>
+            </svg>
+          </span>
+          Compare drives
+        </div>
+
+        <div class="callout c3">
+          <span class="chip">
+            <svg viewBox="0 0 24 24">
+              <path d="M7 3h10v18H7z"></path>
+              <path d="M9 7h6M9 11h6M9 15h6"></path>
+            </svg>
+          </span>
+          Reports and library stats
+        </div>
+      </div>
+
+      <!-- Trusted row -->
+      <div class="trusted">
+        Trusted by creators managing serious archives
+        <div class="logos" aria-hidden="true">
+          <div class="logo-pill">FILMMAKERS</div>
+          <div class="logo-pill">PHOTOGRAPHERS</div>
+          <div class="logo-pill">EDITORS</div>
+          <div class="logo-pill">STUDIOS</div>
+          <div class="logo-pill">AGENCIES</div>
         </div>
       </div>
     </section>
