@@ -105,6 +105,7 @@
       position: relative;
       margin-top: 44px;
       padding-bottom: 10px;
+      transform: translateY(-26px);
     }
 
     .hero-visual img{
@@ -131,7 +132,32 @@
       font-weight: 600;
       white-space: nowrap;
       backdrop-filter: blur(10px);
+      transform-origin: center;
+      transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease, filter .28s ease;
+      will-change: transform;
+      animation: floaty 7.5s ease-in-out infinite;
     }
+
+    .note:hover{
+      transform: translateY(-2px) scale(1.04);
+      border-color: rgba(47,107,255,0.22);
+      box-shadow: 0 22px 54px rgba(0,0,0,0.14), 0 0 18px rgba(47,107,255,0.16);
+      filter: saturate(1.05);
+    }
+
+    @keyframes floaty{
+      0%,100%{ transform: translateY(0px) }
+      50%{ transform: translateY(-6px) }
+    }
+
+    .note.n1{ left: 12%; top: 48%; }
+    .note.n2{ right: 10%; top: 34%; }
+    .note.n3{ left: 18%; top: 68%; }
+    .note.n4{ right: 18%; top: 54%; }
+    .note.n5{ left: 22%; top: 32%; }
+    .note.n6{ right: 22%; top: 22%; }
+    .note.n7{ left: 30%; top: 80%; }
+    .note.n8{ right: 30%; top: 76%; }
 
     .note .icon{
       width: 28px;
@@ -146,14 +172,14 @@
 
     .note svg{ width: 16px; height: 16px; }
 
-    .note.n1{ left: 12%; top: 48%; }
-    .note.n2{ right: 10%; top: 34%; }
-    .note.n3{ left: 18%; top: 68%; }
-    .note.n4{ right: 18%; top: 54%; }
-    .note.n5{ left: 22%; top: 32%; }
-    .note.n6{ right: 22%; top: 22%; }
-    .note.n7{ left: 30%; top: 80%; }
-    .note.n8{ right: 30%; top: 76%; }
+    .note.n1{ left: 12%; top: 56%; }
+    .note.n2{ right: 10%; top: 42%; }
+    .note.n3{ left: 18%; top: 76%; }
+    .note.n4{ right: 18%; top: 62%; }
+    .note.n5{ left: 22%; top: 40%; }
+    .note.n6{ right: 22%; top: 30%; }
+    .note.n7{ left: 30%; top: 88%; }
+    .note.n8{ right: 30%; top: 84%; }
 
     @media (max-width: 900px){
       .note{ display:none; }
@@ -252,7 +278,44 @@
       filter: drop-shadow(0 40px 80px rgba(0,0,0,0.18));
     }
 
-  </style>
+  
+
+    /* --- DriveVault chip polish overrides (Jan 2026) --- */
+    .hero-visual{ transform: translateY(-26px) !important; }
+
+    .note{
+      animation: dvFloaty 7.5s ease-in-out infinite !important;
+      transform-origin: center;
+      will-change: transform;
+      transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease, filter .28s ease !important;
+    }
+    .note:hover{
+      transform: translateY(-2px) scale(1.04) !important;
+      border-color: rgba(47,107,255,0.22) !important;
+      box-shadow: 0 22px 54px rgba(0,0,0,0.14), 0 0 18px rgba(47,107,255,0.16) !important;
+      filter: saturate(1.05) !important;
+    }
+
+    @keyframes dvFloaty{
+      0%,100%{ transform: translateY(0px) }
+      50%{ transform: translateY(-6px) }
+    }
+
+    /* Stagger so they don't move in sync */
+    .note.n1{ animation-delay: 0.0s !important; left:12% !important; top:48% !important; }
+    .note.n2{ animation-delay: -1.1s !important; right:10% !important; top:34% !important; }
+    .note.n3{ animation-delay: -2.2s !important; left:18% !important; top:68% !important; }
+    .note.n4{ animation-delay: -3.3s !important; right:18% !important; top:54% !important; }
+    .note.n5{ animation-delay: -4.1s !important; left:22% !important; top:32% !important; }
+    .note.n6{ animation-delay: -5.0s !important; right:22% !important; top:22% !important; }
+    .note.n7{ animation-delay: -5.8s !important; left:30% !important; top:80% !important; }
+    .note.n8{ animation-delay: -6.6s !important; right:30% !important; top:76% !important; }
+
+    @media (prefers-reduced-motion: reduce){
+      .note{ animation: none !important; }
+    }
+
+</style>
 
 
 </head>
