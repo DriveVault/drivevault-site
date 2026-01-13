@@ -1,3 +1,9 @@
+<!-- DriveVault Homepage Canvas -->
+
+
+<!-- This file will be edited in-place going forward -->
+
+
 <!DOCTYPE html>
 
 
@@ -139,10 +145,11 @@
     }
 
     .note:hover{
-      transform: translateY(-2px) scale(1.04);
-      border-color: rgba(47,107,255,0.22);
-      box-shadow: 0 22px 54px rgba(0,0,0,0.14), 0 0 18px rgba(47,107,255,0.16);
-      filter: saturate(1.05);
+      animation-play-state: paused !important;
+      transform: translateY(-2px) scale(1.04) !important;
+      border-color: rgba(47,107,255,0.22) !important;
+      box-shadow: 0 22px 54px rgba(0,0,0,0.14), 0 0 18px rgba(47,107,255,0.16) !important;
+      filter: saturate(1.05) !important;
     }
 
     @keyframes floaty{
@@ -150,14 +157,14 @@
       50%{ transform: translateY(-6px) }
     }
 
-    .note.n1{ left: 12%; top: 48%; }
-    .note.n2{ right: 10%; top: 34%; }
-    .note.n3{ left: 18%; top: 68%; }
-    .note.n4{ right: 18%; top: 54%; }
-    .note.n5{ left: 22%; top: 32%; }
-    .note.n6{ right: 22%; top: 22%; }
-    .note.n7{ left: 30%; top: 80%; }
-    .note.n8{ right: 30%; top: 76%; }
+    .note.n1{ animation-delay: 0.0s !important; left:12% !important; top:42% !important; }
+    .note.n2{ animation-delay: -1.1s !important; right:10% !important; top:28% !important; }
+    .note.n3{ animation-delay: -2.2s !important; left:18% !important; top:62% !important; }
+    .note.n4{ animation-delay: -3.3s !important; right:18% !important; top:48% !important; }
+    .note.n5{ animation-delay: -4.1s !important; left:22% !important; top:24% !important; }
+    .note.n6{ animation-delay: -5.0s !important; right:22% !important; top:16% !important; }
+    .note.n7{ animation-delay: -5.8s !important; left:30% !important; top:74% !important; }
+    .note.n8{ animation-delay: -6.6s !important; right:30% !important; top:70% !important; }
 
     .note .icon{
       width: 28px;
@@ -299,6 +306,18 @@
     @keyframes dvFloaty{
       0%,100%{ transform: translateY(0px) }
       50%{ transform: translateY(-6px) }
+    }
+
+    /* Make hover smooth across browsers */
+    .note{ transition: transform .32s cubic-bezier(.2,.8,.2,1), box-shadow .28s ease, border-color .28s ease, filter .28s ease !important; }
+
+    /* Slightly larger hero mockup */
+    .hero-visual .mockup img,
+    .hero-visual .hero-mockup img,
+    .hero-visual img.mac,
+    .hero-visual img[alt*="Mac"]{
+      width: min(980px, 92vw) !important;
+      max-width: 980px !important;
     }
 
     /* Stagger so they don't move in sync */
