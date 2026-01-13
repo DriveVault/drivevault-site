@@ -1,110 +1,467 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Favicon -->
-<link rel="icon" href="/favicon.png" type="image/png" sizes="32x32">
-<link rel="shortcut icon" href="/favicon.png">
-<link rel="apple-touch-icon" href="/favicon.png">
-  <meta charset="UTF-8">
-  <title>Privacy Policy - DriveVault</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DriveVault - Offline Hard Drive Cataloguer for Mac</title>
+  <meta name="description" content="Scan once. Browse and search your external drives anytime - even when they are unplugged." />
+
+  <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
   <style>
-    :root { --bg:#0b0d12; --text:#e6e9ef; --muted:#9aa3b2; --accent:#6aa2ff; }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: Inter, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      padding: 40px 20px;
-      line-height: 1.7;
-      overflow-y: auto;   /* enable vertical scroll */
-      overflow-x: hidden; /* prevent sideways scroll */
+    :root{
+      --bg:#ffffff;
+      --text:#0b0d12;
+      --muted:#606a7a;
+      --line:rgba(10,12,18,.10);
+      --shadow:0 24px 70px rgba(16,20,28,.10);
+      --shadow2:0 14px 40px rgba(16,20,28,.10);
+      --accent:#2f6bff;
+      --accent2:#6a5cff;
+      --radius:22px;
+      --maxw:1180px;
     }
 
-    /* Mesh gradient background (same as homepage) */
-    .mesh-bg {
-      position: fixed; inset: 0; z-index: -1;
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      overflow-x:hidden;
+    }
+
+    /* Subtle background */
+    .bg{
+      position:fixed; inset:0; z-index:-1;
       background:
-        radial-gradient(circle at 25% 30%, rgba(30,60,114,.25), transparent 60%),
-        radial-gradient(circle at 75% 40%, rgba(36,99,175,.20), transparent 60%),
-        radial-gradient(circle at 50% 70%, rgba(15,32,60,.30), transparent 60%);
-      background-size: 200% 200%;
-      animation: meshShift 25s ease-in-out infinite alternate;
-      filter: blur(80px);
-      pointer-events: none; /* don't block scroll/clicks */
+        radial-gradient(circle at 12% 12%, rgba(47,107,255,.10), transparent 45%),
+        radial-gradient(circle at 88% 18%, rgba(106,92,255,.10), transparent 45%),
+        radial-gradient(circle at 50% 92%, rgba(47,107,255,.06), transparent 55%);
     }
-    @keyframes meshShift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
 
-    main { max-width: 900px; margin: 0 auto; position: relative; z-index: 1; padding-bottom: 80px; }
-    h1 { font-size: 36px; font-weight: 800; margin-bottom: 20px; text-align: center; }
-    h2 { font-size: 22px; font-weight: 600; margin: 36px 0 12px; color: var(--accent); }
-    p, li { font-size: 16px; margin-bottom: 14px; }
-    ul { padding-left: 20px; margin-bottom: 8px; }
-    a { color: var(--accent); text-decoration: none; } a:hover { text-decoration: underline; }
-    .meta { color: var(--muted); text-align: center; margin-bottom: 24px; }
-    footer { margin-top: 60px; font-size: 14px; color: var(--muted); text-align: center; }
+    /* Header */
+    header{
+      position:sticky;
+      top:0;
+      z-index:50;
+      background:rgba(255,255,255,.82);
+      backdrop-filter:saturate(140%) blur(10px);
+      border-bottom:1px solid var(--line);
+    }
+    .wrap{
+      width:min(var(--maxw), 94vw);
+      margin:0 auto;
+      height:70px;
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      text-decoration:none; color:var(--text);
+      font-weight:900;
+      letter-spacing:-.2px;
+    }
+    .brand img{ width:22px; height:22px; border-radius:6px; }
+    .brand span{ font-size:15px; }
+
+    nav{
+      margin-left:auto;
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    nav a{
+      text-decoration:none;
+      color:rgba(10,12,18,.70);
+      font-size:14px;
+      padding:10px 10px;
+      border-radius:10px;
+      transition:background .2s ease, color .2s ease;
+    }
+    nav a:hover{
+      background:rgba(10,12,18,.05);
+      color:rgba(10,12,18,.92);
+    }
+
+    .cta{
+      margin-left:8px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:10px 14px;
+      border-radius:12px;
+      font-size:14px;
+      font-weight:900;
+      color:#fff;
+      text-decoration:none;
+      background:linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow:0 14px 30px rgba(47,107,255,.18);
+      transition:transform .2s ease, box-shadow .2s ease, opacity .2s ease;
+      white-space:nowrap;
+    }
+    .cta:hover{
+      transform:translateY(-1px);
+      box-shadow:0 18px 36px rgba(47,107,255,.22);
+      opacity:.98;
+    }
+
+    /* Page container */
+    main{
+      width:min(var(--maxw), 94vw);
+      margin:0 auto;
+      padding:44px 0 80px;
+    }
+
+    /* HERO like the reference layout */
+    .hero{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap:28px;
+      align-items:start;
+      padding-top:10px;
+    }
+
+    .hero-left{
+      padding-top:18px;
+    }
+
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(47,107,255,.08);
+      border:1px solid rgba(47,107,255,.14);
+      color:rgba(47,107,255,.95);
+      font-size:13px;
+      font-weight:700;
+      width:fit-content;
+      margin-bottom:14px;
+    }
+    .kdot{
+      width:8px;height:8px;border-radius:50%;
+      background:linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow:0 0 0 6px rgba(47,107,255,.10);
+    }
+
+    h1{
+      font-size:clamp(46px, 5.8vw, 72px);
+      line-height:1.03;
+      letter-spacing:-1.4px;
+      font-weight:900;
+      margin-bottom:12px;
+    }
+
+    .hero-right-top{
+      padding-top:34px;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      gap:14px;
+    }
+
+    .hero-copy{
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.6;
+      text-align:right;
+      max-width:420px;
+    }
+
+    .hero-actions{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      justify-content:flex-end;
+      width:100%;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:12px 16px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:#fff;
+      color:rgba(10,12,18,.86);
+      text-decoration:none;
+      font-weight:900;
+      font-size:14px;
+      box-shadow:0 10px 25px rgba(16,20,28,.06);
+      transition:transform .2s ease, box-shadow .2s ease, background .2s ease;
+      white-space:nowrap;
+    }
+    .btn:hover{
+      transform:translateY(-1px);
+      box-shadow:0 14px 32px rgba(16,20,28,.08);
+      background:rgba(10,12,18,.02);
+    }
+
+    .btn.primary{
+      border:none;
+      background:linear-gradient(135deg, var(--accent), var(--accent2));
+      color:#fff;
+      box-shadow:0 16px 34px rgba(47,107,255,.18);
+    }
+    .btn.primary:hover{
+      background:linear-gradient(135deg, #2a62f0, #5e52f1);
+      box-shadow:0 20px 44px rgba(47,107,255,.22);
+    }
+
+    /* Big showcase */
+    .showcase{
+      grid-column:1 / -1;
+      margin-top:26px;
+      border-radius:28px;
+      border:1px solid var(--line);
+      background:#fff;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      position:relative;
+      min-height:520px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .showcase:before{
+      content:"";
+      position:absolute;
+      inset:-40% -20%;
+      background:
+        radial-gradient(circle at 35% 35%, rgba(47,107,255,.14), transparent 45%),
+        radial-gradient(circle at 70% 40%, rgba(106,92,255,.10), transparent 46%),
+        radial-gradient(circle at 50% 80%, rgba(10,12,18,.04), transparent 55%);
+      filter:blur(10px);
+      opacity:.9;
+    }
+
+    .mock{
+      position:relative;
+      width:min(780px, 86%);
+      border-radius:20px;
+      overflow:hidden;
+      border:1px solid rgba(10,12,18,.08);
+      box-shadow:0 26px 70px rgba(16,20,28,.16);
+      background:#fff;
+    }
+    .mock img{
+      width:100%;
+      height:auto;
+      display:block;
+    }
+
+    /* Floating callouts (like the reference) */
+    .callout{
+      position:absolute;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:12px 14px;
+      border-radius:14px;
+      background:#fff;
+      border:1px solid rgba(10,12,18,.10);
+      box-shadow:0 18px 50px rgba(16,20,28,.12);
+      color:rgba(10,12,18,.82);
+      font-size:13px;
+      font-weight:800;
+      white-space:nowrap;
+    }
+
+    .callout .chip{
+      width:30px;height:30px;border-radius:12px;
+      display:flex;align-items:center;justify-content:center;
+      background:rgba(47,107,255,.10);
+      border:1px solid rgba(47,107,255,.16);
+      flex:0 0 auto;
+    }
+    .callout svg{ width:16px;height:16px; stroke:rgba(10,12,18,.82); fill:none; stroke-width:2; }
+
+    .c1{ left:5.5%; top:44%; }
+    .c2{ right:6.5%; top:42%; }
+    .c3{ left:10%; bottom:16%; }
+
+    /* Trusted row */
+    .trusted{
+      margin-top:22px;
+      text-align:center;
+      color:rgba(10,12,18,.42);
+      font-size:13px;
+      font-weight:700;
+    }
+    .logos{
+      margin-top:12px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:22px;
+      justify-content:center;
+      opacity:.55;
+      user-select:none;
+    }
+    .logo-pill{
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(10,12,18,.08);
+      background:rgba(255,255,255,.7);
+      font-weight:900;
+      letter-spacing:.5px;
+      font-size:12px;
+    }
+
+    /* Footer */
+    footer{
+      width:min(var(--maxw), 94vw);
+      margin:0 auto;
+      padding:26px 0 40px;
+      border-top:1px solid var(--line);
+      color:rgba(10,12,18,.60);
+      font-size:13px;
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    footer a{
+      color:rgba(10,12,18,.70);
+      text-decoration:none;
+      margin-right:12px;
+    }
+    footer a:hover{ text-decoration:underline; }
+
+    /* Mobile */
+    @media (max-width:980px){
+      .hero{ grid-template-columns:1fr; gap:18px; }
+      .hero-right-top{ align-items:flex-start; padding-top:4px; }
+      .hero-copy{ text-align:left; }
+      .hero-actions{ justify-content:flex-start; flex-wrap:wrap; }
+      .showcase{ min-height:420px; }
+      .c1{ left:6%; top:16%; }
+      .c2{ right:6%; top:18%; }
+      .c3{ left:6%; bottom:10%; }
+    }
+    @media (max-width:720px){
+      nav a{ display:none; }
+      .cta{ display:none; }
+      h1{ font-size:clamp(38px, 9vw, 50px); }
+      .showcase{ min-height:360px; border-radius:22px; }
+      .callout{ font-size:12px; padding:10px 12px; }
+      .callout .chip{ width:28px;height:28px; border-radius:11px; }
+    }
   </style>
 </head>
+
 <body>
-  <div class="mesh-bg"></div>
+  <div class="bg"></div>
+
+  <header>
+    <div class="wrap">
+      <a class="brand" href="/">
+        <img src="/favicon.png" alt="DriveVault logo">
+        <span>DriveVault</span>
+      </a>
+
+      <nav aria-label="Primary">
+        <a href="/pricing.html">Pricing</a>
+        <a href="/changelog.html">Changelog</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/faq.html">FAQ</a>
+        <a class="cta" href="APP_STORE_URL_HERE">Download on the App Store</a>
+      </nav>
+    </div>
+  </header>
+
   <main>
-    <h1>Privacy Policy</h1>
-    <p class="meta">Last updated: August 27, 2025</p>
+    <section class="hero">
+      <!-- Left: big headline -->
+      <div class="hero-left">
+        <div class="kicker"><span class="kdot"></span> Offline hard drive cataloguer for Mac</div>
+        <h1>Scan once.<br>Search forever.</h1>
+      </div>
 
-    <p>At DriveVault, we respect your privacy. This Privacy Policy explains how we handle your information when you use our app and website.</p>
+      <!-- Right: short copy + button aligned right like reference -->
+      <div class="hero-right-top">
+        <p class="hero-copy">
+          DriveVault turns external drives into an offline, searchable library so you can find anything instantly - even when drives are unplugged.
+        </p>
+        <div class="hero-actions">
+          <a class="btn primary" href="APP_STORE_URL_HERE">Download on the App Store</a>
+          <a class="btn" href="/faq.html">Learn more</a>
+        </div>
+      </div>
 
-    <h2>Information We Collect</h2>
-    <ul>
-      <li><strong>Waitlist email:</strong> If you join the beta waitlist on our website, we collect your email address to contact you about beta access and product updates.</li>
-      <li><strong>In-app data:</strong> The DriveVault macOS app processes files locally on your device. It does <em>not</em> upload drive contents, file metadata, or personal files to our servers. We are not able to see any of the drive data that you scan into DriveVault.</li>
-      <li><strong>Diagnostics/telemetry:</strong> The app does not send analytics or telemetry to us.</li>
-           <li><strong>Bug Reporting + Feature Requests:</strong> As part of the public beta, we have added the ability for users to report bugs and request features. If you choose to submit this information to us, we may use it to improve the DriveVault app.</li>
-    </ul>
+      <!-- Big image / mock section -->
+      <div class="showcase">
+        <div class="mock">
+          <img src="https://i.ibb.co/N6vPTTT8/Mac-Studio-Mockup2.png" alt="DriveVault app screenshot">
+        </div>
 
-    <h2>How We Use Information</h2>
-    <ul>
-      <li>To provide beta access, product updates, and launch notifications.</li>
-      <li>To respond to support requests you initiate.</li>
-    </ul>
+        <!-- Floating callouts -->
+        <div class="callout c1">
+          <span class="chip">
+            <svg viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="6"></circle>
+              <path d="M20 20l-3.5-3.5"></path>
+            </svg>
+          </span>
+          Fast global search
+        </div>
 
-    <h2>Subscriptions & Billing</h2>
-    <p>If you purchase a subscription in the macOS App Store, payment and billing are processed by Apple. We do not receive or store your full payment details. We may receive non-personal information from Apple (e.g., purchase receipts or subscription status) to unlock premium features on your device. You can manage or cancel your subscription in your <strong>App Store account settings</strong>. Refunds are handled by Apple per their policies.</p>
+        <div class="callout c2">
+          <span class="chip">
+            <svg viewBox="0 0 24 24">
+              <path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4"></path>
+              <path d="M14 20h4a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-4"></path>
+              <path d="M10 12h4"></path>
+            </svg>
+          </span>
+          Compare drives
+        </div>
 
-    <h2>Legal Bases (where applicable)</h2>
-    <ul>
-      <li><strong>Consent:</strong> for waitlist emails and marketing communications.</li>
-      <li><strong>Legitimate interests:</strong> to operate and improve the app and respond to your requests.</li>
-    </ul>
+        <div class="callout c3">
+          <span class="chip">
+            <svg viewBox="0 0 24 24">
+              <path d="M7 3h10v18H7z"></path>
+              <path d="M9 7h6M9 11h6M9 15h6"></path>
+            </svg>
+          </span>
+          Reports and library stats
+        </div>
+      </div>
 
-    <h2>Data Sharing</h2>
-    <p>We do not sell your personal information. We use limited third-party processors only where necessary:</p>
-    <ul>
-      <li><strong>Formspree</strong> (waitlist form processing for emails you submit).</li>
-      <li><strong>Apple</strong> (in-app purchases and subscription management).</li>
-    </ul>
-
-    <h2>Data Retention</h2>
-    <p>Waitlist emails are retained until you unsubscribe or request deletion. In-app data remains on your device and is not retained by us.</p>
-
-    <h2>Security</h2>
-    <p>DriveVault is designed with security in mind, including macOS sandboxing and read-only scanning of drives. While no system is perfectly secure, we apply reasonable safeguards to protect the information contained in the app. </p>
-
-    <h2>Your Rights</h2>
-    <p>You may unsubscribe from emails at any time, or request access, correction, or deletion of your personal information by contacting us at <a href="mailto:hello@drivevault.io">hello@drivevault.io</a>.</p>
-
-    <h2>Children’s Privacy</h2>
-    <p>DriveVault is not directed to children under 13 (or the minimum age in your jurisdiction). We do not knowingly collect personal information from children.</p>
-
-    <h2>Changes to This Policy</h2>
-    <p>We may update this Privacy Policy from time to time. Changes are effective upon posting here.</p>
-
-    <h2>Contact Us</h2>
-    <p>Questions about this Privacy Policy? Contact us at <a href="mailto:hello@drivevault.io">hello@drivevault.io</a> or visit <a href="https://www.drivevault.io">www.drivevault.io</a>.</p>
-
-    <footer>© <span id="year"></span> DriveVault</footer>
+      <!-- Trusted row -->
+      <div class="trusted">
+        Trusted by creators managing serious archives
+        <div class="logos" aria-hidden="true">
+          <div class="logo-pill">FILMMAKERS</div>
+          <div class="logo-pill">PHOTOGRAPHERS</div>
+          <div class="logo-pill">EDITORS</div>
+          <div class="logo-pill">STUDIOS</div>
+          <div class="logo-pill">AGENCIES</div>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <footer>
+    <div>
+      <a href="/terms.html">Terms of Service</a>
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="https://drivevault.canny.io/feature-requests" target="_blank" rel="noopener">Feature Requests</a>
+      <a href="https://drivevault.canny.io/report-bugs" target="_blank" rel="noopener">Report Bugs</a>
+    </div>
+    <div>© <span id="year"></span> DriveVault</div>
+  </footer>
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
