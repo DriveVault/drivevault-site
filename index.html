@@ -122,38 +122,32 @@
       line-height:1.55;
     }
 
-/* ================================
-   App Store Pill – Subtle, Left Icon + Text
-   ================================ */
-
 .appstore-cta{
   position:relative;
   display:inline-flex;
   align-items:center;
   justify-content:flex-start;
-  gap:14px;
+  gap:16px;
 
-  padding:14px 22px;
+  padding:12px 26px 12px 18px;
   border-radius:999px;
 
   background:linear-gradient(
     135deg,
-    rgba(214,231,255,0.85),
-    rgba(232,223,255,0.85)
+    rgba(220,232,255,0.9),
+    rgba(236,228,255,0.9)
   );
 
   border:1px solid rgba(47,107,255,0.18);
 
   box-shadow:
-    0 18px 50px rgba(47,107,255,0.12),
-    0 0 0 1px rgba(255,255,255,0.65),
-    inset 0 1px 0 rgba(255,255,255,0.75);
+    0 16px 44px rgba(47,107,255,0.12),
+    inset 0 1px 0 rgba(255,255,255,0.7);
 
   text-decoration:none;
   cursor:pointer;
   user-select:none;
 
-  transform:translateZ(0);
   transition:
     transform .35s cubic-bezier(.2,.9,.2,1),
     box-shadow .55s ease,
@@ -161,116 +155,101 @@
     border-color .55s ease;
 }
 
-/* Ambient glow behind (subtle, Apple-ish) */
+/* Ambient glow */
 .appstore-cta::before{
   content:"";
   position:absolute;
   inset:-18px;
   border-radius:inherit;
   z-index:-1;
-  pointer-events:none;
 
   background:
-    radial-gradient(240px 140px at 30% 40%, rgba(106,162,255,.24), transparent 70%),
-    radial-gradient(240px 140px at 70% 60%, rgba(154,106,255,.18), transparent 70%),
-    radial-gradient(220px 140px at 50% 80%, rgba(34,197,94,.10), transparent 75%);
+    radial-gradient(260px 120px at 30% 50%, rgba(106,162,255,.28), transparent 70%),
+    radial-gradient(260px 120px at 70% 50%, rgba(154,106,255,.22), transparent 70%);
 
-  filter:blur(16px);
+  filter:blur(18px);
   opacity:.85;
-  transition:opacity .55s ease, filter .55s ease;
+  transition:opacity .55s ease;
 }
 
-/* Apple logo on the left */
+/* Apple logo container (LEFT) */
 .appstore-cta__apple{
-  flex:0 0 auto;
-  width:34px;
-  height:34px;
+  width:38px;
+  height:38px;
 
   display:grid;
   place-items:center;
 
-  border-radius:12px;
-  background:rgba(255,255,255,0.55);
+  border-radius:14px;
+  background:rgba(255,255,255,0.6);
   border:1px solid rgba(10,12,18,0.06);
 
-  color:rgba(10,12,18,0.82);
+  color:rgba(10,12,18,0.75);
 
   transition:
-    transform .35s cubic-bezier(.2,.9,.2,1),
-    background .55s ease,
-    border-color .55s ease,
-    color .45s ease;
+    background .45s ease,
+    border-color .45s ease,
+    color .45s ease,
+    transform .35s cubic-bezier(.2,.9,.2,1);
 }
 
-/* If your Apple icon is an SVG inside .appstore-cta__apple */
 .appstore-cta__apple svg{
   width:18px;
   height:18px;
-  display:block;
   fill:currentColor;
-}
-
-/* If your Apple icon is a character/icon font inside */
-.appstore-cta__apple span{
-  font-size:18px;
-  line-height:1;
   display:block;
 }
 
-/* Text block on the right */
+/* Text block (RIGHT) */
 .appstore-cta__text{
   display:flex;
   flex-direction:column;
-  justify-content:center;
   gap:2px;
-  text-align:left;
-  line-height:1.05;
+  line-height:1.1;
 }
 
-/* Top line */
+/* Small line */
 .appstore-cta__top{
   font-size:11px;
   font-weight:700;
   letter-spacing:.04em;
-  color:rgba(10,12,18,0.62);
+  color:rgba(10,12,18,0.6);
   transition:color .45s ease;
 }
 
-/* Bottom line */
+/* Main line */
 .appstore-cta__bottom{
   font-size:18px;
   font-weight:900;
   letter-spacing:-.01em;
-  color:rgba(10,12,18,0.90);
+  color:rgba(10,12,18,0.9);
   transition:color .45s ease;
 }
 
-/* Hover: subtle lift + nicer glow, and text/logo go white */
+/* Hover state */
 .appstore-cta:hover{
   transform:translateY(-2px);
   background:linear-gradient(
     135deg,
-    rgba(70,122,255,0.92),
-    rgba(128,98,255,0.92)
+    rgba(74,124,255,0.95),
+    rgba(132,100,255,0.95)
   );
-  border-color:rgba(255,255,255,0.22);
+  border-color:rgba(255,255,255,0.25);
 
   box-shadow:
-    0 26px 72px rgba(47,107,255,0.28),
-    0 0 0 1px rgba(255,255,255,0.35),
+    0 26px 72px rgba(47,107,255,0.3),
     inset 0 1px 0 rgba(255,255,255,0.35);
 }
 
 .appstore-cta:hover::before{
   opacity:1;
-  filter:blur(18px);
 }
 
 .appstore-cta:hover .appstore-cta__apple{
-  background:rgba(255,255,255,0.16);
-  border-color:rgba(255,255,255,0.22);
+  background:rgba(255,255,255,0.18);
+  border-color:rgba(255,255,255,0.28);
   color:#ffffff;
-  transform:translateY(-0.5px);
+  transform:translateY(-1px);
 }
 
 .appstore-cta:hover .appstore-cta__top,
