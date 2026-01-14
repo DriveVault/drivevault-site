@@ -122,75 +122,81 @@
       line-height:1.55;
     }
 
-.appstore {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
+.appstore-pill{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
 
-  padding: 14px 18px;
-  border-radius: 999px;
+  padding:14px 22px;
+  border-radius:999px;
 
-  background: linear-gradient(135deg,
+  background:linear-gradient(135deg,
     rgba(255,255,255,.78),
     rgba(240,244,255,.70),
     rgba(246,242,255,.68)
   );
 
-  border: 1px solid rgba(47,107,255,.22);
+  border:1px solid rgba(47,107,255,.22);
   box-shadow:
     0 22px 55px rgba(10,12,18,.12),
     0 0 0 6px rgba(47,107,255,.06);
 
-  text-decoration: none;
-  color: #10131a;
+  text-decoration:none;
+  color:#10131a;
 
   transition:
     transform .26s cubic-bezier(.2,.9,.2,1),
-    box-shadow .45s ease,
-    background .45s ease,
-    border-color .45s ease,
+    box-shadow .55s ease,
+    background .55s ease,
+    border-color .55s ease,
     color .25s ease;
-  will-change: transform;
-  position: relative;
-  overflow: visible;
+
+  will-change:transform;
+  position:relative;
 }
 
-.appstore:hover {
-  transform: translateY(-2px) scale(1.02);
-  border-color: rgba(47,107,255,.34);
-  background: linear-gradient(135deg,
-    rgba(47,107,255,.16),
-    rgba(106,162,255,.12),
-    rgba(154,106,255,.12)
+.appstore-pill:hover{
+  transform:translateY(-2px) scale(1.02);
+  border-color:rgba(47,107,255,.36);
+  background:linear-gradient(135deg,
+    rgba(47,107,255,.14),
+    rgba(106,162,255,.10),
+    rgba(154,106,255,.10)
   );
   box-shadow:
     0 30px 70px rgba(10,12,18,.14),
     0 0 0 8px rgba(47,107,255,.10),
-    0 0 70px rgba(106,162,255,.20);
-  color: #ffffff;
+    0 0 80px rgba(106,162,255,.22);
+  color:#ffffff;
 }
 
-.appstore:active {
-  transform: translateY(0) scale(0.995);
+.appstore-pill:active{
+  transform:translateY(-1px) scale(1.01);
 }
 
-/* Apple icon container */
-.appstore .apple {
-  width: 40px;
-  height: 40px;
-  border-radius: 14px;
+.appstore-pill:focus-visible{
+  outline:none;
+  box-shadow:
+    0 30px 70px rgba(10,12,18,.14),
+    0 0 0 4px rgba(47,107,255,.22),
+    0 0 0 10px rgba(47,107,255,.10);
+}
 
-  display: grid;
-  place-items: center;
+.appstore-icon{
+  width:44px;
+  height:44px;
+  border-radius:16px;
 
-  background: rgba(255,255,255,.70);
-  border: 1px solid rgba(10,12,18,.10);
-  box-shadow: 0 12px 28px rgba(10,12,18,.10);
+  display:grid;
+  place-items:center;
 
-  color: #0b0d12;
-  flex: 0 0 auto;
-  overflow: visible;
+  background:rgba(255,255,255,.70);
+  border:1px solid rgba(10,12,18,.10);
+  box-shadow:0 12px 28px rgba(10,12,18,.10);
+
+  color:#0b0d12;
+  flex:0 0 auto;
 
   transition:
     transform .40s cubic-bezier(.2,.9,.2,1),
@@ -200,62 +206,51 @@
     box-shadow .45s ease;
 }
 
-.appstore:hover .apple {
-  transform: rotate(8deg);
-  background: rgba(255,255,255,.22);
-  border-color: rgba(255,255,255,.28);
+.appstore-pill:hover .appstore-icon{
+  transform:rotate(6deg);
+  background:rgba(255,255,255,.22);
+  border-color:rgba(255,255,255,.28);
   box-shadow:
     0 16px 34px rgba(10,12,18,.14),
-    0 0 40px rgba(106,162,255,.22);
-  color: #ffffff;
+    0 0 44px rgba(106,162,255,.22);
+  color:#ffffff;
 }
 
-/* Make sure the SVG never clips or “breaks” */
-.appstore .apple svg {
-  width: 20px;
-  height: 20px;
-  display: block;
-  overflow: visible;
-}
-.appstore .apple svg path {
-  fill: currentColor;
+.appstore-icon svg{
+  width:20px;
+  height:20px;
+  display:block;
 }
 
-/* Text block */
-.appstore .copy {
-  display: grid;
-  gap: 2px;
-  line-height: 1.05;
-  text-align: left;
+.appstore-icon svg path{
+  fill:currentColor;
 }
 
-.appstore .copy .top {
-  font-size: 13px;
-  font-weight: 700;
-  color: rgba(17,20,28,.68);
-  transition: color .25s ease;
+.appstore-text{
+  display:grid;
+  gap:2px;
+  line-height:1.05;
+  text-align:left;
 }
 
-.appstore .copy .bottom {
-  font-size: 22px;
-  font-weight: 900;
-  letter-spacing: -0.02em;
-  color: rgba(17,20,28,.92);
-  transition: color .25s ease;
+.appstore-top{
+  font-size:13px;
+  font-weight:700;
+  color:rgba(17,20,28,.68);
+  transition:color .25s ease;
 }
 
-.appstore:hover .copy .top,
-.appstore:hover .copy .bottom {
-  color: #ffffff;
+.appstore-bottom{
+  font-size:22px;
+  font-weight:900;
+  letter-spacing:-0.02em;
+  color:rgba(17,20,28,.92);
+  transition:color .25s ease;
 }
 
-/* Optional: better focus state */
-.appstore:focus-visible {
-  outline: none;
-  box-shadow:
-    0 30px 70px rgba(10,12,18,.14),
-    0 0 0 4px rgba(47,107,255,.22),
-    0 0 0 10px rgba(47,107,255,.10);
+.appstore-pill:hover .appstore-top,
+.appstore-pill:hover .appstore-bottom{
+  color:#ffffff;
 }
     
     /* Hero visual */
