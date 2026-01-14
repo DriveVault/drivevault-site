@@ -122,152 +122,185 @@
       line-height:1.55;
     }
 
-/* Apple Intelligence-style CTA wrapper for the existing App Store badge
-   Usage: keep your current <a class="appstore"><img ...></a>
-   Optional: add <span class="ai-glow" aria-hidden="true"></span> inside the <a> (recommended)
-*/
-
-.appstore{
+.appstore-cta{
+  position:relative;
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  position:relative;
-  padding:18px 22px;
+  gap:12px;
+  padding:16px 22px;
   border-radius:999px;
   text-decoration:none;
   cursor:pointer;
   user-select:none;
   -webkit-tap-highlight-color:transparent;
 
-  /* soft “input” surface */
-  background:rgba(255,255,255,.78);
-  border:1px solid rgba(10,12,18,.10);
-  backdrop-filter:saturate(180%) blur(18px);
-  -webkit-backdrop-filter:saturate(180%) blur(18px);
+  background:rgba(255,255,255,.72);
+  backdrop-filter:saturate(190%) blur(16px);
+  -webkit-backdrop-filter:saturate(190%) blur(16px);
+  border:1px solid rgba(20,24,32,.10);
 
-  /* depth */
   box-shadow:
-    0 20px 55px rgba(10,12,18,.10),
-    inset 0 1px 0 rgba(255,255,255,.65);
+    0 18px 50px rgba(10,12,18,.10),
+    inset 0 1px 0 rgba(255,255,255,.85);
 
+  transform:translateZ(0);
   transition:
-    transform .35s cubic-bezier(.2,.9,.2,1),
+    transform .38s cubic-bezier(.2,.9,.2,1),
     box-shadow .55s ease,
+    border-color .55s ease,
     background .55s ease,
-    border-color .55s ease;
+    filter .55s ease;
   overflow:hidden;
 }
 
-/* Keep the actual Apple badge crisp and above glows */
-.appstore img{
-  height:44px; /* tweak to taste */
-  width:auto;
-  display:block;
-  position:relative;
-  z-index:3;
-  border-radius:10px; /* keeps it feeling integrated */
-}
-
-/* Gradient ring (subtle, not loud) */
-.appstore::before{
+.appstore-cta::before{
   content:"";
   position:absolute;
   inset:0;
   border-radius:inherit;
   padding:1px;
-  background:linear-gradient(
-    110deg,
-    rgba(106,162,255,.75),
-    rgba(154,106,255,.55),
-    rgba(34,197,94,.45),
-    rgba(106,162,255,.75)
+  background:conic-gradient(
+    from 0deg,
+    rgba(106,162,255,.95),
+    rgba(154,106,255,.85),
+    rgba(34,197,94,.80),
+    rgba(255,144,92,.70),
+    rgba(106,162,255,.95)
   );
-  opacity:.55;
+  animation:appstoreRingSpin 5.8s linear infinite;
+  opacity:.92;
 
   -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite:xor;
   mask-composite:exclude;
+
   pointer-events:none;
   z-index:2;
-  transition:opacity .65s ease;
 }
 
-/* Soft pulsing bloom behind (Apple Intelligence vibe) */
-.appstore::after{
+.appstore-cta::after{
   content:"";
   position:absolute;
-  inset:-40px;
+  inset:-70px;
   border-radius:inherit;
   background:
-    radial-gradient(180px 90px at 28% 40%, rgba(106,162,255,.34), transparent 70%),
-    radial-gradient(200px 110px at 74% 55%, rgba(154,106,255,.26), transparent 72%),
-    radial-gradient(220px 120px at 50% 90%, rgba(34,197,94,.18), transparent 74%);
+    radial-gradient(240px 130px at 30% 35%, rgba(106,162,255,.58), transparent 70%),
+    radial-gradient(260px 150px at 78% 55%, rgba(154,106,255,.50), transparent 72%),
+    radial-gradient(280px 160px at 55% 92%, rgba(34,197,94,.38), transparent 74%);
   filter:blur(18px);
-  opacity:.55;
-  animation:aiPulse 2.9s ease-in-out infinite;
+  opacity:.78;
+  animation:appstoreGlowPulse 2.7s ease-in-out infinite;
   pointer-events:none;
   z-index:1;
 }
 
-/* Optional extra glow layer you can add inside the <a>:
-   <span class="ai-glow" aria-hidden="true"></span>
-   This adds a gentle “shimmer” sweep without looking tacky.
-*/
-.appstore .ai-glow{
+.appstore-cta__shine{
   position:absolute;
-  inset:-60% -80%;
-  background:linear-gradient(
-    115deg,
-    transparent 46%,
-    rgba(255,255,255,.55) 50%,
-    transparent 54%
-  );
-  transform:translateX(-28%) rotate(12deg);
-  opacity:.18;
-  animation:aiSweep 6.2s ease-in-out infinite;
+  inset:-80% -90%;
+  border-radius:inherit;
+  background:linear-gradient(110deg, transparent 46%, rgba(255,255,255,.85) 50%, transparent 54%);
+  transform:translateX(-26%) rotate(10deg);
+  opacity:.20;
+  animation:appstoreShimmer 4.8s ease-in-out infinite;
+  mix-blend-mode:overlay;
   pointer-events:none;
   z-index:2;
-  mix-blend-mode:overlay;
 }
 
-@keyframes aiPulse{
-  0%,100%{opacity:.42; transform:scale(1)}
-  50%{opacity:.78; transform:scale(1.02)}
+.appstore-cta__inner{
+  position:relative;
+  z-index:3;
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+  padding:2px 6px;
 }
 
-@keyframes aiSweep{
-  0%{transform:translateX(-30%) rotate(12deg); opacity:.10}
-  45%{opacity:.22}
-  100%{transform:translateX(30%) rotate(12deg); opacity:.10}
+.appstore-cta__apple{
+  font-size:26px;
+  line-height:1;
+  color:#0b0d12;
+  opacity:.95;
+  transform:translateZ(0);
+  transition:transform .55s cubic-bezier(.2,.9,.2,1);
 }
 
-.appstore:hover{
-  transform:translateY(-2px) scale(1.02);
-  background:rgba(255,255,255,.86);
+.appstore-cta__text{
+  display:flex;
+  flex-direction:column;
+  line-height:1.05;
+  text-align:left;
+}
+
+.appstore-cta__top{
+  font-size:12px;
+  font-weight:700;
+  color:rgba(10,12,18,.68);
+  letter-spacing:.02em;
+}
+
+.appstore-cta__bottom{
+  font-size:16px;
+  font-weight:900;
+  color:#0b0d12;
+  letter-spacing:-.01em;
+}
+
+.appstore-cta:hover{
+  transform:translateY(-2px) scale(1.04);
+  background:rgba(255,255,255,.82);
   border-color:rgba(47,107,255,.18);
   box-shadow:
     0 30px 90px rgba(10,12,18,.14),
-    inset 0 1px 0 rgba(255,255,255,.75);
+    0 0 0 1px rgba(47,107,255,.08),
+    inset 0 1px 0 rgba(255,255,255,.92);
+  filter:saturate(1.12);
 }
 
-.appstore:hover::before{opacity:.78}
+.appstore-cta:hover::after{
+  opacity:1;
+  filter:blur(20px);
+}
 
-.appstore:active{
+.appstore-cta:hover .appstore-cta__apple{
+  transform:rotate(10deg) scale(1.06);
+}
+
+.appstore-cta:active{
   transform:translateY(0) scale(1.01);
+  transition-duration:.12s;
 }
 
-.appstore:focus-visible{
+.appstore-cta:focus-visible{
   outline:none;
   box-shadow:
-    0 0 0 4px rgba(47,107,255,.18),
     0 30px 90px rgba(10,12,18,.14),
-    inset 0 1px 0 rgba(255,255,255,.75);
+    0 0 0 4px rgba(47,107,255,.22),
+    inset 0 1px 0 rgba(255,255,255,.92);
 }
 
-/* Respect reduced motion */
+@keyframes appstoreRingSpin{
+  from{transform:rotate(0deg)}
+  to{transform:rotate(360deg)}
+}
+
+@keyframes appstoreGlowPulse{
+  0%,100%{opacity:.72; transform:scale(1)}
+  50%{opacity:1; transform:scale(1.02)}
+}
+
+@keyframes appstoreShimmer{
+  0%,100%{transform:translateX(-26%) rotate(10deg); opacity:.14}
+  50%{transform:translateX(10%) rotate(10deg); opacity:.24}
+}
+
 @media (prefers-reduced-motion: reduce){
-  .appstore::after,
-  .appstore .ai-glow{animation:none}
+  .appstore-cta::before,
+  .appstore-cta::after,
+  .appstore-cta__shine{animation:none}
+  .appstore-cta,
+  .appstore-cta__apple{transition:none}
 }
     
     /* Hero visual */
