@@ -122,148 +122,137 @@
       line-height:1.55;
     }
 
-.appstore-cta{
+.appstore-pill{
   position:relative;
   display:inline-flex;
   align-items:center;
-  justify-content:flex-start;
   gap:16px;
 
-  padding:12px 26px 12px 18px;
+  padding:14px 28px 14px 18px;
   border-radius:999px;
 
   background:linear-gradient(
     135deg,
-    rgba(220,232,255,0.9),
-    rgba(236,228,255,0.9)
+    rgba(225,235,255,0.95),
+    rgba(235,230,255,0.95)
   );
 
-  border:1px solid rgba(47,107,255,0.18);
+  border:1px solid rgba(47,107,255,0.22);
 
   box-shadow:
-    0 16px 44px rgba(47,107,255,0.12),
-    inset 0 1px 0 rgba(255,255,255,0.7);
+    0 18px 48px rgba(47,107,255,0.16),
+    inset 0 1px 0 rgba(255,255,255,0.8);
 
   text-decoration:none;
   cursor:pointer;
   user-select:none;
 
   transition:
-    transform .35s cubic-bezier(.2,.9,.2,1),
-    box-shadow .55s ease,
-    background .55s ease,
-    border-color .55s ease;
+    transform .3s ease,
+    box-shadow .4s ease,
+    background .4s ease,
+    border-color .4s ease;
 }
 
-/* Ambient glow */
-.appstore-cta::before{
+/* Outer ambient glow */
+.appstore-pill::before{
   content:"";
   position:absolute;
-  inset:-18px;
+  inset:-22px;
   border-radius:inherit;
   z-index:-1;
 
   background:
-    radial-gradient(260px 120px at 30% 50%, rgba(106,162,255,.28), transparent 70%),
-    radial-gradient(260px 120px at 70% 50%, rgba(154,106,255,.22), transparent 70%);
+    radial-gradient(260px 140px at 30% 50%, rgba(106,162,255,.28), transparent 70%),
+    radial-gradient(260px 140px at 70% 50%, rgba(154,106,255,.24), transparent 70%);
 
-  filter:blur(18px);
-  opacity:.85;
-  transition:opacity .55s ease;
+  filter:blur(22px);
+  opacity:.9;
+  transition:opacity .4s ease;
 }
 
 /* Apple logo container (LEFT) */
-.appstore-cta__apple{
+.appstore-icon{
   width:38px;
   height:38px;
-
   display:grid;
   place-items:center;
 
   border-radius:14px;
-  background:rgba(255,255,255,0.6);
+  background:rgba(255,255,255,0.7);
   border:1px solid rgba(10,12,18,0.06);
 
   color:rgba(10,12,18,0.75);
 
   transition:
-    background .45s ease,
-    border-color .45s ease,
-    color .45s ease,
-    transform .35s cubic-bezier(.2,.9,.2,1);
+    background .35s ease,
+    border-color .35s ease,
+    color .35s ease;
 }
 
-.appstore-cta__apple svg{
+.appstore-icon svg{
   width:18px;
   height:18px;
   fill:currentColor;
-  display:block;
 }
 
 /* Text block (RIGHT) */
-.appstore-cta__text{
+.appstore-text{
   display:flex;
   flex-direction:column;
-  gap:2px;
   line-height:1.1;
 }
 
-/* Small line */
-.appstore-cta__top{
+.appstore-top{
   font-size:11px;
   font-weight:700;
   letter-spacing:.04em;
   color:rgba(10,12,18,0.6);
-  transition:color .45s ease;
+  transition:color .35s ease;
 }
 
-/* Main line */
-.appstore-cta__bottom{
+.appstore-bottom{
   font-size:18px;
   font-weight:900;
   letter-spacing:-.01em;
   color:rgba(10,12,18,0.9);
-  transition:color .45s ease;
+  transition:color .35s ease;
 }
 
-/* Hover state */
-.appstore-cta:hover{
+/* Hover */
+.appstore-pill:hover{
   transform:translateY(-2px);
   background:linear-gradient(
     135deg,
     rgba(74,124,255,0.95),
-    rgba(132,100,255,0.95)
+    rgba(122,98,255,0.95)
   );
-  border-color:rgba(255,255,255,0.25);
+  border-color:rgba(255,255,255,0.28);
 
   box-shadow:
-    0 26px 72px rgba(47,107,255,0.3),
+    0 28px 72px rgba(47,107,255,0.32),
     inset 0 1px 0 rgba(255,255,255,0.35);
 }
 
-.appstore-cta:hover::before{
+.appstore-pill:hover::before{
   opacity:1;
 }
 
-.appstore-cta:hover .appstore-cta__apple{
+.appstore-pill:hover .appstore-icon{
   background:rgba(255,255,255,0.18);
   border-color:rgba(255,255,255,0.28);
   color:#ffffff;
-  transform:translateY(-1px);
 }
 
-.appstore-cta:hover .appstore-cta__top,
-.appstore-cta:hover .appstore-cta__bottom{
+.appstore-pill:hover .appstore-top,
+.appstore-pill:hover .appstore-bottom{
   color:#ffffff;
 }
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce){
-  .appstore-cta,
-  .appstore-cta::before,
-  .appstore-cta__apple,
-  .appstore-cta__top,
-  .appstore-cta__bottom{
+  .appstore-pill,
+  .appstore-pill::before{
     transition:none;
   }
 }
@@ -512,14 +501,17 @@
 
         <p class="sub">Never lose a file again. Build an offline, powerful, catalogue of your hard drives with DriveVault. </p>
 
-      <a id="download" class="appstore-cta" href="#" aria-label="Download on the App Store">
-  <span class="appstore-cta__shine" aria-hidden="true"></span>
-  <span class="appstore-cta__inner">
-    <span class="appstore-cta__apple" aria-hidden="true"></span>
-    <span class="appstore-cta__text">
-      <span class="appstore-cta__top">Download on the</span>
-      <span class="appstore-cta__bottom">App Store</span>
-    </span>
+     <a class="appstore-pill" href="#">
+  <span class="appstore-icon">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M16.365 1.43c0 1.14-.47 2.21-1.23 3.05-.8.9-2.1 1.6-3.25 1.5-.1-1.2.4-2.3 1.15-3.1.75-.9 2.1-1.6 3.33-1.45z"/>
+      <path d="M20.99 17.5c-.35.8-.77 1.55-1.25 2.25-.66.95-1.2 1.6-2.2 1.62-.97.03-1.28-.57-2.4-.57-1.12 0-1.46.55-2.38.6-.96.04-1.7-.95-2.37-1.9-1.3-1.9-2.3-5.4-.96-7.77.66-1.17 1.85-1.9 3.13-1.92.97-.02 1.9.65 2.38.65.48 0 1.38-.8 2.33-.68.4.02 1.53.16 2.26 1.22-.06.04-1.35.79-1.33 2.36.02 1.87 1.64 2.5 1.66 2.51z"/>
+    </svg>
+  </span>
+
+  <span class="appstore-text">
+    <span class="appstore-top">Download on the</span>
+    <span class="appstore-bottom">App Store</span>
   </span>
 </a>
 
