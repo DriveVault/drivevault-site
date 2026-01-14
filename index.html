@@ -123,197 +123,185 @@
     }
 
 .appstore-cta{
-  position:relative;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding:16px 22px;
-  border-radius:999px;
-  text-decoration:none;
-  cursor:pointer;
-  user-select:none;
-  -webkit-tap-highlight-color:transparent;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
 
-  background:rgba(255,255,255,.72);
-  backdrop-filter:saturate(190%) blur(16px);
-  -webkit-backdrop-filter:saturate(190%) blur(16px);
-  border:1px solid rgba(20,24,32,.10);
+  padding: 16px 22px;
+  border-radius: 999px;
+
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,0.86),
+    rgba(255,255,255,0.66)
+  );
+
+  border: 1px solid rgba(10,12,18,0.12);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
 
   box-shadow:
-    0 18px 50px rgba(10,12,18,.10),
-    inset 0 1px 0 rgba(255,255,255,.85);
+    0 18px 50px rgba(47,107,255,0.22),
+    0 0 0 1px rgba(47,107,255,0.10),
+    inset 0 1px 0 rgba(255,255,255,0.75);
 
-  transform:translateZ(0);
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  overflow: hidden;
+
+  transform: translateZ(0);
   transition:
-    transform .38s cubic-bezier(.2,.9,.2,1),
-    box-shadow .55s ease,
-    border-color .55s ease,
-    background .55s ease,
-    filter .55s ease;
-
-  overflow:hidden;
+    transform 0.35s cubic-bezier(.2,.9,.2,1),
+    box-shadow 0.6s ease,
+    background 0.6s ease,
+    filter 0.6s ease;
 }
 
-.appstore-cta::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  border-radius:inherit;
-  padding:1px;
-
-  background:conic-gradient(
-    from 0deg,
-    rgba(106,162,255,.95),
-    rgba(154,106,255,.85),
-    rgba(34,197,94,.80),
-    rgba(255,144,92,.70),
-    rgba(106,162,255,.95)
-  );
-
-  animation:appstoreRingSpin 5.8s linear infinite;
-  opacity:.92;
-
-  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite:xor;
-  mask-composite:exclude;
-
-  pointer-events:none;
-  z-index:2;
-}
-
-.appstore-cta::after{
-  content:"";
-  position:absolute;
-  inset:-70px;
-  border-radius:inherit;
-
-  background:
-    radial-gradient(240px 130px at 30% 35%, rgba(106,162,255,.58), transparent 70%),
-    radial-gradient(260px 150px at 78% 55%, rgba(154,106,255,.50), transparent 72%),
-    radial-gradient(280px 160px at 55% 92%, rgba(34,197,94,.38), transparent 74%);
-
-  filter:blur(18px);
-  opacity:.78;
-  animation:appstoreGlowPulse 2.7s ease-in-out infinite;
-
-  pointer-events:none;
-  z-index:1;
-}
-
-.appstore-cta__shine{
-  position:absolute;
-  inset:-80% -90%;
-  border-radius:inherit;
-
-  background:linear-gradient(
-    110deg,
-    transparent 46%,
-    rgba(255,255,255,.85) 50%,
-    transparent 54%
-  );
-
-  transform:translateX(-26%) rotate(10deg);
-  opacity:.20;
-  animation:appstoreShimmer 4.8s ease-in-out infinite;
-  mix-blend-mode:overlay;
-
-  pointer-events:none;
-  z-index:2;
-}
-
-.appstore-cta__inner{
-  position:relative;
-  z-index:3;
-  display:inline-flex;
-  align-items:center;
-  gap:12px;
-  padding:2px 6px;
+.appstore-cta > *{
+  position: relative;
+  z-index: 2;
 }
 
 .appstore-cta__apple{
-  font-size:26px;
-  line-height:1;
-  color:#0b0d12;
-  opacity:.95;
-  transform:translateZ(0);
-  transition:transform .55s cubic-bezier(.2,.9,.2,1);
+  font-size: 22px;
+  line-height: 1;
+  color: #0b0d12;
+  transition: color 0.45s ease;
 }
 
 .appstore-cta__text{
-  display:flex;
-  flex-direction:column;
-  line-height:1.05;
-  text-align:left;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
 }
 
 .appstore-cta__top{
-  font-size:12px;
-  font-weight:700;
-  color:rgba(10,12,18,.68);
-  letter-spacing:.02em;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #5f6775;
+  transition: color 0.45s ease;
 }
 
 .appstore-cta__bottom{
-  font-size:16px;
-  font-weight:900;
-  color:#0b0d12;
-  letter-spacing:-.01em;
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  color: #0b0d12;
+  transition: color 0.45s ease;
 }
 
+/* Ambient glow pulse */
+.appstore-cta::after{
+  content:"";
+  position:absolute;
+  inset:-22px;
+  border-radius:inherit;
+
+  background:
+    radial-gradient(180px 90px at 30% 30%, rgba(106,162,255,0.45), transparent 65%),
+    radial-gradient(200px 110px at 70% 60%, rgba(154,106,255,0.40), transparent 68%),
+    radial-gradient(200px 120px at 50% 90%, rgba(34,197,94,0.35), transparent 72%);
+
+  filter: blur(16px);
+  opacity: 0.7;
+
+  animation: appstoreGlowPulse 3.2s ease-in-out infinite;
+  pointer-events:none;
+  z-index:-1;
+}
+
+/* One-time shimmer sweep on hover */
+.appstore-cta::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border-radius:inherit;
+
+  background: linear-gradient(
+    110deg,
+    transparent 0%,
+    rgba(255,255,255,0.0) 35%,
+    rgba(255,255,255,0.65) 50%,
+    rgba(255,255,255,0.0) 65%,
+    transparent 100%
+  );
+
+  transform: translateX(-140%) skewX(-16deg);
+  opacity: 0;
+  pointer-events:none;
+  z-index: 1;
+}
+
+.appstore-cta:hover::before{
+  opacity: 1;
+  animation: appstoreShimmer 0.85s cubic-bezier(.2,.9,.2,1) forwards;
+}
+
+/* Hover state */
 .appstore-cta:hover{
-  transform:translateY(-2px) scale(1.04);
-  background:rgba(255,255,255,.82);
-  border-color:rgba(47,107,255,.18);
+  transform: translateY(-3px) scale(1.045);
+
+  background: linear-gradient(
+    135deg,
+    rgba(47,107,255,0.95),
+    rgba(154,106,255,0.95)
+  );
+
+  border-color: rgba(47,107,255,0.28);
+
   box-shadow:
-    0 30px 90px rgba(10,12,18,.14),
-    0 0 0 1px rgba(47,107,255,.08),
-    inset 0 1px 0 rgba(255,255,255,.92);
-  filter:saturate(1.12);
+    0 34px 110px rgba(47,107,255,0.55),
+    0 0 0 1px rgba(47,107,255,0.22),
+    inset 0 1px 0 rgba(255,255,255,0.35);
+
+  filter: saturate(1.15);
 }
 
-.appstore-cta:hover::after{
-  opacity:1;
-  filter:blur(20px);
+.appstore-cta:hover .appstore-cta__apple,
+.appstore-cta:hover .appstore-cta__top,
+.appstore-cta:hover .appstore-cta__bottom{
+  color: #ffffff;
 }
 
-.appstore-cta:hover .appstore-cta__apple{
-  transform:rotate(10deg) scale(1.06);
-}
-
+/* Press-down haptic illusion */
 .appstore-cta:active{
-  transform:translateY(0) scale(1.01);
-  transition-duration:.12s;
-}
+  transform: translateY(0px) scale(0.985);
+  transition-duration: 0.12s;
 
-.appstore-cta:focus-visible{
-  outline:none;
   box-shadow:
-    0 30px 90px rgba(10,12,18,.14),
-    0 0 0 4px rgba(47,107,255,.22),
-    inset 0 1px 0 rgba(255,255,255,.92);
-}
+    0 18px 60px rgba(47,107,255,0.35),
+    0 0 0 1px rgba(47,107,255,0.20),
+    inset 0 2px 10px rgba(10,12,18,0.10),
+    inset 0 1px 0 rgba(255,255,255,0.25);
 
-@keyframes appstoreRingSpin{
-  from{transform:rotate(0deg)}
-  to{transform:rotate(360deg)}
-}
-
-@keyframes appstoreGlowPulse{
-  0%,100%{opacity:.72; transform:scale(1)}
-  50%{opacity:1; transform:scale(1.02)}
-}
-
-@keyframes appstoreShimmer{
-  0%,100%{transform:translateX(-26%) rotate(10deg); opacity:.14}
-  50%{transform:translateX(10%) rotate(10deg); opacity:.24}
+  filter: saturate(1.08);
 }
 
 @media (prefers-reduced-motion: reduce){
-  .appstore-cta::before,
-  .appstore-cta::after,
-  .appstore-cta__shine{animation:none}
   .appstore-cta,
-  .appstore-cta__apple{transition:none}
+  .appstore-cta::after{
+    animation: none;
+    transition: none;
+  }
+  .appstore-cta:hover::before{
+    animation: none;
+    opacity: 0;
+  }
+}
+
+@keyframes appstoreGlowPulse{
+  0%   { opacity: 0.55; }
+  50%  { opacity: 0.9; }
+  100% { opacity: 0.55; }
+}
+
+@keyframes appstoreShimmer{
+  from{ transform: translateX(-140%) skewX(-16deg); }
+  to{   transform: translateX(140%)  skewX(-16deg); }
 }
     
     /* Hero visual */
