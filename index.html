@@ -122,186 +122,116 @@
       line-height:1.55;
     }
 
-.appstore-cta{
+.appstore-cta {
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 14px;
 
-  padding: 16px 22px;
+  padding: 16px 26px;
   border-radius: 999px;
 
   background: linear-gradient(
     135deg,
-    rgba(255,255,255,0.86),
-    rgba(255,255,255,0.66)
+    rgba(96,132,255,0.92),
+    rgba(154,106,255,0.92)
   );
 
-  border: 1px solid rgba(10,12,18,0.12);
-  backdrop-filter: blur(18px) saturate(160%);
-  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid rgba(47,107,255,0.35);
 
   box-shadow:
-    0 18px 50px rgba(47,107,255,0.22),
-    0 0 0 1px rgba(47,107,255,0.10),
-    inset 0 1px 0 rgba(255,255,255,0.75);
+    0 18px 48px rgba(96,132,255,0.35),
+    0 0 0 1px rgba(255,255,255,0.25),
+    inset 0 1px 0 rgba(255,255,255,0.35);
 
   text-decoration: none;
   cursor: pointer;
   user-select: none;
-  overflow: hidden;
 
-  transform: translateZ(0);
   transition:
     transform 0.35s cubic-bezier(.2,.9,.2,1),
-    box-shadow 0.6s ease,
-    background 0.6s ease,
-    filter 0.6s ease;
+    box-shadow 0.45s ease,
+    background 0.45s ease;
 }
 
-.appstore-cta > *{
-  position: relative;
-  z-index: 2;
-}
-
-.appstore-cta__apple{
+/* Apple logo */
+.appstore-cta__apple {
   font-size: 22px;
   line-height: 1;
-  color: #0b0d12;
-  transition: color 0.45s ease;
+  color: rgba(255,255,255,0.9);
+  transition: color 0.35s ease;
 }
 
-.appstore-cta__text{
+/* Text wrapper */
+.appstore-cta__text {
   display: flex;
   flex-direction: column;
   line-height: 1.1;
 }
 
-.appstore-cta__top{
+/* Top line */
+.appstore-cta__top {
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.04em;
-  color: #5f6775;
-  transition: color 0.45s ease;
+  color: rgba(255,255,255,0.75);
+  transition: color 0.35s ease;
 }
 
-.appstore-cta__bottom{
+/* Bottom line */
+.appstore-cta__bottom {
   font-size: 15px;
   font-weight: 900;
   letter-spacing: -0.01em;
-  color: #0b0d12;
-  transition: color 0.45s ease;
+  color: rgba(255,255,255,0.95);
+  transition: color 0.35s ease;
 }
 
-/* Ambient glow pulse */
-.appstore-cta::after{
-  content:"";
-  position:absolute;
-  inset:-22px;
-  border-radius:inherit;
+/* Subtle ambient glow */
+.appstore-cta::after {
+  content: "";
+  position: absolute;
+  inset: -22px;
+  border-radius: inherit;
 
   background:
-    radial-gradient(180px 90px at 30% 30%, rgba(106,162,255,0.45), transparent 65%),
-    radial-gradient(200px 110px at 70% 60%, rgba(154,106,255,0.40), transparent 68%),
-    radial-gradient(200px 120px at 50% 90%, rgba(34,197,94,0.35), transparent 72%);
+    radial-gradient(200px 120px at 50% 50%, rgba(154,106,255,0.55), transparent 70%);
 
-  filter: blur(16px);
-  opacity: 0.7;
-
-  animation: appstoreGlowPulse 3.2s ease-in-out infinite;
-  pointer-events:none;
-  z-index:-1;
+  filter: blur(18px);
+  opacity: 0.75;
+  z-index: -1;
+  pointer-events: none;
 }
 
-/* One-time shimmer sweep on hover */
-.appstore-cta::before{
-  content:"";
-  position:absolute;
-  inset:-2px;
-  border-radius:inherit;
-
-  background: linear-gradient(
-    110deg,
-    transparent 0%,
-    rgba(255,255,255,0.0) 35%,
-    rgba(255,255,255,0.65) 50%,
-    rgba(255,255,255,0.0) 65%,
-    transparent 100%
-  );
-
-  transform: translateX(-140%) skewX(-16deg);
-  opacity: 0;
-  pointer-events:none;
-  z-index: 1;
-}
-
-.appstore-cta:hover::before{
-  opacity: 1;
-  animation: appstoreShimmer 0.85s cubic-bezier(.2,.9,.2,1) forwards;
-}
-
-/* Hover state */
-.appstore-cta:hover{
-  transform: translateY(-3px) scale(1.045);
+/* Hover – calm and premium */
+.appstore-cta:hover {
+  transform: translateY(-2px);
 
   background: linear-gradient(
     135deg,
-    rgba(47,107,255,0.95),
-    rgba(154,106,255,0.95)
+    rgba(47,107,255,1),
+    rgba(124,92,255,1)
   );
 
-  border-color: rgba(47,107,255,0.28);
-
   box-shadow:
-    0 34px 110px rgba(47,107,255,0.55),
-    0 0 0 1px rgba(47,107,255,0.22),
-    inset 0 1px 0 rgba(255,255,255,0.35);
-
-  filter: saturate(1.15);
+    0 28px 70px rgba(96,132,255,0.55),
+    0 0 0 1px rgba(255,255,255,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.4);
 }
 
+/* Text + logo go fully white on hover */
 .appstore-cta:hover .appstore-cta__apple,
 .appstore-cta:hover .appstore-cta__top,
-.appstore-cta:hover .appstore-cta__bottom{
+.appstore-cta:hover .appstore-cta__bottom {
   color: #ffffff;
 }
 
-/* Press-down haptic illusion */
-.appstore-cta:active{
-  transform: translateY(0px) scale(0.985);
-  transition-duration: 0.12s;
-
-  box-shadow:
-    0 18px 60px rgba(47,107,255,0.35),
-    0 0 0 1px rgba(47,107,255,0.20),
-    inset 0 2px 10px rgba(10,12,18,0.10),
-    inset 0 1px 0 rgba(255,255,255,0.25);
-
-  filter: saturate(1.08);
-}
-
-@media (prefers-reduced-motion: reduce){
-  .appstore-cta,
-  .appstore-cta::after{
-    animation: none;
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .appstore-cta {
     transition: none;
   }
-  .appstore-cta:hover::before{
-    animation: none;
-    opacity: 0;
-  }
-}
-
-@keyframes appstoreGlowPulse{
-  0%   { opacity: 0.55; }
-  50%  { opacity: 0.9; }
-  100% { opacity: 0.55; }
-}
-
-@keyframes appstoreShimmer{
-  from{ transform: translateX(-140%) skewX(-16deg); }
-  to{   transform: translateX(140%)  skewX(-16deg); }
 }
     
     /* Hero visual */
