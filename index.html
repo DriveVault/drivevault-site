@@ -505,6 +505,180 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
+// --- Parallax (subtle, launch-grade) ---
+// Goals:
+// - Only run while the hero visual is in view
+// - Smooth motion via rAF + lerp (no snapping)
+// - Tiny "micro-settle" on scroll stop
+// - Blobs drift with slight X and Y parallax for depth
+
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (prefersReducedMotion) {
+// Respect reduced-motion: do nothing
+} else {
+const screen = document.querySelector('.screen');
+const chips = Array.from(document.querySelectorAll('.chip'));
+const blobs = Array.from(document.querySelectorAll('.blob'));
+const hero = document.querySelector('.hero');
+const heroInner = document.querySelector('.hero-inner');
+const heroTitle = document.querySelector('.h1');
+const heroSub = document.querySelector('.sub');
+const heroPill = document.querySelector('.pill');
+const visual = document.querySelector('.visual');
+
+// We keep our own transforms so we don't fight CSS hover transforms
+const chipBase = new Map();
+chips.forEach((c) => {
+  chipBase.set(c, { x: 0, y: 0 });
+});
+
+let enabled = true; // will be toggled by IntersectionObserver
+let targetY = window.scrollY;
+let currentY = window.scrollY;
+let rafId = null;
+let scrollStopTimer = null;
+
+// IntersectionObserver: only animate when hero/visual is near viewport
+const ioTarget = visual || hero;
+const io = ioTarget
+  ? new IntersectionObserver(
+      (entries) => {
+        enabled = entries.some((e) => e.isIntersecting);
+        // When re-enabled, sync positions so there's no jump
+        if (enabled) {
+          targetY = window.scrollY;
+          currentY = window.scrollY;
+          start();
+        }
+      },
+      { root: null, threshold: 0, rootMargin: '200px 0px 200px 0px' }
+    )
+  : null;
+if (io && ioTarget) io.observe(ioTarget);
+
+// Smooth animation loop
+function start() {
+  if (rafId) return;
+  rafId = requestAnimationFrame(tick);
+}
+
+function stop() {
+  if (!rafId) return;
+  cancelAnimationFrame(rafId);
+  rafId = null;
+}
+
+function clamp(n, min, max) {
+  return Math.max(min, Math.min(max, n));
+}
+
+function tick() {
+  rafId = requestAnimationFrame(tick);
+  if (!enabled) {
+    stop();
+    return;
+  }
+
+  // Lerp for smoothness
+  currentY += (targetY - currentY) * 0.08;
+
+  // Normalize within hero range for text fades
+  let heroProgress = 0;
+  if (hero) {
+    const rect = hero.getBoundingClientRect();
+    const heroHeight = hero.offsetHeight || window.innerHeight;
+    // 0 at top of hero, 1 when hero is mostly scrolled past
+    heroProgress = clamp((window.innerHeight - rect.bottom) / (heroHeight * 0.65), 0, 1);
+  }
+
+  // Subtle screen parallax
+  if (screen) {
+    const y = currentY * 0.035;
+    // Keep it perfectly straight (no rotation changes here)
+    screen.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0)`;
+  }
+
+  // Chips parallax with slight offsets so they keep their layout
+  chips.forEach((chip, i) => {
+    const base = chipBase.get(chip) || { x: 0, y: 0 };
+    const speed = 0.045 + i * 0.004;
+    const y = base.y + currentY * speed;
+    chip.style.transform = `translate3d(${base.x}px, ${y.toFixed(2)}px, 0)`;
+  });
+
+  // Blobs drift very slowly with slight X movement for depth
+  blobs.forEach((blob, i) => {
+    const y = currentY * (0.012 + i * 0.007);
+    const x = currentY * (0.004 + i * 0.002) * (i % 2 === 0 ? 1 : -1);
+    blob.style.transform = `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, 0)`;
+  });
+
+  // Hero text fades slightly as you scroll down (Apple-like)
+  const titleFade = 1 - heroProgress * 0.30;
+  const subFade = 1 - heroProgress * 0.45;
+  const pillFade = 1 - heroProgress * 0.55;
+
+  if (heroTitle) heroTitle.style.opacity = String(clamp(titleFade, 0.55, 1));
+  if (heroSub) heroSub.style.opacity = String(clamp(subFade, 0.35, 1));
+  if (heroPill) heroPill.style.opacity = String(clamp(pillFade, 0.2, 1));
+
+  // Tiny upward drift for the hero text stack
+  if (heroInner) {
+    const lift = -heroProgress * 10;
+    heroInner.style.transform = `translate3d(0, ${lift.toFixed(2)}px, 0)`;
+  }
+}
+
+// Scroll handler: set target and handle micro-settle
+function onScroll() {
+  targetY = window.scrollY;
+  start();
+
+  // Micro-settle: tiny scale nudge when user stops scrolling
+  if (scrollStopTimer) clearTimeout(scrollStopTimer);
+
+  // While scrolling: ensure normal scale
+  if (screen) screen.style.willChange = 'transform';
+  chips.forEach((c) => (c.style.willChange = 'transform'));
+
+  scrollStopTimer = setTimeout(() => {
+    // settle - tiny, tasteful
+    if (screen) {
+      const y = currentY * 0.035;
+      screen.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0) scale(1.006)`;
+      // return to normal after a beat
+      setTimeout(() => {
+        if (screen) screen.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0)`;
+      }, 220);
+    }
+
+    chips.forEach((chip, i) => {
+      const base = chipBase.get(chip) || { x: 0, y: 0 };
+      const speed = 0.045 + i * 0.004;
+      const y = base.y + currentY * speed;
+      chip.style.transform = `translate3d(${base.x}px, ${y.toFixed(2)}px, 0) scale(1.01)`;
+      setTimeout(() => {
+        chip.style.transform = `translate3d(${base.x}px, ${y.toFixed(2)}px, 0)`;
+      }, 200);
+    });
+
+    // Clean will-change
+    setTimeout(() => {
+      if (screen) screen.style.willChange = 'auto';
+      chips.forEach((c) => (c.style.willChange = 'auto'));
+    }, 450);
+  }, 140);
+}
+
+window.addEventListener('scroll', onScroll, { passive: true });
+
+// Kick things off
+start();
+
+}
+
   </script>
 </body>
+
 </html>
