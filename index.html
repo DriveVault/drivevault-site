@@ -1,477 +1,539 @@
-<!-- DriveVault Homepage Canvas -->
-
-
-<!-- This file will be edited in-place going forward -->
-
-
 <!DOCTYPE html>
-
-
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>DriveVault – Scan once. Search forever.</title>
-  <meta name="description" content="DriveVault scans your external drives once, then lets you browse and search them anytime – even when unplugged." />
+  <title>DriveVault - Scan once. Search forever.</title>
+  <meta name="description" content="DriveVault scans external drives once, then lets you browse and search them any time - even when they are unplugged." />
+
   <link rel="icon" href="/favicon.png" type="image/png" />
   <link rel="apple-touch-icon" href="/favicon.png" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
-    :root {
-      --bg: #f6f8fc;
-      --panel: #ffffff;
-      --border: rgba(0,0,0,0.06);
-      --text: #0b0d12;
-      --muted: #5f6b7a;
-      --accent: #2f6bff;
-      --success: #27d980;
+    :root{
+      --bg:#ffffff;
+      --text:#0b0d12;
+      --muted:#5b6475;
+      --line:rgba(15, 23, 42, .08);
+      --chip:rgba(255,255,255,.82);
+      --chipLine:rgba(15, 23, 42, .10);
+      --shadow:0 14px 40px rgba(2, 6, 23, .10);
+      --shadow2:0 10px 28px rgba(2, 6, 23, .08);
+      --blue:#2f6bff;
+      --blue2:#7a5cff;
+      --green:#22c55e;
+      --greenGlow:rgba(34,197,94,.38);
+    }
+    *{box-sizing:border-box; margin:0; padding:0}
+    body{
+      font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      overflow-x:hidden;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: Inter, system-ui, sans-serif;
-      background: #ffffff;
-      color: var(--text);
-      overflow-x: hidden;
+    /* Top bar */
+    .topbar{
+      position:fixed; inset:0 0 auto 0; height:64px; z-index:50;
+      display:flex; align-items:center; justify-content:center;
+      background:rgba(255,255,255,.78);
+      backdrop-filter:saturate(160%) blur(10px);
+      border-bottom:1px solid var(--line);
     }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      background: rgba(255,255,255,0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
+    .topbar .wrap{ width:min(1200px, 94vw); display:flex; align-items:center; gap:18px; }
+    .brand{ display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text); font-weight:800; letter-spacing:.2px; }
+    .brand img{ width:22px; height:22px }
+    .brand span{ font-size:15px }
+    .nav{ margin-left:auto; display:flex; align-items:center; gap:18px; }
+    .nav a{ color:#3d4656; text-decoration:none; font-size:13px; padding:8px 10px; border-radius:10px; transition:background .2s ease, color .2s ease; }
+    .nav a:hover{ background:rgba(2,6,23,.04); color:#0b0d12 }
+    .cta-top{
+      margin-left:6px; text-decoration:none; color:#fff; font-weight:800; font-size:13px;
+      padding:10px 14px; border-radius:12px;
+      background:linear-gradient(135deg, var(--blue), var(--blue2));
+      box-shadow:0 10px 22px rgba(47,107,255,.22);
+      transition:transform .18s ease, box-shadow .18s ease;
     }
+    .cta-top:hover{ transform:translateY(-1px); box-shadow:0 14px 28px rgba(47,107,255,.28); }
 
-    .nav {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 16px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 700;
-      text-decoration: none;
-      color: var(--text);
-    }
-
-    .brand img { width: 26px; height: 26px; }
-
-    .nav-links {
-      display: flex;
-      gap: 22px;
-      align-items: center;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      font-size: 14px;
-      color: var(--muted);
-      font-weight: 500;
-    }
-
-    .nav-links a:hover { color: var(--text); }
-
-    .cta {
-      padding: 10px 16px;
-      border-radius: 10px;
-      background: var(--accent);
-      color: white !important;
-      font-weight: 600;
-      font-size: 14px;
-      text-decoration: none;
-      box-shadow: 0 8px 20px rgba(47,107,255,0.25);
-    }
-
-    /* HERO */
-    .bg-wash{
-      position: fixed;
-      inset: 0;
-      z-index: -1;
+    /* Background aura */
+    .aura{
+      position:absolute; inset:-120px -120px auto -120px;
+      height:560px; pointer-events:none;
       background:
-        radial-gradient(1200px 700px at 20% 10%, rgba(47,107,255,0.10), transparent 55%),
-        radial-gradient(1000px 600px at 80% 20%, rgba(154,106,255,0.10), transparent 55%),
-        radial-gradient(900px 600px at 50% 85%, rgba(39,217,128,0.08), transparent 60%);
-      pointer-events: none;
+        radial-gradient(600px 420px at 18% 28%, rgba(47,107,255,.14), transparent 60%),
+        radial-gradient(560px 420px at 82% 22%, rgba(122,92,255,.12), transparent 62%),
+        radial-gradient(420px 360px at 50% 78%, rgba(34,197,94,.10), transparent 62%);
+      filter:blur(2px);
     }
 
-    .hero-visual{
-      position: relative;
-      margin-top: 44px;
-      padding-bottom: 10px;
-      transform: translateY(-26px);
+    main{ padding-top:64px; }
+
+    /* Hero */
+    .hero{
+      position:relative;
+      min-height: calc(100vh - 64px);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: clamp(28px, 5vw, 48px) 16px 54px;
+      background:#fff;
+    }
+    .hero-inner{ width:min(1120px, 94vw); display:flex; flex-direction:column; align-items:center; text-align:center; gap:18px; }
+
+    .pill{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:8px 12px; border-radius:999px;
+      background:rgba(34,197,94,.10);
+      border:1px solid rgba(34,197,94,.20);
+      color:#136f33; font-weight:700; font-size:12px;
+    }
+    .dot{
+      width:8px; height:8px; border-radius:50%; background:var(--green);
+      box-shadow:0 0 0 0 rgba(34,197,94,.35);
+      animation:dotPulse 1.8s ease-in-out infinite;
+    }
+    @keyframes dotPulse{
+      0%{ box-shadow:0 0 0 0 rgba(34,197,94,.35); transform:scale(1) }
+      60%{ box-shadow:0 0 0 10px rgba(34,197,94,0); transform:scale(1.02) }
+      100%{ box-shadow:0 0 0 0 rgba(34,197,94,0); transform:scale(1) }
     }
 
-    .hero-visual img{
-      width: 100%;
-      max-width: 980px;
-      height: auto;
-      display: block;
+    h1{
+      font-size: clamp(42px, 6.2vw, 72px);
+      font-weight:900;
+      letter-spacing:-.03em;
+      line-height:1.03;
+    }
+    .sub{
+      max-width:760px;
+      color:var(--muted);
+      font-size: clamp(14px, 2vw, 16px);
+      line-height:1.55;
+    }
+
+    .badge-row{ display:flex; justify-content:center; margin-top:2px; }
+    .appstore-badge{
+      display:inline-flex; align-items:center; justify-content:center;
+      text-decoration:none;
+      border-radius:12px;
+      padding:10px 14px;
+      background:#000;
+      box-shadow:0 14px 34px rgba(2,6,23,.16);
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .appstore-badge:hover{ transform:translateY(-1px); box-shadow:0 18px 42px rgba(2,6,23,.20); }
+    .appstore-badge img{ height:34px; width:auto; display:block; }
+
+    /* Hero visual */
+    .visual{
+      position:relative;
+      width:min(980px, 94vw);
+      margin-top: 8px;
+      padding-top: 18px;
+    }
+
+    .monitor-wrap{
+      position:relative;
+      width: min(860px, 94vw);
       margin: 0 auto;
-      filter: drop-shadow(0 40px 90px rgba(0,0,0,0.16));
+      transform: translateY(10px);
     }
 
-    .note{
-      position: absolute;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 12px 18px;
-      min-width: 200px;
-      justify-content: flex-start;
+    .monitor{
+      width:100%;
+      height:auto;
+      display:block;
+      filter: drop-shadow(0 40px 80px rgba(2,6,23,.16));
+      transform: translateY(6px);
+    }
+
+    /* Floating feature chips */
+    .chip{
+      position:absolute;
+      display:flex; align-items:center; gap:10px;
+      padding: 10px 14px;
+      min-width: 168px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.92);
-      border: 1px solid rgba(0,0,0,0.08);
-      box-shadow: 0 18px 40px rgba(0,0,0,0.10);
-      font-size: 13px;
-      color: #1a2230;
-      font-weight: 600;
-      white-space: nowrap;
+      background: var(--chip);
+      border: 1px solid var(--chipLine);
+      box-shadow: var(--shadow2);
+      color:#0b0d12;
+      font-size: 12px;
+      font-weight: 700;
       backdrop-filter: blur(10px);
-      transform-origin: center;
-      transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease, filter .28s ease;
+      transform: translate3d(0,0,0);
+      transition: transform .28s cubic-bezier(.2,.8,.2,1), box-shadow .28s cubic-bezier(.2,.8,.2,1), background .28s ease, border-color .28s ease;
       will-change: transform;
-      animation: floaty 7.5s ease-in-out infinite;
+    }
+    .chip .ico{
+      width:26px; height:26px; border-radius:10px;
+      display:grid; place-items:center;
+      background:rgba(47,107,255,.10);
+      border:1px solid rgba(47,107,255,.16);
+      flex:0 0 auto;
+    }
+    .chip svg{ width:16px; height:16px; stroke:var(--blue); }
+
+    .chip:hover{
+      transform: translate3d(0,-3px,0) scale(1.05);
+      box-shadow: 0 18px 44px rgba(2,6,23,.16), 0 0 0 1px rgba(47,107,255,.10);
+      border-color: rgba(47,107,255,.22);
+      background: rgba(255,255,255,.92);
     }
 
-    .note:hover{
-$1
+    @media (prefers-reduced-motion: reduce){
+      .chip{ animation:none !important; transition:none !important; }
+      .dot{ animation:none !important; }
+      .feature-ico{ animation:none !important; }
     }
 
-    @keyframes floaty{
-      0%,100%{ transform: translateY(0px) }
-      50%{ transform: translateY(-6px) }
+    /* Chip orbit positioning (raised up) */
+    .c1{ left: 6%; top: 40%; }
+    .c2{ left: 16%; top: 25%; }
+    .c3{ left: 66%; top: 28%; }
+    .c4{ left: 72%; top: 44%; }
+    .c5{ left: 12%; top: 56%; }
+    .c6{ left: 30%; top: 66%; }
+    .c7{ left: 52%; top: 66%; }
+
+    /* Float animation, each with a different delay */
+    @keyframes floaty{ 0%,100%{ transform: translate3d(0,0,0); } 50%{ transform: translate3d(0,-10px,0); } }
+    .chip.f1{ animation: floaty 6.6s ease-in-out infinite; }
+    .chip.f2{ animation: floaty 7.3s ease-in-out infinite; animation-delay:-1.2s; }
+    .chip.f3{ animation: floaty 6.9s ease-in-out infinite; animation-delay:-2.1s; }
+    .chip.f4{ animation: floaty 7.8s ease-in-out infinite; animation-delay:-3.0s; }
+    .chip.f5{ animation: floaty 6.8s ease-in-out infinite; animation-delay:-1.6s; }
+    .chip.f6{ animation: floaty 7.6s ease-in-out infinite; animation-delay:-2.6s; }
+    .chip.f7{ animation: floaty 7.1s ease-in-out infinite; animation-delay:-3.4s; }
+
+    /* Feature section */
+    .section{
+      padding: 86px 16px;
+      border-top: 1px solid rgba(15, 23, 42, .06);
+      background: #fff;
+    }
+    .section .container{ width:min(1120px, 94vw); margin:0 auto; }
+    .section-head{ text-align:center; margin-bottom: 46px; }
+    .section-head h2{ font-size: clamp(26px, 3.8vw, 40px); letter-spacing:-.02em; font-weight:900; }
+    .section-head p{ margin-top:10px; color:var(--muted); max-width:740px; margin-left:auto; margin-right:auto; line-height:1.6; }
+
+    .feature-grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 18px;
     }
 
-    .note.n1{ animation-delay: 0.0s !important; left:12% !important; top:42% !important; }
-    .note.n2{ animation-delay: -1.1s !important; right:10% !important; top:28% !important; }
-    .note.n3{ animation-delay: -2.2s !important; left:18% !important; top:62% !important; }
-    .note.n4{ animation-delay: -3.3s !important; right:18% !important; top:48% !important; }
-    .note.n5{ animation-delay: -4.1s !important; left:22% !important; top:24% !important; }
-    .note.n6{ animation-delay: -5.0s !important; right:22% !important; top:16% !important; }
-    .note.n7{ animation-delay: -5.8s !important; left:30% !important; top:74% !important; }
-    .note.n8{ animation-delay: -6.6s !important; right:30% !important; top:70% !important; }
-
-    .note .icon{
-      width: 28px;
-      height: 28px;
-      border-radius: 10px;
-      display: grid;
-      place-items: center;
-      background: rgba(47,107,255,0.10);
-      color: var(--accent);
-      flex: 0 0 auto;
+    .feature{
+      grid-column: span 6;
+      background: linear-gradient(180deg, rgba(2,6,23,.02), rgba(2,6,23,.008));
+      border: 1px solid rgba(15, 23, 42, .08);
+      border-radius: 22px;
+      padding: 26px;
+      box-shadow: 0 18px 52px rgba(2, 6, 23, .06);
+      position:relative;
+      overflow:hidden;
+      min-height: 220px;
     }
 
-    .note svg{ width: 16px; height: 16px; }
+    .feature::before{
+      content:"";
+      position:absolute;
+      inset:-80px -120px auto -120px;
+      height:240px;
+      background:
+        radial-gradient(280px 220px at 18% 30%, rgba(47,107,255,.14), transparent 60%),
+        radial-gradient(260px 200px at 78% 30%, rgba(122,92,255,.10), transparent 62%);
+      opacity:.75;
+      pointer-events:none;
+      filter: blur(1px);
+    }
 
-    .note.n1{ left: 12%; top: 56%; }
-    .note.n2{ right: 10%; top: 42%; }
-    .note.n3{ left: 18%; top: 76%; }
-    .note.n4{ right: 18%; top: 62%; }
-    .note.n5{ left: 22%; top: 40%; }
-    .note.n6{ right: 22%; top: 30%; }
-    .note.n7{ left: 30%; top: 88%; }
-    .note.n8{ right: 30%; top: 84%; }
+    .feature-inner{ position:relative; display:flex; gap:18px; align-items:flex-start; }
+
+    .feature-ico{
+      width:64px; height:64px; border-radius:18px;
+      display:grid; place-items:center;
+      background:rgba(47,107,255,.10);
+      border:1px solid rgba(47,107,255,.16);
+      box-shadow: 0 14px 26px rgba(47,107,255,.10);
+      flex:0 0 auto;
+      animation: icoBreathe 4.2s ease-in-out infinite;
+    }
+
+    .feature-ico svg{ width:30px; height:30px; stroke: var(--blue); }
+
+    @keyframes icoBreathe{
+      0%,100%{ transform: translateY(0) scale(1); box-shadow: 0 14px 26px rgba(47,107,255,.10); }
+      50%{ transform: translateY(-4px) scale(1.03); box-shadow: 0 18px 32px rgba(47,107,255,.14); }
+    }
+
+    .feature h3{ font-size:18px; font-weight:900; letter-spacing:-.01em; }
+    .feature p{ margin-top:10px; color:var(--muted); line-height:1.65; font-size:14px; }
+
+    .feature:hover{ border-color: rgba(47,107,255,.22); box-shadow: 0 22px 62px rgba(2, 6, 23, .08); }
+
+    /* Full width accent rows */
+    .feature.wide{ grid-column: span 12; min-height: 210px; }
+    .wide .feature-inner{ align-items:center; }
+    .wide h3{ font-size:20px; }
 
     @media (max-width: 900px){
-      .note{ display:none; }
+      .feature{ grid-column: span 12; }
+      .monitor-wrap{ width: min(920px, 94vw); }
+      .c1{ left: 2%; top: 42%; }
+      .c2{ left: 6%; top: 26%; }
+      .c3{ left: 60%; top: 26%; }
+      .c4{ left: 62%; top: 44%; }
+      .c5{ left: 6%; top: 58%; }
+      .c6{ left: 22%; top: 68%; }
+      .c7{ left: 50%; top: 68%; }
     }
 
-    @media (prefers-reduced-motion: reduce){
-      .note{ animation: none; }
+    @media (max-width: 640px){
+      .nav a{ display:none; }
+      .cta-top{ display:inline-flex; }
+      .chip{ min-width: 150px; padding: 9px 12px; }
+      .chip .ico{ width:24px; height:24px; }
+      .feature-inner{ flex-direction:column; }
     }
 
-    @media (max-width: 520px){
-      .store-badge img{ height: 48px; }
-      .hero{ padding: 64px 16px 100px; }
-    }
-
-
-    .hero {
-      min-height: calc(100vh - 80px);
-      display: grid;
-      place-items: center;
-      padding: 80px 20px 120px;
-    }
-
-    .hero-inner {
-      max-width: 980px;
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 48px;
-      text-align: center;
-    }
-
-    .status-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 12px;
-      border-radius: 999px;
-      background: rgba(39,217,128,0.12);
-      color: #0f7a45;
-      font-size: 13px;
-      font-weight: 600;
-      margin: 0 auto;
-    }
-
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--success);
-      box-shadow: 0 0 0 rgba(39,217,128,0.7);
-      animation: pulse 1.8s infinite;
-    }
-
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(39,217,128,0.6); }
-      70% { box-shadow: 0 0 0 10px rgba(39,217,128,0); }
-      100% { box-shadow: 0 0 0 0 rgba(39,217,128,0); }
-    }
-
-    h1 {
-      font-size: clamp(40px, 6vw, 64px);
-      font-weight: 900;
-      letter-spacing: -0.02em;
-      line-height: 1.05;
-    }
-
-    .hero p {
-      max-width: 640px;
-      margin: 0 auto;
-      font-size: 18px;
-      color: var(--muted);
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 14px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .store-badge img {
-      height: 54px;
-    }
-
-    .hero-visual {
-      position: relative;
-      margin-top: 28px;
-      transform: translateY(-46px);
-    }
-
-    .hero-visual img {
-      width: 100%;
-      max-width: 760px;
-      height: auto;
-      display: block;
-      margin: 0 auto;
-      filter: drop-shadow(0 40px 80px rgba(0,0,0,0.18));
-    }
-
-  
-
-    /* --- DriveVault chip polish overrides (Jan 2026) --- */
-    .hero-visual{ transform: translateY(-46px) !important; }
-
-    /* Make hover smooth across browsers (and avoid snapping with !important) */
-    .note{
-      transition: transform .34s cubic-bezier(.2,.8,.2,1), box-shadow .28s ease, border-color .28s ease, filter .28s ease;
-      backface-visibility: hidden;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* Slightly larger hero mockup (kept) */
-    .hero-visual .mockup img,
-    .hero-visual .hero-mockup img,
-    .hero-visual img.mac,
-    .hero-visual img[alt*="Mac"]{
-      width: min(980px, 92vw) !important;
-      max-width: 980px !important;
-    }
-
-    /* Raise the orbit so the screen sits centered within the chips */
-    .note.n1{ animation-delay: 0.0s; left:12%; top:40%; }
-    .note.n2{ animation-delay: -1.1s; right:10%; top:26%; }
-    .note.n3{ animation-delay: -2.2s; left:18%; top:58%; }
-    .note.n4{ animation-delay: -3.3s; right:18%; top:44%; }
-    .note.n5{ animation-delay: -4.1s; left:22%; top:24%; }
-    .note.n6{ animation-delay: -5.0s; right:22%; top:16%; }
-    .note.n7{ animation-delay: -5.8s; left:30%; top:70%; }
-    .note.n8{ animation-delay: -6.6s; right:30%; top:66%; }
-
-    @media (prefers-reduced-motion: reduce){
-      .note{ animation: none; }
-    }
-
-</style>
-
-
+    footer{ padding: 46px 16px; color:#7b869a; text-align:center; border-top:1px solid rgba(15, 23, 42, .06); }
+    footer a{ color:#3d4656; text-decoration:none; }
+    footer a:hover{ text-decoration:underline; }
+  </style>
 </head>
 <body>
 
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="/">
+        <img src="/favicon.png" alt="DriveVault logo" />
+        <span>DriveVault</span>
+      </a>
 
-<div class="bg-wash" aria-hidden="true"></div>
+      <nav class="nav" aria-label="Primary">
+        <a href="/pricing.html">Pricing</a>
+        <a href="/changelog.html">Changelog</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/faq.html">FAQ</a>
+        <a class="cta-top" href="#" aria-label="Download on the App Store">Download on the App Store</a>
+      </nav>
+    </div>
+  </header>
 
+  <main>
+    <section class="hero">
+      <div class="aura" aria-hidden="true"></div>
 
-<header>
-  <div class="nav">
-    <a href="/" class="brand">
-      <img src="/favicon.png" alt="DriveVault logo" />
-      <span>DriveVault</span>
-    </a>
-    <nav class="nav-links">
-      <a href="/pricing.html">Pricing</a>
-      <a href="/changelog.html">Changelog</a>
-      <a href="/blog.html">Blog</a>
-      <a href="/faq.html">FAQ</a>
-      <a href="#" class="cta">Download on the App Store</a>
-    </nav>
-  </div>
-</header>
+      <div class="hero-inner">
+        <div class="pill"><span class="dot" aria-hidden="true"></span><span>Offline hard drive cataloguer for Mac</span></div>
 
+        <h1>Scan once.<br/>Search forever.</h1>
 
-<main class="hero">
-  <section class="hero-inner">
+        <p class="sub">DriveVault scans your external drives once, then lets you browse and search everything instantly - even when the drives are unplugged.</p>
 
+        <div class="badge-row">
+          <a class="appstore-badge" href="#" aria-label="Download on the App Store">
+            <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store" />
+          </a>
+        </div>
 
-<div class="status-pill">
-  <span class="status-dot"></span>
-  Offline hard drive cataloguer for Mac
-</div>
+        <div class="visual">
+          <div class="monitor-wrap">
+            <!-- Replace with your final hero PNG (transparent background recommended) -->
+            <img class="monitor" src="https://i.ibb.co/N6vPTTT8/Mac-Studio-Mockup2.png" alt="DriveVault app interface on Mac" />
 
-<h1>Scan once.<br/>Search forever.</h1>
+            <!-- Floating chips -->
+            <div class="chip c1 f1">
+              <span class="ico" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                  <circle cx="11" cy="11" r="6"></circle>
+                  <path d="M20 20l-3.5-3.5"></path>
+                </svg>
+              </span>
+              <span>Fast global search</span>
+            </div>
 
-<p>
-  DriveVault scans your external drives once, then lets you browse and search
-  everything instantly – even when the drives are unplugged.
-</p>
+            <div class="chip c2 f2">
+              <span class="ico" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                  <path d="M4 6h16M4 12h10M4 18h7"></path>
+                </svg>
+              </span>
+              <span>Uses rich metadata</span>
+            </div>
 
-<div class="hero-actions">
-  <a href="#" class="store-badge">
-    <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store">
-  </a>
-</div>
+            <div class="chip c3 f3">
+              <span class="ico" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                  <path d="M3 7h6l2 2h10v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                </svg>
+              </span>
+              <span>Create Projects</span>
+            </div>
 
-<div class="hero-visual">
-  <img src="https://i.ibb.co/N6vPTTT8/Mac-Studio-Mockup2.png" alt="DriveVault app interface on Mac" />
+            <div class="chip c4 f4">
+              <span class="ico" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                  <path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4"></path>
+                  <path d="M14 20h4a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-4"></path>
+                  <path d="M10 12h4"></path>
+                </svg>
+              </span>
+              <span>Compare drives</span>
+            </div>
 
-  <div class="note n1" aria-hidden="true">
-    <span class="icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="11" cy="11" r="7"></circle>
-        <path d="M21 21l-3.8-3.8"></path>
-      </svg>
-    </span>
-    Fast global search
-  </div>
+            <div class="chip c5 f5">
+              <span class="ico" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                  <path d="M7 3h10v18H7z"></path>
+                  <path d="M9 7h6M9 11h6M9 15h6"></path>
+                </svg>
+              </span>
+              <span>Reports and library stats</span>
+            </div>
 
-  <div class="note n2" aria-hidden="true">
-    <span class="icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4"></path>
-        <path d="M14 20h4a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-4"></path>
-        <path d="M10 12h4"></path>
-      </svg>
-    </span>
-    Compare drives
-  </div>
+            <div class="chip c6 f6">
+              <span class="ico" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                  <path d="M4 6h16"></path>
+                  <path d="M4 12h16"></path>
+                  <path d="M4 18h16"></path>
+                </svg>
+              </span>
+              <span>Smart Filter</span>
+            </div>
 
-  <div class="note n3" aria-hidden="true">
-    <span class="icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M7 3h10v18H7z"></path>
-        <path d="M9 7h6M9 11h6M9 15h6"></path>
-      </svg>
-    </span>
-    Reports and library stats
-  </div>
+            <div class="chip c7 f7">
+              <span class="ico" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                  <path d="M12 5v14"></path>
+                  <path d="M8 9l4-4 4 4"></path>
+                  <path d="M16 15l-4 4-4-4"></path>
+                </svg>
+              </span>
+              <span>Export + Import Libraries</span>
+            </div>
 
-  <div class="note n4" aria-hidden="true">
-    <span class="icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 17.3l-6.2 3.4 1.2-7.1L1.8 8.7l7.2-1L12 1.2l3 6.5 7.2 1-5.2 4.8 1.2 7.1z"></path>
-      </svg>
-    </span>
-    Search by rating
-  </div>
+            <!-- Additional chip example (not placed yet): Search by rating -->
+            <div class="chip" style="left: 58%; top: 52%;" aria-hidden="false">
+              <span class="ico" aria-hidden="true" style="background:rgba(122,92,255,.10); border-color:rgba(122,92,255,.16);">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" style="stroke:var(--blue2)">
+                  <path d="M12 17.3l-6.2 3.3 1.2-6.9L1.9 8.9l7-1L12 1.5l3.1 6.4 7 1-5.1 4.8 1.2 6.9z" />
+                </svg>
+              </span>
+              <span>Search by rating</span>
+            </div>
 
-  <div class="note n5" aria-hidden="true">
-    <span class="icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 20h9"></path>
-        <path d="M12 4h9"></path>
-        <path d="M4 6h6"></path>
-        <path d="M4 10h6"></path>
-        <path d="M4 14h6"></path>
-        <path d="M4 18h6"></path>
-        <path d="M12 8h9"></path>
-        <path d="M12 12h9"></path>
-        <path d="M12 16h9"></path>
-      </svg>
-    </span>
-    Uses rich metadata
-  </div>
+          </div>
+        </div>
 
-  <div class="note n6" aria-hidden="true">
-    <span class="icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M3 7h6l2 2h10v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-      </svg>
-    </span>
-    Create Projects
-  </div>
+      </div>
+    </section>
 
-  <div class="note n7" aria-hidden="true">
-    <span class="icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M10 6H21"></path>
-        <path d="M3 6h1"></path>
-        <path d="M6 6h1"></path>
-        <path d="M10 12H21"></path>
-        <path d="M3 12h1"></path>
-        <path d="M6 12h1"></path>
-        <path d="M10 18H21"></path>
-        <path d="M3 18h1"></path>
-        <path d="M6 18h1"></path>
-      </svg>
-    </span>
-    Smart Filter
-  </div>
+    <!-- NEW: Benefits + features section -->
+    <section class="section" id="features">
+      <div class="container">
+        <div class="section-head">
+          <h2>Built for people who live on external drives</h2>
+          <p>DriveVault keeps your archive searchable, shareable, and organised - without turning your desk into a cable jungle.</p>
+        </div>
 
-  <div class="note n8" aria-hidden="true">
-    <span class="icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M8 7h12"></path>
-        <path d="M8 12h12"></path>
-        <path d="M8 17h12"></path>
-        <path d="M4 7h.01"></path>
-        <path d="M4 12h.01"></path>
-        <path d="M4 17h.01"></path>
-      </svg>
-    </span>
-    Export + Import Libraries
-  </div>
-</div>
+        <div class="feature-grid">
+          <article class="feature wide">
+            <div class="feature-inner">
+              <div class="feature-ico" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 7h6l2 2h8a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7z" />
+                  <path d="M8 12h8" />
+                  <path d="M8 16h6" />
+                </svg>
+              </div>
+              <div>
+                <h3>Browse Drives Offline</h3>
+                <p>Scan a drive once, then explore it anytime - even when it is unplugged. Perfect for big archives, cold storage, and multi-drive workflows where you need answers instantly.</p>
+              </div>
+            </div>
+          </article>
 
-  </section>
-</main>
+          <article class="feature">
+            <div class="feature-inner">
+              <div class="feature-ico" aria-hidden="true" style="background:rgba(34,197,94,.10); border-color:rgba(34,197,94,.18); box-shadow:0 14px 26px rgba(34,197,94,.10)">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke:var(--green)">
+                  <circle cx="11" cy="11" r="6"></circle>
+                  <path d="M20 20l-3.5-3.5"></path>
+                  <path d="M8 11h6"></path>
+                  <path d="M11 8v6"></path>
+                </svg>
+              </div>
+              <div>
+                <h3>Powerful Search Across Drives</h3>
+                <p>Find files by name, type, size, dates, tags, ratings, and metadata - across your entire library. It feels like Spotlight, but for every drive you own.</p>
+              </div>
+            </div>
+          </article>
 
+          <article class="feature">
+            <div class="feature-inner">
+              <div class="feature-ico" aria-hidden="true" style="background:rgba(122,92,255,.10); border-color:rgba(122,92,255,.18); box-shadow:0 14px 26px rgba(122,92,255,.10)">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke:var(--blue2)">
+                  <path d="M16 8a4 4 0 0 1 0 8" />
+                  <path d="M8 16a4 4 0 0 1 0-8" />
+                  <path d="M10 12h4" />
+                </svg>
+              </div>
+              <div>
+                <h3>Share Drive Libraries With Other DriveVault Users</h3>
+                <p>Export your library and send it to a collaborator, editor, or assistant so they can browse and search the same archive offline - without needing the physical drive.</p>
+              </div>
+            </div>
+          </article>
 
+          <article class="feature wide">
+            <div class="feature-inner">
+              <div class="feature-ico" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 7h6l2 2h10v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z" />
+                  <path d="M7 13h10" />
+                  <path d="M7 17h7" />
+                </svg>
+              </div>
+              <div>
+                <h3>Order by Projects</h3>
+                <p>Group drives into clean project spaces so your library stays organised across clients, shoots, and backups. When you return to an old job, everything is exactly where you expect it.</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div>© <span id="year"></span> DriveVault • <a href="/privacy.html">Privacy</a> • <a href="/terms.html">Terms</a></div>
+    </footer>
+  </main>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Smooth hover scaling on Safari/Chrome: ensure chips always have a baseline transform.
+    // (The :hover transform animates via transition above.)
+
+    // Optional: slightly randomize floating phase on load for a more organic look.
+    const chips = document.querySelectorAll('.chip');
+    chips.forEach((c) => {
+      const jitter = (Math.random() * 1200) * -1;
+      const dur = 6400 + Math.random() * 1800;
+      if (c.className.includes('f')) {
+        c.style.animationDuration = dur.toFixed(0) + 'ms';
+        c.style.animationDelay = jitter.toFixed(0) + 'ms';
+      }
+    });
+  </script>
 </body>
 </html>
