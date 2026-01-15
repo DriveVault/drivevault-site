@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>DriveVault - Scan once. Search forever.</title>
+  <title>DriveVault - Hard Drives Unplugged</title>
   <meta name="description" content="DriveVault scans your external drives once, then lets you browse and search them anytime - even when they are unplugged." />
 
   <link rel="icon" href="/favicon.png" type="image/png" />
@@ -19,14 +19,11 @@
       --text:#0b0d12;
       --muted:#5f6775;
       --line:rgba(10,12,18,.08);
-      --card:rgba(255,255,255,.78);
-      --cardLine:rgba(10,12,18,.08);
       --shadow:0 20px 60px rgba(10,12,18,.08);
       --shadow2:0 14px 30px rgba(10,12,18,.09);
       --blue:#2f6bff;
       --blue2:#6aa2ff;
       --green:#22c55e;
-      --green2:#86efac;
     }
 
     *{box-sizing:border-box; margin:0; padding:0}
@@ -125,109 +122,145 @@
       line-height:1.55;
     }
 
-    /* App Store pill (uses official Apple badge SVG image so the logo cannot be wrong) */
-    .appstore{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      padding:14px 18px;
-      border-radius:999px;
-      position:relative;
-      text-decoration:none;
-      cursor:pointer;
-      user-select:none;
-      background:rgba(255,255,255,.68);
-      border:1px solid rgba(10,12,18,.10);
-      backdrop-filter:saturate(170%) blur(16px);
-      -webkit-backdrop-filter:saturate(170%) blur(16px);
-      box-shadow:0 18px 40px rgba(10,12,18,.10);
-      transform:translateZ(0);
-      transition:transform .28s cubic-bezier(.2,.9,.2,1), box-shadow .7s ease, background .7s ease, filter .7s ease;
-      overflow:hidden;
-    }
+.appstore-pill{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
 
-    .appstore::before{
-      content:"";
-      position:absolute;
-      inset:-1px;
-      border-radius:inherit;
-      padding:1px;
-      background:linear-gradient(90deg, rgba(106,162,255,.95), rgba(154,106,255,.85), rgba(34,197,94,.85), rgba(106,162,255,.95));
-      background-size:240% 100%;
-      animation:borderShift 6s ease-in-out infinite;
-      -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-      -webkit-mask-composite:xor;
-      mask-composite:exclude;
-      pointer-events:none;
-      opacity:.85;
-    }
+  padding:14px 22px;
+  border-radius:999px;
 
-    .appstore::after{
-      content:"";
-      position:absolute;
-      inset:-24px;
-      border-radius:inherit;
-      background:
-        radial-gradient(140px 70px at 25% 35%, rgba(106,162,255,.46), transparent 62%),
-        radial-gradient(170px 90px at 75% 60%, rgba(154,106,255,.36), transparent 66%),
-        radial-gradient(180px 110px at 50% 90%, rgba(34,197,94,.26), transparent 70%);
-      filter:blur(14px);
-      opacity:.62;
-      animation:glowPulse 2.8s ease-in-out infinite;
-      pointer-events:none;
-    }
+  background:linear-gradient(135deg,
+    rgba(255,255,255,.78),
+    rgba(240,244,255,.70),
+    rgba(246,242,255,.68)
+  );
 
-    .appstore .shine{
-      position:absolute;
-      inset:-40% -60%;
-      background:linear-gradient(115deg, transparent 45%, rgba(255,255,255,.55) 50%, transparent 55%);
-      transform:translateX(-30%) rotate(10deg);
-      opacity:.22;
-      animation:shineSweep 5.5s ease-in-out infinite;
-      pointer-events:none;
-      mix-blend-mode:overlay;
-    }
+  border:1px solid rgba(47,107,255,.22);
+  box-shadow:
+    0 22px 55px rgba(10,12,18,.12),
+    0 0 0 6px rgba(47,107,255,.06);
 
-    @keyframes glowPulse{
-      0%,100%{opacity:.50; transform:scale(1)}
-      50%{opacity:.78; transform:scale(1.02)}
-    }
-    @keyframes borderShift{
-      0%,100%{background-position:0% 50%}
-      50%{background-position:100% 50%}
-    }
-    @keyframes shineSweep{
-      0%{transform:translateX(-35%) rotate(10deg); opacity:.12}
-      45%{opacity:.30}
-      100%{transform:translateX(35%) rotate(10deg); opacity:.12}
-    }
+  text-decoration:none;
+  color:#10131a;
 
-    .appstore:hover{
-      transform:translateY(-2px) scale(1.035);
-      background:rgba(255,255,255,.82);
-      box-shadow:0 30px 86px rgba(10,12,18,.16);
-      filter:saturate(1.05);
-    }
+  transition:
+    transform .26s cubic-bezier(.2,.9,.2,1),
+    box-shadow .55s ease,
+    background .55s ease,
+    border-color .55s ease,
+    color .25s ease;
 
-    .appstore:focus-visible{
-      outline:none;
-      box-shadow:0 0 0 4px rgba(47,107,255,.18), 0 30px 86px rgba(10,12,18,.16);
-    }
+  will-change:transform;
+  position:relative;
+}
 
-    .appstore:active{transform:translateY(0) scale(1.01)}
-    .appstore img{
-      height:34px;
-      width:auto;
-      display:block;
-      position:relative;
-      z-index:1;
-    }
+.appstore-pill:hover{
+  transform:translateY(-2px) scale(1.02);
+  border-color:rgba(47,107,255,.36);
+  background:linear-gradient(135deg,
+    rgba(47,107,255,.14),
+    rgba(106,162,255,.10),
+    rgba(154,106,255,.10)
+  );
+  box-shadow:
+    0 30px 70px rgba(10,12,18,.14),
+    0 0 0 8px rgba(47,107,255,.10),
+    0 0 80px rgba(106,162,255,.22);
+  color:#ffffff;
+}
 
+.appstore-pill:active{
+  transform:translateY(-1px) scale(1.01);
+}
+
+.appstore-pill:focus-visible{
+  outline:none;
+  box-shadow:
+    0 30px 70px rgba(10,12,18,.14),
+    0 0 0 4px rgba(47,107,255,.22),
+    0 0 0 10px rgba(47,107,255,.10);
+}
+
+.appstore-icon{
+  width:44px;
+  height:44px;
+  border-radius:16px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  line-height:0;
+  overflow:visible; /* prevents the leaf getting clipped */
+
+  background:rgba(255,255,255,.70);
+  border:1px solid rgba(10,12,18,.10);
+  box-shadow:0 12px 28px rgba(10,12,18,.10);
+
+  color:#0b0d12;
+  flex:0 0 auto;
+
+  transition:
+    transform .40s cubic-bezier(.2,.9,.2,1),
+    background .35s ease,
+    border-color .35s ease,
+    color .25s ease,
+    box-shadow .45s ease;
+}
+
+.appstore-pill:hover .appstore-icon{
+  transform:rotate(6deg);
+  background:rgba(255,255,255,.22);
+  border-color:rgba(255,255,255,.28);
+  box-shadow:
+    0 16px 34px rgba(10,12,18,.14),
+    0 0 44px rgba(106,162,255,.22);
+  color:#ffffff;
+}
+
+.appstore-icon svg{
+  width:20px;
+  height:20px;
+  display:block;
+}
+
+.appstore-icon svg path{
+  fill:currentColor;
+}
+
+.appstore-text{
+  display:grid;
+  gap:2px;
+  line-height:1.05;
+  text-align:left;
+}
+
+.appstore-top{
+  font-size:13px;
+  font-weight:700;
+  color:rgba(17,20,28,.68);
+  transition:color .25s ease;
+}
+
+.appstore-bottom{
+  font-size:22px;
+  font-weight:900;
+  letter-spacing:-0.02em;
+  color:rgba(17,20,28,.92);
+  transition:color .25s ease;
+}
+
+.appstore-pill:hover .appstore-top,
+.appstore-pill:hover .appstore-bottom{
+  color:#ffffff;
+}
+    
     /* Hero visual */
     .visual{
       position:relative;
-      width:min(920px, 94vw);
+      width:min(980px, 94vw);
       margin:42px auto 0;
       padding:0;
     }
@@ -239,8 +272,9 @@
       justify-content:center;
       transform:translateZ(0);
     }
+    /* FIX: make it straight + bigger */
     .screen{
-      width:min(760px, 92vw);
+      width:min(900px, 94vw);
       height:auto;
       display:block;
       filter:drop-shadow(0 40px 80px rgba(10,12,18,.12));
@@ -253,7 +287,7 @@
       display:flex;
       align-items:center;
       gap:10px;
-      padding:12px 14px;
+      padding:12px 16px; /* slightly wider */
       border-radius:999px;
       background:rgba(255,255,255,.86);
       border:1px solid rgba(10,12,18,.08);
@@ -288,9 +322,6 @@
       .pill .dot{animation:none}
       .chip{animation:none}
       .chip:hover .ico{transform:none}
-      .appstore::before,
-      .appstore::after,
-      .appstore .shine{animation:none}
     }
 
     .chip.float1{animation:floatA 7.5s ease-in-out infinite}
@@ -306,15 +337,15 @@
     @keyframes floatB{0%,100%{transform:translateY(0)}50%{transform:translateY(12px)}}
     @keyframes floatC{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
 
-    /* Chip positioning */
-    .chip.c1{left:4%; top:34%;}
-    .chip.c2{left:-1%; top:52%;}
-    .chip.c3{left:10%; top:20%;}
-    .chip.c4{right:6%; top:24%;}
-    .chip.c5{right:1%; top:44%;}
-    .chip.c6{right:12%; top:60%;}
-    .chip.c7{left:18%; top:66%;}
-    .chip.c8{right:20%; top:70%;}
+    /* Chip positioning (tuned so screen sits in the middle) */
+    .chip.c1{left:6%; top:28%;}
+    .chip.c2{left:1%; top:48%;}
+    .chip.c3{left:10%; top:14%;}
+    .chip.c4{right:8%; top:16%;}
+    .chip.c5{right:2%; top:38%;}
+    .chip.c6{right:10%; top:58%;}
+    .chip.c7{left:16%; top:64%;}
+    .chip.c8{right:18%; top:68%;}
 
     /* Section */
     .section{
@@ -350,21 +381,22 @@
       transition:box-shadow .55s ease, transform .35s cubic-bezier(.2,.9,.2,1);
     }
 
+    /* Glow that fades in and out smoothly */
     .card::before{
       content:"";
       position:absolute; inset:-2px;
       background:
-        radial-gradient(800px 220px at 40% 10%, rgba(47,107,255,.18), transparent 55%),
-        radial-gradient(700px 240px at 80% 30%, rgba(154,106,255,.14), transparent 60%),
-        radial-gradient(700px 260px at 30% 80%, rgba(34,197,94,.12), transparent 60%);
+        radial-gradient(800px 220px at 40% 10%, rgba(47,107,255,.22), transparent 55%),
+        radial-gradient(700px 240px at 80% 30%, rgba(154,106,255,.18), transparent 60%),
+        radial-gradient(700px 260px at 30% 80%, rgba(34,197,94,.16), transparent 60%);
       opacity:0;
-      transition:opacity .75s ease;
+      transition:opacity .85s ease;
       pointer-events:none;
     }
     .card:hover::before{opacity:1}
     .card:hover{
       transform:translateY(-3px);
-      box-shadow:0 26px 68px rgba(10,12,18,.10);
+      box-shadow:0 30px 80px rgba(10,12,18,.11);
     }
 
     .card.big{grid-column:1 / -1; display:flex; gap:22px; align-items:flex-start}
@@ -380,6 +412,7 @@
       transition:transform .65s cubic-bezier(.2,.9,.2,1);
       transform-origin:center;
       flex:0 0 auto;
+      margin-bottom:16px; /* FIX: more breathing room before headings */
     }
     .card:hover .ficon{transform:rotate(360deg)}
 
@@ -387,9 +420,18 @@
     .card:nth-child(3) .ficon{background:rgba(154,106,255,.10); border-color:rgba(154,106,255,.18); color:#7c3aed; box-shadow:0 18px 40px rgba(154,106,255,.12)}
     .card:nth-child(4) .ficon{background:rgba(47,107,255,.09); border-color:rgba(47,107,255,.16); color:var(--blue); box-shadow:0 18px 40px rgba(47,107,255,.10)}
 
+    /* FIX: give the heading block a bit more space from icon */
+    .kicker{
+      font-size:12px;
+      color:#6b7280;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      font-weight:800;
+      margin:10px 0 10px;
+    }
+
     .card h3{font-size:18px; font-weight:900; letter-spacing:-.01em; margin-bottom:8px}
     .card p{color:var(--muted); line-height:1.65; font-size:14px; max-width:72ch}
-    .kicker{font-size:12px; color:#6b7280; text-transform:uppercase; letter-spacing:.12em; font-weight:800; margin-bottom:8px}
 
     @media (max-width:860px){
       .grid{grid-template-columns:1fr}
@@ -398,14 +440,14 @@
       .chip{font-size:11px; padding:10px 12px}
       .chip .ico{width:26px; height:26px}
       .screen{transform:rotate(0deg)}
-      .chip.c1{left:2%; top:28%}
-      .chip.c2{left:-1%; top:48%}
-      .chip.c3{left:4%; top:14%}
-      .chip.c4{right:4%; top:16%}
-      .chip.c5{right:1%; top:38%}
-      .chip.c6{right:6%; top:62%}
-      .chip.c7{left:10%; top:70%}
-      .chip.c8{right:10%; top:76%}
+      .chip.c1{left:2%; top:22%}
+      .chip.c2{left:-1%; top:44%}
+      .chip.c3{left:4%; top:10%}
+      .chip.c4{right:4%; top:12%}
+      .chip.c5{right:1%; top:34%}
+      .chip.c6{right:6%; top:58%}
+      .chip.c7{left:10%; top:68%}
+      .chip.c8{right:10%; top:74%}
     }
 
     @media (prefers-reduced-motion: reduce){
@@ -455,14 +497,22 @@
       <div class="hero-inner">
         <div class="pill"><span class="dot" aria-hidden="true"></span> Offline hard drive cataloguer for Mac</div>
 
-        <h1 class="h1">Scan once.<br>Search forever.</h1>
+        <h1 class="h1">Scan hard drives once.<br>Search them forever.<br>Unplugged.</h1>
 
-        <p class="sub">DriveVault scans your external drives once, then lets you browse and search everything instantly - even when the drives are unplugged.</p>
+        <p class="sub">Never lose a file again. Build an offline, powerful, catalogue of your hard drives with DriveVault. </p>
 
-        <a id="download" class="appstore" href="#" aria-label="Download on the App Store">
-          <span class="shine" aria-hidden="true"></span>
-          <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store">
-        </a>
+     <a class="appstore-pill" href="#">
+<span class="appstore-icon" aria-hidden="true">
+  <svg viewBox="0 0 384 512" role="img" aria-label="Apple" focusable="false">
+    <path fill="currentColor" d="M318.7 268.7c-.3-42.9 19.1-75.4 57.9-98.8-21.7-31.6-54.5-49-97.9-52.4-41-3.4-85.8 24.2-102.2 24.2-17.3 0-57.2-23.3-88.7-23.3C22.1 146.4 0 196.6 0 260.3c0 37.7 6.9 76.7 20.7 116.8 18.4 52.8 84.8 182.2 154.1 180 29.3-.7 50.1-20.8 88.2-20.8 37 0 56.3 20.8 88.8 20.4 69.9-1.1 130-118.7 147.5-171.6-92.6-44.2-90.9-131.3-90.6-136.4zM250.6 78.1c31.5-38.3 28.7-73.1 27.8-85.6-27.9 1.6-60.1 19-78.5 40.4-20.2 22.7-32.2 50.8-29.7 80.2 30.2 2.3 57.8-13.4 80.4-35z"/>
+  </svg>
+</span>
+
+  <span class="appstore-text">
+    <span class="appstore-top">Download on the</span>
+    <span class="appstore-bottom">App Store</span>
+  </span>
+</a>
 
         <div class="visual" aria-label="DriveVault app preview">
           <div class="screen-wrap">
@@ -507,8 +557,8 @@
 
     <section class="section">
       <div class="container">
-        <h2 class="sec-title">Built for people who live on external drives</h2>
-        <p class="sec-sub">DriveVault keeps your archive searchable, shareable, and organised - without turning your desk into a cable jungle.</p>
+        <h2 class="sec-title">Built for people who rely on external drives</h2>
+        <p class="sec-sub">DriveVault keeps your archive searchable, shareable, and organised<br>without turning your desk into a cable jungle.</p>
 
         <div class="grid">
           <article class="card big">
@@ -590,145 +640,179 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // --- Parallax (subtle, launch-grade) ---
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!prefersReducedMotion) {
-      const screen = document.querySelector('.screen');
-      const chips = Array.from(document.querySelectorAll('.chip'));
-      const blobs = Array.from(document.querySelectorAll('.blob'));
-      const hero = document.querySelector('.hero');
-      const heroInner = document.querySelector('.hero-inner');
-      const heroTitle = document.querySelector('.h1');
-      const heroSub = document.querySelector('.sub');
-      const heroPill = document.querySelector('.pill');
-      const visual = document.querySelector('.visual');
+// --- Parallax (subtle, launch-grade) ---
+// Goals:
+// - Only run while the hero visual is in view
+// - Smooth motion via rAF + lerp (no snapping)
+// - Tiny "micro-settle" on scroll stop
+// - Blobs drift with slight X and Y parallax for depth
 
-      const chipBase = new Map();
-      chips.forEach((c) => chipBase.set(c, { x: 0, y: 0 }));
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (prefersReducedMotion) {
+// Respect reduced-motion: do nothing
+} else {
+const screen = document.querySelector('.screen');
+const chips = Array.from(document.querySelectorAll('.chip'));
+const blobs = Array.from(document.querySelectorAll('.blob'));
+const hero = document.querySelector('.hero');
+const heroInner = document.querySelector('.hero-inner');
+const heroTitle = document.querySelector('.h1');
+const heroSub = document.querySelector('.sub');
+const heroPill = document.querySelector('.pill');
+const visual = document.querySelector('.visual');
 
-      let enabled = true;
-      let targetY = window.scrollY;
-      let currentY = window.scrollY;
-      let rafId = null;
-      let scrollStopTimer = null;
+// We keep our own transforms so we don't fight CSS hover transforms
+const chipBase = new Map();
+chips.forEach((c) => {
+  chipBase.set(c, { x: 0, y: 0 });
+});
 
-      const ioTarget = visual || hero;
-      const io = ioTarget
-        ? new IntersectionObserver(
-            (entries) => {
-              enabled = entries.some((e) => e.isIntersecting);
-              if (enabled) {
-                targetY = window.scrollY;
-                currentY = window.scrollY;
-                start();
-              }
-            },
-            { root: null, threshold: 0, rootMargin: '200px 0px 200px 0px' }
-          )
-        : null;
-      if (io && ioTarget) io.observe(ioTarget);
+let enabled = true; // will be toggled by IntersectionObserver
+let targetY = window.scrollY;
+let currentY = window.scrollY;
+let rafId = null;
+let scrollStopTimer = null;
 
-      function start() {
-        if (rafId) return;
-        rafId = requestAnimationFrame(tick);
-      }
-
-      function stop() {
-        if (!rafId) return;
-        cancelAnimationFrame(rafId);
-        rafId = null;
-      }
-
-      function clamp(n, min, max) {
-        return Math.max(min, Math.min(max, n));
-      }
-
-      function tick() {
-        rafId = requestAnimationFrame(tick);
-        if (!enabled) {
-          stop();
-          return;
+// IntersectionObserver: only animate when hero/visual is near viewport
+const ioTarget = visual || hero;
+const io = ioTarget
+  ? new IntersectionObserver(
+      (entries) => {
+        enabled = entries.some((e) => e.isIntersecting);
+        // When re-enabled, sync positions so there's no jump
+        if (enabled) {
+          targetY = window.scrollY;
+          currentY = window.scrollY;
+          start();
         }
+      },
+      { root: null, threshold: 0, rootMargin: '200px 0px 200px 0px' }
+    )
+  : null;
+if (io && ioTarget) io.observe(ioTarget);
 
-        currentY += (targetY - currentY) * 0.08;
+// Smooth animation loop
+function start() {
+  if (rafId) return;
+  rafId = requestAnimationFrame(tick);
+}
 
-        let heroProgress = 0;
-        if (hero) {
-          const rect = hero.getBoundingClientRect();
-          const heroHeight = hero.offsetHeight || window.innerHeight;
-          heroProgress = clamp((window.innerHeight - rect.bottom) / (heroHeight * 0.65), 0, 1);
-        }
+function stop() {
+  if (!rafId) return;
+  cancelAnimationFrame(rafId);
+  rafId = null;
+}
 
-        if (screen) {
-          const y = currentY * 0.035;
-          screen.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0)`;
-        }
+function clamp(n, min, max) {
+  return Math.max(min, Math.min(max, n));
+}
 
-        chips.forEach((chip, i) => {
-          const base = chipBase.get(chip) || { x: 0, y: 0 };
-          const speed = 0.045 + i * 0.004;
-          const y = base.y + currentY * speed;
-          chip.style.transform = `translate3d(${base.x}px, ${y.toFixed(2)}px, 0)`;
-        });
+function tick() {
+  rafId = requestAnimationFrame(tick);
+  if (!enabled) {
+    stop();
+    return;
+  }
 
-        blobs.forEach((blob, i) => {
-          const y = currentY * (0.012 + i * 0.007);
-          const x = currentY * (0.004 + i * 0.002) * (i % 2 === 0 ? 1 : -1);
-          blob.style.transform = `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, 0)`;
-        });
+  // Lerp for smoothness
+  currentY += (targetY - currentY) * 0.08;
 
-        const titleFade = 1 - heroProgress * 0.30;
-        const subFade = 1 - heroProgress * 0.45;
-        const pillFade = 1 - heroProgress * 0.55;
+  // Normalize within hero range for text fades
+  let heroProgress = 0;
+  if (hero) {
+    const rect = hero.getBoundingClientRect();
+    const heroHeight = hero.offsetHeight || window.innerHeight;
+    // 0 at top of hero, 1 when hero is mostly scrolled past
+    heroProgress = clamp((window.innerHeight - rect.bottom) / (heroHeight * 0.65), 0, 1);
+  }
 
-        if (heroTitle) heroTitle.style.opacity = String(clamp(titleFade, 0.55, 1));
-        if (heroSub) heroSub.style.opacity = String(clamp(subFade, 0.35, 1));
-        if (heroPill) heroPill.style.opacity = String(clamp(pillFade, 0.2, 1));
+  // Subtle screen parallax
+  if (screen) {
+    const y = currentY * 0.035;
+    // Keep it perfectly straight (no rotation changes here)
+    screen.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0)`;
+  }
 
-        if (heroInner) {
-          const lift = -heroProgress * 10;
-          heroInner.style.transform = `translate3d(0, ${lift.toFixed(2)}px, 0)`;
-        }
-      }
+  // Chips parallax with slight offsets so they keep their layout
+  chips.forEach((chip, i) => {
+    const base = chipBase.get(chip) || { x: 0, y: 0 };
+    const speed = 0.045 + i * 0.004;
+    const y = base.y + currentY * speed;
+    chip.style.transform = `translate3d(${base.x}px, ${y.toFixed(2)}px, 0)`;
+  });
 
-      function onScroll() {
-        targetY = window.scrollY;
-        start();
+  // Blobs drift very slowly with slight X movement for depth
+  blobs.forEach((blob, i) => {
+    const y = currentY * (0.012 + i * 0.007);
+    const x = currentY * (0.004 + i * 0.002) * (i % 2 === 0 ? 1 : -1);
+    blob.style.transform = `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, 0)`;
+  });
 
-        if (scrollStopTimer) clearTimeout(scrollStopTimer);
+  // Hero text fades slightly as you scroll down (Apple-like)
+  const titleFade = 1 - heroProgress * 0.30;
+  const subFade = 1 - heroProgress * 0.45;
+  const pillFade = 1 - heroProgress * 0.55;
 
-        if (screen) screen.style.willChange = 'transform';
-        chips.forEach((c) => (c.style.willChange = 'transform'));
+  if (heroTitle) heroTitle.style.opacity = String(clamp(titleFade, 0.55, 1));
+  if (heroSub) heroSub.style.opacity = String(clamp(subFade, 0.35, 1));
+  if (heroPill) heroPill.style.opacity = String(clamp(pillFade, 0.2, 1));
 
-        scrollStopTimer = setTimeout(() => {
-          if (screen) {
-            const y = currentY * 0.035;
-            screen.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0) scale(1.006)`;
-            setTimeout(() => {
-              if (screen) screen.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0)`;
-            }, 220);
-          }
+  // Tiny upward drift for the hero text stack
+  if (heroInner) {
+    const lift = -heroProgress * 10;
+    heroInner.style.transform = `translate3d(0, ${lift.toFixed(2)}px, 0)`;
+  }
+}
 
-          chips.forEach((chip, i) => {
-            const base = chipBase.get(chip) || { x: 0, y: 0 };
-            const speed = 0.045 + i * 0.004;
-            const y = base.y + currentY * speed;
-            chip.style.transform = `translate3d(${base.x}px, ${y.toFixed(2)}px, 0) scale(1.01)`;
-            setTimeout(() => {
-              chip.style.transform = `translate3d(${base.x}px, ${y.toFixed(2)}px, 0)`;
-            }, 200);
-          });
+// Scroll handler: set target and handle micro-settle
+function onScroll() {
+  targetY = window.scrollY;
+  start();
 
-          setTimeout(() => {
-            if (screen) screen.style.willChange = 'auto';
-            chips.forEach((c) => (c.style.willChange = 'auto'));
-          }, 450);
-        }, 140);
-      }
+  // Micro-settle: tiny scale nudge when user stops scrolling
+  if (scrollStopTimer) clearTimeout(scrollStopTimer);
 
-      window.addEventListener('scroll', onScroll, { passive: true });
-      start();
+  // While scrolling: ensure normal scale
+  if (screen) screen.style.willChange = 'transform';
+  chips.forEach((c) => (c.style.willChange = 'transform'));
+
+  scrollStopTimer = setTimeout(() => {
+    // settle - tiny, tasteful
+    if (screen) {
+      const y = currentY * 0.035;
+      screen.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0) scale(1.006)`;
+      // return to normal after a beat
+      setTimeout(() => {
+        if (screen) screen.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0)`;
+      }, 220);
     }
+
+    chips.forEach((chip, i) => {
+      const base = chipBase.get(chip) || { x: 0, y: 0 };
+      const speed = 0.045 + i * 0.004;
+      const y = base.y + currentY * speed;
+      chip.style.transform = `translate3d(${base.x}px, ${y.toFixed(2)}px, 0) scale(1.01)`;
+      setTimeout(() => {
+        chip.style.transform = `translate3d(${base.x}px, ${y.toFixed(2)}px, 0)`;
+      }, 200);
+    });
+
+    // Clean will-change
+    setTimeout(() => {
+      if (screen) screen.style.willChange = 'auto';
+      chips.forEach((c) => (c.style.willChange = 'auto'));
+    }, 450);
+  }, 140);
+}
+
+window.addEventListener('scroll', onScroll, { passive: true });
+
+// Kick things off
+start();
+
+}
+
   </script>
 </body>
+
 </html>
