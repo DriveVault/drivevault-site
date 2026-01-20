@@ -285,6 +285,46 @@
       justify-content:flex-end;
     }
 
+    /* Video + info layout */
+    .video-row{
+      display:grid;
+      grid-template-columns: 1fr auto;
+      gap:48px;
+      align-items:center;
+      width:min(1300px, 96vw);
+      margin:0 auto 72px;
+    }
+
+    .video-info{
+      max-width:420px;
+    }
+
+    .video-info h3{
+      font-size:32px;
+      line-height:1.15;
+      font-weight:900;
+      letter-spacing:-.02em;
+      margin-bottom:12px;
+    }
+
+    .video-info p{
+      font-size:15px;
+      line-height:1.6;
+      color:var(--muted);
+    }
+
+    @media (max-width:960px){
+      .video-row{
+        grid-template-columns:1fr;
+        gap:28px;
+      }
+
+      .video-info{
+        max-width:100%;
+        text-align:center;
+      }
+    }
+
     .video-wrap{
       position:relative;
       width:860px;
@@ -318,6 +358,7 @@
       box-shadow:
         0 12px 30px rgba(10,12,18,.10),
         inset 0 1px 0 rgba(255,255,255,.85);
+      display:none;
     }
 
     @media (max-width:860px){
@@ -538,9 +579,17 @@
 
     <section class="section">
       <div class="container">
-        <div class="video-block">
+        <div class="video-row">
+          <div class="video-info">
+            <h3>Access your hard drives while offline</h3>
+            <p>
+              Scan a drive once and keep its entire structure, metadata, and previews
+              available forever. Even when the drive is unplugged, your files are still
+              searchable and browsable.
+            </p>
+          </div>
+
           <div class="video-wrap">
-            <div class="video-label">Access your hard drives while offline</div>
             <video
               src="https://cdn.shopify.com/videos/c/o/v/4716a6d56d7e457ca468debe745177dd.mp4"
               autoplay
