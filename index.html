@@ -276,6 +276,58 @@
     .chip.c7{left:16%; top:64%;}
     .chip.c8{right:18%; top:68%;}
 
+    /* Video preview block */
+    .video-block{
+      position:relative;
+      width:min(1100px, 94vw);
+      margin:0 auto 54px;
+      display:flex;
+      justify-content:flex-end;
+    }
+
+    .video-wrap{
+      position:relative;
+      width:720px;
+      max-width:100%;
+      border-radius:22px;
+      overflow:hidden;
+      box-shadow:0 30px 80px rgba(10,12,18,.14);
+      background:#000;
+    }
+
+    .video-wrap video{
+      width:100%;
+      height:auto;
+      display:block;
+    }
+
+    .video-label{
+      position:absolute;
+      top:-22px;
+      left:-22px;
+      padding:14px 18px;
+      background:#ffffff;
+      border-radius:14px;
+      font-size:14px;
+      font-weight:800;
+      letter-spacing:-0.01em;
+      color:#0b0d12;
+      box-shadow:
+        0 18px 40px rgba(10,12,18,.12),
+        inset 0 1px 0 rgba(255,255,255,.8);
+    }
+
+    @media (max-width:860px){
+      .video-block{
+        justify-content:center;
+      }
+      .video-label{
+        left:16px;
+        right:16px;
+        top:16px;
+      }
+    }
+
     /* Section */
     .section{
       padding:54px 16px 80px;
@@ -416,7 +468,7 @@
         <a href="/changelog.html">Changelog</a>
         <a href="/blog.html">Blog</a>
         <a href="/faq.html">FAQ</a>
-        <a class="cta-top" href="#download">Download on the App Store </a>
+        <a class="cta-top" href="#download">Download on the App Store</a>
       </nav>
     </div>
   </header>
@@ -432,7 +484,7 @@
 
         <p class="sub">Never lose a file again. Build an offline, powerful, catalogue of your hard drives with DriveVault. </p>
         <a class="cta-minimal" href="https://www.drivevault.io">
-          Download for free on the Apple App Store 
+          Download on the Apple App Store
         </a>
 
 
@@ -479,6 +531,18 @@
 
     <section class="section">
       <div class="container">
+        <div class="video-block">
+          <div class="video-wrap">
+            <div class="video-label">Access your hard drives while offline</div>
+            <video
+              src="https://cdn.shopify.com/videos/c/o/v/4716a6d56d7e457ca468debe745177dd.mp4"
+              autoplay
+              muted
+              loop
+              playsinline
+            ></video>
+          </div>
+        </div>
         <h2 class="sec-title">Built for people who rely on external drives</h2>
         <p class="sec-sub">DriveVault keeps your archive searchable, shareable, and organised<br>without turning your desk into a cable jungle.</p>
 
