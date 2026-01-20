@@ -134,140 +134,6 @@
       line-height:1.55;
     }
 
-.appstore-pill{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:14px;
-
-  padding:14px 22px;
-  border-radius:999px;
-
-  background:linear-gradient(135deg,
-    rgba(255,255,255,.78),
-    rgba(240,244,255,.70),
-    rgba(246,242,255,.68)
-  );
-
-  border:1px solid rgba(47,107,255,.22);
-  box-shadow:
-    0 22px 55px rgba(10,12,18,.12),
-    0 0 0 6px rgba(47,107,255,.06);
-
-  text-decoration:none;
-  color:#10131a;
-
-  transition:
-    transform .26s cubic-bezier(.2,.9,.2,1),
-    box-shadow .55s ease,
-    background .55s ease,
-    border-color .55s ease,
-    color .25s ease;
-
-  will-change:transform;
-  position:relative;
-}
-
-.appstore-pill:hover{
-  transform:translateY(-2px) scale(1.02);
-  border-color:rgba(47,107,255,.36);
-  background:linear-gradient(135deg,
-    rgba(47,107,255,.14),
-    rgba(106,162,255,.10),
-    rgba(154,106,255,.10)
-  );
-  box-shadow:
-    0 30px 70px rgba(10,12,18,.14),
-    0 0 0 8px rgba(47,107,255,.10),
-    0 0 80px rgba(106,162,255,.22);
-  color:#ffffff;
-}
-
-.appstore-pill:active{
-  transform:translateY(-1px) scale(1.01);
-}
-
-.appstore-pill:focus-visible{
-  outline:none;
-  box-shadow:
-    0 30px 70px rgba(10,12,18,.14),
-    0 0 0 4px rgba(47,107,255,.22),
-    0 0 0 10px rgba(47,107,255,.10);
-}
-
-.appstore-icon{
-  width:44px;
-  height:44px;
-  border-radius:16px;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  line-height:0;
-  overflow:visible; /* prevents the leaf getting clipped */
-
-  background:rgba(255,255,255,.70);
-  border:1px solid rgba(10,12,18,.10);
-  box-shadow:0 12px 28px rgba(10,12,18,.10);
-
-  color:#0b0d12;
-  flex:0 0 auto;
-
-  transition:
-    transform .40s cubic-bezier(.2,.9,.2,1),
-    background .35s ease,
-    border-color .35s ease,
-    color .25s ease,
-    box-shadow .45s ease;
-}
-
-.appstore-pill:hover .appstore-icon{
-  transform:rotate(6deg);
-  background:rgba(255,255,255,.22);
-  border-color:rgba(255,255,255,.28);
-  box-shadow:
-    0 16px 34px rgba(10,12,18,.14),
-    0 0 44px rgba(106,162,255,.22);
-  color:#ffffff;
-}
-
-.appstore-icon svg{
-  width:20px;
-  height:20px;
-  display:block;
-}
-
-.appstore-icon svg path{
-  fill:currentColor;
-}
-
-.appstore-text{
-  display:grid;
-  gap:2px;
-  line-height:1.05;
-  text-align:left;
-}
-
-.appstore-top{
-  font-size:13px;
-  font-weight:700;
-  color:rgba(17,20,28,.68);
-  transition:color .25s ease;
-}
-
-.appstore-bottom{
-  font-size:22px;
-  font-weight:900;
-  letter-spacing:-0.02em;
-  color:rgba(17,20,28,.92);
-  transition:color .25s ease;
-}
-
-.appstore-pill:hover .appstore-top,
-.appstore-pill:hover .appstore-bottom{
-  color:#ffffff;
-}
     
     /* Hero visual */
     .visual{
@@ -515,18 +381,6 @@
 
         <p class="sub">Never lose a file again. Build an offline, powerful, catalogue of your hard drives with DriveVault. </p>
 
-     <a class="appstore-pill" href="#">
-<span class="appstore-icon" aria-hidden="true">
-  <svg viewBox="0 0 384 512" role="img" aria-label="Apple" focusable="false">
-    <path fill="currentColor" d="M318.7 268.7c-.3-42.9 19.1-75.4 57.9-98.8-21.7-31.6-54.5-49-97.9-52.4-41-3.4-85.8 24.2-102.2 24.2-17.3 0-57.2-23.3-88.7-23.3C22.1 146.4 0 196.6 0 260.3c0 37.7 6.9 76.7 20.7 116.8 18.4 52.8 84.8 182.2 154.1 180 29.3-.7 50.1-20.8 88.2-20.8 37 0 56.3 20.8 88.8 20.4 69.9-1.1 130-118.7 147.5-171.6-92.6-44.2-90.9-131.3-90.6-136.4zM250.6 78.1c31.5-38.3 28.7-73.1 27.8-85.6-27.9 1.6-60.1 19-78.5 40.4-20.2 22.7-32.2 50.8-29.7 80.2 30.2 2.3 57.8-13.4 80.4-35z"/>
-  </svg>
-</span>
-
-  <span class="appstore-text">
-    <span class="appstore-top">Download on the</span>
-    <span class="appstore-bottom">App Store</span>
-  </span>
-</a>
 
         <div class="visual" aria-label="DriveVault app preview">
           <div class="screen-wrap">
@@ -672,7 +526,6 @@ const hero = document.querySelector('.hero');
 const heroInner = document.querySelector('.hero-inner');
 const heroTitle = document.querySelector('.h1');
 const heroSub = document.querySelector('.sub');
-const heroPill = document.querySelector('.pill');
 const visual = document.querySelector('.visual');
 
 // We keep our own transforms so we don't fight CSS hover transforms
@@ -769,7 +622,6 @@ function tick() {
 
   if (heroTitle) heroTitle.style.opacity = String(clamp(titleFade, 0.55, 1));
   if (heroSub) heroSub.style.opacity = String(clamp(subFade, 0.35, 1));
-  if (heroPill) heroPill.style.opacity = String(clamp(pillFade, 0.2, 1));
 
   // Tiny upward drift for the hero text stack
   if (heroInner) {
