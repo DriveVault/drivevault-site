@@ -35,7 +35,9 @@
     }
 
     /* Subtle Apple-ish blobs */
-    .bg-blobs{position:fixed; inset:-20vh -10vw -20vh -10vw; pointer-events:none; z-index:-1;}
+    .bg-blobs{
+      display:none;
+    }
     .blob{position:absolute; width:52vw; height:52vw; border-radius:999px; filter:blur(80px); opacity:.22;}
     .blob.b1{left:-18vw; top:-16vw; background:radial-gradient(circle at 30% 30%, rgba(106,162,255,.9), transparent 60%)}
     .blob.b2{right:-18vw; top:-12vw; background:radial-gradient(circle at 55% 45%, rgba(154,106,255,.9), transparent 60%)}
