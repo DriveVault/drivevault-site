@@ -295,6 +295,18 @@
       margin:0 auto 72px;
     }
 
+    .video-row.reverse{
+      grid-template-columns: auto 1fr;
+    }
+
+    .video-row.reverse .video-info{
+      order:2;
+    }
+
+    .video-row.reverse .video-wrap{
+      order:1;
+    }
+
     .video-info{
       max-width:420px;
     }
@@ -586,6 +598,63 @@
               Scan a drive once and keep its entire structure, metadata, and previews
               available forever. Even when the drive is unplugged, your files are still
               searchable and browsable.
+            </p>
+          </div>
+
+          <div class="video-wrap">
+            <video
+              src="https://cdn.shopify.com/videos/c/o/v/4716a6d56d7e457ca468debe745177dd.mp4"
+              autoplay
+              muted
+              loop
+              playsinline
+            ></video>
+          </div>
+        </div>
+        <div class="video-row reverse">
+          <div class="video-info">
+            <h3>Feature headline goes here</h3>
+            <p>
+              Short supporting description explaining the benefit of this feature.
+              We’ll populate this with real content later.
+            </p>
+          </div>
+
+          <div class="video-wrap">
+            <video
+              src="https://cdn.shopify.com/videos/c/o/v/4716a6d56d7e457ca468debe745177dd.mp4"
+              autoplay
+              muted
+              loop
+              playsinline
+            ></video>
+          </div>
+        </div>
+        <div class="video-row">
+          <div class="video-info">
+            <h3>Another feature headline</h3>
+            <p>
+              A concise explanation of another core capability.
+              This is placeholder copy for now.
+            </p>
+          </div>
+
+          <div class="video-wrap">
+            <video
+              src="https://cdn.shopify.com/videos/c/o/v/4716a6d56d7e457ca468debe745177dd.mp4"
+              autoplay
+              muted
+              loop
+              playsinline
+            ></video>
+          </div>
+        </div>
+        <div class="video-row reverse">
+          <div class="video-info">
+            <h3>One more key capability</h3>
+            <p>
+              Final placeholder description. This keeps the alternating rhythm
+              and can later be replaced with real DriveVault features.
             </p>
           </div>
 
