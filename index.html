@@ -134,6 +134,57 @@
       line-height:1.55;
     }
 
+    .cta-minimal{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      margin-top:26px;
+      padding:14px 26px;
+
+      font-size:14px;
+      font-weight:700;
+      letter-spacing:-0.01em;
+      text-decoration:none;
+
+      color:#0b0d12;
+      background:linear-gradient(
+        180deg,
+        #ffffff 0%,
+        #f4f5f7 100%
+      );
+
+      border:1px solid rgba(10,12,18,.12);
+      border-radius:14px;
+
+      box-shadow:
+        0 8px 20px rgba(10,12,18,.06),
+        inset 0 1px 0 rgba(255,255,255,.8);
+
+      transition:
+        background .25s ease,
+        box-shadow .25s ease,
+        transform .15s ease;
+    }
+
+    .cta-minimal:hover{
+      background:linear-gradient(
+        180deg,
+        #ffffff 0%,
+        #eceef1 100%
+      );
+      box-shadow:
+        0 12px 28px rgba(10,12,18,.08),
+        inset 0 1px 0 rgba(255,255,255,.85);
+      transform:translateY(-1px);
+    }
+
+    .cta-minimal:active{
+      transform:translateY(0);
+      box-shadow:
+        0 6px 14px rgba(10,12,18,.06),
+        inset 0 1px 0 rgba(255,255,255,.75);
+    }
+
     
     /* Hero visual */
     .visual{
@@ -380,6 +431,9 @@
         <h1 class="h1">Scan hard drives once.<br>Search them unplugged.<br>Forever.</h1>
 
         <p class="sub">Never lose a file again. Build an offline, powerful, catalogue of your hard drives with DriveVault. </p>
+        <a class="cta-minimal" href="https://www.drivevault.io">
+          Download on the Apple App Store
+        </a>
 
 
         <div class="visual" aria-label="DriveVault app preview">
