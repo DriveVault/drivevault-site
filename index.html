@@ -290,7 +290,7 @@
       width:860px;
       max-width:100%;
       border-radius:18px;
-      overflow:hidden;
+      overflow:visible;
       background:#000;
     }
 
@@ -302,9 +302,9 @@
 
     .video-label{
       position:absolute;
-      top:-28px;
-      left:24px;
-      z-index:5;
+      top:-36px;
+      left:32px;
+      z-index:10;
 
       padding:14px 20px;
       background:#ffffff;
@@ -314,6 +314,10 @@
       font-weight:800;
       letter-spacing:-0.01em;
       color:#0b0d12;
+
+      box-shadow:
+        0 12px 30px rgba(10,12,18,.10),
+        inset 0 1px 0 rgba(255,255,255,.85);
     }
 
     @media (max-width:860px){
