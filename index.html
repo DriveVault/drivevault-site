@@ -1756,7 +1756,7 @@ if ('IntersectionObserver' in window) {
         }
       });
     }
-    /* Signup connector: dot anchored to form, line extends left */
+    /* Signup connector: dot sits on the end of the line, line extends left */
     const connectorLine = document.getElementById('signup-connector');
     const connectorDot = document.getElementById('signup-dot');
     const signupForm = document.querySelector('.signup-form');
@@ -1767,19 +1767,19 @@ if ('IntersectionObserver' in window) {
           if (!entry.isIntersecting) return;
 
           const formRect = signupForm.getBoundingClientRect();
-          const viewportWidth = window.innerWidth;
 
-          // Dot sits just to the left of the form
-          const dotX = formRect.left - 10;
+          // End of the line aligns just left of the form
+          const lineEndX = formRect.left - 12;
 
-          // Line should extend far left, even off-screen
-          const lineStartX = -80;
-          const lineWidth = dotX - lineStartX;
+          // Line starts well off-screen to the left
+          const lineStartX = -120;
+          const lineWidth = lineEndX - lineStartX;
 
           connectorLine.style.left = `${lineStartX}px`;
           connectorLine.style.width = `${lineWidth}px`;
 
-          connectorDot.style.left = `${dotX}px`;
+          // Dot is pinned to the end of the line
+          connectorDot.style.left = `${lineWidth}px`;
 
           observer.disconnect();
         },
