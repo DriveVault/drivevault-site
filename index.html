@@ -947,81 +947,38 @@
   }
 }
     
-    /* Signup scroll connector - horizontal */
-.signup-connector-horizontal{
-  position:absolute;
-  left:0;
-  right:0;
-  top:50%;
-  height:120px;
-  transform:translateY(-50%);
-  overflow:hidden;
-  pointer-events:none;
-  z-index:1;
+    /* Signup scroll connector - new styles */
+.connector-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 80px 0 24px;
 }
 
-.connector-line-horizontal{
-  position:absolute;
-  left:-40vw;
-  top:50%;
-  height:3px;
-  width:0;
-  transform:translateY(-50%);
-  border-radius:999px;
-  background:linear-gradient(
-    90deg,
-    rgba(59,130,246,0),
-    #6366f1,
-    #8b5cf6,
-    #ec4899
-  );
-  box-shadow:
-    0 0 40px rgba(139,92,246,.45),
-    0 0 80px rgba(236,72,153,.25);
-  transition:width 1.2s cubic-bezier(.22,1,.36,1);
+.connector-line {
+  position: relative;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #6b5cff, #ff6aa2);
+  border-radius: 2px;
+  transition: width 1.2s cubic-bezier(.22,1,.36,1);
 }
 
-.connector-dot-horizontal{
-  position:absolute;
-  top:50%;
-  left:calc(60% - 10px);
-  width:18px;
-  height:18px;
-  transform:translateY(-50%) scale(0);
-  border-radius:50%;
-  background:linear-gradient(135deg,#6366f1,#ec4899);
-  box-shadow:
-    0 0 30px rgba(139,92,246,.6),
-    0 0 60px rgba(236,72,153,.35);
-  transition:transform .6s cubic-bezier(.22,1,.36,1) .5s;
+.connector-dot {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: radial-gradient(circle at center, #ff6aa2, #6b5cff);
+  box-shadow: 0 0 20px rgba(107, 92, 255, 0.6);
 }
 
-.signup-connector-horizontal.in-view .connector-line-horizontal{
-  width:120vw;
-}
-
-.signup-connector-horizontal.in-view .connector-dot-horizontal{
-  transform:translateY(-50%) scale(1);
-}
-
-/* Mobile tuning */
-@media (max-width:768px){
-  .signup-connector-horizontal{
-    height:90px;
-    margin-bottom:28px;
-  }
-
-  .connector-dot-horizontal{
-    left:70%;
-  }
-}
-/* Ensure signup content sits above connector */
-.signup-content{
-  position:relative;
-  z-index:3;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
+/* Ensure signup form sits above connector */
+.signup-form {
+  position: relative;
+  z-index: 2;
 }
   </style>
 </head>
@@ -1176,22 +1133,22 @@
       </div>
     </section>
 
-  <!-- Mailing List Signup -->
+    <!-- Mailing List Signup -->
     <section class="section signup-section" style="padding-top:72px; padding-bottom:72px; position:relative;">
-      <div class="signup-connector-horizontal" aria-hidden="true">
-        <div class="connector-line-horizontal"></div>
-        <div class="connector-dot-horizontal"></div>
-      </div>
       <div class="container signup-content">
-
+        <div class="connector-wrap" aria-hidden="true">
+          <div class="connector-line">
+            <span class="connector-dot"></span>
+          </div>
+        </div>
         <h2 class="sec-title" style="margin-bottom:14px;">
           Stay in the loop
         </h2>
-
         <form
           action="https://formspree.io/f/xpwjwzrv"
           method="POST"
           id="mailing-list-form"
+          class="signup-form"
           style="
             display:flex;
             gap:12px;
@@ -1216,7 +1173,6 @@
               font-family:inherit;
             "
           />
-
           <button
             type="submit"
             class="cta-minimal"
@@ -1232,7 +1188,6 @@
         <p id="form-success" style="display:none; margin-top:16px; color:#16a34a; font-weight:600;">
           Thanks for signing up. You’re on the list.
         </p>
-
       </div>
     </section>
 
@@ -1801,26 +1756,19 @@ if ('IntersectionObserver' in window) {
         }
       });
     }
-    /* Horizontal signup connector scroll reveal */
-    const signupConnectorHorizontal = document.querySelector('.signup-connector-horizontal');
+    // Signup connector animation: animate line width from 0 to 420px, dot locked to end
+    const connector = document.querySelector('.connector-line');
 
-    if (signupConnectorHorizontal && 'IntersectionObserver' in window) {
-      const signupObserver = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              signupConnectorHorizontal.classList.add('in-view');
-              signupObserver.unobserve(entry.target);
-            }
-          });
+    if (connector && 'IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            connector.style.width = '420px';
+          }
         },
-        {
-          threshold: 0.4,
-          rootMargin: '0px 0px -80px 0px'
-        }
+        { threshold: 0.4 }
       );
-
-      signupObserver.observe(signupConnectorHorizontal);
+      observer.observe(connector);
     }
   </script>
 </body>
