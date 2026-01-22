@@ -574,26 +574,41 @@
       display: grid;
       place-items: center;
       font-size: 22px;
-      font-weight: 900;
       margin-bottom: 18px;
+      background: rgba(255,255,255,.9);
+      border: 1px solid rgba(10,12,18,.08);
+      box-shadow: 0 12px 30px rgba(10,12,18,.10);
+    }
+
+    .how-icon-scan {
       color: #2f6bff;
-      background: rgba(47,107,255,.12);
-      border: 1px solid rgba(47,107,255,.22);
-      box-shadow: 0 12px 28px rgba(47,107,255,.18);
+      background: rgba(47,107,255,.14);
+      border-color: rgba(47,107,255,.28);
     }
 
-    .how-step.step-green {
+    .how-icon-search {
       color: #16a34a;
-      background: rgba(34,197,94,.14);
-      border-color: rgba(34,197,94,.25);
-      box-shadow: 0 12px 28px rgba(34,197,94,.22);
+      background: rgba(34,197,94,.16);
+      border-color: rgba(34,197,94,.28);
     }
 
-    .how-step.step-purple {
+    .how-icon-work {
       color: #7c3aed;
-      background: rgba(139,92,246,.14);
-      border-color: rgba(139,92,246,.25);
-      box-shadow: 0 12px 28px rgba(139,92,246,.22);
+      background: rgba(139,92,246,.16);
+      border-color: rgba(139,92,246,.28);
+    }
+
+    .how-card {
+      opacity: 0;
+      transform: translateY(24px);
+      transition:
+        opacity .7s ease,
+        transform .7s cubic-bezier(.2,.9,.2,1);
+    }
+
+    .how-card.in-view {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .how-card h3 {
@@ -1006,7 +1021,7 @@
 
         <div class="how-grid">
           <div class="how-card">
-            <div class="how-step">1</div>
+            <div class="how-step how-icon how-icon-scan">🔍</div>
             <h3>Scan your drives</h3>
             <p>
               Connect each drive once and scan it in DriveVault. Choose <strong>Full Scan</strong>
@@ -1017,7 +1032,7 @@
           </div>
 
           <div class="how-card">
-            <div class="how-step step-green">2</div>
+            <div class="how-step how-icon how-icon-search">⚡</div>
             <h3>Search everything instantly</h3>
             <p>
               Use powerful global search across your entire drive library to find files and folders
@@ -1027,7 +1042,7 @@
           </div>
 
           <div class="how-card">
-            <div class="how-step step-purple">3</div>
+            <div class="how-step how-icon how-icon-work">🛠️</div>
             <h3>Work with confidence</h3>
             <p>
               Compare backup drives to verify nothing is missing, generate detailed reports, share
@@ -1548,6 +1563,31 @@ if (hamburger && mobileNav){
       hamburger.setAttribute('aria-expanded','false');
     });
   });
+}
+
+// --- How It Works scroll reveal ---
+const howCards = document.querySelectorAll('.how-card');
+
+if ('IntersectionObserver' in window) {
+  const howObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          howObserver.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.2,
+      rootMargin: '0px 0px -80px 0px'
+    }
+  );
+
+  howCards.forEach(card => howObserver.observe(card));
+} else {
+  // Fallback: show immediately
+  howCards.forEach(card => card.classList.add('in-view'));
 }
 
   </script>
