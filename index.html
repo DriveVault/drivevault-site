@@ -563,8 +563,28 @@
     }
 
     .how-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 32px 80px rgba(10,12,18,.12);
+      transform: translateY(-6px);
+      box-shadow:
+        0 40px 90px rgba(10,12,18,.14),
+        0 0 0 1px rgba(47,107,255,.12);
+    }
+
+    .how-card::before {
+      content:"";
+      position:absolute;
+      inset:-1px;
+      border-radius:26px;
+      background:
+        radial-gradient(600px 200px at 20% 0%, rgba(47,107,255,.18), transparent 60%),
+        radial-gradient(500px 240px at 80% 20%, rgba(139,92,246,.18), transparent 60%),
+        radial-gradient(500px 260px at 30% 100%, rgba(34,197,94,.14), transparent 60%);
+      opacity:0;
+      transition:opacity .45s ease;
+      pointer-events:none;
+    }
+
+    .how-card:hover::before {
+      opacity:1;
     }
 
     .how-step {
@@ -1021,7 +1041,12 @@
 
         <div class="how-grid">
           <div class="how-card">
-            <div class="how-step how-icon how-icon-scan">🔍</div>
+            <div class="how-step how-icon how-icon-scan">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/>
+                <line x1="16.65" y1="16.65" x2="21" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
             <h3>Scan your drives</h3>
             <p>
               Connect each drive once and scan it in DriveVault. Choose <strong>Full Scan</strong>
@@ -1032,7 +1057,11 @@
           </div>
 
           <div class="how-card">
-            <div class="how-step how-icon how-icon-search">⚡</div>
+            <div class="how-step how-icon how-icon-search">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" fill="currentColor"/>
+              </svg>
+            </div>
             <h3>Search everything instantly</h3>
             <p>
               Use powerful global search across your entire drive library to find files and folders
@@ -1042,7 +1071,11 @@
           </div>
 
           <div class="how-card">
-            <div class="how-step how-icon how-icon-work">🛠️</div>
+            <div class="how-step how-icon how-icon-work">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <path d="M14.7 6.3a4 4 0 01-5.66 5.66L3 18l3 3 6.04-6.04a4 4 0 005.66-5.66z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              </svg>
+            </div>
             <h3>Work with confidence</h3>
             <p>
               Compare backup drives to verify nothing is missing, generate detailed reports, share
