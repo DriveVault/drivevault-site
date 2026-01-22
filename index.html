@@ -158,7 +158,12 @@
       justify-content:center;
       padding:48px 16px 32px;
     }
-    .hero-inner{width:min(1100px, 94vw); text-align:center;}
+    .hero-inner{
+      width:min(1100px, 94vw);
+      text-align:center;
+      position: relative;
+      z-index: 3;
+    }
 
     .pill{
       display:inline-flex;
@@ -268,6 +273,8 @@
         transform .25s cubic-bezier(.2,.9,.2,1),
         box-shadow .35s ease,
         background-position .6s ease;
+      position: relative;
+      z-index: 5;
     }
 
     .cta-minimal:hover{
@@ -290,7 +297,7 @@
     .visual{
       position:relative;
       width:min(980px, 94vw);
-      margin:42px auto 0;
+      margin:-60px auto 0;
       padding:0;
     }
     .screen-wrap{
@@ -411,12 +418,12 @@
     }
 
     .video-info h3{
-  font-size:32px;
-  line-height:1.15;
-  font-weight:700;
-  letter-spacing:-.015em;
-  margin-bottom:12px;
-}
+      font-size:32px;
+      line-height:1.15;
+      font-weight:900;
+      letter-spacing:-.02em;
+      margin-bottom:12px;
+    }
 
     .video-info p{
       font-size:15px;
@@ -527,12 +534,12 @@
       justify-content:center;
     }
     .section .container{width:min(1100px, 94vw)}
-   .sec-title{
-  text-align:center;
-  font-size:clamp(28px,3.8vw,46px);
-  font-weight:700;
-  letter-spacing:-.015em;
-}
+    .sec-title{
+      text-align:center;
+      font-size:clamp(28px,3.8vw,46px);
+      font-weight:900;
+      letter-spacing:-.02em;
+    }
     .sec-sub{
       text-align:center;
       color:var(--muted);
@@ -632,11 +639,11 @@
     }
 
     .how-card h3 {
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  margin-bottom: 10px;
-}
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      margin-bottom: 10px;
+    }
 
     .how-card p {
       font-size: 15px;
@@ -813,12 +820,12 @@
       z-index:2;
     }
 
-   .pricing-card h3{
-  font-size:18px;
-  font-weight:700;
-  letter-spacing:-.01em;
-  margin-bottom:6px;
-}
+    .pricing-card h3{
+      font-size:18px;
+      font-weight:900;
+      letter-spacing:-.01em;
+      margin-bottom:6px;
+    }
 
     .pricing-card .price{
       font-size:28px;
@@ -902,7 +909,7 @@
 
 .addon-title{
   font-size:16px;
-  font-weight:700;
+  font-weight:900;
   letter-spacing:-.01em;
   margin-bottom:4px;
 }
