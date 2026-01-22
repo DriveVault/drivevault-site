@@ -5,7 +5,7 @@
   <title>Contact - DriveVault</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" href="/favicon.png" type="image/png" />
-  <link rel="apple-touch-icon" href="/favicon.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -149,23 +149,37 @@
 
 <body>
 
-  <header class="topbar" role="banner">
-    <div class="wrap">
-      <a class="brand" href="/">
-        <img src="/favicon.png" alt="DriveVault logo">
+  <header class="site-header">
+    <div class="header-inner">
+
+      <a href="/" class="logo">
+        <img src="/drivevault-logo.svg" alt="DriveVault logo">
         <span>DriveVault</span>
       </a>
-      <nav class="nav" id="mobileNav" role="navigation" aria-label="Primary">
+
+      <nav class="main-nav">
         <a href="/#features">Features</a>
         <a href="/#pricing">Pricing</a>
         <a href="/changelog.html">Changelog</a>
         <a href="/blog.html">Blog</a>
         <a href="/faq.html">FAQ</a>
-        <a class="cta-top" href="#download">Download on the App Store </a>
       </nav>
-      <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false" id="hamburgerBtn">
+
+      <a
+        href="https://apps.apple.com"
+        class="app-store-button"
+        target="_blank"
+        rel="noopener"
+      >
+        Download on the App Store
+      </a>
+
+      <button class="nav-toggle" aria-label="Open menu">
+        <span></span>
+        <span></span>
         <span></span>
       </button>
+
     </div>
   </header>
 
@@ -185,23 +199,16 @@
     </div>
   </main>
 
-  <script>
-    const hamburger = document.getElementById('hamburgerBtn');
-    const mobileNav = document.getElementById('mobileNav');
+<script>
+  const toggle = document.querySelector('.nav-toggle');
+  const nav = document.querySelector('.main-nav');
 
-    if (hamburger && mobileNav){
-      hamburger.addEventListener('click', () => {
-        const isOpen = mobileNav.classList.toggle('open');
-        hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-      });
-
-      mobileNav.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-          mobileNav.classList.remove('open');
-          hamburger.setAttribute('aria-expanded','false');
-        });
-      });
-    }
-  </script>
+  if (toggle && nav) {
+    toggle.addEventListener('click', () => {
+      nav.classList.toggle('open');
+      toggle.classList.toggle('open');
+    });
+  }
+</script>
 </body>
 </html>
