@@ -338,13 +338,38 @@
 
     @media (max-width:960px){
       .video-row{
-        grid-template-columns:1fr;
-        gap:28px;
+        display:flex;
+        flex-direction:column;
+        gap:24px;
+        margin-bottom:64px;
+      }
+
+      .video-row.reverse{
+        flex-direction:column;
       }
 
       .video-info{
         max-width:100%;
-        text-align:center;
+        text-align:left;
+      }
+
+      .video-info h3{
+        font-size:26px;
+      }
+
+      .video-wrap{
+        width:100%;
+        max-width:100%;
+        border-radius:14px;
+        overflow:hidden;
+        background:transparent;
+      }
+
+      .video-wrap video{
+        display:block;
+        width:100%;
+        height:auto;
+        background:transparent;
       }
     }
 
@@ -354,7 +379,7 @@
       max-width:860px;
       border-radius:18px;
       overflow:visible;
-      background:#000;
+      background:transparent;
     }
 
     .video-wrap video{
