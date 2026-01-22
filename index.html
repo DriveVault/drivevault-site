@@ -510,7 +510,7 @@
 
     .pricing-grid{
       display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns:repeat(6, minmax(0, 1fr));
       gap:22px;
       margin-bottom:24px;
     }
@@ -521,6 +521,50 @@
       border:1px solid rgba(10,12,18,.08);
       padding:28px;
       text-align:center;
+    }
+
+    .pricing-card{
+      position:relative;
+      transition:
+        transform .35s cubic-bezier(.2,.9,.2,1),
+        box-shadow .45s ease,
+        background .45s ease,
+        border-color .45s ease;
+    }
+
+    .pricing-card:hover{
+      transform:translateY(-6px);
+      box-shadow:0 30px 80px rgba(47,107,255,.18);
+      border-color:rgba(47,107,255,.35);
+      background:linear-gradient(
+        180deg,
+        rgba(47,107,255,.10),
+        rgba(255,255,255,.90)
+      );
+    }
+
+    .pricing-card.popular{
+      border-color:rgba(47,107,255,.45);
+      background:linear-gradient(
+        180deg,
+        rgba(47,107,255,.14),
+        rgba(255,255,255,.88)
+      );
+    }
+
+    .popular-badge{
+      position:absolute;
+      top:14px;
+      right:14px;
+      padding:6px 10px;
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      border-radius:999px;
+      color:#0b0d12;
+      background:linear-gradient(135deg,#ffd166,#fbbf24);
+      box-shadow:0 8px 18px rgba(251,191,36,.35);
     }
 
     .pricing-card h3{
@@ -827,7 +871,7 @@ know the true state of your drives at a glance.
       <div class="container">
 
         <h2 class="sec-title" style="margin-bottom:12px;">
-          Simple pricing, based on how many drives you manage
+          Simple pricing based on how many drives you have
         </h2>
 
         <p class="sec-sub" style="margin-bottom:48px;">
@@ -838,37 +882,38 @@ know the true state of your drives at a glance.
         <div class="pricing-grid">
           <div class="pricing-card">
             <h3>Free</h3>
-            <p class="price">£0</p>
+            <p class="price">£0 / $0</p>
             <p class="tier-desc">1 drive · Up to 4TB</p>
           </div>
 
           <div class="pricing-card">
             <h3>Starter</h3>
-            <p class="price">£14.99</p>
+            <p class="price">£14.99 / $14.99</p>
             <p class="tier-desc">Up to 5 drives</p>
           </div>
 
           <div class="pricing-card highlight">
             <h3>Pro</h3>
-            <p class="price">£24.99</p>
+            <p class="price">£24.99 / $24.99</p>
             <p class="tier-desc">Up to 10 drives</p>
           </div>
 
-          <div class="pricing-card">
+          <div class="pricing-card popular">
+            <span class="popular-badge">Popular</span>
             <h3>Advanced</h3>
-            <p class="price">£34.99</p>
+            <p class="price">£34.99 / $34.99</p>
             <p class="tier-desc">Up to 15 drives</p>
           </div>
 
           <div class="pricing-card">
             <h3>Ultimate</h3>
-            <p class="price">£45.99</p>
+            <p class="price">£45.99 / $45.99</p>
             <p class="tier-desc">Up to 20 drives</p>
           </div>
 
           <div class="pricing-card">
             <h3>Unlimited</h3>
-            <p class="price">£99.99</p>
+            <p class="price">£99.99 / $99.99</p>
             <p class="tier-desc">Unlimited drives</p>
           </div>
         </div>
