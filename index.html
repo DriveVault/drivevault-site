@@ -117,16 +117,26 @@
       font-weight:900;
 
       background:linear-gradient(
-        180deg,
-        #0b0d12 0%,
-        #2a2f3a 55%,
-        #6b7280 100%
+        120deg,
+        #e6f4f1 0%,
+        #cfe9f3 25%,
+        #b6d9f0 45%,
+        #9bbdd6 65%,
+        #7fa3c1 85%
       );
+      background-size:200% 200%;
 
       -webkit-background-clip:text;
       background-clip:text;
       color:transparent;
       -webkit-text-fill-color:transparent;
+
+      animation:heroGradient 12s ease-in-out infinite;
+    }
+    @keyframes heroGradient{
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
     }
     .sub{
       max-width:680px;
