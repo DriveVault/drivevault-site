@@ -75,6 +75,78 @@
     }
     .cta-top:hover{transform:translateY(-1px); box-shadow:0 16px 30px rgba(47,107,255,.26)}
 
+    /* Mobile nav */
+    .hamburger{
+      display:none;
+      margin-left:auto;
+      width:36px;
+      height:36px;
+      border-radius:10px;
+      border:1px solid rgba(10,12,18,.12);
+      background:#fff;
+      box-shadow:0 6px 16px rgba(10,12,18,.08);
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+    }
+
+    .hamburger span{
+      width:18px;
+      height:2px;
+      background:#0b0d12;
+      position:relative;
+      display:block;
+    }
+
+    .hamburger span::before,
+    .hamburger span::after{
+      content:"";
+      position:absolute;
+      left:0;
+      width:18px;
+      height:2px;
+      background:#0b0d12;
+    }
+
+    .hamburger span::before{ top:-6px; }
+    .hamburger span::after{ top:6px; }
+
+    @media (max-width: 900px){
+      .nav{
+        position:fixed;
+        top:68px;
+        left:0;
+        right:0;
+        background:#ffffff;
+        border-bottom:1px solid var(--line);
+        flex-direction:column;
+        gap:6px;
+        padding:12px 16px 16px;
+        display:none;
+      }
+
+      .nav.open{
+        display:flex;
+      }
+
+      .nav a{
+        width:100%;
+        text-align:left;
+        padding:12px 14px;
+        font-size:15px;
+      }
+
+      .cta-top{
+        width:100%;
+        text-align:center;
+        margin-top:6px;
+      }
+
+      .hamburger{
+        display:flex;
+      }
+    }
+
     /* Page layout */
     main{padding-top:68px;}
 
@@ -759,7 +831,7 @@
         <img src="/favicon.png" alt="DriveVault logo">
         <span>DriveVault</span>
       </a>
-      <nav class="nav" role="navigation" aria-label="Primary">
+      <nav class="nav" id="mobileNav" role="navigation" aria-label="Primary">
         <a href="#features">Features</a>
         <a href="#pricing">Pricing</a>
         <a href="/changelog.html">Changelog</a>
@@ -767,6 +839,9 @@
         <a href="/faq.html">FAQ</a>
         <a class="cta-top" href="#download">Download on the App Store</a>
       </nav>
+      <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false" id="hamburgerBtn">
+        <span></span>
+      </button>
     </div>
   </header>
 
@@ -1276,6 +1351,25 @@ window.addEventListener('scroll', onScroll, { passive: true });
 // Kick things off
 start();
 
+}
+
+// --- Mobile nav hamburger ---
+const hamburger = document.getElementById('hamburgerBtn');
+const mobileNav = document.getElementById('mobileNav');
+
+if (hamburger && mobileNav){
+  hamburger.addEventListener('click', () => {
+    const isOpen = mobileNav.classList.toggle('open');
+    hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+
+  // Close menu when a link is clicked
+  mobileNav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileNav.classList.remove('open');
+      hamburger.setAttribute('aria-expanded','false');
+    });
+  });
 }
 
   </script>
