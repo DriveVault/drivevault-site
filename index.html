@@ -502,6 +502,13 @@
       .chip.c8{right:10%; top:74%}
     }
 
+    /* Hide floating hero pills on mobile for clarity */
+    @media (max-width: 768px){
+      .chip{
+        display:none !important;
+      }
+    }
+
     @media (prefers-reduced-motion: reduce){
       .card:hover .ficon{transform:none}
       .card{transition:none}
