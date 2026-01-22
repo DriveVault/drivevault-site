@@ -947,64 +947,76 @@
   }
 }
     
-    /* Signup scroll connector */
-.signup-connector {
-  position: relative;
-  height: 120px;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  margin-bottom: 32px;
-  pointer-events: none;
+    /* Signup scroll connector - horizontal */
+.signup-connector-horizontal{
+  position:relative;
+  width:100vw;
+  max-width:none;
+  height:120px;
+  margin:0 0 40px;
+  overflow:hidden;
+  pointer-events:none;
 }
 
-.connector-line {
-  position: absolute;
-  top: 0;
-  width: 2px;
-  height: 0;
-  border-radius: 2px;
-  background: linear-gradient(
-    180deg,
+.connector-line-horizontal{
+  position:absolute;
+  left:-40vw;
+  top:50%;
+  height:3px;
+  width:0;
+  transform:translateY(-50%);
+  border-radius:999px;
+  background:linear-gradient(
+    90deg,
     rgba(59,130,246,0),
-    rgba(99,102,241,0.85),
-    rgba(139,92,246,0.9),
-    rgba(236,72,153,0.9)
+    #6366f1,
+    #8b5cf6,
+    #ec4899
   );
-  box-shadow: 0 0 28px rgba(139,92,246,.55);
-  transition: height 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow:
+    0 0 40px rgba(139,92,246,.45),
+    0 0 80px rgba(236,72,153,.25);
+  transition:width 1.2s cubic-bezier(.22,1,.36,1);
 }
 
-.connector-dot {
-  position: absolute;
-  top: 0;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #6366f1, #ec4899);
-  box-shadow: 0 0 26px rgba(139,92,246,.75);
-  transform: scale(0);
-  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+.connector-dot-horizontal{
+  position:absolute;
+  top:50%;
+  left:calc(60% - 10px);
+  width:18px;
+  height:18px;
+  transform:translateY(-50%) scale(0);
+  border-radius:50%;
+  background:linear-gradient(135deg,#6366f1,#ec4899);
+  box-shadow:
+    0 0 30px rgba(139,92,246,.6),
+    0 0 60px rgba(236,72,153,.35);
+  transition:transform .6s cubic-bezier(.22,1,.36,1) .5s;
 }
 
-.signup-connector.in-view .connector-line {
-  height: 100px;
+.signup-connector-horizontal.in-view .connector-line-horizontal{
+  width:120vw;
 }
 
-.signup-connector.in-view .connector-dot {
-  transform: scale(1);
+.signup-connector-horizontal.in-view .connector-dot-horizontal{
+  transform:translateY(-50%) scale(1);
 }
 
 /* Mobile tuning */
-@media (max-width: 768px) {
-  .signup-connector {
-    height: 80px;
-    margin-bottom: 24px;
+@media (max-width:768px){
+  .signup-connector-horizontal{
+    height:90px;
+    margin-bottom:28px;
   }
 
-  .signup-connector.in-view .connector-line {
-    height: 64px;
+  .connector-dot-horizontal{
+    left:70%;
   }
+}
+/* Ensure signup content sits above connector */
+.signup-content{
+  position: relative;
+  z-index: 2;
 }
   </style>
 </head>
@@ -1161,11 +1173,11 @@
 
   <!-- Mailing List Signup -->
     <section class="section" style="padding-top:40px; padding-bottom:72px;">
-      <div class="signup-connector" aria-hidden="true">
-        <span class="connector-line"></span>
-        <span class="connector-dot"></span>
+      <div class="signup-connector-horizontal" aria-hidden="true">
+        <div class="connector-line-horizontal"></div>
+        <div class="connector-dot-horizontal"></div>
       </div>
-      <div class="container" style="text-align:center; max-width:760px;">
+<div class="container signup-content" style="text-align:center; max-width:760px;">
 
         <h2 class="sec-title" style="margin-bottom:14px;">
           Stay in the loop
@@ -1784,25 +1796,26 @@ if ('IntersectionObserver' in window) {
         }
       });
     }
-    /* Signup connector scroll reveal */
-    const signupConnector = document.querySelector('.signup-connector');
+    /* Horizontal signup connector scroll reveal */
+    const signupConnectorHorizontal = document.querySelector('.signup-connector-horizontal');
 
-    if (signupConnector && 'IntersectionObserver' in window) {
+    if (signupConnectorHorizontal && 'IntersectionObserver' in window) {
       const signupObserver = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              signupConnector.classList.add('in-view');
+              signupConnectorHorizontal.classList.add('in-view');
               signupObserver.unobserve(entry.target);
             }
           });
         },
         {
-          threshold: 0.35
+          threshold: 0.4,
+          rootMargin: '0px 0px -80px 0px'
         }
       );
 
-      signupObserver.observe(signupConnector);
+      signupObserver.observe(signupConnectorHorizontal);
     }
   </script>
 </body>
