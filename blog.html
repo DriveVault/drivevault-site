@@ -32,46 +32,86 @@
       overflow-x:hidden;
     }
 
-    /* Fixed header */
+    /* Header */
     .topbar{
       position:fixed;
       inset:0 0 auto 0;
-      height:64px;
+      height:68px;
       z-index:50;
       display:flex;
       align-items:center;
       justify-content:center;
+      background:rgba(255,255,255,.72);
       backdrop-filter:saturate(160%) blur(12px);
-      background:rgba(255,255,255,.75);
-      border-bottom:1px solid var(--border);
+      border-bottom:1px solid rgba(10,12,18,.08);
     }
-    .topbar .wrap{width:min(1200px,94vw);display:flex;align-items:center;gap:16px;}
-    .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);font-weight:700;}
-    .brand img{width:22px;height:22px}.brand span{font-size:16px;letter-spacing:.2px}
-    .nav{margin-left:auto;display:flex;align-items:center;gap:18px;}
-    .nav a{color:#2b3140;text-decoration:none;font-size:14px;padding:8px 10px;border-radius:8px;transition:color .2s,background .2s;}
+
+    .topbar .wrap{
+      width:min(1200px,94vw);
+      display:flex;
+      align-items:center;
+      gap:16px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      text-decoration:none;
+      color:#0b0d12;
+      font-weight:800;
+    }
+
+    .brand img{
+      width:22px;
+      height:22px;
+    }
+
+    .brand span{
+      font-size:14px;
+      letter-spacing:.2px;
+    }
+
+    .nav{
+      margin-left:auto;
+      display:flex;
+      align-items:center;
+      gap:18px;
+    }
+
+    .nav a{
+      color:#2b3140;
+      text-decoration:none;
+      font-size:13px;
+      padding:8px 10px;
+      border-radius:10px;
+      transition:background .25s ease, color .25s ease;
+    }
+
     .nav a:hover{
       background:rgba(10,12,18,.05);
       color:#0b0d12;
     }
-    .beta-btn{
-      margin-left:6px;
+
+    .cta-top{
+      margin-left:4px;
       padding:10px 14px;
       border-radius:12px;
       font-weight:800;
-      font-size:14px;
-      color:#ffffff;
+      font-size:13px;
+      color:#fff;
       text-decoration:none;
-      background:linear-gradient(135deg,var(--accent),var(--accent-2));
-      box-shadow:0 8px 24px rgba(47,107,255,.35);
-      transition:transform .2s ease, box-shadow .2s ease;
-    }
-    .beta-btn:hover{
-      transform:translateY(-1px);
-      box-shadow:0 12px 32px rgba(47,107,255,.45);
+      background:linear-gradient(135deg,#2f6bff,#6aa2ff);
+      box-shadow:0 10px 22px rgba(47,107,255,.22);
+      transition:transform .2s ease, box-shadow .25s ease;
     }
 
-    main{padding:calc(64px + 36px) 16px 80px;}
+    .cta-top:hover{
+      transform:translateY(-1px);
+      box-shadow:0 16px 30px rgba(47,107,255,.26);
+    }
+
+    main{padding:calc(68px + 36px) 16px 80px;}
     .container{width:min(1100px,94vw);margin:0 auto;}
     .hero{text-align:center;margin-bottom:20px;}
     .hero h1{font-size:clamp(28px,4.5vw,40px);font-weight:900;}
@@ -135,16 +175,20 @@
   </style>
 </head>
 <body>
-  <!-- Header -->
-  <header class="topbar">
+  <header class="topbar" role="banner">
     <div class="wrap">
-      <a class="brand" href="/"><img src="https://i.ibb.co/fdsPzxk8/Drive-Vault-favicon.png" alt="DriveVault logo"><span>DriveVault</span></a>
-      <nav class="nav">
-        <a href="/pricing.html">Pricing</a>
+      <a class="brand" href="/">
+        <img src="/favicon.png" alt="DriveVault logo">
+        <span>DriveVault</span>
+      </a>
+
+      <nav class="nav" role="navigation" aria-label="Primary">
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
         <a href="/changelog.html">Changelog</a>
         <a href="/blog.html" aria-current="page">Blog</a>
         <a href="/faq.html">FAQ</a>
-        <a class="beta-btn" href="https://testflight.apple.com/join/tVYkpxnm" target="_blank">Join The Public Beta</a>
+        <a class="cta-top" href="#download">Download on the App Store </a>
       </nav>
     </div>
   </header>
