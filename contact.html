@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Contact - DriveVault</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Base Styles -->
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #0b0b0f;
+      background: #ffffff;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ---------- Header ---------- */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+    }
+
+    .nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      font-size: 14px;
+    }
+
+    .nav-right a {
+      opacity: 0.7;
+      transition: opacity 0.2s ease;
+    }
+
+    .nav-right a:hover {
+      opacity: 1;
+    }
+
+    .download-btn {
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: #4f6bff;
+      color: #fff;
+      font-weight: 600;
+      font-size: 14px;
+      box-shadow: 0 8px 24px rgba(79,107,255,0.35);
+    }
+
+    /* ---------- Page Content ---------- */
+
+    .page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 140px 24px 160px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 42px;
+      line-height: 1.15;
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+
+    p {
+      font-size: 17px;
+      line-height: 1.6;
+      color: rgba(0,0,0,0.65);
+      margin-bottom: 48px;
+    }
+
+    .contact-card {
+      display: inline-block;
+      padding: 28px 36px;
+      border-radius: 16px;
+      background: #ffffff;
+      border: 1px solid rgba(0,0,0,0.06);
+      box-shadow:
+        0 12px 40px rgba(0,0,0,0.06);
+    }
+
+    .contact-label {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(0,0,0,0.45);
+      margin-bottom: 12px;
+    }
+
+    .contact-email {
+      font-size: 20px;
+      font-weight: 600;
+      color: #4f6bff;
+    }
+
+    .contact-email a:hover {
+      text-decoration: underline;
+    }
+
+    /* ---------- Footer spacing consistency ---------- */
+
+    @media (max-width: 768px) {
+      .page {
+        padding: 120px 20px 140px;
+      }
+
+      h1 {
+        font-size: 34px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav">
+      <div class="nav-left">
+        <img src="/assets/drivevault-logo.svg" alt="DriveVault" height="22">
+        DriveVault
+      </div>
+      <div class="nav-right">
+        <a href="https://www.drivevault.io/#features">Features</a>
+        <a href="https://www.drivevault.io/#pricing">Pricing</a>
+        <a href="/changelog.html">Changelog</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/faq.html">FAQ</a>
+        <a class="download-btn" href="#">Download on the App Store</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="page">
+    <h1>Get in touch</h1>
+    <p>
+      Have a question, feature request, or need help with DriveVault?
+      We’d love to hear from you.
+    </p>
+
+    <div class="contact-card">
+      <div class="contact-label">Email us</div>
+      <div class="contact-email">
+        <a href="mailto:hello@drivevault.io">hello@drivevault.io</a>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>
