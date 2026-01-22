@@ -1798,10 +1798,15 @@ if ('IntersectionObserver' in window) {
           )
         );
 
-        const eased = progress * progress * (3 - 2 * progress);
-        const width = maxWidth * eased;
+        // Softer ease-out tail
+        const easeInOut = progress * progress * (3 - 2 * progress);
+        const tailEase = 1 - Math.pow(1 - easeInOut, 3);
+        const eased = tailEase;
 
+        const width = maxWidth * eased;
         connectorLine.style.width = `${width}px`;
+        connectorLine.style.transition = 'width 0.18s cubic-bezier(0.2, 0.8, 0.2, 1)';
+        connectorDot.style.transition = 'left 0.18s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.35s cubic-bezier(0.2, 0.9, 0.2, 1)';
 
         // Glow ramps with progress
         const glowStrength = 0.35 + eased * 0.65;
@@ -1810,9 +1815,11 @@ if ('IntersectionObserver' in window) {
         connectorDot.style.left = `${width}px`;
         connectorDot.style.boxShadow = `0 0 ${18 + eased * 32}px rgba(107,92,255,${glowStrength})`;
 
-        // Arrival moment
-        if (eased > 0.92) {
-          connectorDot.style.transform = 'translate(-50%,-50%) scale(1)';
+        // Stronger dot arrival scale
+        if (eased > 0.9) {
+          const arriveProgress = Math.min(1, (eased - 0.9) / 0.1);
+          const scale = 0.85 + arriveProgress * 0.45; // up to 1.3
+          connectorDot.style.transform = `translate(-50%,-50%) scale(${scale})`;
         } else {
           connectorDot.style.transform = 'translate(-50%,-50%) scale(0.85)';
         }
