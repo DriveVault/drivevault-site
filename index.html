@@ -947,32 +947,35 @@
   }
 }
     
-    /* Signup scroll connector - new styles */
-.connector-wrap {
-  display: flex;
-  justify-content: center;
-  margin: 80px 0 24px;
+    /* Signup scroll connector - left to form */
+.connector-wrap{
+  position:absolute;
+  left:0;
+  right:0;
+  top:36px;
+  pointer-events:none;
 }
 
-.connector-line {
-  position: relative;
-  width: 0;
-  height: 2px;
-  background: linear-gradient(90deg, #6b5cff, #ff6aa2);
-  border-radius: 2px;
-  transition: width 1.2s cubic-bezier(.22,1,.36,1);
+.connector-line{
+  position:absolute;
+  left:-100vw; /* start fully off-screen */
+  height:2px;
+  width:0;
+  background:linear-gradient(90deg,#6b5cff,#ff6aa2);
+  border-radius:2px;
+  transition:width 1.3s cubic-bezier(.22,1,.36,1);
 }
 
-.connector-dot {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  width: 14px;
-  height: 14px;
-  transform: translateY(-50%);
-  border-radius: 50%;
-  background: radial-gradient(circle at center, #ff6aa2, #6b5cff);
-  box-shadow: 0 0 20px rgba(107, 92, 255, 0.6);
+.connector-dot{
+  position:absolute;
+  right:-7px;
+  top:50%;
+  width:14px;
+  height:14px;
+  transform:translateY(-50%);
+  border-radius:50%;
+  background:radial-gradient(circle at center,#ff6aa2,#6b5cff);
+  box-shadow:0 0 20px rgba(107,92,255,.6);
 }
 
 /* Ensure signup form sits above connector */
@@ -1137,7 +1140,7 @@
     <section class="section signup-section" style="padding-top:72px; padding-bottom:72px; position:relative;">
       <div class="container signup-content">
         <div class="connector-wrap" aria-hidden="true">
-          <div class="connector-line">
+          <div class="connector-line" id="signup-connector">
             <span class="connector-dot"></span>
           </div>
         </div>
@@ -1756,19 +1759,26 @@ if ('IntersectionObserver' in window) {
         }
       });
     }
-    // Signup connector animation: animate line width from 0 to 420px, dot locked to end
-    const connector = document.querySelector('.connector-line');
+    // Signup connector animation: animate line from left edge to just before signup form
+    const connector = document.getElementById('signup-connector');
+    const signupForm = document.querySelector('.signup-form');
 
-    if (connector && 'IntersectionObserver' in window) {
+    if (connector && signupForm && 'IntersectionObserver' in window) {
       const observer = new IntersectionObserver(
         ([entry]) => {
-          if (entry.isIntersecting) {
-            connector.style.width = '420px';
-          }
+          if (!entry.isIntersecting) return;
+
+          const formRect = signupForm.getBoundingClientRect();
+          const lineEnd = formRect.left - 24; // stop just before form
+          const totalWidth = window.innerWidth + lineEnd;
+
+          connector.style.width = `${totalWidth}px`;
+          observer.disconnect();
         },
-        { threshold: 0.4 }
+        { threshold: 0.35 }
       );
-      observer.observe(connector);
+
+      observer.observe(signupForm);
     }
   </script>
 </body>
