@@ -949,13 +949,15 @@
     
     /* Signup scroll connector - horizontal */
 .signup-connector-horizontal{
-  position:relative;
-  width:100vw;
-  max-width:none;
+  position:absolute;
+  left:0;
+  right:0;
+  top:50%;
   height:120px;
-  margin:0 0 40px;
+  transform:translateY(-50%);
   overflow:hidden;
   pointer-events:none;
+  z-index:1;
 }
 
 .connector-line-horizontal{
@@ -1015,8 +1017,11 @@
 }
 /* Ensure signup content sits above connector */
 .signup-content{
-  position: relative;
-  z-index: 2;
+  position:relative;
+  z-index:3;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
 }
   </style>
 </head>
@@ -1172,12 +1177,12 @@
     </section>
 
   <!-- Mailing List Signup -->
-    <section class="section" style="padding-top:40px; padding-bottom:72px;">
+    <section class="section signup-section" style="padding-top:72px; padding-bottom:72px; position:relative;">
       <div class="signup-connector-horizontal" aria-hidden="true">
         <div class="connector-line-horizontal"></div>
         <div class="connector-dot-horizontal"></div>
       </div>
-<div class="container signup-content" style="text-align:center; max-width:760px;">
+      <div class="container signup-content">
 
         <h2 class="sec-title" style="margin-bottom:14px;">
           Stay in the loop
