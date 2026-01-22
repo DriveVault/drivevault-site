@@ -959,23 +959,24 @@
 .connector-line{
   position:absolute;
   left:-100vw; /* start fully off-screen */
-  height:2px;
+  height:3px;
   width:0;
   background:linear-gradient(90deg,#6b5cff,#ff6aa2);
   border-radius:2px;
   transition:width 1.3s cubic-bezier(.22,1,.36,1);
+  box-shadow: 0 0 18px rgba(107,92,255,.45);
 }
 
 .connector-dot{
   position:absolute;
   right:-7px;
   top:50%;
-  width:14px;
-  height:14px;
+  width:16px;
+  height:16px;
   transform:translateY(-50%);
   border-radius:50%;
   background:radial-gradient(circle at center,#ff6aa2,#6b5cff);
-  box-shadow:0 0 20px rgba(107,92,255,.6);
+  box-shadow: 0 0 26px rgba(107,92,255,.7);
 }
 
 /* Ensure signup form sits above connector */
@@ -1769,7 +1770,7 @@ if ('IntersectionObserver' in window) {
           if (!entry.isIntersecting) return;
 
           const formRect = signupForm.getBoundingClientRect();
-          const lineEnd = formRect.left - 24; // stop just before form
+          const lineEnd = formRect.left - 8; // stop closer to the form
           const totalWidth = window.innerWidth + lineEnd;
 
           connector.style.width = `${totalWidth}px`;
