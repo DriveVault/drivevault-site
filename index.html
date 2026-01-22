@@ -340,12 +340,20 @@
       .video-row{
         display:flex;
         flex-direction:column;
-        gap:24px;
+        gap:20px;
         margin-bottom:64px;
       }
 
       .video-row.reverse{
         flex-direction:column;
+      }
+
+      .video-row .video-wrap{
+        order:1;
+      }
+
+      .video-row .video-info{
+        order:2;
       }
 
       .video-info{
