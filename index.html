@@ -508,6 +508,48 @@
       .card::before{transition:none}
     }
 
+    .pricing-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+      gap:22px;
+      margin-bottom:24px;
+    }
+
+    .pricing-card{
+      border-radius:22px;
+      background:rgba(255,255,255,.75);
+      border:1px solid rgba(10,12,18,.08);
+      padding:28px;
+      text-align:center;
+    }
+
+    .pricing-card h3{
+      font-size:18px;
+      font-weight:900;
+      letter-spacing:-.01em;
+      margin-bottom:6px;
+    }
+
+    .pricing-card .price{
+      font-size:28px;
+      font-weight:900;
+      margin-bottom:6px;
+    }
+
+    .pricing-card .tier-desc{
+      font-size:14px;
+      color:var(--muted);
+    }
+
+    .pricing-card.highlight{
+      border-color:rgba(47,107,255,.35);
+      background:linear-gradient(
+        180deg,
+        rgba(47,107,255,.10),
+        rgba(255,255,255,.85)
+      );
+    }
+
     footer{
       padding:28px 16px 40px;
       border-top:1px solid var(--line);
@@ -778,6 +820,63 @@ know the true state of your drives at a glance.
             ></video>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:40px;">
+      <div class="container">
+
+        <h2 class="sec-title" style="margin-bottom:12px;">
+          Simple pricing, based on how many drives you manage
+        </h2>
+
+        <p class="sec-sub" style="margin-bottom:48px;">
+          Choose a plan based on the number of drives in your library. All paid plans include
+          full access to every DriveVault feature, with no drive size limits.
+        </p>
+
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <h3>Free</h3>
+            <p class="price">£0</p>
+            <p class="tier-desc">1 drive · Up to 4TB</p>
+          </div>
+
+          <div class="pricing-card">
+            <h3>Starter</h3>
+            <p class="price">£14.99</p>
+            <p class="tier-desc">Up to 5 drives</p>
+          </div>
+
+          <div class="pricing-card highlight">
+            <h3>Pro</h3>
+            <p class="price">£24.99</p>
+            <p class="tier-desc">Up to 10 drives</p>
+          </div>
+
+          <div class="pricing-card">
+            <h3>Advanced</h3>
+            <p class="price">£34.99</p>
+            <p class="tier-desc">Up to 15 drives</p>
+          </div>
+
+          <div class="pricing-card">
+            <h3>Ultimate</h3>
+            <p class="price">£45.99</p>
+            <p class="tier-desc">Up to 20 drives</p>
+          </div>
+
+          <div class="pricing-card">
+            <h3>Unlimited</h3>
+            <p class="price">£99.99</p>
+            <p class="tier-desc">Unlimited drives</p>
+          </div>
+        </div>
+
+        <p class="sec-sub" style="margin-top:36px;">
+          All plans include unlimited drive capacity and access to every DriveVault feature.
+        </p>
+
       </div>
     </section>
 
