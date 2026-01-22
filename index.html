@@ -956,7 +956,7 @@
 
 .connector-line{
   position:absolute;
-  top:50%;
+  top: calc(50% + 6px);
   height:6px;
   background:linear-gradient(90deg,#6b5cff 0%, #ff6aa2 100%);
   border-radius:6px;
@@ -1145,11 +1145,6 @@
     <!-- Mailing List Signup -->
     <section class="section signup-section" style="padding-top:72px; padding-bottom:72px; position:relative;">
       <div class="container signup-content">
-        <div class="connector-wrap" aria-hidden="true">
-          <div class="connector-line" id="signup-connector">
-            <span class="connector-dot" id="signup-dot"></span>
-          </div>
-        </div>
         <div style="
   max-width: 900px;
   margin: 0 auto 32px;
@@ -1168,9 +1163,14 @@
     style="display:block;"
   ></iframe>
 </div>
-        <h2 class="sec-title" style="margin-bottom:14px;">
+        <h2 class="sec-title" style="margin-top:48px; margin-bottom:14px;">
           Stay in the loop
         </h2>
+        <div class="connector-wrap" aria-hidden="true">
+          <div class="connector-line" id="signup-connector">
+            <span class="connector-dot" id="signup-dot"></span>
+          </div>
+        </div>
         <form
           action="https://formspree.io/f/xpwjwzrv"
           method="POST"
