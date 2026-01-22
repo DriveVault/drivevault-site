@@ -1756,37 +1756,52 @@ if ('IntersectionObserver' in window) {
         }
       });
     }
-    /* Signup connector: dot sits on the end of the line, line extends left */
+    // --- Signup connector: animated on scroll ---
     const connectorLine = document.getElementById('signup-connector');
     const connectorDot = document.getElementById('signup-dot');
     const signupForm = document.querySelector('.signup-form');
 
-    if (connectorLine && connectorDot && signupForm && 'IntersectionObserver' in window) {
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (!entry.isIntersecting) return;
+    if (connectorLine && connectorDot && signupForm) {
+      let maxWidth = 0;
+      let startX = -140;
 
-          const formRect = signupForm.getBoundingClientRect();
+      function recalc() {
+        const formRect = signupForm.getBoundingClientRect();
+        const viewportLeft = 0;
 
-          // End of the line aligns just left of the form
-          const lineEndX = formRect.left - 12;
+        const endX = formRect.left - 14;
+        maxWidth = Math.max(0, endX - startX);
 
-          // Line starts well off-screen to the left
-          const lineStartX = -120;
-          const lineWidth = lineEndX - lineStartX;
+        connectorLine.style.left = `${startX}px`;
+        connectorLine.style.width = `0px`;
+        connectorDot.style.left = `0px`;
+      }
 
-          connectorLine.style.left = `${lineStartX}px`;
-          connectorLine.style.width = `${lineWidth}px`;
+      function onScroll() {
+        const rect = signupForm.getBoundingClientRect();
+        const vh = window.innerHeight;
 
-          // Dot is pinned to the end of the line
-          connectorDot.style.left = `${lineWidth}px`;
+        // Progress from when section enters viewport to when form is centered
+        const progress = Math.min(
+          1,
+          Math.max(
+            0,
+            (vh - rect.top) / (vh * 0.6)
+          )
+        );
 
-          observer.disconnect();
-        },
-        { threshold: 0.3 }
-      );
+        const eased = progress * progress * (3 - 2 * progress); // smoothstep
+        const width = maxWidth * eased;
 
-      observer.observe(signupForm);
+        connectorLine.style.width = `${width}px`;
+        connectorDot.style.left = `${width}px`;
+      }
+
+      window.addEventListener('resize', recalc);
+      window.addEventListener('scroll', onScroll, { passive: true });
+
+      recalc();
+      onScroll();
     }
   </script>
 </body>
