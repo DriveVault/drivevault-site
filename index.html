@@ -947,35 +947,32 @@
   }
 }
     
-    /* Signup scroll connector - left to form */
+    /* Signup scroll connector - anchored to form */
 .connector-wrap{
   position:absolute;
-  left:0;
-  right:0;
-  top:96px;
+  inset:0;
   pointer-events:none;
 }
 
 .connector-line{
   position:absolute;
-  height:5px;
-  width:0;
-  background:linear-gradient(90deg,#6b5cff,#ff6aa2);
-  border-radius:4px;
-  box-shadow: 0 0 32px rgba(107,92,255,.55);
-  transition:width 1.2s cubic-bezier(.22,1,.36,1);
+  top:50%;
+  height:6px;
+  background:linear-gradient(90deg,#6b5cff 0%, #ff6aa2 100%);
+  border-radius:6px;
+  box-shadow:0 0 36px rgba(107,92,255,.55);
+  transform:translateY(-50%);
 }
 
 .connector-dot{
   position:absolute;
-  left:0;
   top:50%;
   width:18px;
   height:18px;
   transform:translate(-50%,-50%);
   border-radius:50%;
-  background:radial-gradient(circle at center,#ff6aa2,#6b5cff);
-  box-shadow: 0 0 30px rgba(107,92,255,.75);
+  background:radial-gradient(circle at center,#ff6aa2 0%, #6b5cff 70%);
+  box-shadow:0 0 32px rgba(107,92,255,.8);
 }
 
 /* Ensure signup form sits above connector */
@@ -1759,28 +1756,34 @@ if ('IntersectionObserver' in window) {
         }
       });
     }
-    // Signup connector animation: anchor dot to signup form and extend line leftwards
-    const connector = document.getElementById('signup-connector');
+    /* Signup connector: dot anchored to form, line extends left */
+    const connectorLine = document.getElementById('signup-connector');
+    const connectorDot = document.getElementById('signup-dot');
     const signupForm = document.querySelector('.signup-form');
 
-    if (connector && signupForm && 'IntersectionObserver' in window) {
+    if (connectorLine && connectorDot && signupForm && 'IntersectionObserver' in window) {
       const observer = new IntersectionObserver(
         ([entry]) => {
           if (!entry.isIntersecting) return;
 
           const formRect = signupForm.getBoundingClientRect();
-          const containerRect = connector.parentElement.getBoundingClientRect();
+          const viewportWidth = window.innerWidth;
 
-          // Position the line so its RIGHT end (dot) sits just left of the form
-          const dotX = formRect.left - 12;
-          const lineLength = Math.min(520, dotX); // fixed visual length, not viewport-based
+          // Dot sits just to the left of the form
+          const dotX = formRect.left - 10;
 
-          connector.style.left = `${dotX - lineLength}px`;
-          connector.style.width = `${lineLength}px`;
+          // Line should extend far left, even off-screen
+          const lineStartX = -80;
+          const lineWidth = dotX - lineStartX;
+
+          connectorLine.style.left = `${lineStartX}px`;
+          connectorLine.style.width = `${lineWidth}px`;
+
+          connectorDot.style.left = `${dotX}px`;
 
           observer.disconnect();
         },
-        { threshold: 0.35 }
+        { threshold: 0.3 }
       );
 
       observer.observe(signupForm);
