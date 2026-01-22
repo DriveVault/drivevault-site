@@ -1,113 +1,430 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Favicon -->
-<link rel="icon" href="/favicon.png" type="image/png" sizes="32x32">
-<link rel="shortcut icon" href="/favicon.png">
-<link rel="apple-touch-icon" href="/favicon.png">
-  <meta charset="UTF-8">
-  <title>Privacy Policy - DriveVault</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DriveVault - Privacy Policy</title>
+
+  <meta name="description" content="DriveVault Privacy Policy. Learn how we handle your data, protect your privacy, and design the app to keep your files local and secure." />
+
+  <link rel="icon" href="/favicon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="/favicon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
   <style>
-    :root { --bg:#0b0d12; --text:#e6e9ef; --muted:#9aa3b2; --accent:#6aa2ff; }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: Inter, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      padding: 40px 20px;
-      line-height: 1.7;
-      overflow-y: auto;   /* enable vertical scroll */
-      overflow-x: hidden; /* prevent sideways scroll */
+    :root{
+      --bg:#ffffff;
+      --text:#0b0d12;
+      --muted:#5f6775;
+      --line:rgba(10,12,18,.08);
     }
 
-    /* Mesh gradient background (same as homepage) */
-    .mesh-bg {
-      position: fixed; inset: 0; z-index: -1;
-      background:
-        radial-gradient(circle at 25% 30%, rgba(30,60,114,.25), transparent 60%),
-        radial-gradient(circle at 75% 40%, rgba(36,99,175,.20), transparent 60%),
-        radial-gradient(circle at 50% 70%, rgba(15,32,60,.30), transparent 60%);
-      background-size: 200% 200%;
-      animation: meshShift 25s ease-in-out infinite alternate;
-      filter: blur(80px);
-      pointer-events: none; /* don't block scroll/clicks */
-    }
-    @keyframes meshShift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+    *{box-sizing:border-box; margin:0; padding:0}
 
-    main { max-width: 900px; margin: 0 auto; position: relative; z-index: 1; padding-bottom: 80px; }
-    h1 { font-size: 36px; font-weight: 800; margin-bottom: 20px; text-align: center; }
-    h2 { font-size: 22px; font-weight: 600; margin: 36px 0 12px; color: var(--accent); }
-    p, li { font-size: 16px; margin-bottom: 14px; }
-    ul { padding-left: 20px; margin-bottom: 8px; }
-    a { color: var(--accent); text-decoration: none; } a:hover { text-decoration: underline; }
-    .meta { color: var(--muted); text-align: center; margin-bottom: 24px; }
-    footer { margin-top: 60px; font-size: 14px; color: var(--muted); text-align: center; }
+    body{
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      overflow-x:hidden;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    /* Header */
+    .topbar{
+      position:fixed;
+      inset:0 0 auto 0;
+      height:68px;
+      z-index:50;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:rgba(255,255,255,.75);
+      backdrop-filter:saturate(160%) blur(12px);
+      border-bottom:1px solid var(--line);
+    }
+
+    .topbar .wrap{
+      width:min(1200px,94vw);
+      display:flex;
+      align-items:center;
+      gap:16px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      text-decoration:none;
+      color:var(--text);
+      font-weight:800;
+    }
+
+    .brand img{
+      width:22px;
+      height:22px;
+    }
+
+    .brand span{
+      font-size:14px;
+      letter-spacing:.2px;
+    }
+
+    .nav{
+      margin-left:auto;
+      display:flex;
+      align-items:center;
+      gap:18px;
+    }
+
+    .nav a{
+      color:#2b3140;
+      text-decoration:none;
+      font-size:13px;
+      padding:8px 10px;
+      border-radius:10px;
+    }
+
+    .nav a:hover{
+      background:rgba(10,12,18,.05);
+      color:#0b0d12;
+    }
+
+    .cta-top{
+      padding:10px 14px;
+      border-radius:12px;
+      font-weight:800;
+      font-size:13px;
+      color:#ffffff;
+      text-decoration:none;
+      background:linear-gradient(135deg,#2f6bff,#6aa2ff);
+    }
+
+    .hamburger{
+      display:none;
+      margin-left:auto;
+      width:36px;
+      height:36px;
+      border-radius:10px;
+      border:1px solid rgba(10,12,18,.12);
+      background:#ffffff;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+    }
+
+    .hamburger span{
+      width:18px;
+      height:2px;
+      background:#0b0d12;
+      position:relative;
+      display:block;
+    }
+
+    .hamburger span::before,
+    .hamburger span::after{
+      content:"";
+      position:absolute;
+      left:0;
+      width:18px;
+      height:2px;
+      background:#0b0d12;
+    }
+
+    .hamburger span::before{top:-6px}
+    .hamburger span::after{top:6px}
+
+    @media (max-width:900px){
+      .nav{
+        position:fixed;
+        top:68px;
+        left:0;
+        right:0;
+        background:#ffffff;
+        border-bottom:1px solid var(--line);
+        flex-direction:column;
+        gap:6px;
+        padding:12px 16px 16px;
+        display:none;
+      }
+
+      .nav.open{
+        display:flex;
+      }
+
+      .nav a,
+      .cta-top{
+        width:100%;
+        text-align:left;
+        padding:12px 14px;
+        font-size:15px;
+      }
+
+      .hamburger{
+        display:flex;
+      }
+    }
+
+    main{
+      padding-top:68px;
+    }
+
+    /* Privacy content */
+    .policy{
+      padding:64px 16px 96px;
+      display:flex;
+      justify-content:center;
+    }
+
+    .policy-inner{
+      width:min(900px,94vw);
+    }
+
+    .policy h1{
+      font-size:clamp(32px,4vw,44px);
+      font-weight:900;
+      letter-spacing:-.02em;
+      margin-bottom:8px;
+    }
+
+    .policy .updated{
+      color:var(--muted);
+      font-size:14px;
+      margin-bottom:32px;
+    }
+
+    .policy h2{
+      font-size:22px;
+      font-weight:800;
+      letter-spacing:-.01em;
+      margin-top:40px;
+      margin-bottom:12px;
+    }
+
+    .policy p,
+    .policy li{
+      font-size:15px;
+      line-height:1.7;
+      color:#2b3140;
+    }
+
+    .policy p{
+      margin-bottom:14px;
+    }
+
+    .policy ul{
+      padding-left:20px;
+      margin-bottom:14px;
+    }
+
+    .policy li{
+      margin-bottom:8px;
+    }
+
+    .policy a{
+      color:#2f6bff;
+      text-decoration:none;
+      font-weight:600;
+    }
+
+    .policy a:hover{
+      text-decoration:underline;
+    }
+
+    footer{
+      padding:28px 16px 40px;
+      border-top:1px solid var(--line);
+      color:#6b7280;
+      display:flex;
+      justify-content:center;
+    }
+
+    footer .fwrap{
+      width:min(1100px,94vw);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    footer a{
+      color:#6b7280;
+      text-decoration:none;
+    }
+
+    footer a:hover{
+      text-decoration:underline;
+    }
   </style>
 </head>
+
 <body>
-  <div class="mesh-bg"></div>
-  <main>
-    <h1>Privacy Policy</h1>
-    <p class="meta">Last updated: August 27, 2025</p>
 
-    <p>At DriveVault, we respect your privacy. This Privacy Policy explains how we handle your information when you use our app and website.</p>
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <img src="/favicon.png" alt="DriveVault logo">
+      <span>DriveVault</span>
+    </a>
 
-    <h2>Information We Collect</h2>
-    <ul>
-      <li><strong>Waitlist email:</strong> If you join the beta waitlist on our website, we collect your email address to contact you about beta access and product updates.</li>
-      <li><strong>In-app data:</strong> The DriveVault macOS app processes files locally on your device. It does <em>not</em> upload drive contents, file metadata, or personal files to our servers. We are not able to see any of the drive data that you scan into DriveVault.</li>
-      <li><strong>Diagnostics/telemetry:</strong> The app does not send analytics or telemetry to us.</li>
-           <li><strong>Bug Reporting + Feature Requests:</strong> As part of the public beta, we have added the ability for users to report bugs and request features. If you choose to submit this information to us, we may use it to improve the DriveVault app.</li>
-    </ul>
+    <nav class="nav" id="mobileNav">
+      <a href="/#features">Features</a>
+      <a href="/#pricing">Pricing</a>
+      <a href="/changelog.html">Changelog</a>
+      <a href="/blog.html">Blog</a>
+      <a href="/faq.html">FAQ</a>
+      <a class="cta-top" href="/#download">Download on the App Store</a>
+    </nav>
 
-    <h2>How We Use Information</h2>
-    <ul>
-      <li>To provide beta access, product updates, and launch notifications.</li>
-      <li>To respond to support requests you initiate.</li>
-    </ul>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation">
+      <span></span>
+    </button>
+  </div>
+</header>
 
-    <h2>Subscriptions & Billing</h2>
-    <p>If you purchase a subscription in the macOS App Store, payment and billing are processed by Apple. We do not receive or store your full payment details. We may receive non-personal information from Apple (e.g., purchase receipts or subscription status) to unlock premium features on your device. You can manage or cancel your subscription in your <strong>App Store account settings</strong>. Refunds are handled by Apple per their policies.</p>
+<main>
+  <section class="policy">
+    <div class="policy-inner">
 
-    <h2>Legal Bases (where applicable)</h2>
-    <ul>
-      <li><strong>Consent:</strong> for waitlist emails and marketing communications.</li>
-      <li><strong>Legitimate interests:</strong> to operate and improve the app and respond to your requests.</li>
-    </ul>
+      <h1>Privacy Policy</h1>
+      <div class="updated">Last updated: August 27, 2025</div>
 
-    <h2>Data Sharing</h2>
-    <p>We do not sell your personal information. We use limited third-party processors only where necessary:</p>
-    <ul>
-      <li><strong>Formspree</strong> (waitlist form processing for emails you submit).</li>
-      <li><strong>Apple</strong> (in-app purchases and subscription management).</li>
-    </ul>
+      <p>
+        At DriveVault, we respect your privacy. This Privacy Policy explains how we handle your
+        information when you use our app and website.
+      </p>
 
-    <h2>Data Retention</h2>
-    <p>Waitlist emails are retained until you unsubscribe or request deletion. In-app data remains on your device and is not retained by us.</p>
+      <h2>Information We Collect</h2>
 
-    <h2>Security</h2>
-    <p>DriveVault is designed with security in mind, including macOS sandboxing and read-only scanning of drives. While no system is perfectly secure, we apply reasonable safeguards to protect the information contained in the app. </p>
+      <ul>
+        <li>
+          <strong>Waitlist email:</strong> If you join the beta waitlist on our website, we collect
+          your email address to contact you about beta access and product updates.
+        </li>
+        <li>
+          <strong>In-app data:</strong> The DriveVault macOS app processes files locally on your
+          device. It does not upload drive contents, file metadata, or personal files to our servers.
+          We are not able to see any of the drive data that you scan into DriveVault.
+        </li>
+        <li>
+          <strong>Diagnostics and telemetry:</strong> The app does not send analytics or telemetry to us.
+        </li>
+        <li>
+          <strong>Bug reporting and feature requests:</strong> If you choose to submit bug reports or
+          feature requests during the public beta, we may use this information to improve DriveVault.
+        </li>
+      </ul>
 
-    <h2>Your Rights</h2>
-    <p>You may unsubscribe from emails at any time, or request access, correction, or deletion of your personal information by contacting us at <a href="mailto:hello@drivevault.io">hello@drivevault.io</a>.</p>
+      <h2>How We Use Information</h2>
 
-    <h2>Children’s Privacy</h2>
-    <p>DriveVault is not directed to children under 13 (or the minimum age in your jurisdiction). We do not knowingly collect personal information from children.</p>
+      <ul>
+        <li>To provide beta access, product updates, and launch notifications.</li>
+        <li>To respond to support requests you initiate.</li>
+      </ul>
 
-    <h2>Changes to This Policy</h2>
-    <p>We may update this Privacy Policy from time to time. Changes are effective upon posting here.</p>
+      <h2>Subscriptions and Billing</h2>
 
-    <h2>Contact Us</h2>
-    <p>Questions about this Privacy Policy? Contact us at <a href="mailto:hello@drivevault.io">hello@drivevault.io</a> or visit <a href="https://www.drivevault.io">www.drivevault.io</a>.</p>
+      <p>
+        If you purchase a subscription in the macOS App Store, payment and billing are processed by Apple.
+        We do not receive or store your full payment details. We may receive non-personal information from
+        Apple, such as purchase receipts or subscription status, to unlock premium features on your device.
+        You can manage or cancel your subscription in your App Store account settings. Refunds are handled
+        by Apple in accordance with their policies.
+      </p>
 
-    <footer>© <span id="year"></span> DriveVault</footer>
-  </main>
+      <h2>Legal Bases (where applicable)</h2>
 
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+      <ul>
+        <li>Consent, for waitlist emails and marketing communications.</li>
+        <li>Legitimate interests, to operate and improve the app and respond to your requests.</li>
+      </ul>
+
+      <h2>Data Sharing</h2>
+
+      <p>
+        We do not sell your personal information. We use limited third-party processors only where necessary:
+      </p>
+
+      <ul>
+        <li>Formspree, for waitlist form processing.</li>
+        <li>Apple, for in-app purchases and subscription management.</li>
+      </ul>
+
+      <h2>Data Retention</h2>
+
+      <p>
+        Waitlist emails are retained until you unsubscribe or request deletion. In-app data remains on
+        your device and is not retained by us.
+      </p>
+
+      <h2>Security</h2>
+
+      <p>
+        DriveVault is designed with security in mind, including macOS sandboxing and read-only scanning
+        of drives. While no system is perfectly secure, we apply reasonable safeguards to protect the
+        information contained in the app.
+      </p>
+
+      <h2>Your Rights</h2>
+
+      <p>
+        You may unsubscribe from emails at any time, or request access, correction, or deletion of your
+        personal information by contacting us at
+        <a href="mailto:hello@drivevault.io">hello@drivevault.io</a>.
+      </p>
+
+      <h2>Children’s Privacy</h2>
+
+      <p>
+        DriveVault is not directed to children under 13 (or the minimum age in your jurisdiction).
+        We do not knowingly collect personal information from children.
+      </p>
+
+      <h2>Changes to This Policy</h2>
+
+      <p>
+        We may update this Privacy Policy from time to time. Changes are effective upon posting here.
+      </p>
+
+      <h2>Contact Us</h2>
+
+      <p>
+        Questions about this Privacy Policy? Contact us at
+        <a href="mailto:hello@drivevault.io">hello@drivevault.io</a>
+        or visit <a href="https://www.drivevault.io">www.drivevault.io</a>.
+      </p>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="fwrap">
+    <div>© <span id="year"></span> DriveVault</div>
+    <div style="display:flex; gap:14px; flex-wrap:wrap">
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+      <a href="/contact.html">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const hamburger = document.getElementById('hamburgerBtn');
+  const mobileNav = document.getElementById('mobileNav');
+
+  hamburger.addEventListener('click', () => {
+    mobileNav.classList.toggle('open');
+  });
+</script>
+
 </body>
 </html>
