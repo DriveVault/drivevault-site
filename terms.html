@@ -1,183 +1,482 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Favicon -->
-<link rel="icon" href="/favicon.png" type="image/png" sizes="32x32">
-<link rel="shortcut icon" href="/favicon.png">
-<link rel="apple-touch-icon" href="/favicon.png">
-  <meta charset="UTF-8">
-  <title>Terms of Service - DriveVault</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DriveVault - Terms of Service</title>
+
+  <meta name="description" content="DriveVault Terms of Service. Learn the conditions governing your use of the DriveVault macOS application." />
+
+  <link rel="icon" href="/favicon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="/favicon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
   <style>
-    :root { --bg:#0b0d12; --text:#e6e9ef; --muted:#9aa3b2; --accent:#6aa2ff; }
-    * { box-sizing:border-box; margin:0; padding:0; }
-    body {
-      font-family:Inter, sans-serif;
+    :root{
+      --bg:#ffffff;
+      --text:#0b0d12;
+      --muted:#5f6775;
+      --line:rgba(10,12,18,.08);
+    }
+
+    *{box-sizing:border-box; margin:0; padding:0}
+
+    body{
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
       background:var(--bg);
       color:var(--text);
-      min-height:100vh;
-      padding:40px 20px;
-      line-height:1.7;
-      overflow-y:auto;    /* enable vertical scroll */
-      overflow-x:hidden;  /* prevent sideways scroll */
+      overflow-x:hidden;
     }
-    .mesh-bg {
-      position:fixed; inset:0; z-index:-1;
-      background:
-        radial-gradient(circle at 25% 30%, rgba(30,60,114,.25), transparent 60%),
-        radial-gradient(circle at 75% 40%, rgba(36,99,175,.20), transparent 60%),
-        radial-gradient(circle at 50% 70%, rgba(15,32,60,.30), transparent 60%);
-      background-size:200% 200%;
-      animation:meshShift 25s ease-in-out infinite alternate;
-      filter:blur(80px);
-      pointer-events:none; /* don't block scroll/clicks */
+
+    html{
+      scroll-behavior:smooth;
     }
-    @keyframes meshShift {
-      0%{background-position:0% 50%}
-      50%{background-position:100% 50%}
-      100%{background-position:0% 50%}
+
+    /* Header */
+    .topbar{
+      position:fixed;
+      inset:0 0 auto 0;
+      height:68px;
+      z-index:50;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:rgba(255,255,255,.75);
+      backdrop-filter:saturate(160%) blur(12px);
+      border-bottom:1px solid var(--line);
     }
-    main {
-      max-width:900px;
-      margin:0 auto;
+
+    .topbar .wrap{
+      width:min(1200px,94vw);
+      display:flex;
+      align-items:center;
+      gap:16px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      text-decoration:none;
+      color:var(--text);
+      font-weight:800;
+    }
+
+    .brand img{
+      width:22px;
+      height:22px;
+    }
+
+    .brand span{
+      font-size:14px;
+      letter-spacing:.2px;
+    }
+
+    .nav{
+      margin-left:auto;
+      display:flex;
+      align-items:center;
+      gap:18px;
+    }
+
+    .nav a{
+      color:#2b3140;
+      text-decoration:none;
+      font-size:13px;
+      padding:8px 10px;
+      border-radius:10px;
+    }
+
+    .nav a:hover{
+      background:rgba(10,12,18,.05);
+      color:#0b0d12;
+    }
+
+    .cta-top{
+      padding:10px 14px;
+      border-radius:12px;
+      font-weight:800;
+      font-size:13px;
+      color:#ffffff;
+      text-decoration:none;
+      background:linear-gradient(135deg,#2f6bff,#6aa2ff);
+    }
+
+    .hamburger{
+      display:none;
+      margin-left:auto;
+      width:36px;
+      height:36px;
+      border-radius:10px;
+      border:1px solid rgba(10,12,18,.12);
+      background:#ffffff;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+    }
+
+    .hamburger span{
+      width:18px;
+      height:2px;
+      background:#0b0d12;
       position:relative;
-      z-index:1;
-      padding-bottom:80px; /* breathing room for footer */
+      display:block;
     }
-    h1{font-size:36px; font-weight:800; margin-bottom:20px; text-align:center;}
-    h2{font-size:22px; font-weight:600; margin:36px 0 12px; color:var(--accent);}
-    p,li{font-size:16px; margin-bottom:14px;}
-    ul{padding-left:20px; margin-bottom:8px;}
-    a{color:var(--accent); text-decoration:none;}
-    a:hover{text-decoration:underline;}
-    footer{margin-top:60px; font-size:14px; color:var(--muted); text-align:center;}
-    .meta{color:var(--muted); text-align:center; margin-bottom:24px;}
+
+    .hamburger span::before,
+    .hamburger span::after{
+      content:"";
+      position:absolute;
+      left:0;
+      width:18px;
+      height:2px;
+      background:#0b0d12;
+    }
+
+    .hamburger span::before{top:-6px}
+    .hamburger span::after{top:6px}
+
+    @media (max-width:900px){
+      .nav{
+        position:fixed;
+        top:68px;
+        left:0;
+        right:0;
+        background:#ffffff;
+        border-bottom:1px solid var(--line);
+        flex-direction:column;
+        gap:6px;
+        padding:12px 16px 16px;
+        display:none;
+      }
+
+      .nav.open{
+        display:flex;
+      }
+
+      .nav a,
+      .cta-top{
+        width:100%;
+        text-align:left;
+        padding:12px 14px;
+        font-size:15px;
+      }
+
+      .hamburger{
+        display:flex;
+      }
+    }
+
+    main{
+      padding-top:68px;
+    }
+
+    /* Terms content */
+    .terms{
+      padding:64px 16px 96px;
+      display:flex;
+      justify-content:center;
+    }
+
+    .terms-inner{
+      width:min(900px,94vw);
+    }
+
+    .terms h1{
+      font-size:clamp(32px,4vw,44px);
+      font-weight:900;
+      letter-spacing:-.02em;
+      margin-bottom:8px;
+    }
+
+    .terms .updated{
+      color:var(--muted);
+      font-size:14px;
+      remember-bottom:32px;
+      margin-bottom:32px;
+    }
+
+    .important{
+      background:rgba(10,12,18,.04);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:20px 22px;
+      margin-bottom:36px;
+    }
+
+    .important p{
+      font-size:15px;
+      line-height:1.65;
+    }
+
+    .terms h2{
+      font-size:22px;
+      font-weight:800;
+      letter-spacing:-.01em;
+      margin-top:40px;
+      margin-bottom:12px;
+    }
+
+    .terms h3{
+      font-size:18px;
+      font-weight:800;
+      margin-top:24px;
+      margin-bottom:10px;
+    }
+
+    .terms p,
+    .terms li{
+      font-size:15px;
+      line-height:1.7;
+      color:#2b3140;
+    }
+
+    .terms p{
+      margin-bottom:14px;
+    }
+
+    .terms ul{
+      padding-left:20px;
+      margin-bottom:14px;
+    }
+
+    .terms li{
+      margin-bottom:8px;
+    }
+
+    .terms a{
+      color:#2f6bff;
+      text-decoration:none;
+      font-weight:600;
+    }
+
+    .terms a:hover{
+      text-decoration:underline;
+    }
+
+    footer{
+      padding:28px 16px 40px;
+      border-top:1px solid var(--line);
+      color:#6b7280;
+      display:flex;
+      justify-content:center;
+    }
+
+    footer .fwrap{
+      width:min(1100px,94vw);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    footer a{
+      color:#6b7280;
+      text-decoration:none;
+    }
+
+    footer a:hover{
+      text-decoration:underline;
+    }
   </style>
 </head>
+
 <body>
-  <div class="mesh-bg"></div>
-  <main>
-    <h1>DriveVault Terms of Service</h1>
-    <p class="meta">Last updated: August 27, 2025</p>
 
-    <h2>Important Notice</h2>
-    <p>By downloading, installing, or using DriveVault, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service. If you do not agree to these Terms, do not use the application.</p>
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <img src="/favicon.png" alt="DriveVault logo">
+      <span>DriveVault</span>
+    </a>
 
-    <h2>1. Acceptance of Terms</h2>
-    <p>These Terms of Service (“Terms”) govern your use of DriveVault (“the Application,” “the Software,” “the App”) provided by the DriveVault development team (“we,” “us,” “our”). By accessing or using DriveVault, you agree to comply with and be bound by these Terms.</p>
+    <nav class="nav" id="mobileNav">
+      <a href="/#features">Features</a>
+      <a href="/#pricing">Pricing</a>
+      <a href="/changelog.html">Changelog</a>
+      <a href="/blog.html">Blog</a>
+      <a href="/faq.html">FAQ</a>
+      <a class="cta-top" href="/#download">Download on the App Store</a>
+    </nav>
 
-<h2>2. Description of Service</h2>
-<p>DriveVault is a drive scanning and cataloging application for macOS that:</p>
-<ul>
-  <li>Creates offline catalogs of external drives and storage devices through read-only scanning.</li>
-  <li>Optionally creates folder structures at user-selected locations with explicit permission.</li>
-  <li>Generates file previews and metadata for organizational purposes.</li>
-  <li>Allows export and import of drive catalogs for sharing and backup.</li>
-  <li>Provides file organization and search capabilities.</li>
-  <li>Generates comprehensive, exportable reports of drive contents.</li>
-  <li>Offers enterprise grade password protection to drive libraries if the user chooses.</li>
-  <li>Offers a robust drive comparison feature to determine differences in file contents.</li>
-</ul>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation">
+      <span></span>
+    </button>
+  </div>
+</header>
 
-<h2>Important Clarification – Not a Backup Service</h2>
-<p>DriveVault is <strong>not</strong> a backup application. It does not create copies of your files, and the catalogs shown in the app are for offline reference and search only. They are not substitutes for your actual files.</p>
-<p>You must not delete or rely on DriveVault catalogs as your only storage. Users are solely responsible for ensuring their files are properly backed up elsewhere before making any deletions. Deleting files from your physical drives cannot be undone by DriveVault, as the app does not hold copies of your data and has no ability to restore deleted files.</p>
-<p>By using the app, you acknowledge and agree that we are not liable for any loss of files caused by user deletion, drive failure, or reliance on DriveVault catalogs as backups.</p>
+<main>
+  <section class="terms">
+    <div class="terms-inner">
 
-    <h2>3. Critical Liability Disclaimer</h2>
-    <p><strong>Read-only scanning:</strong> DriveVault’s core drive-scanning functionality operates exclusively in read-only mode and does not write to, modify, delete, or alter existing files or data on your drives during scanning operations. The application uses macOS sandboxing and security frameworks to support safe operation.</p>
-    <p><strong>Controlled write operations:</strong> The optional Folder Templates feature may create new folders and directory structures, but only at locations you explicitly select and authorize. This feature (i) requires explicit user permission and location selection; (ii) never modifies or overwrites existing files; (iii) only creates new, empty folder structures; and (iv) uses secure, sandboxed file operations.</p>
-    <p><strong>No liability for hardware issues:</strong> We disclaim liability for hardware failures, drive corruption, data loss, or any other technical issues that may occur coincidentally while using DriveVault. Any such issues are not caused by DriveVault’s read-only scanning operations.</p>
-    <p><strong>Technical safeguards include:</strong></p>
-    <ul>
-      <li>macOS App Sandbox restrictions.</li>
-      <li>Read-only access for all scanning operations.</li>
-      <li>User-authorized write operations only for optional folder creation.</li>
-      <li>Error handling and recovery protections.</li>
-      <li>Security-scoped resource management.</li>
-      <li>No ability to modify or delete existing user data during scanning.</li>
-    </ul>
+      <h1>Terms of Service</h1>
+      <div class="updated">Last updated: August 27, 2025</div>
 
-    <h2>4. User Responsibilities</h2>
-    <ul>
-      <li>Maintain regular backups of important data.</li>
-      <li>Ensure your drives are in good working condition before scanning.</li>
-      <li>Use the application in accordance with these Terms.</li>
-      <li>Protect your own data and privacy.</li>
-      <li>Comply with all applicable laws and regulations.</li>
-    </ul>
+      <div class="important">
+        <p>
+          By downloading, installing, or using DriveVault, you acknowledge that you have read,
+          understood, and agree to be bound by these Terms of Service. If you do not agree to
+          these Terms, do not use the application.
+        </p>
+      </div>
 
-    <h2>5. Prohibited Uses</h2>
-    <ul>
-      <li>Reverse engineering, decompiling, or disassembling the application.</li>
-      <li>Using the application for illegal purposes.</li>
-      <li>Redistributing or selling the application without permission.</li>
-      <li>Circumventing security measures.</li>
-      <li>Using the application to violate others’ privacy rights.</li>
-    </ul>
+      <h2>1. Acceptance of Terms</h2>
+      <p>
+        These Terms of Service govern your use of DriveVault provided by the DriveVault
+        development team. By accessing or using DriveVault, you agree to comply with and
+        be bound by these Terms.
+      </p>
 
-    <h2>6. Privacy and Data Collection</h2>
-    <p>DriveVault is designed with privacy as a core principle:</p>
-    <ul>
-      <li>All data processing occurs locally on your Mac.</li>
-      <li>No personal data is transmitted to external servers.</li>
-      <li>No analytics, tracking, or telemetry data is collected by the application.</li>
-      <li>You have complete control over exported data.</li>
-    </ul>
-    <p>For more information, see our <a href="/privacy.html">Privacy Policy</a>.</p>
+      <h2>2. Description of Service</h2>
+      <p>DriveVault is a drive scanning and cataloging application for macOS that:</p>
+      <ul>
+        <li>Creates offline catalogs of external drives through read-only scanning.</li>
+        <li>Optionally creates folder structures at user-selected locations with explicit permission.</li>
+        <li>Generates file previews and metadata for organizational purposes.</li>
+        <li>Allows export and import of drive catalogs.</li>
+        <li>Provides file organization, search, reporting, and comparison tools.</li>
+        <li>Offers optional enterprise-grade password protection.</li>
+      </ul>
 
-    <h2>7. Limitation of Liability</h2>
-    <p>TO THE MAXIMUM EXTENT PERMITTED BY LAW: (i) DriveVault is provided “AS IS” without warranty of any kind; (ii) we disclaim all warranties, express or implied, including merchantability and fitness for a particular purpose; (iii) we shall not be liable for any direct, indirect, incidental, special, or consequential damages; (iv) our total liability shall not exceed the amount paid for the software license or subscription, if any; and (v) we are not responsible for any data loss, hardware failure, or system damage.</p>
+      <h3>Important Clarification – Not a Backup Service</h3>
+      <p>
+        DriveVault is not a backup application. It does not create copies of your files, and
+        catalogs are provided for offline reference only. You are solely responsible for
+        maintaining proper backups of your data.
+      </p>
 
-    <h2>8. Disclaimer of Warranties</h2>
-    <p>THE SOFTWARE IS PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND. WE DISCLAIM ALL WARRANTIES, WHETHER EXPRESS, IMPLIED, STATUTORY, OR OTHERWISE, INCLUDING WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.</p>
+      <h2>3. Critical Liability Disclaimer</h2>
+      <p>
+        DriveVault operates using read-only scanning and macOS sandboxing. Optional write
+        operations are strictly limited to user-authorized folder creation and never modify
+        or overwrite existing files.
+      </p>
 
-    <h2>9. Indemnification</h2>
-    <p>You agree to indemnify and hold harmless the DriveVault development team from any claims, damages, losses, or expenses arising from your use of the application or violation of these Terms.</p>
+      <h2>4. User Responsibilities</h2>
+      <ul>
+        <li>Maintain regular backups of important data.</li>
+        <li>Ensure drives are in good working condition.</li>
+        <li>Use the app in accordance with these Terms.</li>
+        <li>Comply with all applicable laws.</li>
+      </ul>
 
-    <h2>10. Software Updates</h2>
-    <p>We may provide updates to improve functionality and security. Updates may modify features or system requirements. Continued use after updates constitutes acceptance of the updated Terms where applicable.</p>
+      <h2>5. Prohibited Uses</h2>
+      <ul>
+        <li>Reverse engineering or redistributing the application.</li>
+        <li>Using DriveVault for illegal purposes.</li>
+        <li>Circumventing security measures.</li>
+        <li>Violating others’ privacy rights.</li>
+      </ul>
 
-    <h2>11. Termination</h2>
-    <p>These Terms remain in effect until terminated. You may terminate by discontinuing use and deleting the application. We may suspend or terminate access for violations of these Terms.</p>
+      <h2>6. Privacy</h2>
+      <p>
+        DriveVault processes all data locally on your Mac and does not collect analytics,
+        tracking, or telemetry. For full details, see our
+        <a href="/privacy.html">Privacy Policy</a>.
+      </p>
 
-    <h2>12. Governing Law</h2>
-    <p>These Terms are governed by the laws of our primary place of business, without regard to conflict-of-law principles. Any disputes shall be resolved in the courts with jurisdiction over that location.</p>
+      <h2>7. Limitation of Liability</h2>
+      <p>
+        To the maximum extent permitted by law, DriveVault is provided “as is” and we shall
+        not be liable for any damages, data loss, or hardware failure. Total liability shall
+        not exceed the amount paid for the software, if any.
+      </p>
 
-    <h2>13. Subscriptions, Billing, and Cancellation</h2>
-    <p>DriveVault may offer premium features through in-app subscriptions. If you choose to purchase a subscription, the following terms apply:</p>
-    <ul>
-      <li>Subscriptions are billed through your Apple App Store account at confirmation of purchase.</li>
-      <li>Subscriptions automatically renew unless auto-renew is turned off at least 24 hours before the end of the current billing period.</li>
-      <li>Your account will be charged for renewal within 24 hours prior to the end of the current period, at the price shown at the time of purchase.</li>
-      <li>You may manage or cancel your subscription at any time by going to your <strong>Account Settings</strong> in the App Store after purchase.</li>
-      <li>Refunds for purchases are handled directly by Apple in accordance with their refund policy. We do not process refunds ourselves.</li>
-      <li>Some features of the app may require an active subscription to access. If your subscription lapses, those features will no longer be available until the subscription is renewed.</li>
-    </ul>
+      <h2>8. Disclaimer of Warranties</h2>
+      <p>
+        The software is provided without warranties of any kind, express or implied.
+      </p>
 
-    <h2>14. Severability</h2>
-    <p>If any provision of these Terms is found unenforceable, the remaining provisions shall remain in full force and effect.</p>
+      <h2>9. Indemnification</h2>
+      <p>
+        You agree to indemnify and hold harmless the DriveVault development team from any
+        claims arising from your use of the application.
+      </p>
 
-    <h2>15. Changes to Terms</h2>
-    <p>We may modify these Terms at any time. Changes are effective upon posting to this page. Your continued use constitutes acceptance of the modified Terms.</p>
+      <h2>10. Software Updates</h2>
+      <p>
+        We may provide updates that modify features or requirements. Continued use
+        constitutes acceptance of updated Terms.
+      </p>
 
-    <h2>16. Force Majeure</h2>
-    <p>We shall not be liable for any failure to perform due to circumstances beyond our reasonable control, including acts of God, natural disasters, government actions, or technical failures.</p>
+      <h2>11. Termination</h2>
+      <p>
+        These Terms remain in effect until terminated by discontinuing use or deleting
+        the application.
+      </p>
 
-    <h2>Contact Information</h2>
-    <p>For questions about these Terms of Service, please contact us:</p>
-    <ul>
-      <li>Website: <a href="https://www.drivevault.io">www.drivevault.io</a></li>
-      <li>Email: <a href="mailto:hello@drivevault.io">hello@drivevault.io</a></li>
-    </ul>
+      <h2>12. Governing Law</h2>
+      <p>
+        These Terms are governed by the laws of our primary place of business.
+      </p>
 
-    <h2>Security Notice</h2>
-    <p>DriveVault is built with security as a priority and uses Apple’s security frameworks and macOS sandboxing. However, no software is perfect. If you discover a security issue, please report it responsibly to <a href="mailto:hello@drivevault.io">hello@drivevault.io</a>.</p>
+      <h2>13. Subscriptions and Billing</h2>
+      <p>
+        Subscriptions are billed and managed through the Apple App Store. Refunds
+        are handled directly by Apple.
+      </p>
 
-    <footer>© <span id="year"></span> DriveVault</footer>
-  </main>
+      <h2>14. Severability</h2>
+      <p>
+        If any provision is found unenforceable, the remaining provisions remain in effect.
+      </p>
 
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+      <h2>15. Changes to Terms</h2>
+      <p>
+        We may update these Terms at any time. Changes are effective upon posting.
+      </p>
+
+      <h2>16. Force Majeure</h2>
+      <p>
+        We are not liable for failures caused by events beyond our reasonable control.
+      </p>
+
+      <h2>Contact Information</h2>
+      <p>
+        Website: <a href="https://www.drivevault.io">www.drivevault.io</a><br>
+        Email: <a href="mailto:hello@drivevault.io">hello@drivevault.io</a>
+      </p>
+
+      <h2>Security Notice</h2>
+      <p>
+        DriveVault uses Apple’s security frameworks and macOS sandboxing. If you discover
+        a security issue, please report it responsibly to
+        <a href="mailto:hello@drivevault.io">hello@drivevault.io</a>.
+      </p>
+
+      <p style="margin-top:48px; font-size:13px; color:var(--muted);">
+        © 2026 DriveVault
+      </p>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="fwrap">
+    <div>© <span id="year"></span> DriveVault</div>
+    <div style="display:flex; gap:14px; flex-wrap:wrap">
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+      <a href="/contact.html">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const hamburger = document.getElementById('hamburgerBtn');
+  const mobileNav = document.getElementById('mobileNav');
+
+  hamburger.addEventListener('click', () => {
+    mobileNav.classList.toggle('open');
+  });
+</script>
+
 </body>
 </html>
