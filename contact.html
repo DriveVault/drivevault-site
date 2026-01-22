@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <title>Contact - DriveVault</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="/favicon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="/favicon.png" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -147,22 +149,23 @@
 
 <body>
 
-  <!-- Header -->
-  <header>
-    <div class="nav">
-      <div class="nav-left">
-        <a href="https://www.drivevault.io/" style="display:flex;align-items:center;gap:10px;">
-          <img src="https://www.drivevault.io/assets/drivevault-logo.svg" alt="DriveVault" height="22">
-        </a>
-      </div>
-      <div class="nav-right">
-        <a href="https://www.drivevault.io/#features">Features</a>
-        <a href="https://www.drivevault.io/#pricing">Pricing</a>
+  <header class="topbar" role="banner">
+    <div class="wrap">
+      <a class="brand" href="/">
+        <img src="/favicon.png" alt="DriveVault logo">
+        <span>DriveVault</span>
+      </a>
+      <nav class="nav" id="mobileNav" role="navigation" aria-label="Primary">
+        <a href="/#features">Features</a>
+        <a href="/#pricing">Pricing</a>
         <a href="/changelog.html">Changelog</a>
         <a href="/blog.html">Blog</a>
         <a href="/faq.html">FAQ</a>
-        <a class="download-btn" href="#">Download on the App Store</a>
-      </div>
+        <a class="cta-top" href="#download">Download on the App Store </a>
+      </nav>
+      <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false" id="hamburgerBtn">
+        <span></span>
+      </button>
     </div>
   </header>
 
@@ -182,5 +185,23 @@
     </div>
   </main>
 
+  <script>
+    const hamburger = document.getElementById('hamburgerBtn');
+    const mobileNav = document.getElementById('mobileNav');
+
+    if (hamburger && mobileNav){
+      hamburger.addEventListener('click', () => {
+        const isOpen = mobileNav.classList.toggle('open');
+        hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+
+      mobileNav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileNav.classList.remove('open');
+          hamburger.setAttribute('aria-expanded','false');
+        });
+      });
+    }
+  </script>
 </body>
 </html>
