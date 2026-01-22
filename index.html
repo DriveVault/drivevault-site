@@ -969,10 +969,19 @@
   top:50%;
   width:18px;
   height:18px;
-  transform:translate(-50%,-50%);
+  transform:translate(-50%,-50%) scale(0.85);
   border-radius:50%;
   background:radial-gradient(circle at center,#ff6aa2 0%, #6b5cff 70%);
-  box-shadow:0 0 32px rgba(107,92,255,.8);
+  box-shadow:0 0 18px rgba(107,92,255,.35);
+  transition:
+    transform .35s cubic-bezier(.2,.9,.2,1),
+    box-shadow .35s ease;
+}
+
+@media (max-width: 768px){
+  .connector-wrap{
+    display:none !important;
+  }
 }
 
 /* Ensure signup form sits above connector */
@@ -1761,7 +1770,7 @@ if ('IntersectionObserver' in window) {
     const connectorDot = document.getElementById('signup-dot');
     const signupForm = document.querySelector('.signup-form');
 
-    if (connectorLine && connectorDot && signupForm) {
+    if (window.innerWidth > 768 && connectorLine && connectorDot && signupForm) {
       let maxWidth = 0;
       let startX = -140;
 
@@ -1781,7 +1790,6 @@ if ('IntersectionObserver' in window) {
         const rect = signupForm.getBoundingClientRect();
         const vh = window.innerHeight;
 
-        // Progress from when section enters viewport to when form is centered
         const progress = Math.min(
           1,
           Math.max(
@@ -1790,11 +1798,24 @@ if ('IntersectionObserver' in window) {
           )
         );
 
-        const eased = progress * progress * (3 - 2 * progress); // smoothstep
+        const eased = progress * progress * (3 - 2 * progress);
         const width = maxWidth * eased;
 
         connectorLine.style.width = `${width}px`;
+
+        // Glow ramps with progress
+        const glowStrength = 0.35 + eased * 0.65;
+        connectorLine.style.boxShadow = `0 0 ${24 + eased * 36}px rgba(107,92,255,${glowStrength})`;
+
         connectorDot.style.left = `${width}px`;
+        connectorDot.style.boxShadow = `0 0 ${18 + eased * 32}px rgba(107,92,255,${glowStrength})`;
+
+        // Arrival moment
+        if (eased > 0.92) {
+          connectorDot.style.transform = 'translate(-50%,-50%) scale(1)';
+        } else {
+          connectorDot.style.transform = 'translate(-50%,-50%) scale(0.85)';
+        }
       }
 
       window.addEventListener('resize', recalc);
