@@ -18,26 +18,6 @@
       scroll-behavior: smooth;
     }
 
-    // Signup connector scroll reveal
-    const signupConnector = document.querySelector('.signup-connector');
-
-    if (signupConnector && 'IntersectionObserver' in window) {
-      const signupObserver = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              signupConnector.classList.add('in-view');
-              signupObserver.unobserve(entry.target);
-            }
-          });
-        },
-        {
-          threshold: 0.35
-        }
-      );
-
-      signupObserver.observe(signupConnector);
-    }
     :root{
       --bg:#ffffff;
       --text:#0b0d12;
@@ -1803,6 +1783,26 @@ if ('IntersectionObserver' in window) {
           // Silently fail to avoid breaking UX
         }
       });
+    }
+    /* Signup connector scroll reveal */
+    const signupConnector = document.querySelector('.signup-connector');
+
+    if (signupConnector && 'IntersectionObserver' in window) {
+      const signupObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              signupConnector.classList.add('in-view');
+              signupObserver.unobserve(entry.target);
+            }
+          });
+        },
+        {
+          threshold: 0.35
+        }
+      );
+
+      signupObserver.observe(signupConnector);
     }
   </script>
 </body>
