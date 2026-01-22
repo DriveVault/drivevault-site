@@ -17,6 +17,27 @@
     html {
       scroll-behavior: smooth;
     }
+
+    // Signup connector scroll reveal
+    const signupConnector = document.querySelector('.signup-connector');
+
+    if (signupConnector && 'IntersectionObserver' in window) {
+      const signupObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              signupConnector.classList.add('in-view');
+              signupObserver.unobserve(entry.target);
+            }
+          });
+        },
+        {
+          threshold: 0.35
+        }
+      );
+
+      signupObserver.observe(signupConnector);
+    }
     :root{
       --bg:#ffffff;
       --text:#0b0d12;
@@ -946,6 +967,65 @@
   }
 }
     
+    /* Signup scroll connector */
+.signup-connector {
+  position: relative;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-bottom: 32px;
+  pointer-events: none;
+}
+
+.connector-line {
+  position: absolute;
+  top: 0;
+  width: 2px;
+  height: 0;
+  border-radius: 2px;
+  background: linear-gradient(
+    180deg,
+    rgba(59,130,246,0),
+    rgba(99,102,241,0.85),
+    rgba(139,92,246,0.9),
+    rgba(236,72,153,0.9)
+  );
+  box-shadow: 0 0 28px rgba(139,92,246,.55);
+  transition: height 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.connector-dot {
+  position: absolute;
+  top: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6366f1, #ec4899);
+  box-shadow: 0 0 26px rgba(139,92,246,.75);
+  transform: scale(0);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.signup-connector.in-view .connector-line {
+  height: 100px;
+}
+
+.signup-connector.in-view .connector-dot {
+  transform: scale(1);
+}
+
+/* Mobile tuning */
+@media (max-width: 768px) {
+  .signup-connector {
+    height: 80px;
+    margin-bottom: 24px;
+  }
+
+  .signup-connector.in-view .connector-line {
+    height: 64px;
+  }
+}
   </style>
 </head>
 
@@ -1101,6 +1181,10 @@
 
   <!-- Mailing List Signup -->
     <section class="section" style="padding-top:40px; padding-bottom:72px;">
+      <div class="signup-connector" aria-hidden="true">
+        <span class="connector-line"></span>
+        <span class="connector-dot"></span>
+      </div>
       <div class="container" style="text-align:center; max-width:760px;">
 
         <h2 class="sec-title" style="margin-bottom:14px;">
