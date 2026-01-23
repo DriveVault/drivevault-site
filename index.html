@@ -964,19 +964,36 @@
   transform:translateY(-50%);
 }
 
-.connector-dot{
-  position:absolute;
-  top:50%;
-  width:18px;
-  height:18px;
-  transform:translate(-50%,-50%) scale(0.85);
-  border-radius:50%;
-  background:#2f6bff;
-  box-shadow:0 0 22px rgba(47,107,255,.45);
-  transition:
-    transform .35s cubic-bezier(.2,.9,.2,1),
-    box-shadow .35s ease;
-}
+    .connector-dot{
+      position:absolute;
+      top:50%;
+      width:18px;
+      height:18px;
+      transform:translate(-50%,-50%) scale(0.85);
+      border-radius:50%;
+      background:#2f6bff;
+      box-shadow:0 0 22px rgba(47,107,255,.45);
+      transition:
+        transform .35s cubic-bezier(.2,.9,.2,1),
+        box-shadow .35s ease;
+    }
+
+    /* Subtle pulse for outgoing (right) connector dot */
+    @keyframes connectorPulse {
+      0% {
+        transform: translate(-50%,-50%) scale(calc(var(--dot-scale, 1) * 0.96));
+      }
+      50% {
+        transform: translate(-50%,-50%) scale(calc(var(--dot-scale, 1) * 1.06));
+      }
+      100% {
+        transform: translate(-50%,-50%) scale(calc(var(--dot-scale, 1) * 0.96));
+      }
+    }
+
+    #signup-dot-right {
+      animation: connectorPulse 2.4s ease-in-out infinite;
+    }
 
 @media (max-width: 768px){
   .connector-wrap{
@@ -1891,15 +1908,17 @@ if ('IntersectionObserver' in window) {
 
         if (outEase > 0.9) {
           const arrive = Math.min(1, (outEase - 0.9) / 0.1);
-          connectorDotRight.style.transform = `translate(-50%,-50%) scale(${0.85 + arrive * 0.45})`;
+          const baseScale = 0.85 + arrive * 0.45;
+          connectorDotRight.style.setProperty('--dot-scale', baseScale);
         } else {
-          connectorDotRight.style.transform = 'translate(-50%,-50%) scale(0.85)';
+          connectorDotRight.style.setProperty('--dot-scale', 0.85);
         }
       }
 
       window.addEventListener('resize', recalc);
       window.addEventListener('scroll', onScroll, { passive: true });
 
+      connectorDotRight.style.setProperty('--dot-scale', 0.85);
       recalc();
       onScroll();
     }
