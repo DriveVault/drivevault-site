@@ -660,6 +660,58 @@
       }
     }
 
+.how-accordion-trigger{
+  margin-top:64px;
+  margin-bottom:24px;
+  display:flex;
+  justify-content:center;
+}
+
+.how-accordion-btn{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:18px 26px;
+  font-size:15px;
+  font-weight:900;
+  letter-spacing:-0.01em;
+  border-radius:999px;
+  border:1px solid rgba(47,107,255,.35);
+  background:#ffffff;
+  color:#0b0d12;
+  cursor:pointer;
+  box-shadow:0 14px 40px rgba(47,107,255,.18);
+  transition:
+    transform .25s cubic-bezier(.2,.9,.2,1),
+    box-shadow .35s ease,
+    border-color .35s ease;
+}
+
+.how-accordion-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 22px 60px rgba(47,107,255,.28);
+  border-color:rgba(47,107,255,.6);
+}
+
+
+.how-accordion-btn .chevron{
+  display:inline-block;
+  font-size:18px;
+  transition:transform .35s cubic-bezier(.2,.9,.2,1);
+}
+
+.how-accordion-content{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .9s cubic-bezier(.2,.9,.2,1);
+  margin-bottom:72px;
+}
+
+.how-accordion-inner{
+  padding-top:48px;
+  padding-bottom:8px;
+}
+
     /* Feature grid */
     .grid{display:grid; gap:18px; grid-template-columns:repeat(2, minmax(0, 1fr));}
     .card{
@@ -1117,6 +1169,32 @@
                 <circle cx="7.5" cy="15" r="1" fill="currentColor"/>
               </svg>
             </div>
+<div class="how-accordion-trigger">
+  <button class="how-accordion-btn" type="button">
+    <span>See all DriveVault features</span>
+    <span class="chevron">⌄</span>
+  </button>
+</div>
+<div class="how-accordion-content" id="howAccordion">
+  <div class="how-accordion-inner">
+    <div class="video-wrap" style="width:100%; max-width:1100px; margin:0 auto;">
+      <iframe
+        src="https://www.youtube.com/embed/Lah8EJ5LLFk?rel=0"
+        title="DriveVault tutorial"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        style="
+          width:100%;
+          aspect-ratio:16/9;
+          border-radius:18px;
+          box-shadow:0 30px 80px rgba(10,12,18,.18);
+        "
+      ></iframe>
+    </div>
+  </div>
+</div>
+
             <h3>Scan your drives</h3>
             <p>
               Connect each drive once and scan it in DriveVault. Choose <strong>Full Scan</strong>
@@ -1162,24 +1240,6 @@
     <!-- Mailing List Signup -->
 <section class="section signup-section" style="padding-top:72px; padding-bottom:122px; position:relative;">
       <div class="container signup-content">
-        <div style="
-  max-width: 900px;
-  margin: 0 auto 96px;
-  border-radius: 18px;
-  overflow: hidden;
-  box-shadow: 0 18px 46px rgba(10,12,18,.12);
-">
-  <iframe
-    width="100%"
-    height="506"
-    src="https://www.youtube.com/embed/Lah8EJ5LLFk"
-    title="DriveVault Tutorial"
-    frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    allowfullscreen
-    style="display:block;"
-  ></iframe>
-</div>
         <h2 class="sec-title" style="margin-top:200px; margin-bottom:18px;">
           Plug yourself in
         </h2>
@@ -1921,6 +1981,23 @@ if ('IntersectionObserver' in window) {
       connectorDotRight.style.setProperty('--dot-scale', 0.85);
       recalc();
       onScroll();
+    }
+    // --- Accordion for How It Works ---
+    const accordionBtn = document.querySelector('.how-accordion-btn');
+    const accordion = document.getElementById('howAccordion');
+
+    if (accordionBtn && accordion){
+      accordionBtn.addEventListener('click', () => {
+        const isOpen = accordion.classList.toggle('open');
+        accordionBtn.querySelector('.chevron').style.transform =
+          isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
+
+        if (isOpen){
+          accordion.style.maxHeight = accordion.scrollHeight + 'px';
+        } else {
+          accordion.style.maxHeight = '0px';
+        }
+      });
     }
   </script>
 </body>
