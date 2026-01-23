@@ -953,6 +953,9 @@
   inset:0;
   pointer-events:none;
 }
+.connector-wrap.right{
+  transform: scaleX(-1);
+}
 
 .connector-line{
   position:absolute;
@@ -1169,6 +1172,11 @@
         <div class="connector-wrap" aria-hidden="true">
           <div class="connector-line" id="signup-connector">
             <span class="connector-dot" id="signup-dot"></span>
+          </div>
+        </div>
+        <div class="connector-wrap right" aria-hidden="true">
+          <div class="connector-line" id="signup-connector-right">
+            <span class="connector-dot" id="signup-dot-right"></span>
           </div>
         </div>
         <form
@@ -1807,9 +1815,11 @@ if ('IntersectionObserver' in window) {
     // --- Signup connector: animated on scroll ---
     const connectorLine = document.getElementById('signup-connector');
     const connectorDot = document.getElementById('signup-dot');
+    const connectorLineRight = document.getElementById('signup-connector-right');
+    const connectorDotRight = document.getElementById('signup-dot-right');
     const signupForm = document.querySelector('.signup-form');
 
-    if (window.innerWidth > 768 && connectorLine && connectorDot && signupForm) {
+    if (window.innerWidth > 768 && connectorLine && connectorDot && connectorLineRight && connectorDotRight && signupForm) {
       let maxWidth = 0;
       let startX = -140;
 
@@ -1823,6 +1833,9 @@ if ('IntersectionObserver' in window) {
         connectorLine.style.left = `${startX}px`;
         connectorLine.style.width = `0px`;
         connectorDot.style.left = `0px`;
+        connectorLineRight.style.left = `${startX}px`;
+        connectorLineRight.style.width = `0px`;
+        connectorDotRight.style.left = `0px`;
       }
 
       function onScroll() {
@@ -1861,6 +1874,24 @@ if ('IntersectionObserver' in window) {
           connectorDot.style.transform = `translate(-50%,-50%) scale(${scale})`;
         } else {
           connectorDot.style.transform = 'translate(-50%,-50%) scale(0.85)';
+        }
+
+        // Mirrored (right) connector animation
+        const outProgress = Math.max(0, (progress - 0.5) * 2);
+        const outEase = outProgress * outProgress * (3 - 2 * outProgress);
+        const outWidth = maxWidth * outEase;
+
+        connectorLineRight.style.width = `${outWidth}px`;
+        connectorLineRight.style.boxShadow = `0 0 ${24 + outEase * 36}px rgba(34,197,94,${0.35 + outEase * 0.65})`;
+
+        connectorDotRight.style.left = `${outWidth}px`;
+        connectorDotRight.style.boxShadow = `0 0 ${18 + outEase * 32}px rgba(34,197,94,${0.35 + outEase * 0.65})`;
+
+        if (outEase > 0.9) {
+          const arrive = Math.min(1, (outEase - 0.9) / 0.1);
+          connectorDotRight.style.transform = `translate(-50%,-50%) scale(${0.85 + arrive * 0.45})`;
+        } else {
+          connectorDotRight.style.transform = 'translate(-50%,-50%) scale(0.85)';
         }
       }
 
