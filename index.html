@@ -953,9 +953,6 @@
   inset:0;
   pointer-events:none;
 }
-.connector-wrap.right{
-  transform: scaleX(-1);
-}
 
 .connector-line{
   position:absolute;
@@ -1825,15 +1822,19 @@ if ('IntersectionObserver' in window) {
 
       function recalc() {
         const formRect = signupForm.getBoundingClientRect();
-        const viewportLeft = 0;
 
-        const endX = formRect.left - 14;
-        maxWidth = Math.max(0, endX - startX);
+        const leftStartX = -140;
+        const leftEndX = formRect.left - 14;
+        maxWidth = Math.max(0, leftEndX - leftStartX);
 
-        connectorLine.style.left = `${startX}px`;
+        // Left connector (incoming)
+        connectorLine.style.left = `${leftStartX}px`;
         connectorLine.style.width = `0px`;
         connectorDot.style.left = `0px`;
-        connectorLineRight.style.left = `${startX}px`;
+
+        // Right connector (outgoing)
+        const rightStartX = formRect.right + 14;
+        connectorLineRight.style.left = `${rightStartX}px`;
         connectorLineRight.style.width = `0px`;
         connectorDotRight.style.left = `0px`;
       }
@@ -1876,9 +1877,10 @@ if ('IntersectionObserver' in window) {
           connectorDot.style.transform = 'translate(-50%,-50%) scale(0.85)';
         }
 
-        // Mirrored (right) connector animation
-        const outProgress = Math.max(0, (progress - 0.5) * 2);
+        const outDelay = 0.55;
+        const outProgress = Math.max(0, (progress - outDelay) / (1 - outDelay));
         const outEase = outProgress * outProgress * (3 - 2 * outProgress);
+
         const outWidth = maxWidth * outEase;
 
         connectorLineRight.style.width = `${outWidth}px`;
