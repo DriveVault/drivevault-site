@@ -153,12 +153,17 @@
 
     /* Hero */
     .hero {
-      min-height: calc(100vh - 96px);
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding-top: 0;
-      padding-bottom: 0;
+      padding-top: 120px;
+      padding-bottom: 120px;
+      box-sizing: border-box;
+    }
+    .hero-image {
+      padding-top: 80px;
+      padding-bottom: 120px;
     }
 
     .hero-inner {
@@ -1102,52 +1107,29 @@
         <a class="cta-minimal" href="https://www.drivevault.io">
           Download on the Apple App Store 
         </a>
-        <div style="height:120px;"></div>
+      </div>
+    </section>
 
-        <div class="visual" aria-label="DriveVault app preview" style="margin-top:140px;">
-          <div class="screen-wrap">
-            <video
-              class="screen"
-              src="https://cdn.shopify.com/videos/c/o/v/21917fa1a3584ae499719c2d58f8db98.mp4"
-              autoplay
-              muted
-              loop
-              playsinline
-            ></video>
+    <section class="hero-image">
+      <div class="visual" aria-label="DriveVault app preview">
+        <div class="screen-wrap">
+          <video
+            class="screen"
+            src="https://cdn.shopify.com/videos/c/o/v/21917fa1a3584ae499719c2d58f8db98.mp4"
+            autoplay
+            muted
+            loop
+            playsinline
+          ></video>
 
-            <div class="chip c1 float1">
-              <span class="ico" aria-hidden="true">🔎</span>
-              Fast global search
-            </div>
-            <div class="chip c2 float2">
-              <span class="ico" aria-hidden="true">📊</span>
-              Reports and library stats
-            </div>
-            <div class="chip c3 float3">
-              <span class="ico" aria-hidden="true">🧾</span>
-              Uses rich metadata
-            </div>
-            <div class="chip c4 float4">
-              <span class="ico" aria-hidden="true">📁</span>
-              Create Projects
-            </div>
-            <div class="chip c5 float5">
-              <span class="ico" aria-hidden="true">🧩</span>
-              Compare drives
-            </div>
-            <div class="chip c6 float6">
-              <span class="ico" aria-hidden="true">⭐</span>
-              Search by rating
-            </div>
-            <div class="chip c7 float7">
-              <span class="ico" aria-hidden="true">🧠</span>
-              Smart Filter
-            </div>
-            <div class="chip c8 float8">
-              <span class="ico" aria-hidden="true">⇄</span>
-              Export + Import Libraries
-            </div>
-          </div>
+          <div class="chip c1 float1"><span class="ico">🔎</span>Fast global search</div>
+          <div class="chip c2 float2"><span class="ico">📊</span>Reports and library stats</div>
+          <div class="chip c3 float3"><span class="ico">🧾</span>Uses rich metadata</div>
+          <div class="chip c4 float4"><span class="ico">📁</span>Create Projects</div>
+          <div class="chip c5 float5"><span class="ico">🧩</span>Compare drives</div>
+          <div class="chip c6 float6"><span class="ico">⭐</span>Search by rating</div>
+          <div class="chip c7 float7"><span class="ico">🧠</span>Smart Filter</div>
+          <div class="chip c8 float8"><span class="ico">⇄</span>Export + Import Libraries</div>
         </div>
       </div>
     </section>
