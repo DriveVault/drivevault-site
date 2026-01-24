@@ -1185,31 +1185,38 @@
     </section>
 
     <div class="parallax-drive-large">
-      <img src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/hard_drive_5.png?v=1769277764" alt="External hard drive">
+      <img
+        src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/hard_drive_5.png?v=1769277764"
+        alt="External hard drive"
+        class="parallax-drive-large-img"
+      >
     </div>
-    .parallax-drive-large {
-      position: relative;
-      width: 100%;
-      height: 600px;
-      overflow: visible;
-      pointer-events: none;
-    }
+    /* Large parallax drive (hero spacer visual) */
+.parallax-drive-large{
+  position: relative;
+  width: 100%;
+  height: 900px; /* gives breathing room */
+  margin-top: -1000px; /* pulls it much higher, as requested */
+  overflow: visible;
+  pointer-events: none;
+}
 
-    .parallax-drive-large img {
-      position: absolute;
-      right: -220px;
-      top: 0;
-      width: 900px;
-      max-width: none;
-      transform: translateY(0);
-      transition: transform 0.1s linear;
-    }
+.parallax-drive-large-img{
+  position: absolute;
+  right: -220px;
+  top: 0;
+  width: 900px;
+  max-width: none;
+  transform: translateY(0);
+  transition: transform 0.1s linear;
+  z-index: 0;
+}
 
-    @media (max-width: 768px) {
-      .parallax-drive-large {
-        display: none;
-      }
-    }
+@media (max-width: 768px){
+  .parallax-drive-large{
+    display: none !important;
+  }
+}
 
     <section class="hero-image">
       <div class="visual" aria-label="DriveVault app preview">
