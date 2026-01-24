@@ -172,55 +172,31 @@
       margin: 0 auto;
     }
 
-    /* Hero staggered entrance animation (line-by-line headline) */
-    .hero-inner > * {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Allow headline container itself to be visible so spans can animate */
-    .hero-inner .h1 {
-      opacity: 1;
-      transform: none;
-    }
-
-    /* Pill */
-    .hero-inner .pill {
-      animation: heroFadeUp 0.8s cubic-bezier(.2,.9,.2,1) forwards;
-      animation-delay: 0.1s;
-    }
-
-    /* Headline lines */
+    /* Hero title animation */
     .h1 span {
       display: block;
       opacity: 0;
-      transform: translateY(12px);
-      animation-name: heroFadeUp;
-      animation-duration: 1s;
-      animation-fill-mode: forwards;
-      animation-timing-function: ease;
+      animation: fadeIn 1s ease forwards;
     }
 
-    .h1 span:nth-child(1) { animation-delay: 0s; }
-    .h1 span:nth-child(2) { animation-delay: 1s; }
-    .h1 span:nth-child(3) { animation-delay: 2s; }
-
-    /* Subtext */
-    .hero-inner .sub {
-      animation: heroFadeUp 0.8s cubic-bezier(.2,.9,.2,1) forwards;
-      animation-delay: 3s;
+    .h1 span:nth-child(1) {
+      animation-delay: 0s;
     }
 
-    /* CTA */
-    .hero-inner .cta-minimal {
-      animation: heroFadeUp 0.8s cubic-bezier(.2,.9,.2,1) forwards;
-      animation-delay: 3.8s;
+    .h1 span:nth-child(2) {
+      animation-delay: 1s;
     }
 
-    @keyframes heroFadeUp {
+    .h1 span:nth-child(3) {
+      animation-delay: 2s;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
       to {
         opacity: 1;
-        transform: translateY(0);
       }
     }
 
