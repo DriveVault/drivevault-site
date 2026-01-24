@@ -173,31 +173,31 @@
     }
 
     /* Hero title animation */
-    .h1 span {
-      display: block;
-      opacity: 0;
-      animation: fadeIn 1s ease forwards;
-    }
+  .hero-title {
+  opacity: 1;
+}
 
-    .h1 span:nth-child(1) {
-      animation-delay: 0s;
-    }
+.hero-line {
+  display: block;
+  opacity: 1; /* visible by default */
+  transform: translateY(8px);
+  animation: heroFade 0.9s ease forwards;
+}
 
-    .h1 span:nth-child(2) {
-      animation-delay: 1s;
-    }
+.hero-line.line-1 { animation-delay: 0s; }
+.hero-line.line-2 { animation-delay: 0.8s; }
+.hero-line.line-3 { animation-delay: 1.6s; }
 
-    .h1 span:nth-child(3) {
-      animation-delay: 2s;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
+@keyframes heroFade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1139,11 +1139,11 @@
       <div class="hero-inner">
         <div class="pill"><span class="dot" aria-hidden="true"></span> Offline hard drive cataloguer for Mac</div>
 
-        <h1 class="h1">
-          <span>Scan hard drives once.</span>
-          <span>Search them unplugged.</span>
-          <span>Forever.</span>
-        </h1>
+     <h1 class="h1 hero-title">
+  <span class="hero-line line-1">Scan hard drives once.</span>
+  <span class="hero-line line-2">Search them unplugged.</span>
+  <span class="hero-line line-3">Forever.</span>
+</h1>
 
         <p class="sub">Never lose a file again. Build an offline, powerful, catalogue of your hard drives with DriveVault. </p>
         <a class="cta-minimal" href="https://www.drivevault.io">
