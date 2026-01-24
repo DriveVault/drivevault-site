@@ -178,6 +178,12 @@
       transform: translateY(12px);
     }
 
+    /* Allow headline container itself to be visible so spans can animate */
+    .hero-inner .h1 {
+      opacity: 1;
+      transform: none;
+    }
+
     /* Pill */
     .hero-inner .pill {
       animation: heroFadeUp 0.8s cubic-bezier(.2,.9,.2,1) forwards;
