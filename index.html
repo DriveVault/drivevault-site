@@ -192,24 +192,44 @@
     transition:transform 0.1s linear;
   }
 
+  /* Large parallax drive (overlay, not in layout flow) */
+  .parallax-drive-large{
+    position: fixed;
+    right: -220px;          /* push slightly off-canvas */
+    top: 55vh;              /* start just below hero midpoint */
+    width: 720px;           /* controlled size */
+    max-width: 70vw;
+    pointer-events: none;
+    z-index: 0;             /* behind UI, above background */
+    transform: translateY(0);
+  }
+
+  .parallax-drive-large img{
+    display: block;
+    width: 100%;
+    height: auto;
+    will-change: transform;
+  }
+
   @media (max-width:768px){
     .parallax-drive-left{
       display:none !important;
     }
   }
 
-@media (max-width:768px){
-  .parallax-drive{
-    width:260px;
-    right:-140px;
+  /* Hide large parallax drive on mobile */
+  @media (max-width: 768px){
+    .parallax-drive{
+      width:260px;
+      right:-140px;
+    }
+    .parallax-drive{
+      display: none !important;
+    }
+    .parallax-drive-large{
+      display: none !important;
+    }
   }
-}
-
-@media (max-width: 768px){
-  .parallax-drive{
-    display: none !important;
-  }
-}
 
     .hero-inner {
       text-align: center;
@@ -1190,32 +1210,6 @@
         alt=""
       >
     </div>
-    /* Large floating parallax drive (overlay, does not affect layout) */
-    .parallax-drive-large{
-      position: fixed;
-      right: -220px;
-      top: 40vh;
-      width: 900px;
-      max-width: none;
-      pointer-events: none;
-      z-index: 0;
-      opacity: 1;
-      transform: translate3d(0, 0, 0);
-    }
-
-    .parallax-drive-large img{
-      width: 100%;
-      height: auto;
-      display: block;
-      transform: translate3d(0, 0, 0);
-      transition: transform 0.1s linear;
-    }
-
-    @media (max-width: 768px){
-      .parallax-drive-large{
-        display: none !important;
-      }
-    }
 
     <section class="hero-image">
       <div class="visual" aria-label="DriveVault app preview">
@@ -1851,11 +1845,26 @@ function tick() {
       `translate3d(${driveXLeft}px, ${-driveYLeft}px, 0) rotate(${driveRotateLeft}deg)`;
   }
 
-  // Parallax for large drive image (vertical only, no rotation)
+  // Parallax for large right-side drive (independent overlay, subtle vertical drift)
   const largeDrive = document.querySelector('.parallax-drive-large img');
   if (largeDrive) {
-    const offset = clamp(currentY * 0.08, -120, 260);
-    largeDrive.style.transform = `translate3d(0, ${offset}px, 0)`;
+    // Drive enters early and settles gently
+    const start = window.innerHeight * 0.3;
+    const end = window.innerHeight * 1.4;
+
+    const progress = clamp(
+      (currentY - start) / (end - start),
+      0,
+      1
+    );
+
+    // Ease-out so it feels intentional, not floaty
+    const eased = 1 - Math.pow(1 - progress, 3);
+
+    const translateY = -120 + eased * 260;
+
+    largeDrive.style.transform =
+      `translate3d(0, ${translateY.toFixed(2)}px, 0)`;
   }
 
   // Chips parallax with slight offsets so they keep their layout
