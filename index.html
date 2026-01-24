@@ -152,24 +152,19 @@
     main{padding-top:68px;}
 
     /* Hero */
-    .hero{
-      min-height:calc(100vh - 68px);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:96px 16px 48px;
+    .hero {
+      min-height: calc(100vh - 96px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 0;
+      padding-bottom: 0;
     }
-    .hero-inner{
-      width:min(1100px, 94vw);
-      text-align:center;
-      position: relative;
-      z-index: 3;
-    }
-    .hero-inner{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
+
+    .hero-inner {
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
     }
 
     .pill{
