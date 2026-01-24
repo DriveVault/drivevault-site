@@ -1184,6 +1184,33 @@
       </div>
     </section>
 
+    <div class="parallax-drive-large">
+      <img src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/hard_drive_5.png?v=1769277764" alt="External hard drive">
+    </div>
+    .parallax-drive-large {
+      position: relative;
+      width: 100%;
+      height: 600px;
+      overflow: visible;
+      pointer-events: none;
+    }
+
+    .parallax-drive-large img {
+      position: absolute;
+      right: -220px;
+      top: 0;
+      width: 900px;
+      max-width: none;
+      transform: translateY(0);
+      transition: transform 0.1s linear;
+    }
+
+    @media (max-width: 768px) {
+      .parallax-drive-large {
+        display: none;
+      }
+    }
+
     <section class="hero-image">
       <div class="visual" aria-label="DriveVault app preview">
         <img
@@ -1816,6 +1843,14 @@ function tick() {
     const driveRotateLeft = 6 - currentY * 0.006;
     parallaxDriveLeft.style.transform =
       `translate3d(${driveXLeft}px, ${-driveYLeft}px, 0) rotate(${driveRotateLeft}deg)`;
+  }
+
+  // Parallax for large drive image (vertical only, no rotation)
+  const largeDrive = document.querySelector('.parallax-drive-large img');
+  if (largeDrive) {
+    const scrollY = window.scrollY;
+    const offset = scrollY * 0.12;
+    largeDrive.style.transform = `translateY(${offset}px)`;
   }
 
   // Chips parallax with slight offsets so they keep their layout
