@@ -1733,6 +1733,8 @@ know the true state of your drives at a glance.
   </main>
 
   <script>
+    // Insert prefersReducedMotion at the very top of the script block
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     document.getElementById('year').textContent = new Date().getFullYear();
 
 // --- Parallax (subtle, launch-grade) ---
@@ -1768,7 +1770,6 @@ if (!prefersReducedMotion && howSection && largeDrive) {
 // - Tiny "micro-settle" on scroll stop
 // - Blobs drift with slight X and Y parallax for depth
 
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 if (prefersReducedMotion) {
 // Respect reduced-motion: do nothing
 } else {
