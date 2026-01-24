@@ -172,17 +172,41 @@
       margin: 0 auto;
     }
 
-    /* Hero staggered entrance animation */
+    /* Hero staggered entrance animation (line-by-line headline) */
     .hero-inner > * {
       opacity: 0;
       transform: translateY(12px);
-      animation: heroFadeUp 0.8s cubic-bezier(.2,.9,.2,1) forwards;
     }
 
-    .hero-inner > *:nth-child(1) { animation-delay: 0.1s; }
-    .hero-inner > *:nth-child(2) { animation-delay: 0.25s; }
-    .hero-inner > *:nth-child(3) { animation-delay: 0.4s; }
-    .hero-inner > *:nth-child(4) { animation-delay: 0.55s; }
+    /* Pill */
+    .hero-inner .pill {
+      animation: heroFadeUp 0.8s cubic-bezier(.2,.9,.2,1) forwards;
+      animation-delay: 0.1s;
+    }
+
+    /* Headline lines */
+    .h1 span {
+      display: block;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: heroFadeUp 1s ease forwards;
+    }
+
+    .h1 span:nth-child(1) { animation-delay: 0s; }
+    .h1 span:nth-child(2) { animation-delay: 1s; }
+    .h1 span:nth-child(3) { animation-delay: 2s; }
+
+    /* Subtext */
+    .hero-inner .sub {
+      animation: heroFadeUp 0.8s cubic-bezier(.2,.9,.2,1) forwards;
+      animation-delay: 3.2s;
+    }
+
+    /* CTA */
+    .hero-inner .cta-minimal {
+      animation: heroFadeUp 0.8s cubic-bezier(.2,.9,.2,1) forwards;
+      animation-delay: 3.6s;
+    }
 
     @keyframes heroFadeUp {
       to {
@@ -192,7 +216,8 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .hero-inner > * {
+      .hero-inner *,
+      .h1 span {
         opacity: 1;
         transform: none;
         animation: none;
@@ -1128,7 +1153,11 @@
       <div class="hero-inner">
         <div class="pill"><span class="dot" aria-hidden="true"></span> Offline hard drive cataloguer for Mac</div>
 
-        <h1 class="h1">Scan hard drives once.<br>Search them unplugged.<br>Forever.</h1>
+        <h1 class="h1">
+          <span>Scan hard drives once.</span>
+          <span>Search them unplugged.</span>
+          <span>Forever.</span>
+        </h1>
 
         <p class="sub">Never lose a file again. Build an offline, powerful, catalogue of your hard drives with DriveVault. </p>
         <a class="cta-minimal" href="https://www.drivevault.io">
