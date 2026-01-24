@@ -179,6 +179,25 @@
     transition:transform 0.1s linear;
   }
 
+  .parallax-drive-left{
+    position:absolute;
+    left:-140px;
+    bottom:520px;
+    width:320px;
+    max-width:55vw;
+    pointer-events:none;
+    z-index:1;
+    opacity:1;
+    transform:translate3d(0,0,0) rotate(6deg);
+    transition:transform 0.1s linear;
+  }
+
+  @media (max-width:768px){
+    .parallax-drive-left{
+      display:none !important;
+    }
+  }
+
 @media (max-width:768px){
   .parallax-drive{
     width:260px;
@@ -1172,6 +1191,11 @@
           alt="External hard drive"
           class="parallax-drive"
         />
+        <img
+          src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/Hard_Drive_1.png?v=1769277171"
+          alt="External hard drive"
+          class="parallax-drive-left"
+        />
         <div class="screen-wrap">
           <video
             class="screen"
@@ -1698,6 +1722,7 @@ if (prefersReducedMotion) {
 } else {
 const screen = document.querySelector('.screen');
 const parallaxDrive = document.querySelector('.parallax-drive');
+const parallaxDriveLeft = document.querySelector('.parallax-drive-left');
 const chips = Array.from(document.querySelectorAll('.chip'));
 const blobs = Array.from(document.querySelectorAll('.blob'));
 const hero = document.querySelector('.hero');
@@ -1784,6 +1809,13 @@ function tick() {
     const driveRotate = -8 + currentY * 0.01;
     parallaxDrive.style.transform =
       `translate3d(0, ${-driveY}px, 0) rotate(${driveRotate}deg)`;
+  }
+  if (parallaxDriveLeft) {
+    const driveYLeft = currentY * 0.095;
+    const driveXLeft = currentY * 0.015;
+    const driveRotateLeft = 6 - currentY * 0.006;
+    parallaxDriveLeft.style.transform =
+      `translate3d(${driveXLeft}px, ${-driveYLeft}px, 0) rotate(${driveRotateLeft}deg)`;
   }
 
   // Chips parallax with slight offsets so they keep their layout
