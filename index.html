@@ -166,18 +166,18 @@
       padding-bottom: 120px;
     }
 
-.parallax-drive{
-  position:absolute;
-  right:-120px;
-  bottom:-420px;
-  width:360px;
-  max-width:60vw;
-  pointer-events:none;
-  z-index:1;
-  opacity:1;
-  transform:translate3d(0,0,0) rotate(-8deg);
-  transition:transform 0.1s linear;
-}
+  .parallax-drive{
+    position:absolute;
+    right:-120px;
+    bottom:-120px;
+    width:360px;
+    max-width:60vw;
+    pointer-events:none;
+    z-index:1;
+    opacity:1;
+    transform:translate3d(0,0,0) rotate(-8deg);
+    transition:transform 0.1s linear;
+  }
 
 @media (max-width:768px){
   .parallax-drive{
@@ -1772,10 +1772,10 @@ function tick() {
     screen.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0)`;
   }
 
-  // Parallax hard drive image (rises into view with rotation)
+  // Parallax hard drive image (rises into view early with subtle rotation)
   if (parallaxDrive) {
-    const driveY = currentY * 0.22;
-    const driveRotate = -8 + currentY * 0.015;
+    const driveY = currentY * 0.14;
+    const driveRotate = -8 + currentY * 0.01;
     parallaxDrive.style.transform =
       `translate3d(0, ${-driveY}px, 0) rotate(${driveRotate}deg)`;
   }
