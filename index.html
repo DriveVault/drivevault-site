@@ -173,7 +173,7 @@
     }
 
     /* Hero staggered entrance animation (line-by-line headline) */
-    .hero-inner > * {
+    .hero-inner > *:not(.h1) {
       opacity: 0;
       transform: translateY(12px);
     }
@@ -271,6 +271,12 @@
       -webkit-text-fill-color:transparent;
 
       animation:heroGradient 12s ease-in-out infinite;
+    }
+
+    /* Ensure the .h1 container is visible while its lines animate */
+    .h1 {
+      opacity: 1 !important;
+      transform: none !important;
     }
 
     @media (max-width: 768px){
