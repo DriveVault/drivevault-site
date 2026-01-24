@@ -174,8 +174,8 @@
 
     /* Hero staggered entrance animation (line-by-line headline) */
     .hero-inner > * {
-      opacity: 0;
-      transform: translateY(12px);
+      opacity: 1;
+      transform: translateY(0);
     }
 
     /* Allow headline container itself to be visible so spans can animate */
@@ -1798,13 +1798,7 @@ function tick() {
     blob.style.transform = `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, 0)`;
   });
 
-  // Hero text fades slightly as you scroll down (Apple-like)
-  const titleFade = 1 - heroProgress * 0.30;
-  const subFade = 1 - heroProgress * 0.45;
-  const pillFade = 1 - heroProgress * 0.55;
-
-  if (heroTitle) heroTitle.style.opacity = String(clamp(titleFade, 0.55, 1));
-  if (heroSub) heroSub.style.opacity = String(clamp(subFade, 0.35, 1));
+  // Tiny upward drift for the hero text stack
 
   // Tiny upward drift for the hero text stack
   if (heroInner) {
