@@ -172,32 +172,16 @@
       margin: 0 auto;
     }
 
-    /* Hero title animation */
-  .hero-title {
-  opacity: 1;
-}
+    /* Remove hero title animation, always show hero title */
+    .h1 {
+      opacity: 1 !important;
+    }
 
-.hero-line {
-  display: block;
-  opacity: 1; /* visible by default */
-  transform: translateY(8px);
-  animation: heroFade 0.9s ease forwards;
-}
-
-.hero-line.line-1 { animation-delay: 0s; }
-.hero-line.line-2 { animation-delay: 0.8s; }
-.hero-line.line-3 { animation-delay: 1.6s; }
-
-@keyframes heroFade {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+    .h1 span {
+      display: block;
+      opacity: 1 !important;
+      transform: none !important;
+      animation: none !important;
     }
 
     @media (prefers-reduced-motion: reduce) {
