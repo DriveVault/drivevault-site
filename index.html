@@ -166,6 +166,26 @@
       padding-bottom: 120px;
     }
 
+.parallax-drive{
+  position:absolute;
+  right:-120px;
+  bottom:-420px;
+  width:360px;
+  max-width:60vw;
+  pointer-events:none;
+  z-index:1;
+  opacity:1;
+  transform:translate3d(0,0,0) rotate(-8deg);
+  transition:transform 0.1s linear;
+}
+
+@media (max-width:768px){
+  .parallax-drive{
+    width:260px;
+    right:-140px;
+  }
+}
+
     .hero-inner {
       text-align: center;
       max-width: 900px;
@@ -1141,6 +1161,11 @@
 
     <section class="hero-image">
       <div class="visual" aria-label="DriveVault app preview">
+        <img
+          src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/Hard_Drive_4.png?v=1769276563"
+          alt="External hard drive"
+          class="parallax-drive"
+        />
         <div class="screen-wrap">
           <video
             class="screen"
@@ -1666,6 +1691,7 @@ if (prefersReducedMotion) {
 // Respect reduced-motion: do nothing
 } else {
 const screen = document.querySelector('.screen');
+const parallaxDrive = document.querySelector('.parallax-drive');
 const chips = Array.from(document.querySelectorAll('.chip'));
 const blobs = Array.from(document.querySelectorAll('.blob'));
 const hero = document.querySelector('.hero');
@@ -1744,6 +1770,14 @@ function tick() {
     const y = currentY * 0.035;
     // Keep it perfectly straight (no rotation changes here)
     screen.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0)`;
+  }
+
+  // Parallax hard drive image (rises into view with rotation)
+  if (parallaxDrive) {
+    const driveY = currentY * 0.22;
+    const driveRotate = -8 + currentY * 0.015;
+    parallaxDrive.style.transform =
+      `translate3d(0, ${-driveY}px, 0) rotate(${driveRotate}deg)`;
   }
 
   // Chips parallax with slight offsets so they keep their layout
