@@ -173,7 +173,7 @@
     }
 
     /* Hero staggered entrance animation (line-by-line headline) */
-    .hero-inner > *:not(.h1) {
+    .hero-inner > * {
       opacity: 0;
       transform: translateY(12px);
     }
@@ -189,7 +189,10 @@
       display: block;
       opacity: 0;
       transform: translateY(12px);
-      animation: heroFadeUp 1s ease forwards;
+      animation-name: heroFadeUp;
+      animation-duration: 1s;
+      animation-fill-mode: forwards;
+      animation-timing-function: ease;
     }
 
     .h1 span:nth-child(1) { animation-delay: 0s; }
@@ -199,13 +202,13 @@
     /* Subtext */
     .hero-inner .sub {
       animation: heroFadeUp 0.8s cubic-bezier(.2,.9,.2,1) forwards;
-      animation-delay: 3.2s;
+      animation-delay: 3s;
     }
 
     /* CTA */
     .hero-inner .cta-minimal {
       animation: heroFadeUp 0.8s cubic-bezier(.2,.9,.2,1) forwards;
-      animation-delay: 3.6s;
+      animation-delay: 3.8s;
     }
 
     @keyframes heroFadeUp {
@@ -273,11 +276,6 @@
       animation:heroGradient 12s ease-in-out infinite;
     }
 
-    /* Ensure the .h1 container is visible while its lines animate */
-    .h1 {
-      opacity: 1 !important;
-      transform: none !important;
-    }
 
     @media (max-width: 768px){
       .h1{
