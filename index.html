@@ -194,14 +194,13 @@
 
   /* Large parallax drive (overlay, not in layout flow) */
   .parallax-drive-large{
-    position: fixed;
-    right: -220px;          /* push slightly off-canvas */
-    top: 55vh;              /* start just below hero midpoint */
-    width: 720px;           /* controlled size */
+    position: absolute;
+    right: -220px;
+    top: 0;
+    width: 720px;
     max-width: 70vw;
     pointer-events: none;
-    z-index: 0;             /* behind UI, above background */
-    transform: translateY(0);
+    z-index: 0;
   }
 
   .parallax-drive-large img{
@@ -390,7 +389,6 @@
         inset 0 2px 4px rgba(0,0,0,.15);
     }
 
-    
     /* Hero visual */
     .visual{
       position:relative;
@@ -1186,7 +1184,7 @@
 
 
   
-  <main>
+  <main id="main-content">
     <section class="hero">
       <div class="hero-inner">
         <div class="pill"><span class="dot" aria-hidden="true"></span> Offline hard drive cataloguer for Mac</div>
@@ -1198,18 +1196,12 @@
 </h1>
 
         <p class="sub">Never lose a file again. Build an offline, powerful, catalogue of your hard drives with DriveVault. </p>
-        <a class="cta-minimal" href="https://www.drivevault.io">
+        <a class="cta-minimal" href="https://apps.apple.com/app/drivevault/id6478483834" rel="noopener" target="_blank">
           Download on the Apple App Store 
         </a>
       </div>
     </section>
 
-    <div class="parallax-drive-large" aria-hidden="true">
-      <img
-        src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/hard_drive_5.png?v=1769277764"
-        alt=""
-      >
-    </div>
 
     <section class="hero-image">
       <div class="visual" aria-label="DriveVault app preview">
@@ -1248,7 +1240,14 @@
   
 
     <!-- How It Works Section -->
-    <section class="section how-it-works">
+    <section class="section how-it-works" style="position:relative; overflow:hidden;">
+      <div class="parallax-drive-large">
+        <img
+          src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/hard_drive_5.png?v=1769277764"
+          alt="External hard drive"
+          class="parallax-drive-large-img"
+        />
+      </div>
       <div class="container">
         <h2 class="sec-title" style="margin-bottom:14px;">How DriveVault Works</h2>
         <p class="sec-sub" style="margin-bottom:56px;">
@@ -1712,7 +1711,7 @@ know the true state of your drives at a glance.
         Scan your drives once, then browse and search them forever.<br>Even when they are unplugged.
       </p>
 
-      <a class="cta-minimal" href="https://www.drivevault.io">
+      <a class="cta-minimal" href="https://apps.apple.com/app/drivevault/id6478483834" rel="noopener" target="_blank">
         Download on the Apple App Store 
       </a>
     </div>
@@ -1737,6 +1736,32 @@ know the true state of your drives at a glance.
     document.getElementById('year').textContent = new Date().getFullYear();
 
 // --- Parallax (subtle, launch-grade) ---
+// --- Section-relative parallax for large drive (How It Works) ---
+const howSection = document.querySelector('.how-it-works');
+const largeDrive = document.querySelector('.parallax-drive-large-img');
+
+if (!prefersReducedMotion && howSection && largeDrive) {
+  function onHowScroll() {
+    const rect = howSection.getBoundingClientRect();
+    const vh = window.innerHeight;
+
+    // Progress from when section enters to when it leaves
+    const progress = Math.min(
+      1,
+      Math.max(
+        0,
+        (vh - rect.top) / (rect.height + vh)
+      )
+    );
+
+    // Subtle upward drift only while section is active
+    const translateY = (progress - 0.5) * -140;
+    largeDrive.style.transform = `translate3d(0, ${translateY}px, 0)`;
+  }
+
+  window.addEventListener('scroll', onHowScroll, { passive: true });
+  onHowScroll();
+}
 // Goals:
 // - Only run while the hero visual is in view
 // - Smooth motion via rAF + lerp (no snapping)
@@ -1845,27 +1870,6 @@ function tick() {
       `translate3d(${driveXLeft}px, ${-driveYLeft}px, 0) rotate(${driveRotateLeft}deg)`;
   }
 
-  // Parallax for large right-side drive (independent overlay, subtle vertical drift)
-  const largeDrive = document.querySelector('.parallax-drive-large img');
-  if (largeDrive) {
-    // Drive enters early and settles gently
-    const start = window.innerHeight * 0.3;
-    const end = window.innerHeight * 1.4;
-
-    const progress = clamp(
-      (currentY - start) / (end - start),
-      0,
-      1
-    );
-
-    // Ease-out so it feels intentional, not floaty
-    const eased = 1 - Math.pow(1 - progress, 3);
-
-    const translateY = -120 + eased * 260;
-
-    largeDrive.style.transform =
-      `translate3d(0, ${translateY.toFixed(2)}px, 0)`;
-  }
 
   // Chips parallax with slight offsets so they keep their layout
   chips.forEach((chip, i) => {
