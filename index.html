@@ -169,8 +169,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding-top: 120px;
-      padding-bottom: 120px;
+      padding-top: 68px; /* account for fixed header */
+      padding-bottom: 0;
       box-sizing: border-box;
       overflow: hidden;
     }
@@ -277,7 +277,6 @@
       text-align: center;
       max-width: 900px;
       margin: 0 auto;
-      transform: translateY(-40px);
     }
 
     /* Remove hero title animation, always show hero title */
@@ -1202,22 +1201,16 @@
 }
 
 /* Vimeo hero breakout – desktop only */
-.vimeo-breakout {
-  width: 130%;
-  max-width: none;
-  margin: 140px auto 80px;
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0;
-  transform-origin: center;
-  transition: opacity 0.9s ease, transform 0.9s ease;
-}
-
-/* Fade-in active state */
-.vimeo-breakout.in-view{
-  opacity: 1;
-}
+    .vimeo-breakout {
+      width: 130%;
+      max-width: none;
+      margin: 220px auto 120px;
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 1; /* visible by default */
+      transform-origin: center;
+    }
 
 /* Aspect ratio wrapper */
 .vimeo-embed {
@@ -2247,27 +2240,6 @@ if ('IntersectionObserver' in window) {
       });
     }
 </script>
-  /* --- Vimeo hero fade-in on scroll --- */
-  const vimeoHero = document.querySelector('.vimeo-breakout');
-
-  if (vimeoHero && 'IntersectionObserver' in window) {
-    const vimeoObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('in-view');
-            vimeoObserver.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        threshold: 0.2,
-        rootMargin: '0px 0px -120px 0px'
-      }
-    );
-
-    vimeoObserver.observe(vimeoHero);
-  }
 </body>
 
 </html>
