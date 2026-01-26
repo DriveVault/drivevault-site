@@ -203,7 +203,7 @@
     .hero-inner {
       position: relative;
       z-index: 2;
-      min-height: calc(100vh - 68px);
+      height: calc(100vh - 68px);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -1210,13 +1210,18 @@
 .vimeo-breakout {
   width: 130%;
   max-width: none;
-  margin: 220px auto 120px;
   position: relative;
+  margin: 0 auto;
   left: 50%;
-  transform: translateX(-50%) translateY(40px);
+  transform: translateX(-50%) translateY(0);
   opacity: 0;
   transition: opacity 0.8s ease, transform 0.8s cubic-bezier(.2,.9,.2,1);
   will-change: opacity, transform;
+}
+
+.hero .vimeo-spacer {
+  height: 100vh;
+  pointer-events: none;
 }
 
 .vimeo-breakout.in-view {
@@ -1241,6 +1246,10 @@
 }
 
 @media (max-width: 768px) {
+  .vimeo-spacer {
+    display: none;
+  }
+
   .vimeo-breakout {
     width: 100%;
     left: 0;
@@ -1305,7 +1314,7 @@
         <a class="cta-minimal" href="https://apps.apple.com/app/drivevault/id6478483834" rel="noopener" target="_blank">
           Download on the App Store for free 
         </a>
-       
+        <div class="vimeo-spacer"></div>
 <div class="vimeo-breakout">
   <div class="vimeo-embed">
     <iframe
@@ -2116,13 +2125,14 @@ if (vimeoBreakout && 'IntersectionObserver' in window) {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('in-view');
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateX(-50%) translateY(0)';
           vimeoObserver.unobserve(entry.target);
         }
       });
     },
     {
-      threshold: 0.2,
-      rootMargin: '0px 0px -120px 0px'
+      threshold: 0.15
     }
   );
 
