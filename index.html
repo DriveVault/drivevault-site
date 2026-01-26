@@ -377,37 +377,42 @@
       line-height:1.55;
     }
 
-    .cta-minimal{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      margin-top:32px;
-      margin-bottom:48px;
-      padding:18px 36px;
+  .cta-minimal{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    margin-top:32px;
+    margin-bottom:48px;
+    padding:18px 36px;
 
-      font-size:15px;
-      font-weight:800;
-      letter-spacing:-0.01em;
-      text-decoration:none;
+    font-size:15px;
+    font-weight:800;
+    letter-spacing:-0.01em;
+    text-decoration:none;
 
-      color:#ffffff;
-      background:#000000;
-      /* background-size:200% 200%; */
+    color:#ffffff;
+    background:#000000;
+    /* background-size:200% 200%; */
 
-      border:none;
-      border-radius:999px;
+    border:none;
+    border-radius:999px;
 
-      box-shadow:
-        0 14px 40px rgba(47,107,255,.35),
-        inset 0 1px 0 rgba(255,255,255,.35);
+    box-shadow:
+      0 14px 40px rgba(47,107,255,.35),
+      inset 0 1px 0 rgba(255,255,255,.35);
 
-      transition:
-        transform .25s cubic-bezier(.2,.9,.2,1),
-        box-shadow .35s ease,
-        background-position .6s ease;
-      position: relative;
-      z-index: 5;
-    }
+    transition:
+      transform .25s cubic-bezier(.2,.9,.2,1),
+      box-shadow .35s ease,
+      background-position .6s ease;
+    position: relative;
+    z-index: 5;
+  }
+
+  /* Extra space before hero video so hero text fills viewport */
+  .hero-inner .vimeo-breakout{
+    margin-top: 140px;
+  }
 
     .cta-minimal:hover{
       transform:translateY(-2px);
@@ -1200,10 +1205,18 @@
 .vimeo-breakout {
   width: 130%;
   max-width: none;
-  margin: 64px auto 80px;
+  margin: 140px auto 80px;
   position: relative;
   left: 50%;
   transform: translateX(-50%);
+  opacity: 0;
+  transform-origin: center;
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+/* Fade-in active state */
+.vimeo-breakout.in-view{
+  opacity: 1;
 }
 
 /* Aspect ratio wrapper */
@@ -1228,7 +1241,8 @@
     width: 100%;
     left: 0;
     transform: none;
-    margin: 40px auto 60px;
+    margin: 80px auto 60px;
+    opacity: 1;
   }
 }
   </style>
@@ -2232,7 +2246,28 @@ if ('IntersectionObserver' in window) {
         }
       });
     }
-  </script>
+</script>
+  /* --- Vimeo hero fade-in on scroll --- */
+  const vimeoHero = document.querySelector('.vimeo-breakout');
+
+  if (vimeoHero && 'IntersectionObserver' in window) {
+    const vimeoObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            vimeoObserver.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.2,
+        rootMargin: '0px 0px -120px 0px'
+      }
+    );
+
+    vimeoObserver.observe(vimeoHero);
+  }
 </body>
 
 </html>
