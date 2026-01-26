@@ -167,10 +167,10 @@
       position: relative;
       min-height: 100vh;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
-      padding-top: 68px; /* account for fixed header */
-      padding-bottom: 0;
+      padding-top: 140px; /* MORE space above title */
+      padding-bottom: 120px; /* MORE space below CTA */
       box-sizing: border-box;
       overflow: hidden;
     }
@@ -203,12 +203,13 @@
     .hero-inner {
       position: relative;
       z-index: 2;
-      height: calc(100vh - 68px);
+      min-height: calc(100vh - 68px);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
+      padding-bottom: 120px; /* pushes content up visually */
     }
     .hero-image {
       padding-top: 80px;
@@ -416,7 +417,7 @@
 
   /* Extra space before hero video so hero text fills viewport */
   .hero-inner .vimeo-breakout{
-    margin-top: 140px;
+    margin-top: 200px;
   }
 
     .cta-minimal:hover{
