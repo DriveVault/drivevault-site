@@ -203,6 +203,12 @@
     .hero-inner {
       position: relative;
       z-index: 2;
+      min-height: calc(100vh - 68px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
     }
     .hero-image {
       padding-top: 80px;
@@ -1201,16 +1207,22 @@
 }
 
 /* Vimeo hero breakout – desktop only */
-    .vimeo-breakout {
-      width: 130%;
-      max-width: none;
-      margin: 220px auto 120px;
-      position: relative;
-      left: 50%;
-      transform: translateX(-50%);
-      opacity: 1; /* visible by default */
-      transform-origin: center;
-    }
+.vimeo-breakout {
+  width: 130%;
+  max-width: none;
+  margin: 220px auto 120px;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%) translateY(40px);
+  opacity: 0;
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(.2,.9,.2,1);
+  will-change: opacity, transform;
+}
+
+.vimeo-breakout.in-view {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
 
 /* Aspect ratio wrapper */
 .vimeo-embed {
@@ -1228,7 +1240,6 @@
   height: 100%;
 }
 
-/* Mobile safety */
 @media (max-width: 768px) {
   .vimeo-breakout {
     width: 100%;
@@ -2071,7 +2082,7 @@ if (hamburger && mobileNav){
   });
 }
 
-// --- How It Works scroll reveal ---
+    // --- How It Works scroll reveal ---
 const howCards = document.querySelectorAll('.how-card');
 
 if ('IntersectionObserver' in window) {
@@ -2094,6 +2105,28 @@ if ('IntersectionObserver' in window) {
 } else {
   // Fallback: show immediately
   howCards.forEach(card => card.classList.add('in-view'));
+}
+
+// --- Vimeo Hero Video fade-in reveal ---
+const vimeoBreakout = document.querySelector('.vimeo-breakout');
+
+if (vimeoBreakout && 'IntersectionObserver' in window) {
+  const vimeoObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          vimeoObserver.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.2,
+      rootMargin: '0px 0px -120px 0px'
+    }
+  );
+
+  vimeoObserver.observe(vimeoBreakout);
 }
 
     // Mailing List AJAX submit
