@@ -2341,3 +2341,34 @@ if (vimeoBreakout && 'IntersectionObserver' in window) {
 </body>
 
 </html>
+    /* --- Mobile Vimeo overflow fix --- */
+    .video-wrapper,
+    .vimeo-wrapper,
+    .video-container {
+      max-width: 100%;
+      overflow: hidden;
+    }
+
+    .video-wrapper iframe,
+    .vimeo-wrapper iframe,
+    .video-container iframe {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      display: block;
+      margin: 0 auto;
+    }
+
+    /* Mobile-specific spacing + containment */
+    @media (max-width: 768px) {
+      .video-wrapper,
+      .vimeo-wrapper,
+      .video-container {
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 16px;
+        padding-right: 16px;
+        box-sizing: border-box;
+      }
+    }
