@@ -1195,6 +1195,42 @@
   position: relative;
   z-index: 2;
 }
+
+/* Vimeo hero breakout – desktop only */
+.vimeo-breakout {
+  width: 130%;
+  max-width: none;
+  margin: 64px auto 80px;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Aspect ratio wrapper */
+.vimeo-embed {
+  position: relative;
+  padding-top: 56.25%;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.15);
+}
+
+.vimeo-embed iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Mobile safety */
+@media (max-width: 768px) {
+  .vimeo-breakout {
+    width: 100%;
+    left: 0;
+    transform: none;
+    margin: 40px auto 60px;
+  }
+}
   </style>
 </head>
 
@@ -1251,22 +1287,19 @@
         <a class="cta-minimal" href="https://apps.apple.com/app/drivevault/id6478483834" rel="noopener" target="_blank">
           Download on the App Store for free 
         </a>
-        <div class="hero-video-intro" style="
-          width:100%;
-          margin:56px auto 72px;
-          position:relative;
-        ">
-          <div style="padding:56.25% 0 0 0;position:relative;">
-            <iframe
-              src="https://player.vimeo.com/video/1158556599?background=0&autoplay=0&loop=1&byline=0&title=0&portrait=0&controls=1&pip=0&dnt=1"
-              frameborder="0"
-              allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-              referrerpolicy="strict-origin-when-cross-origin"
-              style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:18px;box-shadow:0 30px 80px rgba(10,12,18,.18);"
-              title="Introducing: DriveVault for MacOS">
-            </iframe>
-          </div>
-        </div>
+       
+<div class="vimeo-breakout">
+  <div class="vimeo-embed">
+    <iframe
+      src="https://player.vimeo.com/video/1158556599?badge=0&autopause=0&loop=1&title=0&byline=0&portrait=0"
+      frameborder="0"
+      allow="autoplay; fullscreen; picture-in-picture"
+      referrerpolicy="strict-origin-when-cross-origin"
+      title="Introducing: DriveVault for MacOS">
+    </iframe>
+  </div>
+</div>
+
       </div>
     </section>
 
