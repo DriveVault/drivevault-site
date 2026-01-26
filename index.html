@@ -1371,11 +1371,12 @@
         </a>
         <div class="vimeo-spacer"></div>
 <div class="vimeo-breakout">
-  <div class="vimeo-embed">
+  <div class="video-wrapper">
     <iframe
       src="https://player.vimeo.com/video/1158556599?badge=0&autopause=0&loop=1&title=0&byline=0&portrait=0"
       frameborder="0"
       allow="autoplay; fullscreen; picture-in-picture"
+      allowfullscreen
       referrerpolicy="strict-origin-when-cross-origin"
       title="Introducing: DriveVault for MacOS">
     </iframe>
@@ -2341,34 +2342,28 @@ if (vimeoBreakout && 'IntersectionObserver' in window) {
 </body>
 
 </html>
-    /* --- Mobile Vimeo overflow fix --- */
-    .video-wrapper,
-    .vimeo-wrapper,
-    .video-container {
+    .video-wrapper {
+      position: relative;
+      width: 100%;
       max-width: 100%;
+      margin: 0 auto;
+      padding-top: 56.25%;
       overflow: hidden;
     }
 
-    .video-wrapper iframe,
-    .vimeo-wrapper iframe,
-    .video-container iframe {
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
-      max-width: 100%;
-      height: auto;
-      aspect-ratio: 16 / 9;
-      display: block;
-      margin: 0 auto;
+      height: 100%;
+      border-radius: 20px;
     }
 
-    /* Mobile-specific spacing + containment */
     @media (max-width: 768px) {
-      .video-wrapper,
-      .vimeo-wrapper,
-      .video-container {
+      .video-wrapper {
+        padding-top: 56.25%;
         margin-left: auto;
         margin-right: auto;
-        padding-left: 16px;
-        padding-right: 16px;
-        box-sizing: border-box;
       }
     }
