@@ -1259,6 +1259,60 @@
     opacity: 1;
   }
 }
+
+/* -----------------------------
+   HERO MOBILE SPACING FIX
+   Tighten top spacing + pull CTA up
+------------------------------*/
+@media (max-width: 768px) {
+
+  /* Reduce excessive top padding on hero */
+  .hero {
+    min-height: 100svh;
+    padding-top: 140px;
+    padding-bottom: 40px;
+  }
+
+  /* Center hero content properly */
+  .hero-inner {
+    min-height: auto;
+    padding-bottom: 0;
+    transform: none !important;
+  }
+
+  /* Pull badge closer to header */
+  .pill {
+    margin-bottom: 14px;
+  }
+
+  /* Tighten headline stack */
+  .h1 {
+    margin-top: 0;
+    margin-bottom: 12px;
+  }
+
+  .sub {
+    margin-top: 10px;
+    margin-bottom: 22px;
+  }
+
+  /* Pull App Store button up */
+  .cta-minimal {
+    margin-top: 18px;
+    margin-bottom: 28px;
+  }
+
+  /* Reduce spacer that pushes video too far down */
+  .hero .vimeo-spacer {
+    height: 6vh;
+  }
+
+  /* Bring video closer to hero content */
+  .vimeo-breakout {
+    margin-top: 24px;
+    margin-bottom: 48px;
+  }
+}
   </style>
 </head>
 
