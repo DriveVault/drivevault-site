@@ -546,10 +546,15 @@
     .video-row{
       display:grid;
       grid-template-columns: 1fr 1fr;
-      gap:72px;
+      gap:60px;
       align-items:center;
-      width:min(1400px, 94vw);
-      margin:0 auto 80px;
+      justify-items:center;
+      width: 94vw;
+      max-width: 1500px;
+      margin: 0 auto 80px;
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
     }
 
     .video-row.reverse{
@@ -558,7 +563,6 @@
 
     .video-row.reverse .video-info{
       order:2;
-      justify-self:start;
     }
 
     .video-row.reverse .video-wrap{
@@ -566,12 +570,12 @@
     }
 
     .video-info{
-      max-width:520px;
-      justify-self:end;
+      max-width:480px;
+      width:100%;
     }
 
     .video-row.reverse .video-info{
-      justify-self:start;
+      /* no special positioning needed */
     }
 
     .video-info h3 {
@@ -594,6 +598,10 @@
         flex-direction:column;
         gap:24px;
         margin-bottom:64px;
+        width: 94vw;
+        max-width: 600px;
+        left: 50%;
+        transform: translateX(-50%);
       }
 
       .video-row.reverse{
@@ -602,21 +610,15 @@
 
       .video-row .video-wrap{
         order:1;
-        justify-self:center;
       }
 
       .video-row .video-info{
         order:2;
-        justify-self:center;
       }
 
       .video-info{
         max-width:100%;
         text-align:left;
-      }
-
-      .video-row.reverse .video-info{
-        justify-self:center;
       }
 
       .video-info h3{
@@ -631,10 +633,6 @@
         background:transparent;
       }
 
-      .video-row.reverse .video-wrap{
-        justify-self:center;
-      }
-
       .video-wrap video{
         display:block;
         width:100%;
@@ -646,15 +644,14 @@
     .video-wrap{
       position:relative;
       width:100%;
-      max-width:680px;
+      max-width:100%;
       border-radius:18px;
       overflow:visible;
       background:transparent;
-      justify-self:start;
     }
 
     .video-row.reverse .video-wrap{
-      justify-self:end;
+      /* no special positioning needed */
     }
 
     .video-wrap video{
