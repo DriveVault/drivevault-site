@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -545,18 +546,19 @@
     .video-row{
       display:grid;
       grid-template-columns: 1fr 1fr;
-      gap:48px;
+      gap:64px;
       align-items:center;
       width:min(1200px, 94vw);
-      margin:0 auto 72px;
+      margin:0 auto 80px;
     }
 
     .video-row.reverse{
-      grid-template-columns: auto 1fr;
+      grid-template-columns: 1fr 1fr;
     }
 
     .video-row.reverse .video-info{
       order:2;
+      justify-self:start;
     }
 
     .video-row.reverse .video-wrap{
@@ -564,7 +566,12 @@
     }
 
     .video-info{
-      max-width:420px;
+      max-width:480px;
+      justify-self:end;
+    }
+
+    .video-row.reverse .video-info{
+      justify-self:start;
     }
 
     .video-info h3 {
@@ -585,7 +592,7 @@
       .video-row{
         display:flex;
         flex-direction:column;
-        gap:20px;
+        gap:24px;
         margin-bottom:64px;
       }
 
@@ -595,15 +602,21 @@
 
       .video-row .video-wrap{
         order:1;
+        justify-self:center;
       }
 
       .video-row .video-info{
         order:2;
+        justify-self:center;
       }
 
       .video-info{
         max-width:100%;
         text-align:left;
+      }
+
+      .video-row.reverse .video-info{
+        justify-self:center;
       }
 
       .video-info h3{
@@ -618,6 +631,10 @@
         background:transparent;
       }
 
+      .video-row.reverse .video-wrap{
+        justify-self:center;
+      }
+
       .video-wrap video{
         display:block;
         width:100%;
@@ -629,10 +646,15 @@
     .video-wrap{
       position:relative;
       width:100%;
-      max-width:860px;
+      max-width:540px;
       border-radius:18px;
       overflow:visible;
       background:transparent;
+      justify-self:start;
+    }
+
+    .video-row.reverse .video-wrap{
+      justify-self:end;
     }
 
     .video-wrap video{
@@ -1207,7 +1229,7 @@
   z-index: 2;
 }
 
-/* Vimeo hero breakout – desktop only */
+/* Vimeo hero breakout - desktop only */
 .vimeo-breakout {
   width: 130%;
   max-width: none;
@@ -1343,7 +1365,7 @@
         <a href="/changelog.html">Changelog</a>
         <a href="/blog.html">Blog</a>
         <a href="/faq.html">FAQ</a>
-        <a class="cta-top" href="#download">Download on the App Store </a>
+        <a class="cta-top" href="#download">Download on the App Store uc0u63743 </a>
       </nav>
       <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false" id="hamburgerBtn">
         <span></span>
@@ -1375,7 +1397,7 @@
 
         <p class="sub">Never lose a file again. Build an offline, powerful, catalogue of your hard drives with DriveVault. </p>
         <a class="cta-minimal" href="https://apps.apple.com/app/drivevault/id6478483834" rel="noopener" target="_blank">
-          Download on the App Store for free 
+          Download on the App Store for free uc0u63743 
         </a>
         <div class="vimeo-spacer"></div>
 <div class="vimeo-breakout">
@@ -1417,14 +1439,14 @@
             playsinline
           ></video>
 
-          <div class="chip c1 float1"><span class="ico">🔎</span>Fast global search</div>
-          <div class="chip c2 float2"><span class="ico">📊</span>Reports and library stats</div>
-          <div class="chip c3 float3"><span class="ico">🧾</span>Uses rich metadata</div>
-          <div class="chip c4 float4"><span class="ico">📁</span>Create Projects</div>
-          <div class="chip c5 float5"><span class="ico">🧩</span>Compare drives</div>
-          <div class="chip c6 float6"><span class="ico">⭐</span>Search by rating</div>
-          <div class="chip c7 float7"><span class="ico">🧠</span>Smart Filter</div>
-          <div class="chip c8 float8"><span class="ico">⇄</span>Export + Import Libraries</div>
+          <div class="chip c1 float1"><span class="ico">uc0u55357 u56590 </span>Fast global search</div>
+          <div class="chip c2 float2"><span class="ico">uc0u55357 u56522 </span>Reports and library stats</div>
+          <div class="chip c3 float3"><span class="ico">uc0u55358 u56830 </span>Uses rich metadata</div>
+          <div class="chip c4 float4"><span class="ico">uc0u55357 u56513 </span>Create Projects</div>
+          <div class="chip c5 float5"><span class="ico">uc0u55358 u56809 </span>Compare drives</div>
+          <div class="chip c6 float6"><span class="ico">uc0u11088 </span>Search by rating</div>
+          <div class="chip c7 float7"><span class="ico">uc0u55358 u56800 </span>Smart Filter</div>
+          <div class="chip c8 float8"><span class="ico">uc0u8644 </span>Export + Import Libraries</div>
         </div>
       </div>
     </section>
@@ -1497,7 +1519,7 @@
 <div class="how-accordion-trigger">
   <button class="how-accordion-btn" type="button">
     <span>Explore DriveVault features</span>
-    <span class="chevron">⌄</span>
+    <span class="chevron">uc0u8964 </span>
   </button>
 </div>
 <div class="how-accordion-content" id="howAccordion">
@@ -1586,7 +1608,7 @@
           font-weight:600;
           text-align:center;
         ">
-          Thanks for signing up. You’re on the list.
+          Thanks for signing up. You're on the list.
         </p>
       </div>
     </section>
@@ -1673,7 +1695,7 @@ to instantly catalog any size drive and build a complete, searchable folder stru
           <div class="video-info">
             <h3>Compare backup drives and verify nothing is missing</h3>
             <p>
-DriveVault’s Drive Comparison tool lets you select two drives that are meant to be
+DriveVault's Drive Comparison tool lets you select two drives that are meant to be
 backups of one another and instantly see how similar they really are. If DriveVault
 detects an 80% or higher similarity rate, it generates a detailed comparison report
 showing exactly which files are missing from the smaller drive and where they live
@@ -1698,7 +1720,7 @@ on the larger one. Never assume a backup worked - know for sure.
               Keep related drives together by grouping them into Projects. Simply drag and
               drop a drive into a project and name it in a way that makes sense to you.
               Organise by client, year, shoot, or create your own system so you always know
-              exactly what’s what at a glance.
+              exactly what's what at a glance.
             </p>
           </div>
 
@@ -1717,7 +1739,7 @@ on the larger one. Never assume a backup worked - know for sure.
             <h3>Understand your entire library at a glance</h3>
             <p>
 Library Stats gives you an instant overview of your entire DriveVault library.
-See how much storage you’ve used versus what’s still available, compare drive
+See how much storage you've used versus what's still available, compare drive
 capacities, break files down by type, and surface powerful insights so you always
 know the true state of your drives at a glance.
             </p>
@@ -1799,7 +1821,7 @@ know the true state of your drives at a glance.
           <div class="pricing-card">
             <h3>Free</h3>
             <p class="price">$0</p>
-            <p class="tier-desc">1 drive · Up to 4TB</p>
+            <p class="tier-desc">1 drive 'b7 Up to 4TB</p>
           </div>
 
           <div class="pricing-card">
@@ -1904,7 +1926,7 @@ know the true state of your drives at a glance.
       </p>
 
       <a class="cta-minimal" href="https://apps.apple.com/app/drivevault/id6478483834" rel="noopener" target="_blank">
-        Download on the App Store 
+        Download on the App Store uc0u63743 
       </a>
     </div>
 
@@ -1914,7 +1936,7 @@ know the true state of your drives at a glance.
     
     <footer>
       <div class="fwrap">
-        <div>© <span id="year"></span> DriveVault // <b></b>Part of the Full Access family</b></div>
+        <div>'a9 <span id="year"></span> DriveVault // <b></b>Part of the Full Access family</b></div>
         <div style="display:flex; gap:14px; flex-wrap:wrap">
           <a href="/privacy.html">Privacy</a>
           <a href="/terms.html">Terms</a>
