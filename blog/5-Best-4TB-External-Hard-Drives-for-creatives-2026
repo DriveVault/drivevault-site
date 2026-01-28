@@ -1,1 +1,1375 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The 5 Best 4TB External Hard Drives for Filmmakers, Photographers and Creatives (2026) | DriveVault</title>
+  <meta name="description" content="We tested and scored the best 4TB external hard drives for creative professionals. Compare Samsung T7 Shield, SanDisk Extreme Pro, LaCie Rugged, WD My Passport and more for filmmaking, photography and video editing." />
+  
+  <!-- SEO Keywords -->
+  <meta name="keywords" content="best 4TB external hard drive, external SSD for video editing, hard drive for filmmakers, portable SSD for photographers, Samsung T7 Shield review, SanDisk Extreme Pro review, LaCie Rugged SSD, best external drive for creatives 2026" />
+  <meta name="author" content="DriveVault" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="/favicon.png" />
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://drivevault.app/blog/5-Best-4TB-External-Hard-Drives-for-creatives-2026" />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="The 5 Best 4TB External Hard Drives for Filmmakers, Photographers and Creatives (2026)">
+  <meta property="og:description" content="We tested and scored the best 4TB external drives for creative professionals. Find the perfect drive for editing, backups, and archive storage.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1597848212624-a19eb35e2651?auto=format&fit=crop&w=1600&q=80">
+  <meta property="og:url" content="https://drivevault.app/blog/5-Best-4TB-External-Hard-Drives-for-creatives-2026">
+  <meta property="og:site_name" content="DriveVault">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The 5 Best 4TB External Hard Drives for Creatives (2026)">
+  <meta name="twitter:description" content="Tested and scored: the best 4TB external drives for filmmakers and photographers.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --bg: #ffffff;
+      --bg-secondary: #f8fafc;
+      --text: #0b0d12;
+      --muted: #5f6775;
+      --line: rgba(10,12,18,.08);
+      --shadow: 0 20px 60px rgba(10,12,18,.08);
+      --blue: #2f6bff;
+      --blue2: #6aa2ff;
+      --green: #22c55e;
+      --gold: #f59e0b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* ========== HEADER ========== */
+    .topbar {
+      position: fixed;
+      inset: 0 0 auto 0;
+      height: 68px;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,.72);
+      backdrop-filter: saturate(160%) blur(12px);
+      -webkit-backdrop-filter: saturate(160%) blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .topbar .wrap {
+      width: min(1200px, 94vw);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 800;
+    }
+
+    .brand img { width: 22px; height: 22px; }
+    .brand span { font-size: 14px; letter-spacing: .2px; }
+
+    .nav {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .nav a {
+      color: #2b3140;
+      text-decoration: none;
+      font-size: 13px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      transition: background .25s ease, color .25s ease;
+    }
+
+    .nav a:hover {
+      background: rgba(10,12,18,.05);
+      color: #0b0d12;
+    }
+
+    .cta-top {
+      margin-left: 4px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 13px;
+      color: #fff;
+      text-decoration: none;
+      background: linear-gradient(135deg, var(--blue), var(--blue2));
+      box-shadow: 0 10px 22px rgba(34,197,94,.25);
+      transition: transform .2s ease, box-shadow .35s ease;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .cta-top::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #22c55e, #4ade80);
+      transition: opacity .35s ease;
+      z-index: -1;
+    }
+
+    .cta-top:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 30px rgba(47,107,255,.26);
+    }
+
+    .cta-top:hover::before {
+      opacity: 0;
+    }
+
+    /* Mobile nav */
+    .hamburger {
+      display: none;
+      margin-left: auto;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      border: 1px solid rgba(10,12,18,.12);
+      background: #fff;
+      box-shadow: 0 6px 16px rgba(10,12,18,.08);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      width: 18px;
+      height: 2px;
+      background: #0b0d12;
+      position: relative;
+      display: block;
+    }
+
+    .hamburger span::before,
+    .hamburger span::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 18px;
+      height: 2px;
+      background: #0b0d12;
+    }
+
+    .hamburger span::before { top: -6px; }
+    .hamburger span::after { top: 6px; }
+
+    @media (max-width: 900px) {
+      .nav {
+        position: fixed;
+        top: 68px;
+        left: 0;
+        right: 0;
+        background: #ffffff;
+        border-bottom: 1px solid var(--line);
+        flex-direction: column;
+        gap: 6px;
+        padding: 12px 16px 16px;
+        display: none;
+        box-shadow: 0 20px 40px rgba(10,12,18,.1);
+      }
+
+      .nav.open {
+        display: flex;
+      }
+
+      .nav a {
+        width: 100%;
+        text-align: left;
+        padding: 12px 14px;
+        font-size: 15px;
+      }
+
+      .cta-top {
+        width: 100%;
+        text-align: center;
+        margin-top: 6px;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+    }
+
+    /* ========== ARTICLE LAYOUT ========== */
+    main {
+      padding: calc(68px + 48px) 16px 80px;
+    }
+
+    .article-container {
+      width: min(820px, 94vw);
+      margin: 0 auto;
+    }
+
+    .article-hero {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      background: linear-gradient(135deg, rgba(245,158,11,.15), rgba(251,191,36,.1));
+      color: #b45309;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+
+    .article-hero h1 {
+      font-size: clamp(28px, 5vw, 42px);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    .post-meta {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 32px;
+    }
+
+    .cover-image {
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--line);
+    }
+
+    .cover-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      background: var(--bg-secondary);
+    }
+
+    /* ========== ARTICLE CONTENT ========== */
+    .article-content {
+      background: var(--bg);
+      line-height: 1.75;
+    }
+
+    .article-content p {
+      margin: 20px 0;
+      color: #374151;
+      font-size: 17px;
+    }
+
+    .article-content h2 {
+      font-size: 26px;
+      font-weight: 800;
+      margin: 48px 0 16px;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+
+    .article-content h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin: 32px 0 12px;
+      color: var(--text);
+    }
+
+    .article-content a {
+      color: var(--blue);
+      text-decoration: underline;
+      text-decoration-color: rgba(47,107,255,.3);
+      text-underline-offset: 2px;
+      transition: text-decoration-color .2s ease;
+    }
+
+    .article-content a:hover {
+      text-decoration-color: var(--blue);
+    }
+
+    .article-content ul,
+    .article-content ol {
+      margin: 20px 0 20px 24px;
+    }
+
+    .article-content li {
+      margin: 12px 0;
+      color: #374151;
+      font-size: 17px;
+    }
+
+    .article-content li strong {
+      color: var(--text);
+    }
+
+    .intro-text {
+      font-size: 19px;
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* How We Score Box */
+    .scoring-box {
+      background: var(--bg-secondary);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 28px;
+      margin: 32px 0;
+    }
+
+    .scoring-box h2 {
+      margin: 0 0 16px 0;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .scoring-box h2::before {
+      content: "📊";
+    }
+
+    .scoring-criteria {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .scoring-criteria li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: #374151;
+      margin: 0;
+    }
+
+    .scoring-criteria li::before {
+      content: "✓";
+      width: 20px;
+      height: 20px;
+      background: linear-gradient(135deg, var(--blue), var(--blue2));
+      color: #fff;
+      font-size: 10px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 600px) {
+      .scoring-criteria {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ========== PRODUCT CARDS ========== */
+    .product-card {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 28px;
+      margin: 40px 0;
+      box-shadow: 0 4px 20px rgba(10,12,18,.04);
+      transition: box-shadow .3s ease, border-color .3s ease;
+    }
+
+    .product-card:hover {
+      box-shadow: 0 10px 40px rgba(10,12,18,.08);
+      border-color: rgba(47,107,255,.2);
+    }
+
+    .product-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 16px;
+    }
+
+    .product-rank {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .rank-badge {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--blue), var(--blue2));
+      color: #fff;
+      font-weight: 900;
+      font-size: 18px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .product-card:first-of-type .rank-badge {
+      background: linear-gradient(135deg, #f59e0b, #fbbf24);
+    }
+
+    .product-title h3 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .product-subtitle {
+      font-size: 14px;
+      color: var(--blue);
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    .overall-score {
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .score-value {
+      font-size: 32px;
+      font-weight: 900;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .score-label {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    .product-meta {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .meta-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background: var(--bg-secondary);
+      border-radius: 8px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .meta-tag strong {
+      color: var(--text);
+    }
+
+    .product-description {
+      color: #374151;
+      font-size: 16px;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    /* Score Grid */
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .score-item {
+      background: var(--bg-secondary);
+      border-radius: 10px;
+      padding: 12px;
+      text-align: center;
+    }
+
+    .score-item-label {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .03em;
+      margin-bottom: 4px;
+    }
+
+    .score-item-value {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    @media (max-width: 600px) {
+      .score-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .product-header {
+        flex-direction: column;
+      }
+      
+      .overall-score {
+        align-self: flex-start;
+      }
+    }
+
+    .best-for {
+      background: linear-gradient(135deg, rgba(34,197,94,.08), rgba(74,222,128,.05));
+      border: 1px solid rgba(34,197,94,.2);
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+    }
+
+    .best-for strong {
+      color: #16a34a;
+      font-size: 13px;
+    }
+
+    .best-for p {
+      margin: 4px 0 0 0;
+      font-size: 14px;
+      color: #374151;
+    }
+
+    .product-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 12px 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      text-decoration: none;
+      transition: background .2s ease, border-color .2s ease;
+    }
+
+    .product-link:hover {
+      background: #f1f5f9;
+      border-color: rgba(47,107,255,.3);
+    }
+
+    .product-link::after {
+      content: "→";
+    }
+
+    /* DriveVault CTA Section */
+    .drivevault-section {
+      background: linear-gradient(135deg, rgba(47,107,255,.08), rgba(106,162,255,.05));
+      border: 1px solid rgba(47,107,255,.15);
+      border-radius: 20px;
+      padding: 32px;
+      margin: 48px 0;
+    }
+
+    .drivevault-section h2 {
+      margin: 0 0 12px 0;
+      font-size: 24px;
+    }
+
+    .drivevault-section > p {
+      margin: 0 0 20px 0;
+      font-size: 16px;
+      color: #374151;
+    }
+
+    .drivevault-section ul {
+      margin: 0 0 24px 20px;
+    }
+
+    .drivevault-section li {
+      margin: 10px 0;
+      font-size: 15px;
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 14px 28px;
+      border-radius: 14px;
+      font-weight: 800;
+      font-size: 15px;
+      color: #fff;
+      text-decoration: none;
+      background: linear-gradient(135deg, var(--blue), var(--blue2));
+      box-shadow: 0 10px 30px rgba(47,107,255,.25);
+      transition: transform .2s ease, box-shadow .3s ease;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 40px rgba(47,107,255,.3);
+    }
+
+    /* Final Recommendations */
+    .recommendations {
+      background: var(--bg-secondary);
+      border-radius: 16px;
+      padding: 28px;
+      margin: 40px 0;
+    }
+
+    .recommendations h2 {
+      margin: 0 0 20px 0;
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .recommendations h2::before {
+      content: "🏆";
+    }
+
+    .rec-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .rec-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+
+    .rec-label {
+      font-size: 13px;
+      color: var(--muted);
+      min-width: 140px;
+    }
+
+    .rec-value {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    /* ========== POST NAVIGATION ========== */
+    .post-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 48px;
+    }
+
+    .post-nav a {
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: var(--bg);
+      text-decoration: none;
+      transition: border-color .25s ease, box-shadow .25s ease;
+    }
+
+    .post-nav a:hover {
+      border-color: rgba(47,107,255,.3);
+      box-shadow: 0 10px 30px rgba(10,12,18,.06);
+    }
+
+    .post-nav-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      margin-bottom: 4px;
+    }
+
+    .post-nav-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    @media (max-width: 600px) {
+      .post-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ========== FOOTER ========== */
+    .site-footer {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--line);
+      padding: 40px 16px;
+      text-align: center;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .footer-brand img {
+      width: 24px;
+      height: 24px;
+    }
+
+    .footer-text {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* ========== FLOATING CTA ========== */
+    .float-cta {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 40;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 20px;
+      border-radius: 14px;
+      font-weight: 800;
+      font-size: 14px;
+      color: #fff;
+      text-decoration: none;
+      background: linear-gradient(135deg, var(--blue), var(--blue2));
+      box-shadow: 0 10px 40px rgba(47,107,255,.35);
+      transition: transform .2s ease, box-shadow .3s ease;
+    }
+
+    .float-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 50px rgba(47,107,255,.4);
+    }
+
+    @media (max-width: 640px) {
+      .float-cta {
+        left: 16px;
+        right: 16px;
+        justify-content: center;
+      }
+    }
+  </style>
+
+  <!-- Article JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "The 5 Best 4TB External Hard Drives for Filmmakers, Photographers and Creatives (2026)",
+    "description": "We tested and scored the best 4TB external hard drives for creative professionals. Compare Samsung T7 Shield, SanDisk Extreme Pro, LaCie Rugged, and more.",
+    "image": "https://images.unsplash.com/photo-1597848212624-a19eb35e2651?auto=format&fit=crop&w=1600&q=80",
+    "datePublished": "2026-01-15",
+    "dateModified": "2026-01-28",
+    "author": { "@type": "Organization", "name": "DriveVault" },
+    "publisher": { "@type": "Organization", "name": "DriveVault", "logo": { "@type": "ImageObject", "url": "/favicon.png" } },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://drivevault.app/blog/5-Best-4TB-External-Hard-Drives-for-creatives-2026"
+    }
+  }
+  </script>
+
+  <!-- Software Application JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "DriveVault",
+    "operatingSystem": "macOS",
+    "applicationCategory": "UtilitiesApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "description": "Search and browse external hard drives without plugging them in. Scan once, search forever."
+  }
+  </script>
+
+  <!-- ItemList JSON-LD for product rankings -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Best 4TB External Hard Drives for Creatives 2026",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@type": "Product",
+          "name": "Samsung T7 Shield 4TB",
+          "description": "Best all-round external drive for filmmakers and photographers",
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "9.3",
+            "bestRating": "10"
+          }
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "item": {
+          "@type": "Product",
+          "name": "SanDisk Extreme Pro 4TB",
+          "description": "Best for speed-focused creatives",
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "9.0",
+            "bestRating": "10"
+          }
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@type": "Product",
+          "name": "LaCie Rugged SSD Pro 4TB",
+          "description": "Best for on-set and harsh environments",
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "8.9",
+            "bestRating": "10"
+          }
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "item": {
+          "@type": "Product",
+          "name": "WD My Passport 4TB",
+          "description": "Best budget archive drive",
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "7.8",
+            "bestRating": "10"
+          }
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 5,
+        "item": {
+          "@type": "Product",
+          "name": "G-Technology ArmorATD 4TB",
+          "description": "Best for physical durability on a budget",
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "7.9",
+            "bestRating": "10"
+          }
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="topbar" role="banner">
+    <div class="wrap">
+      <a class="brand" href="/">
+        <img src="/favicon.png" alt="DriveVault logo">
+        <span>DriveVault</span>
+      </a>
+      <nav class="nav" id="mobileNav" role="navigation" aria-label="Primary">
+        <a href="/#features">Features</a>
+        <a href="/#pricing">Pricing</a>
+        <a href="/changelog.html">Changelog</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/faq.html">FAQ</a>
+        <a class="cta-top" href="https://apps.apple.com/app/drivevault/id6478483834" target="_blank" rel="noopener">Download on the App Store</a>
+      </nav>
+      <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false" id="hamburgerBtn">
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <div class="article-container">
+      <!-- Hero -->
+      <header class="article-hero">
+        <span class="eyebrow">Gear Guide</span>
+        <h1>The 5 Best 4TB External Hard Drives for Filmmakers, Photographers and Creatives (2026)</h1>
+        <p class="post-meta">Published January 15, 2026 • 10 min read</p>
+        <div class="cover-image">
+          <img 
+            src="https://images.unsplash.com/photo-1597848212624-a19eb35e2651?auto=format&fit=crop&w=1600&q=80" 
+            alt="External hard drives and SSDs for creative professionals - best 4TB drives for filmmakers and photographers"
+            loading="lazy"
+          >
+        </div>
+      </header>
+
+      <!-- Article Content -->
+      <article class="article-content">
+        <p class="intro-text">If you work with high-resolution video, RAW photography, or long-term creative archives, a reliable 4TB external hard drive is still one of the most important tools in your workflow. It's the backbone of backups, project handovers, travel edits, and long-term storage.</p>
+
+        <p>But not all drives are created equal. Speed, durability, thermal performance, real-world reliability, and even physical design all matter far more to creatives than headline specs alone.</p>
+
+        <p>In this guide, we break down and score the <strong>five best 4TB external drives</strong> for filmmakers, photographers and creative professionals. Each drive is tested against real-world use cases like editing, backups, on-set data management, and archive storage.</p>
+
+        <div class="scoring-box">
+          <h2>How We Score External Drives</h2>
+          <ul class="scoring-criteria">
+            <li><strong>Price</strong> — Real-world pricing, not launch MSRP</li>
+            <li><strong>Read/Write Speed</strong> — Sustained performance, not burst</li>
+            <li><strong>Reliability</strong> — Track record and failure rates</li>
+            <li><strong>Design & Build</strong> — Materials and thermal performance</li>
+            <li><strong>Portability</strong> — Size, weight, bus-powered convenience</li>
+            <li><strong>Creative Workflow</strong> — How well it fits real production</li>
+          </ul>
+        </div>
+
+        <!-- Product 1: Samsung T7 Shield -->
+        <div class="product-card">
+          <div class="product-header">
+            <div class="product-rank">
+              <div class="rank-badge">1</div>
+              <div class="product-title">
+                <h3>Samsung T7 Shield 4TB</h3>
+                <div class="product-subtitle">Best All-Round External Drive</div>
+              </div>
+            </div>
+            <div class="overall-score">
+              <div class="score-value">9.3</div>
+              <div class="score-label">Overall</div>
+            </div>
+          </div>
+
+          <div class="product-meta">
+            <span class="meta-tag"><strong>£260 – £300</strong></span>
+            <span class="meta-tag">Portable SSD</span>
+            <span class="meta-tag">USB-C</span>
+          </div>
+
+          <p class="product-description">The Samsung T7 Shield is one of the most widely trusted portable SSDs in the creative industry, and for good reason. It strikes an excellent balance between speed, durability, and price. With real-world read and write speeds around 900–1,000 MB/s, it's fast enough for 4K and light 6K editing, smooth scrubbing, and rapid backups. The rubberised shell offers serious protection for travel and on-set use, and it runs cool even under sustained loads.</p>
+
+          <div class="score-grid">
+            <div class="score-item">
+              <div class="score-item-label">Price</div>
+              <div class="score-item-value">8.5</div>
+            </div>
+            <div class="score-item">
+              <div class="score-item-label">Speed</div>
+              <div class="score-item-value">9.0</div>
+            </div>
+            <div class="score-item">
+              <div class="score-item-label">Reliability</div>
+              <div class="score-item-value">9.5</div>
+            </div>
+            <div class="score-item">
+              <div class="score-item-label">Design</div>
+              <div class="score-item-value">9.0</div>
+            </div>
+            <div class="score-item">
+              <div class="score-item-label">Portability</div>
+              <div class="score-item-value">9.5</div>
+            </div>
+            <div class="score-item">
+              <div class="score-item-label">Workflow</div>
+              <div class="score-item-value">9.5</div>
+            </div>
+          </div>
+
+          <div class="best-for">
+            <strong>Best for:</strong>
+            <p>Filmmakers, photographers, and creatives who want one drive that can do everything—editing, backups, travel, and long-term use.</p>
+          </div>
+
+          <a class="product-link" href="https://www.samsung.com/uk/memory-storage/portable-ssd/t7-shield-4tb-black-mu-pe4t0s-ww/" target="_blank" rel="noopener">View Samsung T7 Shield 4TB</a>
+        </div>
+
+        <!-- Product 2: SanDisk Extreme Pro -->
+        <div class="product-card">
+          <div class="product-header">
+            <div class="product-rank">
+              <div class="rank-badge">2</div>
+              <div class="product-title">
+                <h3>SanDisk Extreme Pro 4TB</h3>
+                <div class="product-subtitle">Best for Speed-Focused Creatives</div>
+              </div>
+            </div>
+            <div class="overall-score">
+              <div class="score-value">9.0</div>
+              <div class="score-label">Overall</div>
+            </div>
+          </div>
+
+          <div class="product-meta">
+            <span class="meta-tag"><strong>£290 – £330</strong></span>
+            <span class="meta-tag">Portable SSD</span>
+            <span class="meta-tag">USB-C</span>
+          </div>
+
+          <p class="product-description">The SanDisk Extreme Pro is designed for creatives who care about speed above almost everything else. With sustained read and write speeds pushing 2,000 MB/s, this is one of the fastest bus-powered external drives available. It excels for editing directly off the drive, especially for high-bitrate codecs, multicam timelines, and large photo libraries. The aluminium enclosure helps with heat dissipation, though it can get warm under heavy sustained loads.</p>
+
+          <div class="score-grid">
+            <div class="score-item">
+              <div class="score-item-label">Price</div>
+              <div class="score-item-value">7.5</div>
+            </div>
+            <div class="score-item">
+              <div class="score-item-label">Speed</div>
+              <div class="score-item-value">10</div>
+            </div>
+            <div class="score-item">
+              <div class="score-item-label">Reliability</div>
+              <div class="score-item-value">8.5</div>
+            </div>
+            <div class="score-item">
+              <div class="score-item-label">Design</div>
+              <div class="score-item-value">8.5</div>
+            </div>
+            <div class="score-item">
+              <div class="score-item-label">Portability</div>
+              <div class="score-item-value">9.0</div>
+            </div>
+            <div class="score-item">
+              <div class="score-item-label">Workflow</div>
+              <div class="score-item-value">9.0</div>
+            </div>
+          </div>
+
+          <div class="best-for">
+            <strong>Best for:</strong>
+            <p>Editors working directly from external drives who need maximum speed.</p>
+          </div>
+
+          <a class="product-link" href="https://www.westerndigital.com/en-gb/products/portable-drives/sandisk-extreme-pro-usb-3-2-ssd" target="_blank" rel="noopener">View SanDisk Extreme Pro 4TB</a>
+        </div>
+
+        <!-- Product 3: LaCie Rugged SSD Pro -->
+        <div class="product-card">
+          <div class="product-header">
+            <div class="product-rank">
+              <div class="rank-badge">3</div>
+              <div class="product-title">
+                <h3>LaCie Rugged SSD Pro 4TB</h3>
+                <div class="product-subtitle">Best for On-Set and Harsh Environments</div>
+              </div>
+            </div>
+            <div class="overall-score">
+              <div class="score-value">8.9</div>
+              <div class="score-label">Overall</div>
+            </div>
+          </div>
+
+          <div class="product-meta">
+            <span class="meta-tag"><strong>£380 – £420</strong></span>
+            <span class="meta-tag">Portable SSD</span>
+            <span class="meta-tag">Thunderbolt 3</span>
+          </div>
+
+          <p class="product-description">The LaCie Rugged SSD Pro is built for professional production environments. This is the drive you see on set, strapped to DIT carts, and thrown into camera bags. It's shock-resistant, dust-resistant, water-resistant, and extremely fast over Thunderbolt. The downside is cost and the requirement for Thunderbolt ports to unlock its full performance.</p>
+
+          <div class="score-grid">
+            <div class="score-item">
+              <div class="score-item-label">Price</div>
+              <div class="score-item-value">6.0</div>
+            </div>
+            <div class="score-item">
+              <div class="score-item-label">Speed</div>
+              <div class="score-item-value">9.5</div>
+            </div>
+            <div class="score-item">
+              <div class="score-item-label">Reliability</div>
+              <div class="score-item-value">9.5</div>
+            </div>
+            <div class="score-item">
+              <div class="score-item-label">Design</div>
+              <div class="score-item-value">9.5</div>
+            </div>
+            <div class="score-item">
+              <div class="score-item-label">Portability</div>
+              <div class="score-item-value">8.0</div>
+            </div>
+            <div class="score-item">
+              <div class="score-item-label">Workflow</div>
+              <div class="score-item-value">9.0</div>
+            </div>
+          </div>
+
+          <div class="best-for">
+            <strong>Best for:</strong>
+            <p>Professional film sets, DITs, and harsh travel conditions.</p>
+          </div>
+
+          <a class="product-link" href="https://www.lacie.com/gb/en/products/rugged/rugged-ssd-pro/" target="_blank" rel="noopener">View LaCie Rugged SSD Pro 4TB</a>
+        </div>
+
+        <!-- Product 4: WD My Passport -->
+        <div class="product-card">
+          <div class="product-header">
+            <div class="product-rank">
+              <div class="rank-badge">4</div>
+              <div class="product-title">
+                <h3>WD My Passport 4TB</h3>
+                <div class="product-subtitle">Best Budget Archive Drive</div>
+              </div>
+            </div>
+            <div class="overall-score">
+              <div class="score-value">7.8</div>
+              <div class="score-label">Overall</div>
+            </div>
+          </div>
+
+          <div class="product-meta">
+            <span class="meta-tag"><strong>£95 – £120</strong></span>
+            <span class="meta-tag">Portable HDD</span>
+            <span class="meta-tag">USB-A / USB-C</span>
+          </div>
+
+          <p class="product-description">Not every drive needs to be fast. The WD My Passport remains one of the best value archive drives available, offering massive capacity at a low price. It's not suitable for editing directly from, but for backups, completed projects, and long-term storage it is extremely cost-effective.</p>
+
+          <div class="score-grid">
+            <div class="score-item">
+              <div class="score-item-label">Price</div>
+              <div class="score-item-value">10</div>
+            </div>
+            <div class="score-item">
+              <div class="score-item-label">Speed</div>
+              <div class="score-item-value">5.5</div>
+            </div>
+            <div class="score-item">
+              <div class="score-item-label">Reliability</div>
+              <div class="score-item-value">8.0</div>
+            </div>
+            <div class="score-item">
+              <div class="score-item-label">Design</div>
+              <div class="score-item-value">7.5</div>
+            </div>
+            <div class="score-item">
+              <div class="score-item-label">Portability</div>
+              <div class="score-item-value">8.0</div>
+            </div>
+            <div class="score-item">
+              <div class="score-item-label">Workflow</div>
+              <div class="score-item-value">7.5</div>
+            </div>
+          </div>
+
+          <div class="best-for">
+            <strong>Best for:</strong>
+            <p>Affordable backups and long-term archives.</p>
+          </div>
+
+          <a class="product-link" href="https://www.westerndigital.com/en-gb/products/portable-drives/wd-my-passport-usb-3-2-hdd" target="_blank" rel="noopener">View WD My Passport 4TB</a>
+        </div>
+
+        <!-- Product 5: G-Technology ArmorATD -->
+        <div class="product-card">
+          <div class="product-header">
+            <div class="product-rank">
+              <div class="rank-badge">5</div>
+              <div class="product-title">
+                <h3>G-Technology ArmorATD 4TB</h3>
+                <div class="product-subtitle">Best for Physical Durability on a Budget</div>
+              </div>
+            </div>
+            <div class="overall-score">
+              <div class="score-value">7.9</div>
+              <div class="score-label">Overall</div>
+            </div>
+          </div>
+
+          <div class="product-meta">
+            <span class="meta-tag"><strong>£120 – £150</strong></span>
+            <span class="meta-tag">Portable HDD</span>
+            <span class="meta-tag">USB-C</span>
+          </div>
+
+          <p class="product-description">The ArmorATD is a ruggedised hard drive designed for creatives who need durability but don't want to pay SSD prices. It's slower than SSDs but far more physically robust than standard portable hard drives, making it ideal for travel and field work.</p>
+
+          <div class="score-grid">
+            <div class="score-item">
+              <div class="score-item-label">Price</div>
+              <div class="score-item-value">8.5</div>
+            </div>
+            <div class="score-item">
+              <div class="score-item-label">Speed</div>
+              <div class="score-item-value">5.5</div>
+            </div>
+            <div class="score-item">
+              <div class="score-item-label">Reliability</div>
+              <div class="score-item-value">8.5</div>
+            </div>
+            <div class="score-item">
+              <div class="score-item-label">Design</div>
+              <div class="score-item-value">9.0</div>
+            </div>
+            <div class="score-item">
+              <div class="score-item-label">Portability</div>
+              <div class="score-item-value">7.5</div>
+            </div>
+            <div class="score-item">
+              <div class="score-item-label">Workflow</div>
+              <div class="score-item-value">8.0</div>
+            </div>
+          </div>
+
+          <div class="best-for">
+            <strong>Best for:</strong>
+            <p>Travel backups and rugged field use on a budget.</p>
+          </div>
+
+          <a class="product-link" href="https://www.westerndigital.com/en-gb/products/portable-drives/g-technology-armoratd-usb-c-hdd" target="_blank" rel="noopener">View G-Technology ArmorATD 4TB</a>
+        </div>
+
+        <!-- DriveVault Section -->
+        <div class="drivevault-section">
+          <h2>How DriveVault Fits Into This Workflow</h2>
+          <p>Once you start working with multiple external drives, the real challenge is no longer storage—it's organisation. DriveVault allows you to scan your external drives once, then browse, search and preview their contents even when the drives are unplugged.</p>
+          
+          <ul>
+            <li><strong>Search across all your drives at once</strong> — find files without plugging anything in</li>
+            <li><strong>See image and video previews</strong> — verify files without reconnecting drives</li>
+            <li><strong>Compare drives to verify backups</strong> — detect missing files and duplicates</li>
+            <li><strong>Tag, rate and organise files</strong> — across your entire archive</li>
+          </ul>
+
+          <p>Whether you're working with fast SSDs or slower archive drives, DriveVault turns a collection of external disks into a single, searchable creative library.</p>
+
+          <a class="cta-button" href="https://apps.apple.com/app/drivevault/id6478483834" target="_blank" rel="noopener">Download DriveVault Free</a>
+        </div>
+
+        <!-- Final Recommendations -->
+        <div class="recommendations">
+          <h2>Final Recommendations</h2>
+          <div class="rec-grid">
+            <div class="rec-item">
+              <span class="rec-label">Best overall</span>
+              <span class="rec-value">Samsung T7 Shield 4TB</span>
+            </div>
+            <div class="rec-item">
+              <span class="rec-label">Fastest drive</span>
+              <span class="rec-value">SanDisk Extreme Pro 4TB</span>
+            </div>
+            <div class="rec-item">
+              <span class="rec-label">Best for on-set work</span>
+              <span class="rec-value">LaCie Rugged SSD Pro 4TB</span>
+            </div>
+            <div class="rec-item">
+              <span class="rec-label">Best budget archive</span>
+              <span class="rec-value">WD My Passport 4TB</span>
+            </div>
+            <div class="rec-item">
+              <span class="rec-label">Best rugged HDD</span>
+              <span class="rec-value">G-Technology ArmorATD 4TB</span>
+            </div>
+          </div>
+        </div>
+
+      </article>
+
+      <!-- Post Navigation -->
+      <nav class="post-nav" aria-label="Post navigation">
+        <a href="/blog/compare-two-drives.html">
+          <span class="post-nav-label">← Previous</span>
+          <span class="post-nav-title">How to Compare Two Hard Drives</span>
+        </a>
+        <a href="/blog.html">
+          <span class="post-nav-label">All Posts →</span>
+          <span class="post-nav-title">Back to Blog</span>
+        </a>
+      </nav>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <img src="/favicon.png" alt="DriveVault">
+        <span>DriveVault</span>
+      </div>
+      <p class="footer-text">© 2026 DriveVault. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Floating CTA -->
+  <a class="float-cta" href="https://apps.apple.com/app/drivevault/id6478483834" target="_blank" rel="noopener" aria-label="Download DriveVault on the App Store">
+    Download Free →
+  </a>
+
+  <!-- Mobile Nav Script -->
+  <script>
+    const hamburger = document.getElementById('hamburgerBtn');
+    const mobileNav = document.getElementById('mobileNav');
+
+    if (hamburger && mobileNav) {
+      hamburger.addEventListener('click', () => {
+        const isOpen = mobileNav.classList.toggle('open');
+        hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+
+      mobileNav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileNav.classList.remove('open');
+          hamburger.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+  </script>
+</body>
+</html>
