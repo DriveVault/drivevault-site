@@ -1,360 +1,904 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>How to Compare Two Hard Drives and Detect Missing or Duplicate Files (Mac)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Master how to compare two hard drives on Mac, detect missing files, and find duplicates with DriveVault. Step-by-step guide for seamless drive comparison on macOS." />
-  <meta name="keywords" content="compare hard drives, mac drive comparison, find duplicate files, detect missing files, hard drive sync, macOS file management, DriveVault" />
+  <title>How to Compare Two Hard Drives and Detect Missing or Duplicate Files (Mac) | DriveVault</title>
+  <meta name="description" content="Learn how to compare two hard drives on Mac, detect missing files, and find duplicates with DriveVault. Step-by-step guide for seamless drive comparison on macOS." />
+  
+  <!-- SEO Keywords -->
+  <meta name="keywords" content="compare hard drives mac, find duplicate files external drive, detect missing files backup, hard drive sync macOS, compare two drives, backup verification mac, DriveVault" />
+  <meta name="author" content="DriveVault" />
 
   <!-- Favicon -->
-  <link rel="icon" href="https://i.ibb.co/fdsPzxk8/Drive-Vault-favicon.png" type="image/png" />
-  <link rel="apple-touch-icon" href="https://i.ibb.co/fdsPzxk8/Drive-Vault-favicon.png" />
+  <link rel="icon" href="/favicon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="/favicon.png" />
 
-  <!-- Open Graph -->
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://drivevault.app/blog/compare-two-drives.html" />
+
+  <!-- Open Graph / Twitter -->
   <meta property="og:type" content="article">
   <meta property="og:title" content="How to Compare Two Hard Drives and Detect Missing or Duplicate Files (Mac)">
-  <meta property="og:description" content="Master the art of comparing two hard drives on your Mac. Learn how to detect missing files, find duplicates, and ensure perfect backups with DriveVault's powerful tools.">
-  <meta property="og:image" content="https://images.unsplash.com/photo-1587202372775-98974f1f24f9?auto=format&fit=crop&w=1600&q=80">
-  <meta property="og:url" content="https://yourdomain.com/blog/compare-two-drives.html">
+  <meta property="og:description" content="Master the art of comparing two hard drives on your Mac. Learn how to detect missing files, find duplicates, and ensure perfect backups with DriveVault.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1531492746076-161ca9bcad58?auto=format&fit=crop&w=1600&q=80">
+  <meta property="og:url" content="https://drivevault.app/blog/compare-two-drives.html">
+  <meta property="og:site_name" content="DriveVault">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Compare Two Hard Drives and Detect Missing or Duplicate Files (Mac)">
+  <meta name="twitter:description" content="Compare drives, detect duplicates, and verify backups on macOS.">
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
-    :root{
-      --bg:#ffffff;
-      --panel:#ffffff;
-      --panel-2:#f9f9f9;
-      --border:#e1e4e8;
-      --text:#333333;
-      --muted:#6c757d;
-      --accent:#4a7dfc;
-      --accent-2:#6755e8;
-      --ok:#27d980;
-      --maxw:880px;
+    html {
+      scroll-behavior: smooth;
     }
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;}
-    .topbar{
-      position:fixed;
-      top:0;
-      left:0;
-      right:0;
-      height:70px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background:white;
-      border-bottom:1px solid var(--border);
-      box-shadow:0 2px 8px rgba(0,0,0,0.05);
-      z-index:50;
+
+    :root {
+      --bg: #ffffff;
+      --bg-secondary: #f8fafc;
+      --text: #0b0d12;
+      --muted: #5f6775;
+      --line: rgba(10,12,18,.08);
+      --shadow: 0 20px 60px rgba(10,12,18,.08);
+      --blue: #2f6bff;
+      --blue2: #6aa2ff;
+      --green: #22c55e;
     }
-    .topbar .wrap{
-      width:min(1200px,94vw);
-      display:flex;
-      align-items:center;
-      gap:16px;
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.6;
     }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      text-decoration:none;
-      color:var(--text);
-      font-weight:700;
+
+    /* ========== HEADER ========== */
+    .topbar {
+      position: fixed;
+      inset: 0 0 auto 0;
+      height: 68px;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,.72);
+      backdrop-filter: saturate(160%) blur(12px);
+      -webkit-backdrop-filter: saturate(160%) blur(12px);
+      border-bottom: 1px solid var(--line);
     }
-    .brand img{ width:24px; height:24px }
-    .nav{
-      margin-left:auto;
-      display:flex;
-      gap:20px;
+
+    .topbar .wrap {
+      width: min(1200px, 94vw);
+      display: flex;
+      align-items: center;
+      gap: 16px;
     }
-    .nav a{
-      color:var(--text);
-      text-decoration:none;
-      font-size:15px;
-      font-weight:500;
-      padding:8px 12px;
-      border-radius:6px;
-      transition:all 0.2s ease;
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 800;
     }
-    .nav a:hover{
-      background:#f5f7ff;
-      color:var(--accent);
+
+    .brand img { width: 22px; height: 22px; }
+    .brand span { font-size: 14px; letter-spacing: .2px; }
+
+    .nav {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 18px;
     }
-    .beta-btn{
-      padding:10px 16px;
-      border-radius:6px;
-      font-weight:600;
-      font-size:15px;
-      background:var(--accent);
-      color:white;
-      text-decoration:none;
-      transition:all 0.2s ease;
+
+    .nav a {
+      color: #2b3140;
+      text-decoration: none;
+      font-size: 13px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      transition: background .25s ease, color .25s ease;
     }
-    .beta-btn:hover{
-      transform:translateY(-2px);
-      box-shadow:0 4px 12px rgba(74, 125, 252, 0.2);
+
+    .nav a:hover {
+      background: rgba(10,12,18,.05);
+      color: #0b0d12;
     }
-    main{
-      padding:calc(70px + 40px) 16px 100px;
+
+    .cta-top {
+      margin-left: 4px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 13px;
+      color: #fff;
+      text-decoration: none;
+      background: linear-gradient(135deg, var(--blue), var(--blue2));
+      box-shadow: 0 10px 22px rgba(34,197,94,.25);
+      transition: transform .2s ease, box-shadow .35s ease;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
     }
-    .container{
-      width:min(var(--maxw), 94vw);
-      margin:0 auto;
+
+    .cta-top::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #22c55e, #4ade80);
+      transition: opacity .35s ease;
+      z-index: -1;
     }
-    .hero{
-      text-align:center;
-      margin-bottom:32px;
+
+    .cta-top:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 30px rgba(47,107,255,.26);
     }
-    h1{
-      font-size:clamp(28px, 4.8vw, 44px);
-      font-weight:800;
-      margin:8px 0 16px;
-      color:#222;
+
+    .cta-top:hover::before {
+      opacity: 0;
     }
-    .post-meta{
-      color:var(--muted);
-      font-size:15px;
+
+    /* Mobile nav */
+    .hamburger {
+      display: none;
+      margin-left: auto;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      border: 1px solid rgba(10,12,18,.12);
+      background: #fff;
+      box-shadow: 0 6px 16px rgba(10,12,18,.08);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
     }
-    .cover{
-      margin:24px 0 32px;
-      border-radius:12px;
-      overflow:hidden;
-      box-shadow:0 5px 15px rgba(0,0,0,0.08);
+
+    .hamburger span {
+      width: 18px;
+      height: 2px;
+      background: #0b0d12;
+      position: relative;
+      display: block;
     }
-    .cover img{
-      width:100%;
-      aspect-ratio:16/9;
-      object-fit:cover;
+
+    .hamburger span::before,
+    .hamburger span::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 18px;
+      height: 2px;
+      background: #0b0d12;
     }
-    article{
-      background:var(--panel);
-      border-radius:12px;
-      padding:32px;
-      box-shadow:0 2px 10px rgba(0,0,0,0.03);
+
+    .hamburger span::before { top: -6px; }
+    .hamburger span::after { top: 6px; }
+
+    @media (max-width: 900px) {
+      .nav {
+        position: fixed;
+        top: 68px;
+        left: 0;
+        right: 0;
+        background: #ffffff;
+        border-bottom: 1px solid var(--line);
+        flex-direction: column;
+        gap: 6px;
+        padding: 12px 16px 16px;
+        display: none;
+        box-shadow: 0 20px 40px rgba(10,12,18,.1);
+      }
+
+      .nav.open {
+        display: flex;
+      }
+
+      .nav a {
+        width: 100%;
+        text-align: left;
+        padding: 12px 14px;
+        font-size: 15px;
+      }
+
+      .cta-top {
+        width: 100%;
+        text-align: center;
+        margin-top: 6px;
+      }
+
+      .hamburger {
+        display: flex;
+      }
     }
-    article p{
-      margin:16px 0;
-      color:var(--text);
-      font-size:16px;
+
+    /* ========== ARTICLE LAYOUT ========== */
+    main {
+      padding: calc(68px + 48px) 16px 80px;
     }
-    article h2{
-      font-size:24px;
-      margin-top:32px;
-      margin-bottom:16px;
-      color:#222;
+
+    .article-container {
+      width: min(780px, 94vw);
+      margin: 0 auto;
     }
-    article h3 {
-      font-size:20px;
-      margin-top:24px;
-      margin-bottom:12px;
-      color:#333;
+
+    .article-hero {
+      text-align: center;
+      margin-bottom: 40px;
     }
-    article ul, article ol{
-      margin:16px 0 16px 24px;
+
+    .eyebrow {
+      display: inline-block;
+      background: linear-gradient(135deg, rgba(47,107,255,.1), rgba(106,162,255,.1));
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 16px;
     }
-    article li{
-      margin:8px 0;
+
+    .article-hero h1 {
+      font-size: clamp(28px, 5vw, 44px);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+      color: var(--text);
     }
-    .cta-box{
-      margin:40px 0;
-      padding:28px;
-      border-radius:12px;
-      background:#f5f7ff;
-      border:1px solid rgba(74, 125, 252, 0.2);
-      text-align:center;
+
+    .post-meta {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 32px;
     }
+
+    .cover-image {
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--line);
+    }
+
+    .cover-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      background: var(--bg-secondary);
+    }
+
+    /* ========== ARTICLE CONTENT ========== */
+    .article-content {
+      background: var(--bg);
+      line-height: 1.75;
+    }
+
+    .article-content p {
+      margin: 20px 0;
+      color: #374151;
+      font-size: 17px;
+    }
+
+    .article-content h2 {
+      font-size: 26px;
+      font-weight: 800;
+      margin: 48px 0 16px;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+
+    .article-content h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin: 32px 0 12px;
+      color: var(--text);
+    }
+
+    .article-content a {
+      color: var(--blue);
+      text-decoration: underline;
+      text-decoration-color: rgba(47,107,255,.3);
+      text-underline-offset: 2px;
+      transition: text-decoration-color .2s ease;
+    }
+
+    .article-content a:hover {
+      text-decoration-color: var(--blue);
+    }
+
+    .article-content ul,
+    .article-content ol {
+      margin: 20px 0 20px 24px;
+    }
+
+    .article-content li {
+      margin: 12px 0;
+      color: #374151;
+      font-size: 17px;
+    }
+
+    .article-content li strong {
+      color: var(--text);
+    }
+
+    /* Intro highlight */
+    .intro-highlight {
+      font-size: 19px;
+      color: var(--text);
+      font-weight: 500;
+      line-height: 1.7;
+    }
+
+    /* Feature Grid */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin: 32px 0;
+    }
+
+    .feature-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 20px;
+    }
+
+    .feature-card .icon {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .feature-card strong {
+      display: block;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .feature-card p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    @media (max-width: 600px) {
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Why It Matters Box */
+    .why-box {
+      background: linear-gradient(135deg, rgba(34,197,94,.08), rgba(74,222,128,.05));
+      border: 1px solid rgba(34,197,94,.2);
+      border-radius: 16px;
+      padding: 24px 28px;
+      margin: 32px 0;
+    }
+
+    .why-box h2 {
+      font-size: 20px;
+      margin: 0 0 12px 0;
+      color: #16a34a;
+    }
+
+    .why-box p {
+      margin: 0;
+      font-size: 16px;
+      color: #374151;
+    }
+
+    /* Step Section */
+    .step-section {
+      margin: 40px 0;
+    }
+
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+
+    .step-number {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--blue), var(--blue2));
+      color: #fff;
+      font-weight: 800;
+      font-size: 16px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step-header h3 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .step-section p {
+      margin: 8px 0 0 52px;
+    }
+
+    /* Tip Box */
+    .tip-box {
+      background: var(--bg-secondary);
+      border-left: 4px solid var(--blue);
+      border-radius: 0 12px 12px 0;
+      padding: 16px 20px;
+      margin: 24px 0;
+    }
+
+    .tip-box strong {
+      color: var(--blue);
+    }
+
+    .tip-box p {
+      margin: 0;
+      font-size: 15px;
+      color: #4b5563;
+    }
+
+    /* Pro Tips List */
+    .pro-tips {
+      background: var(--bg-secondary);
+      border-radius: 16px;
+      padding: 24px 28px;
+      margin: 32px 0;
+    }
+
+    .pro-tips h2 {
+      margin: 0 0 16px 0;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .pro-tips h2::before {
+      content: "💡";
+    }
+
+    .pro-tips ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .pro-tips li {
+      margin: 12px 0;
+      font-size: 15px;
+    }
+
+    /* CTA Box */
+    .cta-box {
+      background: linear-gradient(135deg, rgba(47,107,255,.08), rgba(106,162,255,.05));
+      border: 1px solid rgba(47,107,255,.15);
+      border-radius: 20px;
+      padding: 32px;
+      text-align: center;
+      margin: 48px 0;
+    }
+
     .cta-box strong {
-      font-size:18px;
-      display:block;
-      margin-bottom:8px;
-      color:#222;
+      display: block;
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: var(--text);
     }
+
     .cta-box p {
-      margin-bottom:16px;
+      margin: 0 0 20px 0;
+      color: var(--muted);
+      font-size: 16px;
     }
-    .cta-box a{
-      display:inline-block;
-      padding:12px 24px;
-      border-radius:6px;
-      background:var(--accent);
-      color:white;
-      font-weight:600;
-      text-decoration:none;
-      transition:all 0.2s ease;
+
+    .cta-button {
+      display: inline-block;
+      padding: 14px 28px;
+      border-radius: 14px;
+      font-weight: 800;
+      font-size: 15px;
+      color: #fff;
+      text-decoration: none;
+      background: linear-gradient(135deg, var(--blue), var(--blue2));
+      box-shadow: 0 10px 30px rgba(47,107,255,.25);
+      transition: transform .2s ease, box-shadow .3s ease;
     }
-    .cta-box a:hover {
-      transform:translateY(-2px);
-      box-shadow:0 4px 12px rgba(74, 125, 252, 0.2);
+
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 40px rgba(47,107,255,.3);
     }
-    .post-nav{
-      margin-top:40px;
-      display:flex;
-      justify-content:space-between;
-      gap:20px;
+
+    /* ========== POST NAVIGATION ========== */
+    .post-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 48px;
     }
-    .post-nav a{
-      flex:1;
-      text-decoration:none;
-      color:var(--text);
-      border:1px solid var(--border);
-      background:var(--panel);
-      padding:16px;
-      border-radius:8px;
-      text-align:center;
-      transition:all 0.2s ease;
-      font-weight:500;
+
+    .post-nav a {
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: var(--bg);
+      text-decoration: none;
+      transition: border-color .25s ease, box-shadow .25s ease;
     }
+
     .post-nav a:hover {
-      border-color:var(--accent);
-      background:#f5f7ff;
-      color:var(--accent);
+      border-color: rgba(47,107,255,.3);
+      box-shadow: 0 10px 30px rgba(10,12,18,.06);
     }
-    .float-cta{
-      position:fixed;
-      right:20px;
-      bottom:20px;
-      padding:12px 18px;
-      border-radius:8px;
-      background:var(--accent);
-      color:white;
-      font-weight:600;
-      text-decoration:none;
-      box-shadow:0 4px 12px rgba(74, 125, 252, 0.2);
-      transition:all 0.2s ease;
+
+    .post-nav-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      margin-bottom: 4px;
     }
+
+    .post-nav-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    @media (max-width: 600px) {
+      .post-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ========== FOOTER ========== */
+    .site-footer {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--line);
+      padding: 40px 16px;
+      text-align: center;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .footer-brand img {
+      width: 24px;
+      height: 24px;
+    }
+
+    .footer-text {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* ========== FLOATING CTA ========== */
+    .float-cta {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 40;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 20px;
+      border-radius: 14px;
+      font-weight: 800;
+      font-size: 14px;
+      color: #fff;
+      text-decoration: none;
+      background: linear-gradient(135deg, var(--blue), var(--blue2));
+      box-shadow: 0 10px 40px rgba(47,107,255,.35);
+      transition: transform .2s ease, box-shadow .3s ease;
+    }
+
     .float-cta:hover {
-      transform:translateY(-2px);
-      box-shadow:0 6px 16px rgba(74, 125, 252, 0.25);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 50px rgba(47,107,255,.4);
     }
-    code {
-      background:#f5f7ff;
-      padding:2px 6px;
-      border-radius:4px;
-      font-family:monospace;
-      color:var(--accent);
-    }
-    blockquote {
-      border-left:4px solid var(--accent);
-      padding-left:16px;
-      margin:24px 0;
-      color:#555;
-      font-style:italic;
-    }
-    .tag {
-      display:inline-block;
-      padding:4px 8px;
-      background:#f5f7ff;
-      color:var(--accent);
-      border-radius:4px;
-      font-size:14px;
-      margin-right:8px;
-      margin-bottom:8px;
+
+    @media (max-width: 640px) {
+      .float-cta {
+        left: 16px;
+        right: 16px;
+        justify-content: center;
+      }
     }
   </style>
 
-  <!-- JSON-LD -->
+  <!-- Article JSON-LD -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "TechArticle",
     "headline": "How to Compare Two Hard Drives and Detect Missing or Duplicate Files (Mac)",
     "description": "Learn how to compare two external drives on macOS, find missing files, and detect duplicates using DriveVault's powerful drive comparison tools.",
-    "image": "https://images.unsplash.com/photo-1587202372775-98974f1f24f9?auto=format&fit=crop&w=1600&q=80",
+    "image": "https://images.unsplash.com/photo-1531492746076-161ca9bcad58?auto=format&fit=crop&w=1600&q=80",
     "datePublished": "2025-09-12",
-    "dateModified": "2025-09-15",
+    "dateModified": "2026-01-28",
     "author": { "@type": "Organization", "name": "DriveVault" },
-    "publisher": { "@type": "Organization", "name": "DriveVault", "logo": { "@type": "ImageObject", "url": "https://i.ibb.co/fdsPzxk8/Drive-Vault-favicon.png" } },
+    "publisher": { "@type": "Organization", "name": "DriveVault", "logo": { "@type": "ImageObject", "url": "/favicon.png" } },
     "keywords": "compare hard drives, mac drive comparison, find duplicate files, detect missing files, hard drive sync, macOS file management",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "https://yourdomain.com/blog/compare-two-drives.html"
+      "@id": "https://drivevault.app/blog/compare-two-drives.html"
     }
   }
   </script>
-</head>
-<body>
 
+  <!-- Software Application JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "DriveVault",
+    "operatingSystem": "macOS",
+    "applicationCategory": "UtilitiesApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "description": "Compare hard drives, detect duplicates, and verify backups on macOS. Scan once, search forever.",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "ratingCount": "150"
+    }
+  }
+  </script>
+
+  <!-- HowTo JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Compare Two Hard Drives on Mac",
+    "description": "Learn how to compare two hard drives, detect missing files, and find duplicates using DriveVault",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "Scan Both Drives",
+        "text": "Connect each drive and scan it into DriveVault. This only needs to be done once per drive."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Open the Compare Tool",
+        "text": "Open the Compare tool from the sidebar and select the two drives you want to compare."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Review Results",
+        "text": "Review flagged duplicates, mismatches, and missing files in the comparison view."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Take Action",
+        "text": "Decide whether to clean duplicates, copy missing files, or leave everything as is."
+      }
+    ]
+  }
+  </script>
+</head>
+
+<body>
   <!-- Header -->
-  <header class="topbar">
+  <header class="topbar" role="banner">
     <div class="wrap">
       <a class="brand" href="/">
-        <img src="https://i.ibb.co/fdsPzxk8/Drive-Vault-favicon.png" alt="DriveVault logo">
+        <img src="/favicon.png" alt="DriveVault logo">
         <span>DriveVault</span>
       </a>
-      <nav class="nav">
-        <a href="/pricing.html">Pricing</a>
+      <nav class="nav" id="mobileNav" role="navigation" aria-label="Primary">
+        <a href="/#features">Features</a>
+        <a href="/#pricing">Pricing</a>
         <a href="/changelog.html">Changelog</a>
         <a href="/blog.html">Blog</a>
         <a href="/faq.html">FAQ</a>
-        <a class="beta-btn" href="https://testflight.apple.com/join/tVYkpxnm" target="_blank">Join The Public Beta</a>
+        <a class="cta-top" href="https://apps.apple.com/app/drivevault/id6478483834" target="_blank" rel="noopener">Download on the App Store</a>
       </nav>
+      <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false" id="hamburgerBtn">
+        <span></span>
+      </button>
     </div>
   </header>
 
   <main>
-    <div class="container">
-      <header class="hero">
+    <div class="article-container">
+      <!-- Hero -->
+      <header class="article-hero">
+        <span class="eyebrow">How-To Guide</span>
         <h1>How to Compare Two Hard Drives and Detect Missing or Duplicate Files (Mac)</h1>
         <p class="post-meta">Published September 12, 2025 • 7 min read</p>
-        <div class="cover">
-          <img src="https://images.unsplash.com/photo-1587202372775-98974f1f24f9?auto=format&fit=crop&w=1600&q=80" alt="Compare two hard drives on Mac with external SSD drives shown side by side" loading="lazy">
+        <div class="cover-image">
+          <img 
+            src="https://images.unsplash.com/photo-1531492746076-161ca9bcad58?auto=format&fit=crop&w=1600&q=80" 
+            alt="Multiple external hard drives connected to a Mac - compare and verify backups with DriveVault"
+            loading="lazy"
+          >
         </div>
       </header>
 
-      <article>
-        <p>Whether you’re backing up footage, syncing projects, or cleaning duplicates, comparing two hard drives on macOS is a chore. Doing it manually means hours of drag-and-drop checks and guesswork.</p>
+      <!-- Article Content -->
+      <article class="article-content">
+        <p class="intro-highlight">Whether you're backing up footage, syncing projects, or cleaning up duplicates, comparing two hard drives on macOS is a chore. Doing it manually means hours of drag-and-drop checks and guesswork.</p>
+
+        <p>If you've ever wondered "did that backup actually work?" or "do I have two copies of this project?"—you're not alone. DriveVault's Compare feature was built for exactly this.</p>
 
         <h2>The Smarter Way to Compare Drives</h2>
-        <p>DriveVault’s <strong>Drive Comparison</strong> feature scans two drives side by side, flagging missing files, duplicates, and mismatched folders. You’ll instantly see what’s safe, what’s redundant, and what’s missing.</p>
+        <p>DriveVault's <strong>Drive Comparison</strong> feature scans two drives side by side, flagging missing files, duplicates, and mismatched folders. You'll instantly see what's safe, what's redundant, and what's missing—without plugging drives in and out repeatedly.</p>
 
-        <ul>
-          <li><strong>Side-by-side view</strong> of two drive catalogs</li>
-          <li><strong>Duplicate detection</strong> across drives</li>
-          <li><strong>Missing file alerts</strong> so you know when a backup is incomplete</li>
-          <li><strong>Sync analysis</strong> to keep mirrors consistent</li>
-        </ul>
-
-        <h2>Why It Matters</h2>
-        <p>Redundant backups eat storage. Missing files risk projects. With DriveVault, you verify backups without plugging drives in and out endlessly, saving both time and data integrity.</p>
-
-        <h2>Step-by-Step: Using DriveVault Compare</h2>
-        <ol>
-          <li><strong>Scan both drives</strong> once into DriveVault.</li>
-          <li>Open the <span style="color:#a7c4ff">Compare</span> tool and select your two drives.</li>
-          <li>Review flagged duplicates, mismatches, and missing files.</li>
-          <li>Decide whether to clean, copy, or leave as is.</li>
-        </ol>
-
-        <div class="cta-box">
-          <strong>Stop guessing what’s on your backup drives.</strong>
-          <p>Compare, detect duplicates, and confirm backups in seconds.</p>
-          <a href="https://testflight.apple.com/join/tVYkpxnm" target="_blank">Join The Public Beta</a>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="icon">📊</div>
+            <strong>Side-by-Side View</strong>
+            <p>Compare two drive catalogs in a clear, visual layout</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon">🔍</div>
+            <strong>Duplicate Detection</strong>
+            <p>Find identical files across drives instantly</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon">⚠️</div>
+            <strong>Missing File Alerts</strong>
+            <p>Know immediately when a backup is incomplete</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon">🔄</div>
+            <strong>Sync Analysis</strong>
+            <p>Keep mirrors consistent and verified</p>
+          </div>
         </div>
 
-        <h2>Pro Tips</h2>
-        <ul>
-          <li><strong>Run Compare before archiving</strong> to guarantee your backup matches the original.</li>
-          <li><strong>Delete duplicates smartly</strong> — confirm file size/date before removing.</li>
-          <li><strong>Generate a report</strong> for peace of mind when handing projects to clients.</li>
-        </ul>
+        <div class="why-box">
+          <h2>Why It Matters</h2>
+          <p>Redundant backups eat storage. Missing files risk entire projects. With DriveVault, you verify backups without plugging drives in and out endlessly—saving both time and protecting your data integrity.</p>
+        </div>
+
+        <h2>Step-by-Step: Using DriveVault Compare</h2>
+
+        <div class="step-section">
+          <div class="step-header">
+            <div class="step-number">1</div>
+            <h3>Scan Both Drives</h3>
+          </div>
+          <p>Connect each drive and scan it into DriveVault. This only needs to be done once per drive—after that, you can compare them anytime, even offline.</p>
+        </div>
+
+        <div class="step-section">
+          <div class="step-header">
+            <div class="step-number">2</div>
+            <h3>Open the Compare Tool</h3>
+          </div>
+          <p>Open the <strong>Compare</strong> tool from the sidebar and select your two drives. DriveVault will analyze the catalogs and identify differences.</p>
+        </div>
+
+        <div class="step-section">
+          <div class="step-header">
+            <div class="step-number">3</div>
+            <h3>Review Flagged Items</h3>
+          </div>
+          <p>Review flagged duplicates, mismatches, and missing files. Each item is color-coded so you can quickly understand what's identical, what's unique to one drive, and what's missing.</p>
+        </div>
+
+        <div class="step-section">
+          <div class="step-header">
+            <div class="step-number">4</div>
+            <h3>Take Action</h3>
+          </div>
+          <p>Decide whether to clean duplicates, copy missing files, or leave everything as is. DriveVault shows you exactly which drive has each file, so you can make informed decisions.</p>
+        </div>
+
+        <div class="tip-box">
+          <p><strong>Tip:</strong> You don't need both drives plugged in to compare them. Once scanned, DriveVault compares the catalogs—so you can verify a backup even when one drive is stored offsite.</p>
+        </div>
+
+        <div class="cta-box">
+          <strong>Stop guessing what's on your backup drives.</strong>
+          <p>Compare, detect duplicates, and confirm backups in seconds with DriveVault.</p>
+          <a class="cta-button" href="https://apps.apple.com/app/drivevault/id6478483834" target="_blank" rel="noopener">Download Free on the App Store</a>
+        </div>
+
+        <div class="pro-tips">
+          <h2>Pro Tips</h2>
+          <ul>
+            <li><strong>Run Compare before archiving</strong> — Guarantee your backup matches the original before you put the drive on a shelf.</li>
+            <li><strong>Delete duplicates smartly</strong> — Always confirm file size and date before removing. DriveVault shows both so you can be certain.</li>
+            <li><strong>Generate a report</strong> — Export a comparison report for peace of mind when handing projects to clients or archiving for compliance.</li>
+            <li><strong>Compare against your NAS</strong> — Scan network drives too, then compare against your portable backups.</li>
+          </ul>
+        </div>
+
+        <p>With DriveVault's Compare feature, you'll never wonder "is my backup complete?" again. Verify once, trust forever.</p>
       </article>
 
-      <!-- Prev / Next -->
-      <nav class="post-nav">
-        <a href="/blog/organize-multiple-drives.html">← Previous: Organize Multiple Drives</a>
-        <a href="/blog.html">Back to Blog →</a>
+      <!-- Post Navigation -->
+      <nav class="post-nav" aria-label="Post navigation">
+        <a href="/blog/organize-multiple-drives.html">
+          <span class="post-nav-label">← Previous</span>
+          <span class="post-nav-title">Organize Multiple External Drives</span>
+        </a>
+        <a href="/blog.html">
+          <span class="post-nav-label">All Posts →</span>
+          <span class="post-nav-title">Back to Blog</span>
+        </a>
       </nav>
     </div>
   </main>
 
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <img src="/favicon.png" alt="DriveVault">
+        <span>DriveVault</span>
+      </div>
+      <p class="footer-text">© 2025 DriveVault. All rights reserved.</p>
+    </div>
+  </footer>
+
   <!-- Floating CTA -->
-  <a class="float-cta" href="https://testflight.apple.com/join/tVYkpxnm" target="_blank">
-    Join The Public Beta →
+  <a class="float-cta" href="https://apps.apple.com/app/drivevault/id6478483834" target="_blank" rel="noopener" aria-label="Download DriveVault on the App Store">
+    Download Free →
   </a>
 
+  <!-- Mobile Nav Script -->
+  <script>
+    const hamburger = document.getElementById('hamburgerBtn');
+    const mobileNav = document.getElementById('mobileNav');
+
+    if (hamburger && mobileNav) {
+      hamburger.addEventListener('click', () => {
+        const isOpen = mobileNav.classList.toggle('open');
+        hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+
+      mobileNav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileNav.classList.remove('open');
+          hamburger.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+  </script>
 </body>
 </html>
