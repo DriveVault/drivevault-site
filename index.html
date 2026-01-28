@@ -1354,22 +1354,170 @@
         box-shadow .35s ease;
     }
 
-    /* Subtle pulse for outgoing (right) connector dot */
-    @keyframes connectorPulse {
-      0% {
-        transform: translate(-50%,-50%) scale(calc(var(--dot-scale, 1) * 0.96));
+    .connector-dot-small {
+      width: 12px;
+      height: 12px;
+    }
+
+    /* Right side multi-line connector styles */
+    .connector-right-main {
+      background: linear-gradient(90deg, #22c55e 0%, #4ade80 50%, #86efac 100%);
+      height: 8px;
+      box-shadow: 
+        0 0 30px rgba(34,197,94,.6),
+        0 0 60px rgba(34,197,94,.4),
+        0 0 100px rgba(34,197,94,.2);
+      z-index: 3;
+    }
+
+    .connector-right-main .connector-dot {
+      background: linear-gradient(135deg, #22c55e, #4ade80);
+      width: 22px;
+      height: 22px;
+      box-shadow: 
+        0 0 20px rgba(34,197,94,.8),
+        0 0 40px rgba(34,197,94,.5),
+        0 0 80px rgba(34,197,94,.3);
+    }
+
+    .connector-right-upper {
+      background: linear-gradient(90deg, #3b82f6 0%, #60a5fa 50%, #93c5fd 100%);
+      height: 5px;
+      opacity: 0.85;
+      transform: translateY(-50%) rotate(-8deg);
+      transform-origin: left center;
+      z-index: 2;
+      box-shadow: 
+        0 0 25px rgba(59,130,246,.5),
+        0 0 50px rgba(59,130,246,.3);
+    }
+
+    .connector-right-upper .connector-dot {
+      background: linear-gradient(135deg, #3b82f6, #60a5fa);
+      box-shadow: 
+        0 0 15px rgba(59,130,246,.7),
+        0 0 30px rgba(59,130,246,.4);
+    }
+
+    .connector-right-lower {
+      background: linear-gradient(90deg, #a855f7 0%, #c084fc 50%, #e9d5ff 100%);
+      height: 5px;
+      opacity: 0.85;
+      transform: translateY(-50%) rotate(8deg);
+      transform-origin: left center;
+      z-index: 2;
+      box-shadow: 
+        0 0 25px rgba(168,85,247,.5),
+        0 0 50px rgba(168,85,247,.3);
+    }
+
+    .connector-right-lower .connector-dot {
+      background: linear-gradient(135deg, #a855f7, #c084fc);
+      box-shadow: 
+        0 0 15px rgba(168,85,247,.7),
+        0 0 30px rgba(168,85,247,.4);
+    }
+
+    /* Pulsing glow animation for all right connectors */
+    @keyframes connectorGlow {
+      0%, 100% {
+        filter: brightness(1) drop-shadow(0 0 20px currentColor);
       }
       50% {
-        transform: translate(-50%,-50%) scale(calc(var(--dot-scale, 1) * 1.06));
+        filter: brightness(1.3) drop-shadow(0 0 40px currentColor);
+      }
+    }
+
+    @keyframes connectorPulse {
+      0% {
+        transform: translate(-50%,-50%) scale(calc(var(--dot-scale, 1) * 0.92));
+      }
+      50% {
+        transform: translate(-50%,-50%) scale(calc(var(--dot-scale, 1) * 1.15));
       }
       100% {
-        transform: translate(-50%,-50%) scale(calc(var(--dot-scale, 1) * 0.96));
+        transform: translate(-50%,-50%) scale(calc(var(--dot-scale, 1) * 0.92));
+      }
+    }
+
+    @keyframes energyFlow {
+      0% {
+        background-position: 0% 50%;
+      }
+      100% {
+        background-position: 200% 50%;
       }
     }
 
     #signup-dot-right {
-      animation: connectorPulse 2.4s ease-in-out infinite;
+      animation: connectorPulse 1.8s ease-in-out infinite;
     }
+
+    .connector-right-main.active {
+      background: linear-gradient(90deg, #22c55e, #4ade80, #22c55e, #4ade80);
+      background-size: 200% 100%;
+      animation: energyFlow 2s linear infinite;
+    }
+
+    .connector-right-upper.active,
+    .connector-right-lower.active {
+      background-size: 200% 100%;
+      animation: energyFlow 2.5s linear infinite;
+    }
+
+    /* Energy particles */
+    .energy-particles {
+      position: absolute;
+      top: calc(50% + 120px);
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #4ade80;
+      opacity: 0;
+      box-shadow: 0 0 10px #4ade80, 0 0 20px #4ade80;
+    }
+
+    @keyframes particleFly1 {
+      0% { transform: translate(0, 0) scale(1); opacity: 0; }
+      10% { opacity: 1; }
+      100% { transform: translate(150px, -60px) scale(0); opacity: 0; }
+    }
+
+    @keyframes particleFly2 {
+      0% { transform: translate(0, 0) scale(1); opacity: 0; }
+      10% { opacity: 1; }
+      100% { transform: translate(180px, -30px) scale(0); opacity: 0; }
+    }
+
+    @keyframes particleFly3 {
+      0% { transform: translate(0, 0) scale(1); opacity: 0; }
+      10% { opacity: 1; }
+      100% { transform: translate(200px, 0px) scale(0); opacity: 0; }
+    }
+
+    @keyframes particleFly4 {
+      0% { transform: translate(0, 0) scale(1); opacity: 0; }
+      10% { opacity: 1; }
+      100% { transform: translate(180px, 30px) scale(0); opacity: 0; }
+    }
+
+    @keyframes particleFly5 {
+      0% { transform: translate(0, 0) scale(1); opacity: 0; }
+      10% { opacity: 1; }
+      100% { transform: translate(150px, 60px) scale(0); opacity: 0; }
+    }
+
+    .particle.active.p1 { animation: particleFly1 1.5s ease-out infinite; animation-delay: 0s; }
+    .particle.active.p2 { animation: particleFly2 1.5s ease-out infinite; animation-delay: 0.2s; background: #60a5fa; box-shadow: 0 0 10px #60a5fa, 0 0 20px #60a5fa; }
+    .particle.active.p3 { animation: particleFly3 1.5s ease-out infinite; animation-delay: 0.4s; }
+    .particle.active.p4 { animation: particleFly4 1.5s ease-out infinite; animation-delay: 0.6s; background: #c084fc; box-shadow: 0 0 10px #c084fc, 0 0 20px #c084fc; }
+    .particle.active.p5 { animation: particleFly5 1.5s ease-out infinite; animation-delay: 0.8s; }
 
 @media (max-width: 768px){
   .connector-wrap{
@@ -1653,7 +1801,7 @@
                   <path d="M16.5 16.5L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                 </svg>
               </div>
-              <h3>Search everything instantly - offline</h3>
+              <h3>Search everything instantly</h3>
               <p>
                 Use powerful global search across your entire drive library to find files and folders
                 in seconds. Search by filename, folder name, or full path and DriveVault will surface
@@ -1771,8 +1919,25 @@
           </div>
         </div>
         <div class="connector-wrap right" aria-hidden="true">
-          <div class="connector-line" id="signup-connector-right">
+          <!-- Main center line -->
+          <div class="connector-line connector-right-main" id="signup-connector-right">
             <span class="connector-dot" id="signup-dot-right"></span>
+          </div>
+          <!-- Upper curving line -->
+          <div class="connector-line connector-right-upper" id="signup-connector-right-upper">
+            <span class="connector-dot connector-dot-small"></span>
+          </div>
+          <!-- Lower curving line -->
+          <div class="connector-line connector-right-lower" id="signup-connector-right-lower">
+            <span class="connector-dot connector-dot-small"></span>
+          </div>
+          <!-- Particle sparks -->
+          <div class="energy-particles" id="energy-particles">
+            <span class="particle p1"></span>
+            <span class="particle p2"></span>
+            <span class="particle p3"></span>
+            <span class="particle p4"></span>
+            <span class="particle p5"></span>
           </div>
         </div>
         <form
@@ -2036,7 +2201,7 @@ know the true state of your drives at a glance.
           <div class="pricing-card">
             <h3>Free</h3>
             <p class="price">$0</p>
-            <p class="tier-desc">1 drive - Up to 4TB</p>
+            <p class="tier-desc">1 drive 'b7 Up to 4TB</p>
           </div>
 
           <div class="pricing-card">
@@ -2151,7 +2316,7 @@ know the true state of your drives at a glance.
     
     <footer>
       <div class="fwrap">
-        <div>© <span id="year"></span> DriveVault // <b></b>Part of the Full Access family</b></div>
+        <div>'a9 <span id="year"></span> DriveVault // <b></b>Part of the Full Access family</b></div>
         <div style="display:flex; gap:14px; flex-wrap:wrap">
           <a href="/privacy.html">Privacy</a>
           <a href="/terms.html">Terms</a>
@@ -2512,11 +2677,16 @@ if (vimeoBreakout && 'IntersectionObserver' in window) {
     const connectorDot = document.getElementById('signup-dot');
     const connectorLineRight = document.getElementById('signup-connector-right');
     const connectorDotRight = document.getElementById('signup-dot-right');
+    const connectorLineUpper = document.getElementById('signup-connector-right-upper');
+    const connectorLineLower = document.getElementById('signup-connector-right-lower');
+    const energyParticles = document.getElementById('energy-particles');
+    const particles = document.querySelectorAll('.particle');
     const signupForm = document.querySelector('.signup-form');
 
     if (window.innerWidth > 768 && connectorLine && connectorDot && connectorLineRight && connectorDotRight && signupForm) {
       let maxWidth = 0;
       let startX = -140;
+      let particlesActivated = false;
 
       function recalc() {
         const formRect = signupForm.getBoundingClientRect();
@@ -2530,11 +2700,30 @@ if (vimeoBreakout && 'IntersectionObserver' in window) {
         connectorLine.style.width = `0px`;
         connectorDot.style.left = `0px`;
 
-        // Right connector (outgoing)
+        // Right connectors (outgoing) - all start from same point
         const rightStartX = formRect.right + 14;
+        
         connectorLineRight.style.left = `${rightStartX}px`;
         connectorLineRight.style.width = `0px`;
         connectorDotRight.style.left = `0px`;
+
+        if (connectorLineUpper) {
+          connectorLineUpper.style.left = `${rightStartX}px`;
+          connectorLineUpper.style.width = `0px`;
+          const upperDot = connectorLineUpper.querySelector('.connector-dot');
+          if (upperDot) upperDot.style.left = `0px`;
+        }
+
+        if (connectorLineLower) {
+          connectorLineLower.style.left = `${rightStartX}px`;
+          connectorLineLower.style.width = `0px`;
+          const lowerDot = connectorLineLower.querySelector('.connector-dot');
+          if (lowerDot) lowerDot.style.left = `0px`;
+        }
+
+        if (energyParticles) {
+          energyParticles.style.left = `${rightStartX}px`;
+        }
       }
 
       function onScroll() {
@@ -2575,17 +2764,89 @@ if (vimeoBreakout && 'IntersectionObserver' in window) {
           connectorDot.style.transform = 'translate(-50%,-50%) scale(0.85)';
         }
 
+        // Right side - staggered multi-line animation
         const outDelay = 0.55;
         const outProgress = Math.max(0, (progress - outDelay) / (1 - outDelay));
         const outEase = outProgress * outProgress * (3 - 2 * outProgress);
 
+        // Main line (center)
         const outWidth = maxWidth * outEase;
-
         connectorLineRight.style.width = `${outWidth}px`;
-        connectorLineRight.style.boxShadow = `0 0 ${24 + outEase * 36}px rgba(34,197,94,${0.35 + outEase * 0.65})`;
-
+        connectorLineRight.style.boxShadow = `
+          0 0 ${30 + outEase * 50}px rgba(34,197,94,${0.4 + outEase * 0.5}),
+          0 0 ${60 + outEase * 80}px rgba(34,197,94,${0.2 + outEase * 0.3})
+        `;
         connectorDotRight.style.left = `${outWidth}px`;
-        connectorDotRight.style.boxShadow = `0 0 ${18 + outEase * 32}px rgba(34,197,94,${0.35 + outEase * 0.65})`;
+        connectorDotRight.style.boxShadow = `
+          0 0 ${20 + outEase * 40}px rgba(34,197,94,${0.5 + outEase * 0.5}),
+          0 0 ${40 + outEase * 60}px rgba(34,197,94,${0.3 + outEase * 0.4})
+        `;
+
+        // Upper line (blue) - slightly delayed and shorter
+        const upperDelay = 0.62;
+        const upperProgress = Math.max(0, (progress - upperDelay) / (1 - upperDelay));
+        const upperEase = upperProgress * upperProgress * (3 - 2 * upperProgress);
+        const upperWidth = maxWidth * 0.7 * upperEase;
+
+        if (connectorLineUpper) {
+          connectorLineUpper.style.width = `${upperWidth}px`;
+          connectorLineUpper.style.boxShadow = `
+            0 0 ${25 + upperEase * 40}px rgba(59,130,246,${0.3 + upperEase * 0.5}),
+            0 0 ${50 + upperEase * 60}px rgba(59,130,246,${0.15 + upperEase * 0.25})
+          `;
+          const upperDot = connectorLineUpper.querySelector('.connector-dot');
+          if (upperDot) {
+            upperDot.style.left = `${upperWidth}px`;
+            upperDot.style.boxShadow = `0 0 ${15 + upperEase * 25}px rgba(59,130,246,${0.5 + upperEase * 0.5})`;
+          }
+        }
+
+        // Lower line (purple) - more delayed and shorter
+        const lowerDelay = 0.68;
+        const lowerProgress = Math.max(0, (progress - lowerDelay) / (1 - lowerDelay));
+        const lowerEase = lowerProgress * lowerProgress * (3 - 2 * lowerProgress);
+        const lowerWidth = maxWidth * 0.6 * lowerEase;
+
+        if (connectorLineLower) {
+          connectorLineLower.style.width = `${lowerWidth}px`;
+          connectorLineLower.style.boxShadow = `
+            0 0 ${25 + lowerEase * 40}px rgba(168,85,247,${0.3 + lowerEase * 0.5}),
+            0 0 ${50 + lowerEase * 60}px rgba(168,85,247,${0.15 + lowerEase * 0.25})
+          `;
+          const lowerDot = connectorLineLower.querySelector('.connector-dot');
+          if (lowerDot) {
+            lowerDot.style.left = `${lowerWidth}px`;
+            lowerDot.style.boxShadow = `0 0 ${15 + lowerEase * 25}px rgba(168,85,247,${0.5 + lowerEase * 0.5})`;
+          }
+        }
+
+        // Activate energy flow animation when mostly extended
+        if (outEase > 0.7) {
+          connectorLineRight.classList.add('active');
+          if (connectorLineUpper) connectorLineUpper.classList.add('active');
+          if (connectorLineLower) connectorLineLower.classList.add('active');
+          
+          // Activate particles
+          if (!particlesActivated && outEase > 0.85) {
+            particlesActivated = true;
+            particles.forEach(p => p.classList.add('active'));
+            if (energyParticles) {
+              energyParticles.style.left = `${signupForm.getBoundingClientRect().right + 14 + outWidth - 20}px`;
+            }
+          }
+        } else {
+          connectorLineRight.classList.remove('active');
+          if (connectorLineUpper) connectorLineUpper.classList.remove('active');
+          if (connectorLineLower) connectorLineLower.classList.remove('active');
+          particles.forEach(p => p.classList.remove('active'));
+          particlesActivated = false;
+        }
+
+        // Update particle position as line extends
+        if (energyParticles && outEase > 0) {
+          const baseLeft = signupForm.getBoundingClientRect().right + 14;
+          energyParticles.style.left = `${baseLeft + outWidth - 10}px`;
+        }
 
         if (outEase > 0.9) {
           const arrive = Math.min(1, (outEase - 0.9) / 0.1);
