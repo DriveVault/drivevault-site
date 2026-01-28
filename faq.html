@@ -1,339 +1,1265 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-M3XM1E1TQK"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-M3XM1E1TQK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-M3XM1E1TQK');
+  </script>
 
-  gtag('config', 'G-M3XM1E1TQK');
-</script>
-  <!-- Favicon -->
-<link rel="icon" href="/favicon.png" type="image/png" sizes="32x32">
-<link rel="shortcut icon" href="/favicon.png">
-<link rel="apple-touch-icon" href="/favicon.png">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>DriveVault – FAQ</title>
-  <meta name="description" content="Answers to common questions about DriveVault: what it is, how it works, pricing, beta access, privacy, and more." />
-  <link rel="icon" href="https://i.ibb.co/fdsPzxk8/Drive-Vault-favicon.png" type="image/png" />
-  <link rel="apple-touch-icon" href="https://i.ibb.co/fdsPzxk8/Drive-Vault-favicon.png" />
+  <title>FAQ | DriveVault – Frequently Asked Questions</title>
+  <meta name="description" content="Find answers to common questions about DriveVault: how it works, pricing, privacy, features, and more. Plus watch our full tutorial video." />
+  
+  <!-- SEO -->
+  <meta name="keywords" content="DriveVault FAQ, DriveVault help, external drive catalog help, DriveVault pricing, DriveVault tutorial" />
+  <meta name="author" content="DriveVault" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://drivevault.app/faq.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="FAQ | DriveVault">
+  <meta property="og:description" content="Find answers to common questions about DriveVault and watch our tutorial video.">
+  <meta property="og:url" content="https://drivevault.app/faq.html">
+  <meta property="og:site_name" content="DriveVault">
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
   <style>
-    :root{
-      --bg:#ffffff;
-      --panel:#f7f8fb;
-      --panel-2:#ffffff;
-      --border:rgba(10,12,18,.08);
-      --text:#0b0d12;
-      --muted:#5f6775;
-      --accent:#2f6bff;
-      --accent-2:#8b5cf6;
-    }
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{
-      font-family:Inter,system-ui,sans-serif;
-      background:var(--bg);
-      color:var(--text);
-      overflow-x:hidden;
+    html {
+      scroll-behavior: smooth;
     }
 
-    /* Fixed top navigation (matches other pages) */
-    .topbar{
-      position:fixed;
-      inset:0 0 auto 0;
-      height:64px;
-      z-index:50;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      backdrop-filter:saturate(160%) blur(12px);
-      background:rgba(255,255,255,.75);
-      border-bottom:1px solid var(--border);
-    }
-    .topbar .wrap{ width:min(1200px,94vw); display:flex; align-items:center; gap:16px; }
-    .brand{ display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text); font-weight:700; }
-    .brand img{ width:22px; height:22px } .brand span{ font-size:16px; letter-spacing:.2px }
-    .nav{ margin-left:auto; display:flex; align-items:center; gap:18px; }
-    .nav a{ color:#2b3140; text-decoration:none; font-size:14px; padding:8px 10px; border-radius:8px; transition:color .2s, background .2s; }
-    .nav a:hover{ color:#0b0d12; background:rgba(10,12,18,.05) }
-    .beta-btn{
-      margin-left:6px;
-      padding:10px 14px;
-      border-radius:12px;
-      font-weight:800;
-      font-size:14px;
-      color:#ffffff;
-      text-decoration:none;
-      background:linear-gradient(135deg, var(--accent), var(--accent-2));
-      box-shadow:0 8px 24px rgba(47,107,255,.35);
-      transition:transform .2s ease, box-shadow .2s ease;
-    }
-    .beta-btn:hover{
-      transform:translateY(-1px);
-      box-shadow:0 12px 32px rgba(47,107,255,.45);
+    :root {
+      --bg: #ffffff;
+      --bg-secondary: #f8fafc;
+      --bg-tertiary: #f1f5f9;
+      --text: #0b0d12;
+      --muted: #5f6775;
+      --line: rgba(10,12,18,.08);
+      --shadow-sm: 0 4px 12px rgba(10,12,18,.04);
+      --shadow: 0 20px 60px rgba(10,12,18,.08);
+      --shadow-lg: 0 30px 80px rgba(10,12,18,.12);
+      --blue: #2f6bff;
+      --blue2: #6aa2ff;
+      --green: #22c55e;
     }
 
-    main{ padding:calc(64px + 40px) 16px 80px; }
-    .container{ width:min(1000px,94vw); margin:0 auto; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    .page-title{ text-align:center; margin-bottom:10px; font-size:clamp(28px,4.5vw,40px); font-weight:900; color:var(--text); }
-    .page-sub{ text-align:center; color:var(--muted); margin-bottom:28px; }
-
-    /* FAQ accordion */
-    .faq{ display:grid; gap:14px; }
-    details.faq-item{
-      background:linear-gradient(180deg, var(--panel), var(--panel-2));
-      border:1px solid var(--border);
-      border-radius:14px; overflow:hidden;
-      box-shadow:0 12px 28px rgba(10,12,18,.08);
-    }
-    .faq-head{
-      list-style:none; display:flex; align-items:center; gap:14px; justify-content:space-between;
-      padding:16px 18px; cursor:pointer;
-    }
-    .faq-head h3{ font-size:16px; font-weight:700; }
-    .chev{ margin-left:16px; opacity:.75; transition:transform .25s ease; }
-    details[open] .chev{ transform:rotate(180deg); }
-    .faq-body{ padding:0 18px 18px 18px; color:#2b3140; border-top:1px solid var(--border); }
-    .faq-body p{ margin-top:12px; line-height:1.7; }
-    .faq-body ul{ margin:10px 0 0 0; padding-left:18px; }
-    .faq-body li{ margin:6px 0; color:#2b3140; }
-    .note{ color:#9bb3ff }
-
-    /* CTA Panel */
-    .cta-panel{
-      margin-top:36px;
-      text-align:center;
-      background:rgba(10,12,18,.03);
-      border:1px solid var(--border);
-      border-radius:16px;
-      padding:22px;
-    }
-    .cta-panel a{ display:inline-block; margin-top:10px; padding:12px 18px; border-radius:12px; text-decoration:none; color:white;
-      background:linear-gradient(135deg, var(--accent), var(--accent-2));
+    body {
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.6;
     }
 
-    /* Mobile */
-    @media (max-width:700px){
-      .faq-head h3{ font-size:15px }
+    /* ========== HEADER ========== */
+    .topbar {
+      position: fixed;
+      inset: 0 0 auto 0;
+      height: 68px;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,.72);
+      backdrop-filter: saturate(160%) blur(12px);
+      -webkit-backdrop-filter: saturate(160%) blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .topbar .wrap {
+      width: min(1200px, 94vw);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 800;
+    }
+
+    .brand img { width: 22px; height: 22px; }
+    .brand span { font-size: 14px; letter-spacing: .2px; }
+
+    .nav {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .nav a {
+      color: #2b3140;
+      text-decoration: none;
+      font-size: 13px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      transition: background .25s ease, color .25s ease;
+    }
+
+    .nav a:hover,
+    .nav a[aria-current="page"] {
+      background: rgba(10,12,18,.05);
+      color: #0b0d12;
+    }
+
+    .cta-top {
+      margin-left: 4px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 13px;
+      color: #fff;
+      text-decoration: none;
+      background: linear-gradient(135deg, var(--blue), var(--blue2));
+      box-shadow: 0 10px 22px rgba(47,107,255,.22);
+      transition: transform .2s ease, box-shadow .35s ease;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .cta-top::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #22c55e, #4ade80);
+      transition: opacity .35s ease;
+      z-index: -1;
+    }
+
+    .cta-top:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 30px rgba(47,107,255,.26);
+    }
+
+    .cta-top:hover::before {
+      opacity: 0;
+    }
+
+    /* Mobile nav */
+    .hamburger {
+      display: none;
+      margin-left: auto;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      border: 1px solid rgba(10,12,18,.12);
+      background: #fff;
+      box-shadow: 0 6px 16px rgba(10,12,18,.08);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      width: 18px;
+      height: 2px;
+      background: #0b0d12;
+      position: relative;
+      display: block;
+    }
+
+    .hamburger span::before,
+    .hamburger span::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 18px;
+      height: 2px;
+      background: #0b0d12;
+    }
+
+    .hamburger span::before { top: -6px; }
+    .hamburger span::after { top: 6px; }
+
+    @media (max-width: 900px) {
+      .nav {
+        position: fixed;
+        top: 68px;
+        left: 0;
+        right: 0;
+        background: #ffffff;
+        border-bottom: 1px solid var(--line);
+        flex-direction: column;
+        gap: 6px;
+        padding: 12px 16px 16px;
+        display: none;
+        box-shadow: 0 20px 40px rgba(10,12,18,.1);
+      }
+
+      .nav.open {
+        display: flex;
+      }
+
+      .nav a {
+        width: 100%;
+        text-align: left;
+        padding: 12px 14px;
+        font-size: 15px;
+      }
+
+      .cta-top {
+        width: 100%;
+        text-align: center;
+        margin-top: 6px;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+    }
+
+    /* ========== PAGE LAYOUT ========== */
+    main {
+      padding: calc(68px + 48px) 16px 80px;
+    }
+
+    .container {
+      width: min(900px, 94vw);
+      margin: 0 auto;
+    }
+
+    /* ========== HERO ========== */
+    .page-hero {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .page-hero h1 {
+      font-size: clamp(32px, 5vw, 46px);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, var(--text) 0%, #374151 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .page-hero p {
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* ========== VIDEO SECTION ========== */
+    .video-section {
+      margin-bottom: 56px;
+    }
+
+    .video-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .video-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+
+    .video-label svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .video-header h2 {
+      font-size: 26px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .video-header p {
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .video-container {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--line);
+      background: #000;
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .video-caption {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .video-caption a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    .video-caption a:hover {
+      text-decoration: underline;
+    }
+
+    /* ========== SEARCH ========== */
+    .search-section {
+      margin-bottom: 32px;
+    }
+
+    .search-wrapper {
+      position: relative;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      color: var(--muted);
+      pointer-events: none;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 16px 20px 16px 52px;
+      font-size: 16px;
+      font-family: inherit;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--bg);
+      color: var(--text);
+      box-shadow: var(--shadow-sm);
+      transition: border-color .25s ease, box-shadow .25s ease;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--blue);
+      box-shadow: 0 0 0 4px rgba(47,107,255,.1), var(--shadow-sm);
+    }
+
+    .search-input::placeholder {
+      color: #9ca3af;
+    }
+
+    .search-clear {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 28px;
+      height: 28px;
+      border: none;
+      background: var(--bg-tertiary);
+      border-radius: 8px;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      transition: background .2s ease;
+    }
+
+    .search-clear:hover {
+      background: #e2e8f0;
+    }
+
+    .search-clear.visible {
+      display: flex;
+    }
+
+    .search-results-count {
+      text-align: center;
+      margin-top: 12px;
+      font-size: 14px;
+      color: var(--muted);
+      min-height: 20px;
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--muted);
+      display: none;
+    }
+
+    .no-results.visible {
+      display: block;
+    }
+
+    .no-results h3 {
+      font-size: 18px;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    /* ========== FAQ CATEGORIES ========== */
+    .faq-section {
+      margin-bottom: 40px;
+    }
+
+    .faq-category {
+      margin-bottom: 32px;
+    }
+
+    .category-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .category-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--blue), var(--blue2));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .category-header h2 {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    /* ========== FAQ ITEMS ========== */
+    .faq-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .faq-item {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: border-color .25s ease, box-shadow .25s ease;
+    }
+
+    .faq-item:hover {
+      border-color: rgba(47,107,255,.2);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .faq-item[open] {
+      box-shadow: var(--shadow-sm);
+    }
+
+    .faq-item.hidden {
+      display: none;
+    }
+
+    .faq-item.highlight {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(47,107,255,.1);
+    }
+
+    .faq-summary {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 20px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .faq-summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-summary h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.4;
+      padding-right: 16px;
+    }
+
+    .faq-chevron {
+      width: 20px;
+      height: 20px;
+      color: var(--muted);
+      flex-shrink: 0;
+      transition: transform .25s ease;
+    }
+
+    .faq-item[open] .faq-chevron {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      padding: 0 20px 20px 20px;
+      border-top: 1px solid var(--line);
+    }
+
+    .faq-answer p {
+      margin-top: 16px;
+      color: #374151;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .faq-answer p:first-child {
+      margin-top: 16px;
+    }
+
+    .faq-answer ul {
+      margin: 12px 0 0 20px;
+    }
+
+    .faq-answer li {
+      margin: 8px 0;
+      color: #374151;
+      font-size: 15px;
+    }
+
+    .faq-answer a {
+      color: var(--blue);
+      text-decoration: underline;
+      text-decoration-color: rgba(47,107,255,.3);
+      text-underline-offset: 2px;
+    }
+
+    .faq-answer a:hover {
+      text-decoration-color: var(--blue);
+    }
+
+    .faq-answer strong {
+      color: var(--text);
+    }
+
+    /* ========== CTA SECTION ========== */
+    .cta-section {
+      background: linear-gradient(135deg, rgba(47,107,255,.08), rgba(106,162,255,.04));
+      border: 1px solid rgba(47,107,255,.15);
+      border-radius: 24px;
+      padding: 40px;
+      text-align: center;
+      margin-top: 48px;
+    }
+
+    .cta-section h2 {
+      font-size: 26px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .cta-section p {
+      color: var(--muted);
+      font-size: 16px;
+      margin-bottom: 24px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 14px;
+      font-weight: 800;
+      font-size: 15px;
+      color: #fff;
+      text-decoration: none;
+      background: linear-gradient(135deg, var(--blue), var(--blue2));
+      box-shadow: 0 10px 30px rgba(47,107,255,.25);
+      transition: transform .2s ease, box-shadow .3s ease;
+    }
+
+    .cta-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 40px rgba(47,107,255,.3);
+    }
+
+    .cta-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--text);
+      text-decoration: none;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      transition: border-color .2s ease, background .2s ease;
+    }
+
+    .cta-secondary:hover {
+      border-color: rgba(47,107,255,.3);
+      background: var(--bg-secondary);
+    }
+
+    /* ========== FOOTER ========== */
+    .site-footer {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--line);
+      padding: 40px 16px;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .footer-brand img {
+      width: 24px;
+      height: 24px;
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color .2s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+    }
+
+    .footer-copy {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 700px) {
+      .footer-content {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .footer-links {
+        order: 1;
+      }
+
+      .footer-copy {
+        order: 2;
+      }
     }
   </style>
-</head>
-<body>
 
+  <!-- FAQ Page JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is DriveVault?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "DriveVault is a macOS app that lets you scan external hard drives once and browse or search their contents even when the drives are unplugged. It creates a local catalog of file names, folder structures, sizes, dates, and metadata so you can find files instantly without connecting drives."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does DriveVault copy my files or upload them to the cloud?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Your files remain on your drives. DriveVault only stores a local catalog and optional thumbnails on your Mac. Nothing is uploaded—privacy is core to the product."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is there a free version?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes—there's a free tier that allows you try all of DriveVault's features with one drive up to 4TB. Paid tiers simply unlock more drives."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does pricing work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Pricing is tiered by the number of drives you have in your library. Purchase a tier that you can grow into (e.g 5 drives, 10 drives, 15 drives, 20 drives or unlimited drives), or simply purchase a single drive at a time."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What platforms are supported?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "macOS only. DriveVault is built natively for Mac and integrates with macOS previews, Finder-style navigation, and Apple-native features."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+
+<body>
   <!-- Header -->
   <header class="topbar" role="banner">
     <div class="wrap">
       <a class="brand" href="/">
-        <img src="https://i.ibb.co/fdsPzxk8/Drive-Vault-favicon.png" alt="DriveVault logo">
+        <img src="/favicon.png" alt="DriveVault logo">
         <span>DriveVault</span>
       </a>
-      <nav class="nav" role="navigation" aria-label="Primary">
-        <a href="https://www.drivevault.io/#features">Features</a>
-        <a href="https://www.drivevault.io/#pricing">Pricing</a>
+      <nav class="nav" id="mobileNav" role="navigation" aria-label="Primary">
+        <a href="/#features">Features</a>
+        <a href="/#pricing">Pricing</a>
         <a href="/changelog.html">Changelog</a>
         <a href="/blog.html">Blog</a>
         <a href="/faq.html" aria-current="page">FAQ</a>
-        <a class="beta-btn" href="https://www.drivevault.io/#download">Download on the Apple App Store</a>
+        <a class="cta-top" href="https://apps.apple.com/app/drivevault/id6478483834" target="_blank" rel="noopener">Download on the App Store</a>
       </nav>
+      <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false" id="hamburgerBtn">
+        <span></span>
+      </button>
     </div>
   </header>
 
   <main>
     <div class="container">
-      <h1 class="page-title">DriveVault FAQ</h1>
-      <p class="page-sub">Quick answers to the most common questions about what DriveVault is, how it works, and how to join.</p>
+      <!-- Page Hero -->
+      <section class="page-hero">
+        <h1>Frequently Asked Questions</h1>
+        <p>Everything you need to know about DriveVault. Can't find what you're looking for? Get in touch.</p>
+      </section>
 
-      <section class="faq">
-
-        <details class="faq-item" open>
-          <summary class="faq-head">
-            <h3>What is DriveVault?</h3>
-            <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-          </summary>
-          <div class="faq-body">
-            <p>DriveVault is an offline hard-drive cataloguer for macOS. Scan a drive once and you can browse, search, filter, compare, and report on its files later - even when the drive isn’t plugged in.</p>
+      <!-- Video Tutorial Section -->
+      <section class="video-section">
+        <div class="video-header">
+          <div class="video-label">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+            Video Tutorial
           </div>
-        </details>
+          <h2>Learn DriveVault in 20 Minutes</h2>
+          <p>Watch our complete walkthrough covering every feature and workflow.</p>
+        </div>
+        <div class="video-container">
+          <iframe 
+            src="https://www.youtube.com/embed/Lah8EJ5LLFk?rel=0" 
+            title="DriveVault Tutorial - Complete Walkthrough"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            loading="lazy"
+          ></iframe>
+        </div>
+        <p class="video-caption">
+          Prefer to read? Check out our <a href="/blog.html">blog guides</a> or keep scrolling for quick answers.
+        </p>
+      </section>
 
-        <details class="faq-item">
-          <summary class="faq-head">
-            <h3>How does it work if my drives are unplugged?</h3>
-            <svg class="chev" width="18" height="18" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" fill="none"/></svg>
-          </summary>
-          <div class="faq-body">
-            <p>When you scan a disk, DriveVault builds a local catalog: file names, paths, sizes, dates, EXIF/metadata, and thumbnails (where possible). That catalog lives on your Mac so you can explore it offline at any time.</p>
-          </div>
-        </details>
+      <!-- Search Section -->
+      <section class="search-section">
+        <div class="search-wrapper">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="M21 21l-4.35-4.35"/>
+          </svg>
+          <input 
+            type="text" 
+            class="search-input" 
+            id="faqSearch" 
+            placeholder="Search FAQs (e.g. pricing, privacy, backups...)"
+            autocomplete="off"
+          >
+          <button class="search-clear" id="searchClear" aria-label="Clear search">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+              <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+        <div class="search-results-count" id="resultsCount"></div>
+      </section>
 
-        <details class="faq-item">
-          <summary class="faq-head">
-            <h3>What can I search?</h3>
-            <svg class="chev" width="18" height="18" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" fill="none"/></svg>
-          </summary>
-          <div class="faq-body">
-            <p>Search across every scanned drive by file name, type, size, date, and rich metadata. Photo EXIF (camera, lens, ISO, date taken), video basics, and document metadata are supported. You can also filter by file categories and build saved searches.</p>
-          </div>
-        </details>
+      <!-- No Results Message -->
+      <div class="no-results" id="noResults">
+        <h3>No matching questions found</h3>
+        <p>Try different keywords or <a href="https://drivevault.canny.io/feature-requests" target="_blank" rel="noopener">ask us directly</a>.</p>
+      </div>
 
-        <details class="faq-item">
-          <summary class="faq-head">
-            <h3>Who is DriveVault for?</h3>
-            <svg class="chev" width="18" height="18" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
-          </summary>
-          <div class="faq-body">
-            <p>Creators, photographers, videographers, agencies, studios, researchers - anyone with lots of external storage who needs to find things fast without plugging in every disk.</p>
-          </div>
-        </details>
+      <!-- FAQ Section -->
+      <section class="faq-section" id="faqContainer">
 
-        <details class="faq-item">
-          <summary class="faq-head">
-            <h3>Does DriveVault copy my files or upload them to the cloud?</h3>
-            <svg class="chev" width="18" height="18" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
-          </summary>
-          <div class="faq-body">
-            <p>No. Your files remain on your drives. DriveVault only stores a local catalog and optional thumbnails on your Mac. Nothing is uploaded - privacy is core to the product.</p>
+        <!-- Getting Started -->
+        <div class="faq-category" data-category="getting-started">
+          <div class="category-header">
+            <div class="category-icon">🚀</div>
+            <h2>Getting Started</h2>
           </div>
-        </details>
+          <div class="faq-list">
 
-        <details class="faq-item">
-          <summary class="faq-head">
-            <h3>What platforms are supported?</h3>
-            <svg class="chev" width="18" height="18" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
-          </summary>
-          <div class="faq-body">
-            <p>macOS. DriveVault is built for Mac and integrates with macOS previews, Finder-style navigation, and Apple-native features.</p>
-          </div>
-        </details>
+            <details class="faq-item" data-keywords="what is drivevault about overview introduction basics">
+              <summary class="faq-summary">
+                <h3>What is DriveVault?</h3>
+                <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </summary>
+              <div class="faq-answer">
+                <p>DriveVault is a macOS app that lets you scan external hard drives once and browse or search their contents even when the drives are unplugged.</p>
+                <p>It creates a local catalog of file names, folder structures, sizes, dates, and metadata—so you can find files instantly without connecting drives. Think of it as a searchable offline index of everything on your external storage.</p>
+              </div>
+            </details>
 
-        <details class="faq-item">
-          <summary class="faq-head">
-            <h3>How big of a library can DriveVault handle?</h3>
-            <svg class="chev" width="18" height="18" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
-          </summary>
-          <div class="faq-body">
-            <p>
-DriveVault is designed to scale gracefully with large libraries. It uses progressive loading and efficient indexing, meaning there is no fixed hard limit on library size in practical terms. For the vast majority of users, DriveVault is built to comfortably exceed typical real-world usage.
-<br><br>
-For edge cases with exceptionally large drives and libraries, we recommend using Quick Scan instead of Full Scan. To ensure smooth operations at all times for the majority of users, we have set our recommended limit for Full Scan to 4tb, and Quick Scan for anything greater. In terms of what DriveVault is physically able to do, we have successfully tested the Full Scan abilities on drives exceeding 40tb with great success. Quick Scan captures the complete, searchable, folder structure while being significantly less data-intensive, placing lower demands on both DriveVault and your Mac. Ultimately, performance with very large libraries is influenced by the capabilities of the machine running DriveVault, including available memory, storage speed, and CPU performance.
-</p>
-          </div>
-        </details>
+            <details class="faq-item" data-keywords="who is for target audience users filmmakers photographers creatives">
+              <summary class="faq-summary">
+                <h3>Who is DriveVault for?</h3>
+                <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </summary>
+              <div class="faq-answer">
+                <p>Creators, photographers, videographers, agencies, studios, researchers—anyone with lots of external storage who needs to find things fast without plugging in every disk.</p>
+                <p>If you've ever had a shelf of drives and wondered "which one has that client project from 2022?"—DriveVault is for you.</p>
+              </div>
+            </details>
 
-        <details class="faq-item">
-          <summary class="faq-head">
-            <h3>What views and previews are available?</h3>
-            <svg class="chev" width="18" height="18" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
-          </summary>
-          <div class="faq-body">
-            <p>Browse in a MacOS-style Column or Icon view. See offline low-res previews on files so that you can identify files at a glance. Photos with the neccessary data are able to display EXIF data and metadata; videos/documents are also able to show key details where available.</p>
-          </div>
-        </details>
+            <details class="faq-item" data-keywords="mac macos platform supported windows linux">
+              <summary class="faq-summary">
+                <h3>What platforms are supported?</h3>
+                <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </summary>
+              <div class="faq-answer">
+                <p><strong>macOS only.</strong> DriveVault is built natively for Mac and integrates with macOS previews, Finder-style navigation, and Apple-native features.</p>
+                <p>There are no current plans for Windows or Linux versions.</p>
+              </div>
+            </details>
 
-        <details class="faq-item">
-          <summary class="faq-head">
-            <h3>Can I organize drives and files?</h3>
-            <svg class="chev" width="18" height="18" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
-          </summary>
-          <div class="faq-body">
-            <p>Yes - tag files, add notes, apply star ratings, and group drives into Projects. Create smart collections (e.g., Recent Photos, Large Files) and compare drives to find duplicates or gaps in backups.</p>
-          </div>
-        </details>
+            <details class="faq-item" data-keywords="search find files query filter metadata exif">
+              <summary class="faq-summary">
+                <h3>What can I search for?</h3>
+                <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </summary>
+              <div class="faq-answer">
+                <p>Search across every scanned drive by file name, type, size, date, and rich metadata. Photo EXIF data (camera, lens, ISO, date taken), video basics, and document metadata are all supported.</p>
+                <p>You can also filter by file categories and build saved searches for queries you run often.</p>
+              </div>
+            </details>
 
-        <details class="faq-item">
-          <summary class="faq-head">
-            <h3>Does it help with backups?</h3>
-            <svg class="chev" width="18" height="18" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
-          </summary>
-          <div class="faq-body">
-            <p>Drive comparison and backup checks help you verify what's mirrored where. You can generate reports that summarize differences, missing files, and drive health stats.</p>
           </div>
-        </details>
+        </div>
 
-        <details class="faq-item">
-          <summary class="faq-head">
-            <h3>How do I join the Public Beta?</h3>
-            <svg class="chev" width="18" height="18" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
-          </summary>
-          <div class="faq-body">
-            <p>Public Beta is now closed, thank you to our hundreds of beta testers who helped us refine DriveVault into the powerful drive cataloguing app that it is today.</p>
+        <!-- Features -->
+        <div class="faq-category" data-category="features">
+          <div class="category-header">
+            <div class="category-icon">✨</div>
+            <h2>Features</h2>
           </div>
-        </details>
+          <div class="faq-list">
 
-        <details class="faq-item">
-          <summary class="faq-head">
-            <h3>Is there a free version?</h3>
-            <svg class="chev" width="18" height="18" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
-          </summary>
-          <div class="faq-body">
-            <p>Yes - there’s a free tier that allows you try all of DriveVault's features with one drive up to 4tb. Paid tiers simply unlock more drives.</p>
-          </div>
-        </details>
+            <details class="faq-item" data-keywords="views browse preview column icon list finder thumbnails">
+              <summary class="faq-summary">
+                <h3>What views and previews are available?</h3>
+                <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </summary>
+              <div class="faq-answer">
+                <p>Browse in a macOS-style <strong>Column</strong> or <strong>Icon</strong> view. See offline low-res previews on files so you can identify them at a glance.</p>
+                <p>Photos with the necessary data display EXIF metadata; videos and documents show key details where available.</p>
+              </div>
+            </details>
 
-        <details class="faq-item">
-          <summary class="faq-head">
-            <h3>How does pricing work?</h3>
-            <svg class="chev" width="18" height="18" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
-          </summary>
-          <div class="faq-body">
-            <p>Pricing is tiered by the number of drives you have in your library. Purchase a tier that you can grow into (e.g 5 drives, 10 drives, 15 drives, 20 drives or infinite drives), or if you simply want to grow one drive at a time then you can simply purchase a single drive.</p>
-          </div>
-        </details>
+            <details class="faq-item" data-keywords="organize tags notes ratings stars projects collections folders">
+              <summary class="faq-summary">
+                <h3>Can I organize drives and files?</h3>
+                <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </summary>
+              <div class="faq-answer">
+                <p>Yes—tag files, add notes, apply star ratings, and group drives into <strong>Projects</strong>.</p>
+                <p>Create smart collections (e.g., "Recent Photos", "Large Files") and compare drives to find duplicates or gaps in backups.</p>
+              </div>
+            </details>
 
-        <details class="faq-item">
-          <summary class="faq-head">
-            <h3>Will DriveVault ever upload or share my data?</h3>
-            <svg class="chev" width="18" height="18" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
-          </summary>
-          <div class="faq-body">
-            <p>No. Catalogs are stored locally on your Mac. We don’t upload your library. Optional crash/usage analytics (if enabled later) will be anonymous and never include file names or content.</p>
-          </div>
-        </details>
+            <details class="faq-item" data-keywords="backup compare duplicate missing verify mirror sync">
+              <summary class="faq-summary">
+                <h3>Does it help with backups?</h3>
+                <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </summary>
+              <div class="faq-answer">
+                <p>Yes. Drive comparison and backup checks help you verify what's mirrored where.</p>
+                <p>You can generate reports that summarize differences, missing files, and drive health stats—so you know exactly which files exist on which drives.</p>
+              </div>
+            </details>
 
-        <details class="faq-item">
-          <summary class="faq-head">
-            <h3>Can I export or move my catalogs between Macs?</h3>
-            <svg class="chev" width="18" height="18" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
-          </summary>
-          <div class="faq-body">
-            <p>Yes - import/export lets you share your drive library with other DriveVault users. Simply click the "Export" button and choose the drives you want to export, then share the .DriveVault file with your teammember. Please note that users importing libraries will need to have adequate space on their tier plan in order to import the libary.</p>
-          </div>
-        </details>
+            <details class="faq-item" data-keywords="size limit library capacity drives files large 4tb quick scan full scan">
+              <summary class="faq-summary">
+                <h3>How big of a library can DriveVault handle?</h3>
+                <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </summary>
+              <div class="faq-answer">
+                <p>DriveVault is designed to scale gracefully with large libraries. It uses progressive loading and efficient indexing, so there's no fixed hard limit in practical terms.</p>
+                <p>For the vast majority of users, DriveVault comfortably exceeds typical real-world usage. For very large drives, we recommend using <strong>Quick Scan</strong> instead of Full Scan:</p>
+                <ul>
+                  <li><strong>Full Scan</strong> (recommended up to 4TB) — captures thumbnails and rich metadata</li>
+                  <li><strong>Quick Scan</strong> (for larger drives) — captures complete folder structure with lower data overhead</li>
+                </ul>
+                <p>We've successfully tested Full Scan on drives exceeding 40TB. Performance with very large libraries depends on your Mac's memory, storage speed, and CPU.</p>
+              </div>
+            </details>
 
-        <details class="faq-item">
-          <summary class="faq-head">
-            <h3>Does DriveVault change anything on my drives?</h3>
-            <svg class="chev" width="18" height="18" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
-          </summary>
-          <div class="faq-body">
-            <p>No. Scanning is read-only. Any tags/notes/ratings you add are stored in your local catalog - not written back to the disk’s files.</p>
           </div>
-        </details>
+        </div>
 
-        <details class="faq-item">
-          <summary class="faq-head">
-            <h3>How do I send feedback or request a feature?</h3>
-            <svg class="chev" width="18" height="18" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
-          </summary>
-          <div class="faq-body">
-            <p>We’d love to hear it. Post on our <a class="note" href="https://drivevault.canny.io/feature-requests" target="_blank" rel="noopener">Feature Requests</a> board or report issues on the <a class="note" href="https://drivevault.canny.io/report-bugs" target="_blank" rel="noopener">Bugs</a> board.</p>
+        <!-- Privacy & Security -->
+        <div class="faq-category" data-category="privacy">
+          <div class="category-header">
+            <div class="category-icon">🔒</div>
+            <h2>Privacy & Security</h2>
           </div>
-        </details>
+          <div class="faq-list">
+
+            <details class="faq-item" data-keywords="upload cloud copy files privacy local data">
+              <summary class="faq-summary">
+                <h3>Does DriveVault copy my files or upload them to the cloud?</h3>
+                <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </summary>
+              <div class="faq-answer">
+                <p><strong>No.</strong> Your files remain on your drives. DriveVault only stores a local catalog and optional thumbnails on your Mac.</p>
+                <p>Nothing is uploaded—privacy is core to the product.</p>
+              </div>
+            </details>
+
+            <details class="faq-item" data-keywords="data share upload analytics tracking telemetry">
+              <summary class="faq-summary">
+                <h3>Will DriveVault ever upload or share my data?</h3>
+                <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </summary>
+              <div class="faq-answer">
+                <p><strong>No.</strong> Catalogs are stored locally on your Mac. We don't upload your library.</p>
+                <p>Optional crash/usage analytics (if enabled) are anonymous and never include file names or content.</p>
+              </div>
+            </details>
+
+            <details class="faq-item" data-keywords="modify change write drives read-only safe">
+              <summary class="faq-summary">
+                <h3>Does DriveVault change anything on my drives?</h3>
+                <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </summary>
+              <div class="faq-answer">
+                <p><strong>No.</strong> Scanning is completely read-only. Your files are never modified.</p>
+                <p>Any tags, notes, or ratings you add are stored in your local catalog—not written back to the disk's files.</p>
+              </div>
+            </details>
+
+          </div>
+        </div>
+
+        <!-- Pricing -->
+        <div class="faq-category" data-category="pricing">
+          <div class="category-header">
+            <div class="category-icon">💰</div>
+            <h2>Pricing</h2>
+          </div>
+          <div class="faq-list">
+
+            <details class="faq-item" data-keywords="free tier trial cost money">
+              <summary class="faq-summary">
+                <h3>Is there a free version?</h3>
+                <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </summary>
+              <div class="faq-answer">
+                <p><strong>Yes</strong>—there's a free tier that lets you try all of DriveVault's features with one drive up to 4TB.</p>
+                <p>Paid tiers simply unlock more drives. No features are locked behind a paywall.</p>
+              </div>
+            </details>
+
+            <details class="faq-item" data-keywords="pricing cost tiers subscription payment buy purchase">
+              <summary class="faq-summary">
+                <h3>How does pricing work?</h3>
+                <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </summary>
+              <div class="faq-answer">
+                <p>Pricing is tiered by the number of drives in your library:</p>
+                <ul>
+                  <li>Purchase a tier you can grow into (5, 10, 15, 20, or unlimited drives)</li>
+                  <li>Or add single drives one at a time</li>
+                </ul>
+                <p>All purchases are one-time—no subscriptions required.</p>
+              </div>
+            </details>
+
+          </div>
+        </div>
+
+        <!-- Technical -->
+        <div class="faq-category" data-category="technical">
+          <div class="category-header">
+            <div class="category-icon">⚙️</div>
+            <h2>Technical</h2>
+          </div>
+          <div class="faq-list">
+
+            <details class="faq-item" data-keywords="export import share catalog transfer move mac computer team">
+              <summary class="faq-summary">
+                <h3>Can I export or move my catalogs between Macs?</h3>
+                <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </summary>
+              <div class="faq-answer">
+                <p><strong>Yes</strong>—import/export lets you share your drive library with other DriveVault users.</p>
+                <p>Click the "Export" button and choose the drives you want to export, then share the <code>.DriveVault</code> file with your team member.</p>
+                <p>Note: Users importing libraries need adequate space on their tier plan to import the library.</p>
+              </div>
+            </details>
+
+            <details class="faq-item" data-keywords="feedback feature request bug report help support contact">
+              <summary class="faq-summary">
+                <h3>How do I send feedback or request a feature?</h3>
+                <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </summary>
+              <div class="faq-answer">
+                <p>We'd love to hear from you! Post on our <a href="https://drivevault.canny.io/feature-requests" target="_blank" rel="noopener">Feature Requests</a> board or report issues on the <a href="https://drivevault.canny.io/report-bugs" target="_blank" rel="noopener">Bug Reports</a> board.</p>
+              </div>
+            </details>
+
+            <details class="faq-item" data-keywords="beta testflight early access">
+              <summary class="faq-summary">
+                <h3>Is the Public Beta still open?</h3>
+                <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </summary>
+              <div class="faq-answer">
+                <p>The Public Beta is now closed. Thank you to our hundreds of beta testers who helped refine DriveVault into the powerful drive cataloguing app it is today.</p>
+                <p>DriveVault is now available on the <a href="https://apps.apple.com/app/drivevault/id6478483834" target="_blank" rel="noopener">Mac App Store</a>.</p>
+              </div>
+            </details>
+
+          </div>
+        </div>
 
       </section>
 
-      <div class="cta-panel">
-        <strong>Ready to try it?</strong>
-        <p class="page-sub" style="margin:8px 0 0 0;">Join the public beta or follow along for updates.</p>
-        <a href="https://testflight.apple.com/join/tVYkpxnm" target="_blank" rel="noopener">Download on the Apple App Store</a>
-      </div>
+      <!-- CTA Section -->
+      <section class="cta-section">
+        <h2>Still have questions?</h2>
+        <p>Download DriveVault free and try it yourself, or reach out directly.</p>
+        <div class="cta-buttons">
+          <a class="cta-primary" href="https://apps.apple.com/app/drivevault/id6478483834" target="_blank" rel="noopener">
+            Download Free
+          </a>
+          <a class="cta-secondary" href="https://drivevault.canny.io/feature-requests" target="_blank" rel="noopener">
+            Contact Us
+          </a>
+        </div>
+      </section>
     </div>
   </main>
 
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <img src="/favicon.png" alt="DriveVault">
+        <span>DriveVault</span>
+      </div>
+      <div class="footer-links">
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/terms.html">Terms of Service</a>
+        <a href="https://drivevault.canny.io/feature-requests" target="_blank" rel="noopener">Feature Requests</a>
+      </div>
+      <p class="footer-copy">© <span id="year"></span> DriveVault. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile nav
+    const hamburger = document.getElementById('hamburgerBtn');
+    const mobileNav = document.getElementById('mobileNav');
+
+    if (hamburger && mobileNav) {
+      hamburger.addEventListener('click', () => {
+        const isOpen = mobileNav.classList.toggle('open');
+        hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+
+      mobileNav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileNav.classList.remove('open');
+          hamburger.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+
+    // FAQ Search
+    const searchInput = document.getElementById('faqSearch');
+    const searchClear = document.getElementById('searchClear');
+    const resultsCount = document.getElementById('resultsCount');
+    const noResults = document.getElementById('noResults');
+    const faqItems = document.querySelectorAll('.faq-item');
+    const faqCategories = document.querySelectorAll('.faq-category');
+
+    function searchFAQs(query) {
+      const searchTerms = query.toLowerCase().trim().split(/\s+/);
+      let visibleCount = 0;
+
+      faqItems.forEach(item => {
+        const question = item.querySelector('h3').textContent.toLowerCase();
+        const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+        const keywords = (item.dataset.keywords || '').toLowerCase();
+        const searchableText = `${question} ${answer} ${keywords}`;
+
+        const matches = searchTerms.every(term => searchableText.includes(term));
+
+        if (matches || query === '') {
+          item.classList.remove('hidden');
+          visibleCount++;
+          
+          // Highlight matching items briefly
+          if (query !== '') {
+            item.classList.add('highlight');
+            setTimeout(() => item.classList.remove('highlight'), 300);
+          }
+        } else {
+          item.classList.add('hidden');
+          item.removeAttribute('open');
+        }
+      });
+
+      // Show/hide categories based on whether they have visible items
+      faqCategories.forEach(category => {
+        const visibleItems = category.querySelectorAll('.faq-item:not(.hidden)');
+        category.style.display = visibleItems.length > 0 ? 'block' : 'none';
+      });
+
+      // Update results count
+      if (query !== '') {
+        resultsCount.textContent = `${visibleCount} ${visibleCount === 1 ? 'result' : 'results'} found`;
+        noResults.classList.toggle('visible', visibleCount === 0);
+      } else {
+        resultsCount.textContent = '';
+        noResults.classList.remove('visible');
+      }
+
+      // Show/hide clear button
+      searchClear.classList.toggle('visible', query !== '');
+    }
+
+    searchInput.addEventListener('input', (e) => {
+      searchFAQs(e.target.value);
+    });
+
+    searchClear.addEventListener('click', () => {
+      searchInput.value = '';
+      searchFAQs('');
+      searchInput.focus();
+    });
+
+    // Allow Enter to open first visible result
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const firstVisible = document.querySelector('.faq-item:not(.hidden)');
+        if (firstVisible) {
+          firstVisible.setAttribute('open', '');
+          firstVisible.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+    });
+  </script>
 </body>
 </html>
