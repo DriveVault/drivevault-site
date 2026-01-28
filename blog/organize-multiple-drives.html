@@ -1,107 +1,530 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>The Best Way to Organize Multiple External Hard Drives for Creatives (Mac)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Best Way to Organize Multiple External Hard Drives for Creatives (Mac) | DriveVault</title>
   <meta name="description" content="A practical workflow for photographers, filmmakers, and designers to organize multiple external hard drives on macOS: naming, folder templates, tags, notes, smart collections, and backups." />
 
-  <!-- Favicon / Touch icon -->
-  <link rel="icon" href="https://i.ibb.co/fdsPzxk8/Drive-Vault-favicon.png" type="image/png" />
-  <link rel="apple-touch-icon" href="https://i.ibb.co/fdsPzxk8/Drive-Vault-favicon.png" />
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="/favicon.png" />
 
   <!-- Open Graph / Twitter -->
   <meta property="og:type" content="article">
   <meta property="og:title" content="The Best Way to Organize Multiple External Hard Drives for Creatives (Mac)">
   <meta property="og:description" content="Step-by-step workflow: drive naming, folder templates, tagging, notes, smart collections, reports, and backup checks—powered by DriveVault.">
   <meta property="og:image" content="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1600&q=80">
-  <meta property="og:url" content="https://yourdomain.com/blog/organize-multiple-drives.html">
   <meta name="twitter:card" content="summary_large_image">
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
-    :root{
-      --bg:#0b0d12; --panel:#10141c; --panel-2:#0e1219; --border:rgba(255,255,255,.08);
-      --text:#e6e9ef; --muted:#9aa3b2; --accent:#6aa2ff; --accent-2:#9a6aff; --ok:#27d980;
-      --maxw: 880px;
-    }
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
-
-    /* Fixed header (site-wide) */
-    .topbar{
-      position:fixed; inset:0 0 auto 0; height:64px; z-index:50;
-      display:flex; align-items:center; justify-content:center;
-      backdrop-filter:saturate(140%) blur(10px);
-      background:linear-gradient(to bottom, rgba(8,10,15,.78), rgba(8,10,15,.55));
-      border-bottom:1px solid var(--border);
-    }
-    .topbar .wrap{ width:min(1200px,94vw); display:flex; align-items:center; gap:16px; }
-    .brand{ display:flex; align-items:center; gap:10px; text-decoration:none; color:#fff; font-weight:700; }
-    .brand img{ width:22px; height:22px } .brand span{ font-size:16px; letter-spacing:.2px }
-    .nav{ margin-left:auto; display:flex; align-items:center; gap:18px; }
-    .nav a{ color:#cfd6e4; text-decoration:none; font-size:14px; padding:8px 10px; border-radius:8px; transition:color .2s, background .2s; }
-    .nav a:hover{ color:#fff; background:rgba(255,255,255,.06) }
-    .beta-btn{
-      margin-left:6px; padding:10px 14px; border-radius:10px; font-weight:700; font-size:14px; color:#fff; text-decoration:none;
-      background:linear-gradient(135deg, var(--accent), var(--accent-2));
-      box-shadow:0 6px 18px rgba(0,0,0,.35), 0 0 10px rgba(106,162,255,.45);
-      transition:transform .2s ease, box-shadow .2s ease;
-    }
-    .beta-btn:hover{ transform:translateY(-1px); box-shadow:0 10px 24px rgba(0,0,0,.45), 0 0 14px rgba(154,106,255,.55) }
-
-    /* Page */
-    main{ padding:calc(64px + 24px) 16px 100px; }
-    .container{ width:min(var(--maxw), 94vw); margin:0 auto; }
-
-    /* Hero */
-    .hero{ text-align:center; margin-bottom:18px; }
-    .eyebrow{ color:#9fb1d4; font-size:12px; letter-spacing:.18em; text-transform:uppercase; }
-    h1{ font-size:clamp(26px,4.8vw,42px); font-weight:900; line-height:1.1; margin:8px 0 10px; }
-    .post-meta{ color:var(--muted); font-size:14px; }
-    .cover{ margin:18px 0 24px; border-radius:16px; overflow:hidden; border:1px solid var(--border); box-shadow:0 14px 36px rgba(0,0,0,.28); }
-    .cover img{ width:100%; height:auto; display:block; aspect-ratio:16/9; object-fit:cover; background:#0c1018; }
-
-    /* Body */
-    article{ background:linear-gradient(180deg, var(--panel), var(--panel-2)); border:1px solid var(--border); border-radius:18px; padding:24px; box-shadow:0 10px 30px rgba(0,0,0,.25); }
-    article p{ margin:14px 0; color:#dfe6f4; }
-    article h2{ font-size:22px; margin-top:18px; margin-bottom:6px; }
-    article h3{ font-size:18px; margin-top:14px; }
-    article ul{ margin:10px 0 10px 20px; }
-    article li{ margin:8px 0; }
-    .note{ color:#a7c4ff }
-
-    .tip{
-      margin:16px 0; padding:12px 14px; border-radius:12px;
-      background:rgba(255,255,255,.04); border:1px dashed var(--border);
-    }
-    .checklist{
-      margin:14px 0; padding:14px; border-radius:14px;
-      background:rgba(255,255,255,.04); border:1px dashed var(--border);
+    html {
+      scroll-behavior: smooth;
     }
 
-    /* CTA + nav */
-    .cta-box{
-      margin:20px 0; padding:18px; border-radius:14px;
-      background:rgba(255,255,255,.04); border:1px dashed var(--border); text-align:center;
+    :root {
+      --bg: #ffffff;
+      --bg-secondary: #f8fafc;
+      --text: #0b0d12;
+      --muted: #5f6775;
+      --line: rgba(10,12,18,.08);
+      --shadow: 0 20px 60px rgba(10,12,18,.08);
+      --blue: #2f6bff;
+      --blue2: #6aa2ff;
+      --green: #22c55e;
     }
-    .cta-box a{ display:inline-block; margin-top:10px; padding:12px 18px; border-radius:12px;
-      text-decoration:none; color:#fff; background:linear-gradient(135deg, var(--accent), var(--accent-2)); }
-    .post-nav{ margin-top:18px; display:flex; justify-content:space-between; gap:12px; }
-    .post-nav a{ flex:1; text-decoration:none; color:#e7f0ff; border:1px solid var(--border); background:rgba(255,255,255,.03); padding:14px; border-radius:12px; text-align:center; }
-    .post-nav a:hover{ background:rgba(255,255,255,.06); }
 
-    /* Floating CTA */
-    .float-cta{
-      position:fixed; right:16px; bottom:16px; z-index:40;
-      display:inline-flex; gap:8px; align-items:center;
-      padding:12px 14px; border-radius:12px; text-decoration:none; color:#fff;
-      background:linear-gradient(135deg, var(--accent), var(--accent-2));
-      box-shadow:0 14px 34px rgba(0,0,0,.38);
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.6;
     }
-    @media (max-width:640px){ .float-cta{ left:16px; right:auto; } }
+
+    /* ========== HEADER ========== */
+    .topbar {
+      position: fixed;
+      inset: 0 0 auto 0;
+      height: 68px;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,.72);
+      backdrop-filter: saturate(160%) blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .topbar .wrap {
+      width: min(1200px, 94vw);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 800;
+    }
+
+    .brand img { width: 22px; height: 22px; }
+    .brand span { font-size: 14px; letter-spacing: .2px; }
+
+    .nav {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .nav a {
+      color: #2b3140;
+      text-decoration: none;
+      font-size: 13px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      transition: background .25s ease, color .25s ease;
+    }
+
+    .nav a:hover {
+      background: rgba(10,12,18,.05);
+      color: #0b0d12;
+    }
+
+    .cta-top {
+      margin-left: 4px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 13px;
+      color: #fff;
+      text-decoration: none;
+      background: linear-gradient(135deg, var(--blue), var(--blue2));
+      box-shadow: 0 10px 22px rgba(34,197,94,.25);
+      transition: transform .2s ease, box-shadow .35s ease;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .cta-top::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #22c55e, #4ade80);
+      transition: opacity .35s ease;
+      z-index: -1;
+    }
+
+    .cta-top:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 30px rgba(47,107,255,.26);
+    }
+
+    .cta-top:hover::before {
+      opacity: 0;
+    }
+
+    /* Mobile nav */
+    .hamburger {
+      display: none;
+      margin-left: auto;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      border: 1px solid rgba(10,12,18,.12);
+      background: #fff;
+      box-shadow: 0 6px 16px rgba(10,12,18,.08);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      width: 18px;
+      height: 2px;
+      background: #0b0d12;
+      position: relative;
+      display: block;
+    }
+
+    .hamburger span::before,
+    .hamburger span::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 18px;
+      height: 2px;
+      background: #0b0d12;
+    }
+
+    .hamburger span::before { top: -6px; }
+    .hamburger span::after { top: 6px; }
+
+    @media (max-width: 900px) {
+      .nav {
+        position: fixed;
+        top: 68px;
+        left: 0;
+        right: 0;
+        background: #ffffff;
+        border-bottom: 1px solid var(--line);
+        flex-direction: column;
+        gap: 6px;
+        padding: 12px 16px 16px;
+        display: none;
+        box-shadow: 0 20px 40px rgba(10,12,18,.1);
+      }
+
+      .nav.open {
+        display: flex;
+      }
+
+      .nav a {
+        width: 100%;
+        text-align: left;
+        padding: 12px 14px;
+        font-size: 15px;
+      }
+
+      .cta-top {
+        width: 100%;
+        text-align: center;
+        margin-top: 6px;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+    }
+
+    /* ========== MAIN LAYOUT ========== */
+    main {
+      padding-top: 68px;
+    }
+
+    .article-container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 48px 20px 100px;
+    }
+
+    /* ========== HERO ========== */
+    .article-hero {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      padding: 6px 12px;
+      background: rgba(47,107,255,.08);
+      border-radius: 20px;
+    }
+
+    .article-hero h1 {
+      font-size: clamp(28px, 5vw, 44px);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    .post-meta {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 32px;
+    }
+
+    .cover-image {
+      width: 100%;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 
+        0 4px 6px rgba(10,12,18,.02),
+        0 12px 24px rgba(10,12,18,.06),
+        0 24px 48px rgba(10,12,18,.08);
+    }
+
+    .cover-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+    }
+
+    /* ========== ARTICLE CONTENT ========== */
+    .article-content {
+      font-size: 17px;
+      line-height: 1.75;
+      color: #2d3748;
+    }
+
+    .article-content p {
+      margin-bottom: 24px;
+    }
+
+    .article-content h2 {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-top: 56px;
+      margin-bottom: 20px;
+      color: var(--text);
+    }
+
+    .article-content h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-top: 40px;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    .article-content ul,
+    .article-content ol {
+      margin: 20px 0;
+      padding-left: 24px;
+    }
+
+    .article-content li {
+      margin-bottom: 12px;
+    }
+
+    .article-content strong {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .article-content em {
+      font-style: italic;
+    }
+
+    /* Code/note styling */
+    .note {
+      display: inline-block;
+      font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+      font-size: 14px;
+      padding: 3px 8px;
+      background: rgba(47,107,255,.08);
+      color: var(--blue);
+      border-radius: 6px;
+    }
+
+    /* Tip box */
+    .tip {
+      margin: 28px 0;
+      padding: 20px 24px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(34,197,94,.06), rgba(74,222,128,.04));
+      border: 1px solid rgba(34,197,94,.15);
+    }
+
+    .tip strong {
+      color: var(--green);
+    }
+
+    /* Checklist box */
+    .checklist {
+      margin: 28px 0;
+      padding: 24px 28px;
+      border-radius: 16px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--line);
+    }
+
+    .checklist ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .checklist li {
+      margin-bottom: 10px;
+    }
+
+    .checklist li:last-child {
+      margin-bottom: 0;
+    }
+
+    /* CTA Box */
+    .cta-box {
+      margin: 48px 0;
+      padding: 36px 32px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(47,107,255,.04), rgba(106,162,255,.06));
+      border: 1px solid rgba(47,107,255,.12);
+      text-align: center;
+    }
+
+    .cta-box strong {
+      display: block;
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    .cta-box p {
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 14px 28px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 15px;
+      color: #fff;
+      text-decoration: none;
+      background: linear-gradient(135deg, var(--green), #4ade80);
+      box-shadow: 0 10px 30px rgba(34,197,94,.25);
+      transition: transform .3s ease, box-shadow .3s ease;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 40px rgba(34,197,94,.3);
+    }
+
+    /* ========== POST NAVIGATION ========== */
+    .post-nav {
+      margin-top: 64px;
+      padding-top: 40px;
+      border-top: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .post-nav a {
+      display: block;
+      padding: 20px 24px;
+      border-radius: 16px;
+      text-decoration: none;
+      color: var(--text);
+      background: var(--bg-secondary);
+      border: 1px solid var(--line);
+      transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+    }
+
+    .post-nav a:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(10,12,18,.08);
+      border-color: rgba(47,107,255,.2);
+    }
+
+    .post-nav-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .post-nav-title {
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 600px) {
+      .post-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ========== FLOATING CTA ========== */
+    .float-cta {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 40;
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 14px 20px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 14px;
+      color: #fff;
+      text-decoration: none;
+      background: linear-gradient(135deg, var(--green), #4ade80);
+      box-shadow: 
+        0 8px 24px rgba(34,197,94,.3),
+        0 2px 8px rgba(0,0,0,.1);
+      transition: transform .3s ease, box-shadow .3s ease;
+    }
+
+    .float-cta:hover {
+      transform: translateY(-3px);
+      box-shadow: 
+        0 14px 36px rgba(34,197,94,.35),
+        0 4px 12px rgba(0,0,0,.15);
+    }
+
+    @media (max-width: 640px) {
+      .float-cta {
+        left: 20px;
+        right: 20px;
+        justify-content: center;
+      }
+    }
+
+    /* ========== FOOTER ========== */
+    .site-footer {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--line);
+      padding: 48px 20px;
+      text-align: center;
+    }
+
+    .footer-content {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .footer-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .footer-brand img {
+      width: 24px;
+      height: 24px;
+    }
+
+    .footer-text {
+      color: var(--muted);
+      font-size: 14px;
+    }
   </style>
 
   <!-- Article JSON-LD -->
@@ -114,42 +537,52 @@
     "image": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1600&q=80",
     "datePublished": "2025-09-14",
     "author": { "@type": "Organization", "name": "DriveVault" },
-    "publisher": { "@type": "Organization", "name": "DriveVault", "logo": { "@type": "ImageObject", "url": "https://i.ibb.co/fdsPzxk8/Drive-Vault-favicon.png" } }
+    "publisher": { "@type": "Organization", "name": "DriveVault", "logo": { "@type": "ImageObject", "url": "/favicon.png" } }
   }
   </script>
 </head>
-<body>
 
+<body>
   <!-- Header -->
   <header class="topbar" role="banner">
     <div class="wrap">
       <a class="brand" href="/">
-        <img src="https://i.ibb.co/fdsPzxk8/Drive-Vault-favicon.png" alt="DriveVault logo">
+        <img src="/favicon.png" alt="DriveVault logo">
         <span>DriveVault</span>
       </a>
-      <nav class="nav" role="navigation" aria-label="Primary">
-        <a href="/pricing.html">Pricing</a>
+      <nav class="nav" id="mobileNav" role="navigation" aria-label="Primary">
+        <a href="/#features">Features</a>
+        <a href="/#pricing">Pricing</a>
         <a href="/changelog.html">Changelog</a>
         <a href="/blog.html">Blog</a>
         <a href="/faq.html">FAQ</a>
-        <a class="beta-btn" href="https://testflight.apple.com/join/tVYkpxnm" target="_blank" rel="noopener">Join The Public Beta</a>
+        <a class="cta-top" href="https://apps.apple.com/app/drivevault/id6478483834" target="_blank" rel="noopener">Download on the App Store </a>
       </nav>
+      <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false" id="hamburgerBtn">
+        <span></span>
+      </button>
     </div>
   </header>
 
   <main>
-    <div class="container">
-      <header class="hero">
-        <div class="eyebrow">How-To</div>
+    <div class="article-container">
+      <!-- Hero -->
+      <header class="article-hero">
+        <span class="eyebrow">How-To</span>
         <h1>The Best Way to Organize Multiple External Hard Drives for Creatives (Mac)</h1>
         <p class="post-meta">Published September 14, 2025 • 8 min read</p>
-        <div class="cover">
-          <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1600&q=80" alt="Organized external drives and storage cases">
+        <div class="cover-image">
+          <img 
+            src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1600&q=80" 
+            alt="Organized external drives and storage cases"
+            loading="lazy"
+          >
         </div>
       </header>
 
-      <article>
-        <p>Photographers, filmmakers, and designers all hit the same wall: projects sprawl across multiple external drives and finding anything becomes a time sink. Here’s a simple, repeatable system to keep your archives neat—and searchable—using a few best practices and DriveVault.</p>
+      <!-- Article Content -->
+      <article class="article-content">
+        <p>Photographers, filmmakers, and designers all hit the same wall: projects sprawl across multiple external drives and finding anything becomes a time sink. Here's a simple, repeatable system to keep your archives neat—and searchable—using a few best practices and DriveVault.</p>
 
         <h2>1) Start with Clear Drive Naming</h2>
         <p>Use names that explain <em>who</em>, <em>what</em>, and <em>when</em>. Examples:</p>
@@ -158,7 +591,9 @@
           <li><span class="note">Studio_Reel_2024_Video</span></li>
           <li><span class="note">Personal_Travel_2023_Backup</span></li>
         </ul>
-        <div class="tip"><strong>Tip:</strong> In DriveVault, assign a custom icon to each drive and keep the naming style consistent. It’s much faster to spot disks visually.</div>
+        <div class="tip">
+          <strong>Tip:</strong> In DriveVault, assign a custom icon to each drive and keep the naming style consistent. It's much faster to spot disks visually.
+        </div>
 
         <h2>2) Use Folder Templates</h2>
         <p>Create a consistent top-level structure so every project looks the same. For example:</p>
@@ -171,33 +606,35 @@
             <li><strong>_Docs</strong> (Briefs, contracts, notes)</li>
           </ul>
         </div>
-        <p>DriveVault’s folder templates let you apply this structure in one click across projects, reducing mistakes and “where did we put that?” moments.</p>
+        <p>DriveVault's folder templates let you apply this structure in one click across projects, reducing mistakes and "where did we put that?" moments.</p>
 
         <h2>3) Add Tags, Notes, and Ratings</h2>
-        <p>Finder labels don’t scale across offline drives—but DriveVault’s catalog does. Tag by client, shoot, or theme (e.g., <span class="note">wedding</span>, <span class="note">b-roll</span>, <span class="note">deliverables</span>), add quick notes, and star key selects.</p>
-        <div class="tip"><strong>Tip:</strong> Tag the <em>folder</em> and the <em>exports</em>. Future you will thank you when searching across years of work.</div>
+        <p>Finder labels don't scale across offline drives—but DriveVault's catalog does. Tag by client, shoot, or theme (e.g., <span class="note">wedding</span>, <span class="note">b-roll</span>, <span class="note">deliverables</span>), add quick notes, and star key selects.</p>
+        <div class="tip">
+          <strong>Tip:</strong> Tag the <em>folder</em> and the <em>exports</em>. Future you will thank you when searching across years of work.
+        </div>
 
         <h2>4) Build Smart Collections</h2>
-        <p>Automate common views so you don’t hunt the same things over and over:</p>
+        <p>Automate common views so you don't hunt the same things over and over:</p>
         <ul>
-          <li><strong>Recent Photos</strong> — “last 30 days” + file type = photo</li>
-          <li><strong>Large Files</strong> — size &gt; 1 GB to tidy space hogs</li>
+          <li><strong>Recent Photos</strong> — "last 30 days" + file type = photo</li>
+          <li><strong>Large Files</strong> — size > 1 GB to tidy space hogs</li>
           <li><strong>Unlabeled</strong> — items missing tags or notes</li>
         </ul>
 
         <h2>5) Compare Drives to Verify Backups</h2>
-        <p>Use DriveVault’s Compare to check that your backup/mirror drive actually matches your master. It surfaces duplicates, missing files, and drift between folders.</p>
+        <p>Use DriveVault's Compare to check that your backup/mirror drive actually matches your master. It surfaces duplicates, missing files, and drift between folders.</p>
 
         <h2>6) Generate Lightweight Reports</h2>
-        <p>Before handing off or archiving a project, generate a report: total size, file-type breakdown, last modified dates, and drive locations. It’s a clear snapshot for clients and collaborators.</p>
+        <p>Before handing off or archiving a project, generate a report: total size, file-type breakdown, last modified dates, and drive locations. It's a clear snapshot for clients and collaborators.</p>
 
         <h2>7) Adopt a Simple Backup Rule</h2>
-        <p>The 3-2-1 rule is still gold: 3 copies, 2 different types of media, 1 off-site. Even if you’re not there yet, use DriveVault’s Compare and Reports to move toward it with confidence.</p>
+        <p>The 3-2-1 rule is still gold: 3 copies, 2 different types of media, 1 off-site. Even if you're not there yet, use DriveVault's Compare and Reports to move toward it with confidence.</p>
 
         <h2>8) Keep Catalogs Fresh</h2>
         <p>When a project wraps, scan the final drive one last time so DriveVault has the definitive state. If you change a drive later, run a quick rescan to update the catalog.</p>
 
-        <h2>Example: A Photographer’s Weekly Routine</h2>
+        <h2>Example: A Photographer's Weekly Routine</h2>
         <ul>
           <li>Import new shoot → apply <strong>Folder Template</strong>.</li>
           <li>Tag client + shoot type → add key <strong>Notes</strong>.</li>
@@ -210,7 +647,7 @@
         <div class="cta-box">
           <strong>Make your archives findable—even when your drives are on a shelf.</strong>
           <p>Scan once, organize with templates and tags, and search across everything offline.</p>
-          <a href="https://testflight.apple.com/join/tVYkpxnm" target="_blank" rel="noopener">Join The Public Beta</a>
+          <a class="cta-button" href="https://apps.apple.com/app/drivevault/id6478483834" target="_blank" rel="noopener">Download on the App Store </a>
         </div>
 
         <h2>Quick Checklist</h2>
@@ -229,18 +666,55 @@
         <p>This system scales from a couple of drives to a studio library. The key is consistency—and keeping everything searchable with DriveVault.</p>
       </article>
 
-      <!-- Prev / Next -->
+      <!-- Post Navigation -->
       <nav class="post-nav" aria-label="Post navigation">
-        <a href="/blog/find-files-without-plugging.html">← Previous: Find Files Without Plugging Drives In</a>
-        <a href="/blog/compare-two-drives.html">Next: Compare Two Drives & Detect Duplicates →</a>
+        <a href="/blog/find-files-without-plugging.html">
+          <span class="post-nav-label">← Previous</span>
+          <span class="post-nav-title">Find Files Without Plugging Drives In</span>
+        </a>
+        <a href="/blog/compare-two-drives.html">
+          <span class="post-nav-label">Next →</span>
+          <span class="post-nav-title">Compare Two Drives & Detect Duplicates</span>
+        </a>
       </nav>
     </div>
   </main>
 
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <img src="/favicon.png" alt="DriveVault">
+        <span>DriveVault</span>
+      </div>
+      <p class="footer-text">© 2025 DriveVault. All rights reserved.</p>
+    </div>
+  </footer>
+
   <!-- Floating CTA -->
-  <a class="float-cta" href="https://testflight.apple.com/join/tVYkpxnm" target="_blank" rel="noopener" aria-label="Join the DriveVault Public Beta">
-    Join The Public Beta →
+  <a class="float-cta" href="https://apps.apple.com/app/drivevault/id6478483834" target="_blank" rel="noopener" aria-label="Download DriveVault on the App Store">
+    Download Free →
   </a>
 
+  <!-- Mobile Nav Script -->
+  <script>
+    const hamburger = document.getElementById('hamburgerBtn');
+    const mobileNav = document.getElementById('mobileNav');
+
+    if (hamburger && mobileNav) {
+      hamburger.addEventListener('click', () => {
+        const isOpen = mobileNav.classList.toggle('open');
+        hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+
+      // Close menu when a link is clicked
+      mobileNav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileNav.classList.remove('open');
+          hamburger.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+  </script>
 </body>
 </html>
