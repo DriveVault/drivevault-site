@@ -1,103 +1,649 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>How to Find Files on External Hard Drives Without Plugging Them In (Mac)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Tired of plugging in every external hard drive to find one file? Here's how to search your external drives offline on macOS using DriveVault." />
+  <title>How to Find Files on External Hard Drives Without Plugging Them In (Mac) | DriveVault</title>
+  <meta name="description" content="Tired of plugging in every external hard drive to find one file? Learn how to search your external drives offline on macOS using DriveVault. Scan once, search forever." />
+  
+  <!-- SEO Keywords -->
+  <meta name="keywords" content="find files external hard drive mac, search external drive offline, hard drive catalog mac, browse unplugged drive, external drive file search, offline drive browser macOS, DriveVault" />
+  <meta name="author" content="DriveVault" />
 
-  <!-- Favicon / Touch icon -->
-  <link rel="icon" href="https://i.ibb.co/fdsPzxk8/Drive-Vault-favicon.png" type="image/png" />
-  <link rel="apple-touch-icon" href="https://i.ibb.co/fdsPzxk8/Drive-Vault-favicon.png" />
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="/favicon.png" />
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://drivevault.app/blog/find-files-without-plugging.html" />
 
   <!-- Open Graph / Twitter -->
   <meta property="og:type" content="article">
   <meta property="og:title" content="How to Find Files on External Hard Drives Without Plugging Them In (Mac)">
   <meta property="og:description" content="Search your external drives offline on macOS. Scan once, search forever with DriveVault.">
   <meta property="og:image" content="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=80">
-  <meta property="og:url" content="https://yourdomain.com/blog/find-files-without-plugging.html">
+  <meta property="og:url" content="https://drivevault.app/blog/find-files-without-plugging.html">
+  <meta property="og:site_name" content="DriveVault">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Find Files on External Hard Drives Without Plugging Them In (Mac)">
+  <meta name="twitter:description" content="Search your external drives offline on macOS. Scan once, search forever.">
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
-    :root{
-      --bg:#0b0d12; --panel:#10141c; --panel-2:#0e1219; --border:rgba(255,255,255,.08);
-      --text:#e6e9ef; --muted:#9aa3b2; --accent:#6aa2ff; --accent-2:#9a6aff; --ok:#27d980;
-      --maxw: 880px;
-    }
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
-
-    /* Fixed header (same as site) */
-    .topbar{
-      position:fixed; inset:0 0 auto 0; height:64px; z-index:50;
-      display:flex; align-items:center; justify-content:center;
-      backdrop-filter:saturate(140%) blur(10px);
-      background:linear-gradient(to bottom, rgba(8,10,15,.78), rgba(8,10,15,.55));
-      border-bottom:1px solid var(--border);
-    }
-    .topbar .wrap{ width:min(1200px,94vw); display:flex; align-items:center; gap:16px; }
-    .brand{ display:flex; align-items:center; gap:10px; text-decoration:none; color:#fff; font-weight:700; }
-    .brand img{ width:22px; height:22px } .brand span{ font-size:16px; letter-spacing:.2px }
-    .nav{ margin-left:auto; display:flex; align-items:center; gap:18px; }
-    .nav a{ color:#cfd6e4; text-decoration:none; font-size:14px; padding:8px 10px; border-radius:8px; transition:color .2s, background .2s; }
-    .nav a:hover{ color:#fff; background:rgba(255,255,255,.06) }
-    .beta-btn{
-      margin-left:6px; padding:10px 14px; border-radius:10px; font-weight:700; font-size:14px; color:#fff; text-decoration:none;
-      background:linear-gradient(135deg, var(--accent), var(--accent-2));
-      box-shadow:0 6px 18px rgba(0,0,0,.35), 0 0 10px rgba(106,162,255,.45);
-      transition:transform .2s ease, box-shadow .2s ease;
-    }
-    .beta-btn:hover{ transform:translateY(-1px); box-shadow:0 10px 24px rgba(0,0,0,.45), 0 0 14px rgba(154,106,255,.55) }
-
-    /* Page */
-    main{ padding:calc(64px + 24px) 16px 100px; }
-    .container{ width:min(var(--maxw), 94vw); margin:0 auto; }
-
-    /* Hero */
-    .hero{ text-align:center; margin-bottom:18px; }
-    .eyebrow{ color:#9fb1d4; font-size:12px; letter-spacing:.18em; text-transform:uppercase; }
-    h1{ font-size:clamp(26px,4.8vw,42px); font-weight:900; line-height:1.1; margin:8px 0 10px; }
-    .post-meta{ color:var(--muted); font-size:14px; }
-    .cover{ margin:18px 0 24px; border-radius:16px; overflow:hidden; border:1px solid var(--border); box-shadow:0 14px 36px rgba(0,0,0,.28); }
-    .cover img{ width:100%; height:auto; display:block; aspect-ratio:16/9; object-fit:cover; background:#0c1018; }
-
-    /* Body */
-    article{ background:linear-gradient(180deg, var(--panel), var(--panel-2)); border:1px solid var(--border); border-radius:18px; padding:24px; box-shadow:0 10px 30px rgba(0,0,0,.25); }
-    article p{ margin:14px 0; color:#dfe6f4; }
-    article h2{ font-size:22px; margin-top:18px; margin-bottom:6px; }
-    article h3{ font-size:18px; margin-top:14px; }
-    article ul{ margin:10px 0 10px 20px; }
-    article li{ margin:8px 0; }
-    .note{ color:#a7c4ff }
-
-    .tip{
-      margin:16px 0; padding:12px 14px; border-radius:12px;
-      background:rgba(255,255,255,.04); border:1px dashed var(--border);
+    html {
+      scroll-behavior: smooth;
     }
 
-    /* CTA + nav */
-    .cta-box{
-      margin:20px 0; padding:18px; border-radius:14px;
-      background:rgba(255,255,255,.04); border:1px dashed var(--border); text-align:center;
+    :root {
+      --bg: #ffffff;
+      --bg-secondary: #f8fafc;
+      --text: #0b0d12;
+      --muted: #5f6775;
+      --line: rgba(10,12,18,.08);
+      --shadow: 0 20px 60px rgba(10,12,18,.08);
+      --blue: #2f6bff;
+      --blue2: #6aa2ff;
+      --green: #22c55e;
     }
-    .cta-box a{ display:inline-block; margin-top:10px; padding:12px 18px; border-radius:12px;
-      text-decoration:none; color:#fff; background:linear-gradient(135deg, var(--accent), var(--accent-2)); }
-    .post-nav{ margin-top:18px; display:flex; justify-content:space-between; gap:12px; }
-    .post-nav a{ flex:1; text-decoration:none; color:#e7f0ff; border:1px solid var(--border); background:rgba(255,255,255,.03); padding:14px; border-radius:12px; text-align:center; }
-    .post-nav a:hover{ background:rgba(255,255,255,.06); }
 
-    /* Floating CTA */
-    .float-cta{
-      position:fixed; right:16px; bottom:16px; z-index:40;
-      display:inline-flex; gap:8px; align-items:center;
-      padding:12px 14px; border-radius:12px; text-decoration:none; color:#fff;
-      background:linear-gradient(135deg, var(--accent), var(--accent-2));
-      box-shadow:0 14px 34px rgba(0,0,0,.38);
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.6;
     }
-    @media (max-width:640px){ .float-cta{ left:16px; right:auto; } }
+
+    /* ========== HEADER ========== */
+    .topbar {
+      position: fixed;
+      inset: 0 0 auto 0;
+      height: 68px;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,.72);
+      backdrop-filter: saturate(160%) blur(12px);
+      -webkit-backdrop-filter: saturate(160%) blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .topbar .wrap {
+      width: min(1200px, 94vw);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 800;
+    }
+
+    .brand img { width: 22px; height: 22px; }
+    .brand span { font-size: 14px; letter-spacing: .2px; }
+
+    .nav {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .nav a {
+      color: #2b3140;
+      text-decoration: none;
+      font-size: 13px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      transition: background .25s ease, color .25s ease;
+    }
+
+    .nav a:hover {
+      background: rgba(10,12,18,.05);
+      color: #0b0d12;
+    }
+
+    .cta-top {
+      margin-left: 4px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 13px;
+      color: #fff;
+      text-decoration: none;
+      background: linear-gradient(135deg, var(--blue), var(--blue2));
+      box-shadow: 0 10px 22px rgba(34,197,94,.25);
+      transition: transform .2s ease, box-shadow .35s ease;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .cta-top::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #22c55e, #4ade80);
+      transition: opacity .35s ease;
+      z-index: -1;
+    }
+
+    .cta-top:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 30px rgba(47,107,255,.26);
+    }
+
+    .cta-top:hover::before {
+      opacity: 0;
+    }
+
+    /* Mobile nav */
+    .hamburger {
+      display: none;
+      margin-left: auto;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      border: 1px solid rgba(10,12,18,.12);
+      background: #fff;
+      box-shadow: 0 6px 16px rgba(10,12,18,.08);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      width: 18px;
+      height: 2px;
+      background: #0b0d12;
+      position: relative;
+      display: block;
+    }
+
+    .hamburger span::before,
+    .hamburger span::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 18px;
+      height: 2px;
+      background: #0b0d12;
+    }
+
+    .hamburger span::before { top: -6px; }
+    .hamburger span::after { top: 6px; }
+
+    @media (max-width: 900px) {
+      .nav {
+        position: fixed;
+        top: 68px;
+        left: 0;
+        right: 0;
+        background: #ffffff;
+        border-bottom: 1px solid var(--line);
+        flex-direction: column;
+        gap: 6px;
+        padding: 12px 16px 16px;
+        display: none;
+        box-shadow: 0 20px 40px rgba(10,12,18,.1);
+      }
+
+      .nav.open {
+        display: flex;
+      }
+
+      .nav a {
+        width: 100%;
+        text-align: left;
+        padding: 12px 14px;
+        font-size: 15px;
+      }
+
+      .cta-top {
+        width: 100%;
+        text-align: center;
+        margin-top: 6px;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+    }
+
+    /* ========== ARTICLE LAYOUT ========== */
+    main {
+      padding: calc(68px + 48px) 16px 80px;
+    }
+
+    .article-container {
+      width: min(780px, 94vw);
+      margin: 0 auto;
+    }
+
+    .article-hero {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      background: linear-gradient(135deg, rgba(47,107,255,.1), rgba(106,162,255,.1));
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+
+    .article-hero h1 {
+      font-size: clamp(28px, 5vw, 44px);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    .post-meta {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 32px;
+    }
+
+    .cover-image {
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--line);
+    }
+
+    .cover-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      background: var(--bg-secondary);
+    }
+
+    /* ========== ARTICLE CONTENT ========== */
+    .article-content {
+      background: var(--bg);
+      line-height: 1.75;
+    }
+
+    .article-content p {
+      margin: 20px 0;
+      color: #374151;
+      font-size: 17px;
+    }
+
+    .article-content h2 {
+      font-size: 26px;
+      font-weight: 800;
+      margin: 48px 0 16px;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+
+    .article-content h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin: 32px 0 12px;
+      color: var(--text);
+    }
+
+    .article-content a {
+      color: var(--blue);
+      text-decoration: underline;
+      text-decoration-color: rgba(47,107,255,.3);
+      text-underline-offset: 2px;
+      transition: text-decoration-color .2s ease;
+    }
+
+    .article-content a:hover {
+      text-decoration-color: var(--blue);
+    }
+
+    .article-content ul,
+    .article-content ol {
+      margin: 20px 0 20px 24px;
+    }
+
+    .article-content li {
+      margin: 12px 0;
+      color: #374151;
+      font-size: 17px;
+    }
+
+    .article-content li strong {
+      color: var(--text);
+    }
+
+    /* TLDR Box */
+    .tldr-box {
+      background: linear-gradient(135deg, rgba(47,107,255,.06), rgba(106,162,255,.04));
+      border: 1px solid rgba(47,107,255,.15);
+      border-radius: 16px;
+      padding: 24px 28px;
+      margin: 32px 0;
+    }
+
+    .tldr-box h2 {
+      font-size: 14px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--blue);
+      margin: 0 0 12px 0;
+    }
+
+    .tldr-box ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .tldr-box li {
+      margin: 8px 0;
+      font-size: 15px;
+    }
+
+    /* Tip Box */
+    .tip-box {
+      background: var(--bg-secondary);
+      border-left: 4px solid var(--blue);
+      border-radius: 0 12px 12px 0;
+      padding: 16px 20px;
+      margin: 24px 0;
+    }
+
+    .tip-box strong {
+      color: var(--blue);
+    }
+
+    .tip-box p {
+      margin: 0;
+      font-size: 15px;
+      color: #4b5563;
+    }
+
+    /* Step Cards */
+    .step-section {
+      margin: 40px 0;
+    }
+
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+
+    .step-number {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--blue), var(--blue2));
+      color: #fff;
+      font-weight: 800;
+      font-size: 16px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step-header h2 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    /* Feature List */
+    .feature-list {
+      list-style: none;
+      margin: 24px 0;
+      padding: 0;
+    }
+
+    .feature-list li {
+      position: relative;
+      padding-left: 32px;
+      margin: 16px 0;
+    }
+
+    .feature-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 22px;
+      height: 22px;
+      background: linear-gradient(135deg, #22c55e, #4ade80);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* FAQ Section */
+    .faq-section {
+      margin: 48px 0;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--line);
+      padding: 24px 0;
+    }
+
+    .faq-item:first-child {
+      border-top: 1px solid var(--line);
+    }
+
+    .faq-item h3 {
+      margin: 0 0 8px 0;
+      font-size: 18px;
+    }
+
+    .faq-item p {
+      margin: 0;
+      font-size: 16px;
+      color: var(--muted);
+    }
+
+    /* CTA Box */
+    .cta-box {
+      background: linear-gradient(135deg, rgba(47,107,255,.08), rgba(106,162,255,.05));
+      border: 1px solid rgba(47,107,255,.15);
+      border-radius: 20px;
+      padding: 32px;
+      text-align: center;
+      margin: 48px 0;
+    }
+
+    .cta-box strong {
+      display: block;
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .cta-box p {
+      margin: 0 0 20px 0;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 14px 28px;
+      border-radius: 14px;
+      font-weight: 800;
+      font-size: 15px;
+      color: #fff;
+      text-decoration: none;
+      background: linear-gradient(135deg, var(--blue), var(--blue2));
+      box-shadow: 0 10px 30px rgba(47,107,255,.25);
+      transition: transform .2s ease, box-shadow .3s ease;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 40px rgba(47,107,255,.3);
+    }
+
+    /* Next Steps List */
+    .next-steps {
+      background: var(--bg-secondary);
+      border-radius: 16px;
+      padding: 24px 28px;
+      margin: 32px 0;
+    }
+
+    .next-steps h2 {
+      margin: 0 0 16px 0;
+      font-size: 20px;
+    }
+
+    .next-steps ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .next-steps li {
+      margin: 10px 0;
+      font-size: 15px;
+    }
+
+    /* ========== POST NAVIGATION ========== */
+    .post-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 48px;
+    }
+
+    .post-nav a {
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: var(--bg);
+      text-decoration: none;
+      transition: border-color .25s ease, box-shadow .25s ease;
+    }
+
+    .post-nav a:hover {
+      border-color: rgba(47,107,255,.3);
+      box-shadow: 0 10px 30px rgba(10,12,18,.06);
+    }
+
+    .post-nav-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      margin-bottom: 4px;
+    }
+
+    .post-nav-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    @media (max-width: 600px) {
+      .post-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ========== FOOTER ========== */
+    .site-footer {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--line);
+      padding: 40px 16px;
+      text-align: center;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .footer-brand img {
+      width: 24px;
+      height: 24px;
+    }
+
+    .footer-text {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* ========== FLOATING CTA ========== */
+    .float-cta {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 40;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 20px;
+      border-radius: 14px;
+      font-weight: 800;
+      font-size: 14px;
+      color: #fff;
+      text-decoration: none;
+      background: linear-gradient(135deg, var(--blue), var(--blue2));
+      box-shadow: 0 10px 40px rgba(47,107,255,.35);
+      transition: transform .2s ease, box-shadow .3s ease;
+    }
+
+    .float-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 50px rgba(47,107,255,.4);
+    }
+
+    @media (max-width: 640px) {
+      .float-cta {
+        left: 16px;
+        right: 16px;
+        justify-content: center;
+      }
+    }
   </style>
 
   <!-- Article JSON-LD -->
@@ -109,114 +655,268 @@
     "description": "Search your external drives offline on macOS. Scan once, search forever with DriveVault.",
     "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=80",
     "datePublished": "2025-09-18",
+    "dateModified": "2026-01-28",
     "author": { "@type": "Organization", "name": "DriveVault" },
-    "publisher": { "@type": "Organization", "name": "DriveVault", "logo": { "@type": "ImageObject", "url": "https://i.ibb.co/fdsPzxk8/Drive-Vault-favicon.png" } }
+    "publisher": { "@type": "Organization", "name": "DriveVault", "logo": { "@type": "ImageObject", "url": "/favicon.png" } },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://drivevault.app/blog/find-files-without-plugging.html"
+    }
+  }
+  </script>
+
+  <!-- Software Application JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "DriveVault",
+    "operatingSystem": "macOS",
+    "applicationCategory": "UtilitiesApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "description": "Search and browse external hard drives without plugging them in. Scan once, search forever.",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "ratingCount": "150"
+    }
+  }
+  </script>
+
+  <!-- HowTo JSON-LD for rich results -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Find Files on External Hard Drives Without Plugging Them In",
+    "description": "Learn how to search your external drives offline on macOS using DriveVault",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "Scan a Drive Once",
+        "text": "Connect a drive and open DriveVault. Choose Scan Drive. Scanning is read-only; your files aren't modified or uploaded."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Browse Offline Like Finder",
+        "text": "After scanning, disconnect the drive. Open DriveVault and browse its catalog anytime using Column, Icon, or List view."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Search by Name, Type, and Metadata",
+        "text": "Use global search to query every scanned drive at once with filters for file type, date, size, and EXIF data."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Preview Before You Plug Anything In",
+        "text": "Quick previews and metadata panels help confirm you've found the right file. DriveVault shows the drive name and path so you can plug in only what you need."
+      }
+    ]
   }
   </script>
 </head>
-<body>
 
+<body>
   <!-- Header -->
   <header class="topbar" role="banner">
     <div class="wrap">
       <a class="brand" href="/">
-        <img src="https://i.ibb.co/fdsPzxk8/Drive-Vault-favicon.png" alt="DriveVault logo">
+        <img src="/favicon.png" alt="DriveVault logo">
         <span>DriveVault</span>
       </a>
-      <nav class="nav" role="navigation" aria-label="Primary">
-        <a href="/pricing.html">Pricing</a>
+      <nav class="nav" id="mobileNav" role="navigation" aria-label="Primary">
+        <a href="/#features">Features</a>
+        <a href="/#pricing">Pricing</a>
         <a href="/changelog.html">Changelog</a>
         <a href="/blog.html">Blog</a>
         <a href="/faq.html">FAQ</a>
-        <a class="beta-btn" href="https://testflight.apple.com/join/tVYkpxnm" target="_blank" rel="noopener">Join The Public Beta</a>
+        <a class="cta-top" href="https://apps.apple.com/app/drivevault/id6478483834" target="_blank" rel="noopener">Download on the App Store</a>
       </nav>
+      <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false" id="hamburgerBtn">
+        <span></span>
+      </button>
     </div>
   </header>
 
   <main>
-    <div class="container">
-      <header class="hero">
-        <div class="eyebrow">How-To</div>
+    <div class="article-container">
+      <!-- Hero -->
+      <header class="article-hero">
+        <span class="eyebrow">How-To Guide</span>
         <h1>How to Find Files on External Hard Drives Without Plugging Them In (Mac)</h1>
         <p class="post-meta">Published September 18, 2025 • 6 min read</p>
-        <div class="cover">
-          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=80" alt="External hard drives on a desk">
+        <div class="cover-image">
+          <img 
+            src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=80" 
+            alt="External hard drives on a desk - learn how to search them offline with DriveVault"
+            loading="lazy"
+          >
         </div>
       </header>
 
-      <article>
+      <!-- Article Content -->
+      <article class="article-content">
         <p>If you own multiple external hard drives, finding a single file can turn into a guessing game: which disk is it on, and where in the folder maze? Constantly plugging drives in and out wastes time and interrupts your flow.</p>
 
-        <p><strong>Good news:</strong> you can make every drive searchable <em>offline</em>. With DriveVault, you scan a drive once, and then browse and search its contents later—even when the drive isn’t connected.</p>
+        <p><strong>Good news:</strong> you can make every drive searchable <em>offline</em>. With DriveVault, you scan a drive once, and then browse and search its contents later—even when the drive isn't connected.</p>
 
-        <h2>TL;DR</h2>
-        <ul>
-          <li>Install DriveVault and <strong>scan each external drive once</strong>.</li>
-          <li>DriveVault stores a <strong>local catalog</strong> (names, paths, sizes, metadata, thumbnails where possible).</li>
-          <li>Use <strong>global search</strong> to find files across all drives <em>without</em> plugging them in.</li>
-        </ul>
+        <div class="tldr-box">
+          <h2>TL;DR</h2>
+          <ul>
+            <li>Install DriveVault and <strong>scan each external drive once</strong>.</li>
+            <li>DriveVault stores a <strong>local catalog</strong> (names, paths, sizes, metadata, thumbnails where possible).</li>
+            <li>Use <strong>global search</strong> to find files across all drives <em>without</em> plugging them in.</li>
+          </ul>
+        </div>
 
-        <h2>Step 1 — Scan a Drive Once</h2>
-        <p>Connect a drive and open DriveVault. Choose <span class="note">Scan Drive</span>. Scanning is read-only; your files aren’t modified or uploaded.</p>
-        <div class="tip"><strong>Tip:</strong> Give the drive a clear, human name (e.g., “ClientA_2024_Photos”). It makes later search and reports easier.</div>
+        <!-- Step 1 -->
+        <div class="step-section">
+          <div class="step-header">
+            <div class="step-number">1</div>
+            <h2>Scan a Drive Once</h2>
+          </div>
+          <p>Connect a drive and open DriveVault. Choose <strong>Scan Drive</strong>. Scanning is read-only—your files aren't modified or uploaded. Everything stays on your Mac.</p>
+          
+          <div class="tip-box">
+            <p><strong>Tip:</strong> Give the drive a clear, human-readable name (e.g., "ClientA_2024_Photos"). It makes later search and reports much easier.</p>
+          </div>
+        </div>
 
-        <h2>Step 2 — Browse Offline Like Finder</h2>
-        <p>After scanning, disconnect the drive. Open DriveVault and browse its catalog anytime using <strong>Column</strong>, <strong>Icon</strong>, or <strong>List</strong> view. You’ll still see folder structure, file counts, and key metadata.</p>
+        <!-- Step 2 -->
+        <div class="step-section">
+          <div class="step-header">
+            <div class="step-number">2</div>
+            <h2>Browse Offline Like Finder</h2>
+          </div>
+          <p>After scanning, disconnect the drive. Open DriveVault and browse its catalog anytime using <strong>Column</strong>, <strong>Icon</strong>, or <strong>List</strong> view. You'll still see folder structure, file counts, and key metadata—exactly like Finder, but without the drive connected.</p>
+        </div>
 
-        <h2>Step 3 — Search by Name, Type, and Metadata</h2>
-        <p>Use global search to query every scanned drive at once. Helpful filters include:</p>
-        <ul>
-          <li><strong>File type</strong> (photos, video, audio, documents)</li>
-          <li><strong>Date</strong> (created/modified, “last 30 days”, custom range)</li>
-          <li><strong>Size</strong> (find large files quickly)</li>
-          <li><strong>EXIF</strong> for photos (camera, lens, ISO, date taken)</li>
-        </ul>
-        <div class="tip"><strong>Pro move:</strong> Save common searches (e.g., “Large RAW photos from 2023”) so you can run them with one click.</div>
+        <!-- Step 3 -->
+        <div class="step-section">
+          <div class="step-header">
+            <div class="step-number">3</div>
+            <h2>Search by Name, Type, and Metadata</h2>
+          </div>
+          <p>Use global search to query every scanned drive at once. Helpful filters include:</p>
+          
+          <ul class="feature-list">
+            <li><strong>File type</strong> — photos, video, audio, documents</li>
+            <li><strong>Date</strong> — created/modified, "last 30 days", custom range</li>
+            <li><strong>Size</strong> — find large files quickly</li>
+            <li><strong>EXIF</strong> — camera, lens, ISO, date taken for photos</li>
+          </ul>
 
-        <h2>Step 4 — Preview Before You Plug Anything In</h2>
-        <p>Quick previews and metadata panels help confirm you’ve found the right file. Need the original? DriveVault shows the drive name and path so you can plug in only what you need.</p>
+          <div class="tip-box">
+            <p><strong>Pro move:</strong> Save common searches (e.g., "Large RAW photos from 2023") so you can run them with one click.</p>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="step-section">
+          <div class="step-header">
+            <div class="step-number">4</div>
+            <h2>Preview Before You Plug Anything In</h2>
+          </div>
+          <p>Quick previews and metadata panels help confirm you've found the right file. Need the original? DriveVault shows the drive name and path so you can plug in only what you need—no more guessing.</p>
+        </div>
 
         <h2>Keep Your Library Searchable</h2>
-        <ul>
-          <li><strong>Tag &amp; note:</strong> Add tags (“wedding”, “deliverables”) and notes to make future discovery faster.</li>
-          <li><strong>Smart collections:</strong> Auto-group “Recent Photos”, “Large Files”, or “Unlabeled”.</li>
-          <li><strong>Compare drives:</strong> Verify backups and spot duplicates before you waste time hunting.</li>
+        <p>Once your drives are scanned, DriveVault gives you powerful tools to stay organized:</p>
+
+        <ul class="feature-list">
+          <li><strong>Tag & note</strong> — Add tags ("wedding", "deliverables") and notes to make future discovery faster.</li>
+          <li><strong>Smart collections</strong> — Auto-group "Recent Photos", "Large Files", or "Unlabeled" items.</li>
+          <li><strong>Compare drives</strong> — Verify backups and spot duplicates before you waste time hunting.</li>
         </ul>
 
-        <h2>FAQs</h2>
-        <h3>Does DriveVault copy or upload my files?</h3>
-        <p>No. Scanning is read-only and local. DriveVault stores a catalog (plus optional thumbnails) on your Mac.</p>
-        <h3>What if thumbnails don’t appear?</h3>
-        <p>For certain RAW/video formats, macOS may need codecs to generate thumbnails. You’ll still get names, paths, and metadata; thumbnails populate as supported.</p>
-        <h3>How many files can it handle?</h3>
-        <p>DriveVault is designed for large libraries and background scanning. If you hit an edge case, report it via our <a class="note" href="https://drivevault.canny.io/report-bugs" target="_blank" rel="noopener">Bugs</a> board.</p>
+        <!-- FAQ Section -->
+        <div class="faq-section">
+          <h2>Frequently Asked Questions</h2>
+          
+          <div class="faq-item">
+            <h3>Does DriveVault copy or upload my files?</h3>
+            <p>No. Scanning is read-only and completely local. DriveVault stores a catalog (plus optional thumbnails) on your Mac. Nothing is uploaded anywhere.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>What if thumbnails don't appear?</h3>
+            <p>For certain RAW/video formats, macOS may need codecs to generate thumbnails. You'll still get names, paths, and metadata—thumbnails populate as supported formats are detected.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>How many files can it handle?</h3>
+            <p>DriveVault is designed for large libraries and uses background scanning for optimal performance. If you hit an edge case, report it via our <a href="https://drivevault.canny.io/report-bugs" target="_blank" rel="noopener">Bug Reports</a> board.</p>
+          </div>
+        </div>
 
         <div class="cta-box">
           <strong>Stop plugging in every drive just to find one file.</strong>
-          <p>Scan once, search forever — try DriveVault in the public beta.</p>
-          <a href="https://testflight.apple.com/join/tVYkpxnm" target="_blank" rel="noopener">Join The Public Beta</a>
+          <p>Scan once, search forever—download DriveVault free on the Mac App Store.</p>
+          <a class="cta-button" href="https://apps.apple.com/app/drivevault/id6478483834" target="_blank" rel="noopener">Download Free on the App Store</a>
         </div>
 
-        <h2>Next Steps</h2>
-        <ul>
-          <li>Set clear drive names and add tags/notes for key projects.</li>
-          <li>Create saved searches for the queries you run all the time.</li>
-          <li>Use Compare to verify backups and clean duplicates.</li>
-        </ul>
+        <div class="next-steps">
+          <h2>Next Steps</h2>
+          <ul>
+            <li>Set clear drive names and add tags/notes for key projects.</li>
+            <li>Create saved searches for the queries you run all the time.</li>
+            <li>Use Compare to verify backups and clean up duplicates.</li>
+          </ul>
+        </div>
       </article>
 
-      <!-- Prev / Next -->
+      <!-- Post Navigation -->
       <nav class="post-nav" aria-label="Post navigation">
-        <a href="/blog/introducing-drivevault.html">← Previous: Introducing DriveVault</a>
-        <a href="/blog/organize-multiple-drives.html">Next: Organize Multiple External Drives →</a>
+        <a href="/blog/introducing-drivevault.html">
+          <span class="post-nav-label">← Previous</span>
+          <span class="post-nav-title">Introducing DriveVault</span>
+        </a>
+        <a href="/blog/organize-multiple-drives.html">
+          <span class="post-nav-label">Next →</span>
+          <span class="post-nav-title">Organize Multiple External Drives</span>
+        </a>
       </nav>
     </div>
   </main>
 
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <img src="/favicon.png" alt="DriveVault">
+        <span>DriveVault</span>
+      </div>
+      <p class="footer-text">© 2025 DriveVault. All rights reserved.</p>
+    </div>
+  </footer>
+
   <!-- Floating CTA -->
-  <a class="float-cta" href="https://testflight.apple.com/join/tVYkpxnm" target="_blank" rel="noopener" aria-label="Join the DriveVault Public Beta">
-    Join The Public Beta →
+  <a class="float-cta" href="https://apps.apple.com/app/drivevault/id6478483834" target="_blank" rel="noopener" aria-label="Download DriveVault on the App Store">
+    Download Free →
   </a>
 
+  <!-- Mobile Nav Script -->
+  <script>
+    const hamburger = document.getElementById('hamburgerBtn');
+    const mobileNav = document.getElementById('mobileNav');
+
+    if (hamburger && mobileNav) {
+      hamburger.addEventListener('click', () => {
+        const isOpen = mobileNav.classList.toggle('open');
+        hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+
+      mobileNav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileNav.classList.remove('open');
+          hamburger.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+  </script>
 </body>
 </html>
