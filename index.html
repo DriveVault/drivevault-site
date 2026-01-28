@@ -1442,10 +1442,10 @@
 
     @keyframes energyFlow {
       0% {
-        background-position: 0% 50%;
+        background-position: -100% 50%;
       }
       100% {
-        background-position: 200% 50%;
+        background-position: 100% 50%;
       }
     }
 
@@ -1454,15 +1454,21 @@
     }
 
     .connector-right-main.active {
-      background: linear-gradient(90deg, #22c55e, #4ade80, #22c55e, #4ade80);
+      background: linear-gradient(90deg, #22c55e 0%, #4ade80 30%, #86efac 50%, #4ade80 70%, #22c55e 100%);
       background-size: 200% 100%;
-      animation: energyFlow 2s linear infinite;
+      animation: energyFlow 1.5s ease-in-out infinite;
     }
 
-    .connector-right-upper.active,
-    .connector-right-lower.active {
+    .connector-right-upper.active {
+      background: linear-gradient(90deg, #3b82f6 0%, #60a5fa 30%, #93c5fd 50%, #60a5fa 70%, #3b82f6 100%);
       background-size: 200% 100%;
-      animation: energyFlow 2.5s linear infinite;
+      animation: energyFlow 1.8s ease-in-out infinite;
+    }
+    
+    .connector-right-lower.active {
+      background: linear-gradient(90deg, #a855f7 0%, #c084fc 30%, #e9d5ff 50%, #c084fc 70%, #a855f7 100%);
+      background-size: 200% 100%;
+      animation: energyFlow 2s ease-in-out infinite;
     }
 
     /* Energy particles */
@@ -2782,11 +2788,11 @@ if (vimeoBreakout && 'IntersectionObserver' in window) {
           0 0 ${40 + outEase * 60}px rgba(34,197,94,${0.3 + outEase * 0.4})
         `;
 
-        // Upper line (blue) - slightly delayed and shorter
+        // Upper line (blue) - slightly delayed, full length
         const upperDelay = 0.62;
         const upperProgress = Math.max(0, (progress - upperDelay) / (1 - upperDelay));
         const upperEase = upperProgress * upperProgress * (3 - 2 * upperProgress);
-        const upperWidth = maxWidth * 0.7 * upperEase;
+        const upperWidth = maxWidth * upperEase;
 
         if (connectorLineUpper) {
           connectorLineUpper.style.width = `${upperWidth}px`;
@@ -2801,11 +2807,11 @@ if (vimeoBreakout && 'IntersectionObserver' in window) {
           }
         }
 
-        // Lower line (purple) - more delayed and shorter
+        // Lower line (purple) - more delayed, full length
         const lowerDelay = 0.68;
         const lowerProgress = Math.max(0, (progress - lowerDelay) / (1 - lowerDelay));
         const lowerEase = lowerProgress * lowerProgress * (3 - 2 * lowerProgress);
-        const lowerWidth = maxWidth * 0.6 * lowerEase;
+        const lowerWidth = maxWidth * lowerEase;
 
         if (connectorLineLower) {
           connectorLineLower.style.width = `${lowerWidth}px`;
