@@ -1,267 +1,959 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-M3XM1E1TQK"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-M3XM1E1TQK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-M3XM1E1TQK');
+  </script>
 
-  gtag('config', 'G-M3XM1E1TQK');
-</script>
-<!-- Favicon -->
-<link rel="icon" href="/favicon.png" type="image/png" sizes="32x32">
-<link rel="shortcut icon" href="/favicon.png">
-<link rel="apple-touch-icon" href="/favicon.png">
-  
   <meta charset="UTF-8" />
-  <title>DriveVault – Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="DriveVault blog: tutorials and solutions for searching, organizing, and comparing external drives on macOS." />
-  <link rel="icon" href="https://i.ibb.co/fdsPzxk8/Drive-Vault-favicon.png" type="image/png" />
-  <link rel="apple-touch-icon" href="https://i.ibb.co/fdsPzxk8/Drive-Vault-favicon.png" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <title>Blog | DriveVault – Tips, Guides & Updates for Managing External Drives</title>
+  <meta name="description" content="DriveVault blog: tutorials, gear guides, and solutions for searching, organizing, and comparing external drives on macOS." />
+  
+  <!-- SEO -->
+  <meta name="keywords" content="external hard drive tips, organize external drives mac, backup hard drives, DriveVault tutorials, hard drive management" />
+  <meta name="author" content="DriveVault" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://drivevault.app/blog.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Blog | DriveVault">
+  <meta property="og:description" content="Tips, guides & updates for managing external drives on macOS.">
+  <meta property="og:url" content="https://drivevault.app/blog.html">
+  <meta property="og:site_name" content="DriveVault">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
   <style>
-    :root{
-      --bg:#ffffff;
-      --panel:#f7f8fb;
-      --panel-2:#ffffff;
-      --border:rgba(10,12,18,.08);
-      --text:#0b0d12;
-      --muted:#5f6775;
-      --accent:#2f6bff;
-      --accent-2:#8b5cf6;
-    }
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{
-      font-family:Inter,system-ui,sans-serif;
-      background:var(--bg);
-      color:var(--text);
-      overflow-x:hidden;
+    html {
+      scroll-behavior: smooth;
     }
 
-    /* Header */
-    .topbar{
-      position:fixed;
-      inset:0 0 auto 0;
-      height:68px;
-      z-index:50;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background:rgba(255,255,255,.72);
-      backdrop-filter:saturate(160%) blur(12px);
-      border-bottom:1px solid rgba(10,12,18,.08);
+    :root {
+      --bg: #ffffff;
+      --bg-secondary: #f8fafc;
+      --bg-tertiary: #f1f5f9;
+      --text: #0b0d12;
+      --muted: #5f6775;
+      --line: rgba(10,12,18,.08);
+      --shadow-sm: 0 4px 12px rgba(10,12,18,.04);
+      --shadow: 0 20px 60px rgba(10,12,18,.08);
+      --shadow-lg: 0 30px 80px rgba(10,12,18,.12);
+      --blue: #2f6bff;
+      --blue2: #6aa2ff;
+      --green: #22c55e;
+      --gold: #f59e0b;
     }
 
-    .topbar .wrap{
-      width:min(1200px,94vw);
-      display:flex;
-      align-items:center;
-      gap:16px;
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.6;
     }
 
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      text-decoration:none;
-      color:#0b0d12;
-      font-weight:800;
+    /* ========== HEADER ========== */
+    .topbar {
+      position: fixed;
+      inset: 0 0 auto 0;
+      height: 68px;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,.72);
+      backdrop-filter: saturate(160%) blur(12px);
+      -webkit-backdrop-filter: saturate(160%) blur(12px);
+      border-bottom: 1px solid var(--line);
     }
 
-    .brand img{
-      width:22px;
-      height:22px;
+    .topbar .wrap {
+      width: min(1200px, 94vw);
+      display: flex;
+      align-items: center;
+      gap: 16px;
     }
 
-    .brand span{
-      font-size:14px;
-      letter-spacing:.2px;
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 800;
     }
 
-    .nav{
-      margin-left:auto;
-      display:flex;
-      align-items:center;
-      gap:18px;
+    .brand img { width: 22px; height: 22px; }
+    .brand span { font-size: 14px; letter-spacing: .2px; }
+
+    .nav {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 18px;
     }
 
-    .nav a{
-      color:#2b3140;
-      text-decoration:none;
-      font-size:13px;
-      padding:8px 10px;
-      border-radius:10px;
-      transition:background .25s ease, color .25s ease;
+    .nav a {
+      color: #2b3140;
+      text-decoration: none;
+      font-size: 13px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      transition: background .25s ease, color .25s ease;
     }
 
-    .nav a:hover{
-      background:rgba(10,12,18,.05);
-      color:#0b0d12;
+    .nav a:hover,
+    .nav a[aria-current="page"] {
+      background: rgba(10,12,18,.05);
+      color: #0b0d12;
     }
 
-    .cta-top{
-      margin-left:4px;
-      padding:10px 14px;
-      border-radius:12px;
-      font-weight:800;
-      font-size:13px;
-      color:#fff;
-      text-decoration:none;
-      background:linear-gradient(135deg,#2f6bff,#6aa2ff);
-      box-shadow:0 10px 22px rgba(47,107,255,.22);
-      transition:transform .2s ease, box-shadow .25s ease;
+    .cta-top {
+      margin-left: 4px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 13px;
+      color: #fff;
+      text-decoration: none;
+      background: linear-gradient(135deg, var(--blue), var(--blue2));
+      box-shadow: 0 10px 22px rgba(47,107,255,.22);
+      transition: transform .2s ease, box-shadow .35s ease;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
     }
 
-    .cta-top:hover{
-      transform:translateY(-1px);
-      box-shadow:0 16px 30px rgba(47,107,255,.26);
+    .cta-top::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #22c55e, #4ade80);
+      transition: opacity .35s ease;
+      z-index: -1;
     }
 
-    main{padding:calc(68px + 36px) 16px 80px;}
-    .container{width:min(1100px,94vw);margin:0 auto;}
-    .hero{text-align:center;margin-bottom:20px;}
-    .hero h1{font-size:clamp(28px,4.5vw,40px);font-weight:900;}
-    .hero p{color:var(--muted);margin-top:8px;}
+    .cta-top:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 30px rgba(47,107,255,.26);
+    }
 
-    .grid{display:grid;gap:18px;grid-template-columns:repeat(3,1fr);}
-    @media(max-width:980px){.grid{grid-template-columns:repeat(2,1fr);}}
-    @media(max-width:640px){.grid{grid-template-columns:1fr;}}
+    .cta-top:hover::before {
+      opacity: 0;
+    }
 
-    .card{
-      display:flex;
-      flex-direction:column;
-      overflow:hidden;
-      background:linear-gradient(180deg,var(--panel),var(--panel-2));
-      border:1px solid var(--border);
-      border-radius:18px;
-      transition:transform .18s,box-shadow .18s;
-      box-shadow:0 12px 28px rgba(10,12,18,.08);
+    /* Mobile nav */
+    .hamburger {
+      display: none;
+      margin-left: auto;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      border: 1px solid rgba(10,12,18,.12);
+      background: #fff;
+      box-shadow: 0 6px 16px rgba(10,12,18,.08);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
     }
-    .card:hover{
-      transform:translateY(-3px);
-      box-shadow:0 18px 40px rgba(10,12,18,.14);
-    }
-    .thumb{width:100%;aspect-ratio:16/9;object-fit:cover;background:#0c1018;}
-    .meta{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:12px;}
-    .pill{
-      padding:4px 8px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      background:rgba(10,12,18,.03);
-    }
-    .content{padding:16px;display:flex;flex-direction:column;gap:10px;text-align:left;}
-    .title{font-weight:800;font-size:18px;line-height:1.3;}
-    .excerpt{color:#2b3140;font-size:14px;}
-    .more{
-      margin-top:auto;
-      padding:14px 16px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      text-decoration:none;
-      color:var(--text);
-      border-top:1px solid var(--border);
-      background:rgba(10,12,18,.02);
-    }
-    .more span{opacity:.9}
-    .more svg{opacity:.9;transition:transform .18s}
-    .card:hover .more svg{transform:translateX(3px)}
 
-    footer{
-      text-align:center;
-      color:var(--muted);
-      font-size:14px;
-      margin-top:26px;
+    .hamburger span {
+      width: 18px;
+      height: 2px;
+      background: #0b0d12;
+      position: relative;
+      display: block;
     }
-    footer a{
-      color:var(--muted);
-      text-decoration:none;
+
+    .hamburger span::before,
+    .hamburger span::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 18px;
+      height: 2px;
+      background: #0b0d12;
     }
-    footer a:hover{text-decoration:underline}
+
+    .hamburger span::before { top: -6px; }
+    .hamburger span::after { top: 6px; }
+
+    @media (max-width: 900px) {
+      .nav {
+        position: fixed;
+        top: 68px;
+        left: 0;
+        right: 0;
+        background: #ffffff;
+        border-bottom: 1px solid var(--line);
+        flex-direction: column;
+        gap: 6px;
+        padding: 12px 16px 16px;
+        display: none;
+        box-shadow: 0 20px 40px rgba(10,12,18,.1);
+      }
+
+      .nav.open {
+        display: flex;
+      }
+
+      .nav a {
+        width: 100%;
+        text-align: left;
+        padding: 12px 14px;
+        font-size: 15px;
+      }
+
+      .cta-top {
+        width: 100%;
+        text-align: center;
+        margin-top: 6px;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+    }
+
+    /* ========== PAGE LAYOUT ========== */
+    main {
+      padding: calc(68px + 48px) 16px 80px;
+    }
+
+    .container {
+      width: min(1200px, 94vw);
+      margin: 0 auto;
+    }
+
+    /* ========== HERO ========== */
+    .page-hero {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .page-hero h1 {
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, var(--text) 0%, #374151 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .page-hero p {
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* ========== FEATURED POST ========== */
+    .featured-section {
+      margin-bottom: 56px;
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .section-label::before {
+      content: "★";
+    }
+
+    .featured-card {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 40px;
+      background: linear-gradient(135deg, var(--bg-secondary), var(--bg));
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform .3s ease, box-shadow .3s ease;
+    }
+
+    .featured-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .featured-image {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .featured-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      min-height: 320px;
+      transition: transform .4s ease;
+    }
+
+    .featured-card:hover .featured-image img {
+      transform: scale(1.03);
+    }
+
+    .featured-badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: linear-gradient(135deg, var(--gold), #fbbf24);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      padding: 6px 12px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(245,158,11,.3);
+    }
+
+    .featured-content {
+      padding: 40px 40px 40px 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .featured-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .featured-date {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .featured-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      background: rgba(245,158,11,.1);
+      color: #b45309;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 6px;
+    }
+
+    .featured-content h2 {
+      font-size: 28px;
+      font-weight: 900;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    .featured-content h2 a {
+      color: inherit;
+      text-decoration: none;
+      transition: color .2s ease;
+    }
+
+    .featured-content h2 a:hover {
+      color: var(--blue);
+    }
+
+    .featured-excerpt {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .featured-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--blue);
+      text-decoration: none;
+      transition: gap .2s ease;
+    }
+
+    .featured-link:hover {
+      gap: 12px;
+    }
+
+    .featured-link svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    @media (max-width: 800px) {
+      .featured-card {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+
+      .featured-image img {
+        min-height: 220px;
+      }
+
+      .featured-content {
+        padding: 28px;
+      }
+
+      .featured-content h2 {
+        font-size: 24px;
+      }
+    }
+
+    /* ========== POSTS GRID ========== */
+    .posts-section {
+      margin-bottom: 48px;
+    }
+
+    .posts-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .posts-header h2 {
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    @media (max-width: 980px) {
+      .posts-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .posts-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ========== POST CARD ========== */
+    .post-card {
+      display: flex;
+      flex-direction: column;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .post-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+      border-color: rgba(47,107,255,.2);
+    }
+
+    .post-card-image {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .post-card-image img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      background: var(--bg-tertiary);
+      transition: transform .4s ease;
+    }
+
+    .post-card:hover .post-card-image img {
+      transform: scale(1.05);
+    }
+
+    .post-card-content {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .post-card-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .post-card-date {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .post-card-tag {
+      display: inline-block;
+      padding: 3px 8px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 600;
+      border-radius: 5px;
+    }
+
+    .post-card-tag.how-to {
+      background: rgba(47,107,255,.08);
+      border-color: rgba(47,107,255,.15);
+      color: var(--blue);
+    }
+
+    .post-card-tag.updates {
+      background: rgba(34,197,94,.08);
+      border-color: rgba(34,197,94,.15);
+      color: #16a34a;
+    }
+
+    .post-card-tag.tips {
+      background: rgba(139,92,246,.08);
+      border-color: rgba(139,92,246,.15);
+      color: #7c3aed;
+    }
+
+    .post-card-title {
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 1.35;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .post-card-title a {
+      color: inherit;
+      text-decoration: none;
+      transition: color .2s ease;
+    }
+
+    .post-card-title a:hover {
+      color: var(--blue);
+    }
+
+    .post-card-excerpt {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 16px;
+      flex-grow: 1;
+    }
+
+    .post-card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--blue);
+      text-decoration: none;
+      margin-top: auto;
+      transition: gap .2s ease;
+    }
+
+    .post-card-link:hover {
+      gap: 10px;
+    }
+
+    .post-card-link svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* ========== NEWSLETTER CTA ========== */
+    .newsletter-section {
+      background: linear-gradient(135deg, rgba(47,107,255,.06), rgba(106,162,255,.03));
+      border: 1px solid rgba(47,107,255,.12);
+      border-radius: 24px;
+      padding: 48px;
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .newsletter-section h2 {
+      font-size: 26px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .newsletter-section p {
+      color: var(--muted);
+      font-size: 16px;
+      margin-bottom: 24px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .newsletter-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 14px;
+      font-weight: 800;
+      font-size: 15px;
+      color: #fff;
+      text-decoration: none;
+      background: linear-gradient(135deg, var(--blue), var(--blue2));
+      box-shadow: 0 10px 30px rgba(47,107,255,.25);
+      transition: transform .2s ease, box-shadow .3s ease;
+    }
+
+    .newsletter-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 40px rgba(47,107,255,.3);
+    }
+
+    /* ========== FOOTER ========== */
+    .site-footer {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--line);
+      padding: 40px 16px;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .footer-brand img {
+      width: 24px;
+      height: 24px;
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color .2s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+    }
+
+    .footer-copy {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 700px) {
+      .footer-content {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .footer-links {
+        order: 1;
+      }
+
+      .footer-copy {
+        order: 2;
+      }
+    }
   </style>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "DriveVault Blog",
+    "description": "Tips, guides & updates for managing external drives on macOS",
+    "url": "https://drivevault.app/blog.html",
+    "publisher": {
+      "@type": "Organization",
+      "name": "DriveVault",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "/favicon.png"
+      }
+    }
+  }
+  </script>
 </head>
+
 <body>
+  <!-- Header -->
   <header class="topbar" role="banner">
     <div class="wrap">
       <a class="brand" href="/">
         <img src="/favicon.png" alt="DriveVault logo">
         <span>DriveVault</span>
       </a>
-
-      <nav class="nav" role="navigation" aria-label="Primary">
-        <a href="https://www.drivevault.io/#features">Features</a>
-        <a href="https://www.drivevault.io/#pricing">Pricing</a>
+      <nav class="nav" id="mobileNav" role="navigation" aria-label="Primary">
+        <a href="/#features">Features</a>
+        <a href="/#pricing">Pricing</a>
         <a href="/changelog.html">Changelog</a>
         <a href="/blog.html" aria-current="page">Blog</a>
         <a href="/faq.html">FAQ</a>
-        <a class="cta-top" href="https://www.drivevault.io/#download">Download on the App Store </a>
+        <a class="cta-top" href="https://apps.apple.com/app/drivevault/id6478483834" target="_blank" rel="noopener">Download on the App Store</a>
       </nav>
+      <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false" id="hamburgerBtn">
+        <span></span>
+      </button>
     </div>
   </header>
 
   <main>
     <div class="container">
-      <section class="hero">
+      <!-- Page Hero -->
+      <section class="page-hero">
         <h1>DriveVault Blog</h1>
-        <p>Solutions, workflows, and updates for anyone managing external hard drives on macOS.</p>
+        <p>Guides, tips, and updates for anyone managing external drives on macOS.</p>
       </section>
 
-      <!-- Posts grid -->
-      <section class="grid">
-        <!-- Post 1 -->
-        <article class="card" data-title="Introducing DriveVault: Search Every Drive Offline" data-tags="updates,intro">
-          <img class="thumb" src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=60" alt="">
-          <div class="content">
-            <div class="meta"><span>Sep 22, 2025</span><span class="pill">Updates</span></div>
-            <h2 class="title">Introducing DriveVault: Search Every Drive Offline</h2>
-            <p class="excerpt">Why we built DriveVault and how it changes the way you search external storage.</p>
+      <!-- Featured Post -->
+      <section class="featured-section">
+        <div class="section-label">Latest Post</div>
+        <article class="featured-card">
+          <div class="featured-image">
+            <img 
+              src="https://i.ibb.co/C5KkjkX3/samsung-memory-NTisn7-Fck-N4-unsplash.jpg" 
+              alt="Samsung portable SSD external hard drives for creative professionals"
+              loading="lazy"
+            >
+            <span class="featured-badge">New</span>
           </div>
-          <a class="more" href="/blog/introducing-drivevault.html"><span>Read post</span><svg width="18" height="18" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-        </article>
-
-        <!-- Post 2 -->
-        <article class="card" data-title="How to Find Files on External Hard Drives Without Plugging Them In" data-tags="how-to,tips">
-   <img class="thumb" src="https://images.unsplash.com/photo-1628557118391-56cd62c9f2cb?q=80&w=1965&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="External hard drives on a desk">
-          <div class="content">
-            <div class="meta"><span>Sep 18, 2025</span><span class="pill">How-To</span></div>
-            <h2 class="title">How to Find Files on External Hard Drives Without Plugging Them In</h2>
-            <p class="excerpt">Tired of guessing which drive has your project? Here’s how to search offline and save hours.</p>
+          <div class="featured-content">
+            <div class="featured-meta">
+              <span class="featured-date">Jan 15, 2026</span>
+              <span class="featured-tag">Gear Guide</span>
+            </div>
+            <h2><a href="/blog/5-Best-4TB-External-Hard-Drives-for-creatives-2026.html">The 5 Best 4TB External Hard Drives for Filmmakers, Photographers and Creatives (2026)</a></h2>
+            <p class="featured-excerpt">We tested and scored the best 4TB external drives for creative professionals. Compare Samsung T7 Shield, SanDisk Extreme Pro, LaCie Rugged, WD My Passport and more.</p>
+            <a class="featured-link" href="/blog/5-Best-4TB-External-Hard-Drives-for-creatives-2026.html">
+              Read the full guide
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14M13 5l7 7-7 7"/>
+              </svg>
+            </a>
           </div>
-          <a class="more" href="/blog/find-files-without-plugging.html"><span>Read post</span><svg width="18" height="18" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-        </article>
-
-        <!-- Post 3 -->
-        <article class="card" data-title="The Best Way to Organize Multiple External Hard Drives for Creatives" data-tags="how-to,photography,video">
-          <img class="thumb" src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1200&q=60" alt="">
-          <div class="content">
-            <div class="meta"><span>Sep 14, 2025</span><span class="pill">How-To</span></div>
-            <h2 class="title">The Best Way to Organize Multiple External Hard Drives for Creatives</h2>
-            <p class="excerpt">Filmmakers and photographers: use folder templates, tags, and notes to stay on top of big archives.</p>
-          </div>
-          <a class="more" href="/blog/organize-multiple-drives.html"><span>Read post</span><svg width="18" height="18" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-        </article>
-
-        <!-- Post 4 -->
-        <article class="card" data-title="How to Compare Two Hard Drives and Detect Missing or Duplicate Files" data-tags="how-to,tips,backups">
-          <img class="thumb" src="https://images.unsplash.com/photo-1518779578993-ec3579fee39f?auto=format&fit=crop&w=1200&q=60" alt="">
-          <div class="content">
-            <div class="meta"><span>Sep 10, 2025</span><span class="pill">Tips</span></div>
-            <h2 class="title">How to Compare Two Hard Drives and Detect Missing or Duplicate Files</h2>
-            <p class="excerpt">Learn how to quickly verify backups and spot duplicates with DriveVault’s comparison tools.</p>
-          </div>
-          <a class="more" href="/blog/compare-two-drives.html"><span>Read post</span><svg width="18" height="18" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
         </article>
       </section>
 
-      <footer>
-        © <span id="year"></span> DriveVault • <a href="/privacy.html">Privacy Policy</a> • <a href="/terms.html">Terms of Service</a>
-      </footer>
+      <!-- All Posts -->
+      <section class="posts-section">
+        <div class="posts-header">
+          <h2>All Posts</h2>
+        </div>
+
+        <div class="posts-grid">
+          <!-- Post 1: Introducing DriveVault -->
+          <article class="post-card">
+            <div class="post-card-image">
+              <img 
+                src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=70" 
+                alt="External drives and technology"
+                loading="lazy"
+              >
+            </div>
+            <div class="post-card-content">
+              <div class="post-card-meta">
+                <span class="post-card-date">Sep 22, 2025</span>
+                <span class="post-card-tag updates">Updates</span>
+              </div>
+              <h3 class="post-card-title">
+                <a href="/blog/introducing-drivevault.html">Introducing DriveVault: Search Every Drive Offline</a>
+              </h3>
+              <p class="post-card-excerpt">Why we built DriveVault and how it changes the way you search external storage.</p>
+              <a class="post-card-link" href="/blog/introducing-drivevault.html">
+                Read post
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14M13 5l7 7-7 7"/>
+                </svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- Post 2: Find Files Without Plugging In -->
+          <article class="post-card">
+            <div class="post-card-image">
+              <img 
+                src="https://images.unsplash.com/photo-1628557118391-56cd62c9f2cb?auto=format&fit=crop&w=800&q=70" 
+                alt="External hard drives on a desk"
+                loading="lazy"
+              >
+            </div>
+            <div class="post-card-content">
+              <div class="post-card-meta">
+                <span class="post-card-date">Sep 18, 2025</span>
+                <span class="post-card-tag how-to">How-To</span>
+              </div>
+              <h3 class="post-card-title">
+                <a href="/blog/find-files-without-plugging.html">How to Find Files on External Hard Drives Without Plugging Them In</a>
+              </h3>
+              <p class="post-card-excerpt">Tired of guessing which drive has your project? Here's how to search offline and save hours.</p>
+              <a class="post-card-link" href="/blog/find-files-without-plugging.html">
+                Read post
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14M13 5l7 7-7 7"/>
+                </svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- Post 3: Organize Multiple Drives -->
+          <article class="post-card">
+            <div class="post-card-image">
+              <img 
+                src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=800&q=70" 
+                alt="Photography and creative equipment"
+                loading="lazy"
+              >
+            </div>
+            <div class="post-card-content">
+              <div class="post-card-meta">
+                <span class="post-card-date">Sep 14, 2025</span>
+                <span class="post-card-tag how-to">How-To</span>
+              </div>
+              <h3 class="post-card-title">
+                <a href="/blog/organize-multiple-drives.html">The Best Way to Organize Multiple External Hard Drives for Creatives</a>
+              </h3>
+              <p class="post-card-excerpt">Filmmakers and photographers: use folder templates, tags, and notes to stay on top of big archives.</p>
+              <a class="post-card-link" href="/blog/organize-multiple-drives.html">
+                Read post
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14M13 5l7 7-7 7"/>
+                </svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- Post 4: Compare Two Drives -->
+          <article class="post-card">
+            <div class="post-card-image">
+              <img 
+                src="https://images.unsplash.com/photo-1531492746076-161ca9bcad58?auto=format&fit=crop&w=800&q=70" 
+                alt="Multiple external hard drives"
+                loading="lazy"
+              >
+            </div>
+            <div class="post-card-content">
+              <div class="post-card-meta">
+                <span class="post-card-date">Sep 12, 2025</span>
+                <span class="post-card-tag tips">Tips</span>
+              </div>
+              <h3 class="post-card-title">
+                <a href="/blog/compare-two-drives.html">How to Compare Two Hard Drives and Detect Missing or Duplicate Files</a>
+              </h3>
+              <p class="post-card-excerpt">Learn how to quickly verify backups and spot duplicates with DriveVault's comparison tools.</p>
+              <a class="post-card-link" href="/blog/compare-two-drives.html">
+                Read post
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14M13 5l7 7-7 7"/>
+                </svg>
+              </a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Newsletter CTA -->
+      <section class="newsletter-section">
+        <h2>Never lose track of a file again</h2>
+        <p>DriveVault makes every external drive searchable—even when unplugged.</p>
+        <a class="newsletter-cta" href="https://apps.apple.com/app/drivevault/id6478483834" target="_blank" rel="noopener">
+          Download Free on the App Store
+        </a>
+      </section>
     </div>
   </main>
 
-  <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <img src="/favicon.png" alt="DriveVault">
+        <span>DriveVault</span>
+      </div>
+      <div class="footer-links">
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/terms.html">Terms of Service</a>
+        <a href="https://drivevault.canny.io/feature-requests" target="_blank" rel="noopener">Feature Requests</a>
+      </div>
+      <p class="footer-copy">© <span id="year"></span> DriveVault. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile nav
+    const hamburger = document.getElementById('hamburgerBtn');
+    const mobileNav = document.getElementById('mobileNav');
+
+    if (hamburger && mobileNav) {
+      hamburger.addEventListener('click', () => {
+        const isOpen = mobileNav.classList.toggle('open');
+        hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+
+      mobileNav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileNav.classList.remove('open');
+          hamburger.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+  </script>
 </body>
 </html>
