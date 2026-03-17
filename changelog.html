@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -735,7 +734,7 @@
         <a href="/changelog.html" aria-current="page">Changelog</a>
         <a href="/blog.html">Blog</a>
         <a href="/faq.html">FAQ</a>
-        <a class="cta-top" href="https://apps.apple.com/app/drivevault/id6478483834" target="_blank" rel="noopener">Download on the App Store</a>
+        <a class="cta-top" href="https://apps.apple.com/us/app/drivevault-offline-catalog/id6751731655?mt=12" target="_blank" rel="noopener">Download on the App Store</a>
       </nav>
       <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false" id="hamburgerBtn">
         <span></span>
@@ -760,8 +759,73 @@
       <!-- Timeline -->
       <div class="timeline">
 
+        <!-- V1.1 - Feature Update -->
+        <article class="release open" data-version="1.1">
+          <div class="release-dot"></div>
+          <div class="release-card">
+            <div class="release-header" onclick="toggleRelease(this.parentElement.parentElement)">
+              <div class="release-meta">
+                <div class="release-top">
+                  <span class="release-badge">New Features</span>
+                  <span class="release-version">v1.1</span>
+                  <span class="release-date">March 2026</span>
+                </div>
+                <div class="release-tags">
+                  <span class="release-tag">Search Previews</span>
+                  <span class="release-tag">CSV Export</span>
+                  <span class="release-tag">Bundle Detection</span>
+                  <span class="release-tag">5-Drive Bolt-On</span>
+                </div>
+              </div>
+              <svg class="release-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </div>
+            <div class="release-content">
+              <div class="release-highlights">
+                <h4>Visual & Interface Improvements</h4>
+                <ul>
+                  <li><strong>New vibrant logo colorway</strong> for better menubar visibility.</li>
+                  <li>Redesigned <strong>"Add Drives" button</strong> with auto-hide behavior for a cleaner workspace.</li>
+                  <li>Revamped <strong>pricing page</strong> with clear tier explanations and bolt-on value comparisons.</li>
+                </ul>
+                <h4>Search & Preview Enhancements</h4>
+                <ul>
+                  <li><strong>Image previews in search results</strong> - instantly identify files visually without browsing folders. Find what you need at a glance.</li>
+                </ul>
+                <h4>Export & Data Management</h4>
+                <ul>
+                  <li><strong>CSV export</strong> - Export complete drive file lists to spreadsheet format for external analysis. Find this in the "Reports" window.</li>
+                </ul>
+                <h4>Scanning Improvements</h4>
+                <ul>
+                  <li><strong>Enhanced bundle detection</strong> - Now recognizes 120+ bundle types (up from 80).</li>
+                  <li><strong>(Beta) Custom bundle filtering</strong> - Use the new gear icon in "Scan Drive" to control which bundles DriveVault includes or skips during scans. Note: Including bundle contents may significantly increase scan times and memory usage.</li>
+                </ul>
+                <h4>Smart Collections</h4>
+                <ul>
+                  <li>Improved scan progress UI with <strong>real-time status updates</strong>.</li>
+                  <li><strong>Persistent file counts</strong> across sessions - category totals now saved between app launches.</li>
+                </ul>
+                <h4>New Purchase Option</h4>
+                <ul>
+                  <li><strong>5-Drive Bolt-On</strong> - Add 5 drives to your capacity at ~30% savings vs individual drive purchases.</li>
+                </ul>
+              </div>
+              <div class="release-details">
+                <h4>Bug Fixes & Performance</h4>
+                <ul>
+                  <li>Fixed: Duplicate filenames showing identical thumbnails - now using <strong>content hashing</strong> for accurate previews.</li>
+                  <li>Optimized file handling for smoother performance with <strong>large drive catalogs</strong> (many thousands of files).</li>
+                  <li>Updated help documentation.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
         <!-- V1.0 - PUBLIC LAUNCH -->
-        <article class="release major open" data-version="1.0">
+        <article class="release major" data-version="1.0">
           <div class="release-dot"></div>
           <div class="release-card">
             <div class="release-header" onclick="toggleRelease(this.parentElement.parentElement)">
