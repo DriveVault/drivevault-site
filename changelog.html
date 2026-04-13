@@ -463,7 +463,7 @@ line-height: 1.6;
 color: var(--muted);
 }
 .release-details li::before {
-content: '→ ';
+content: '→  ';
 position: absolute;
 left: 0;
 color: var(--line);
@@ -653,8 +653,74 @@ padding: 16px 18px;
 </section>
 <!-- Timeline -->
 <div class="timeline">
+<!-- V1.2.0 - Feature Update -->
+<article class="release open" data-version="1.2.0">
+<div class="release-dot"></div>
+<div class="release-card">
+<div class="release-header" onclick="toggleRelease(this.parentElement.parentElement)">
+<div class="release-meta">
+<div class="release-top">
+<span class="release-badge">New Features</span>
+<span class="release-version">v1.2.0</span>
+<span class="release-date">April 2026</span>
+</div>
+<div class="release-tags">
+<span class="release-tag">New Dashboard</span>
+<span class="release-tag">Drive Cards</span>
+<span class="release-tag">Search</span>
+<span class="release-tag">UI</span>
+</div>
+</div>
+<svg class="release-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+<path d="M6 9l6 6 6-6" />
+</svg>
+</div>
+<div class="release-content">
+<div class="release-highlights">
+<h4>Beautiful New Home View</h4>
+<ul>
+<li><strong>All-new dashboard view</strong> - DriveVault now opens to a visual home screen where you can see all your drives at a glance. Each drive gets its own card showing capacity, file counts, and status.</li>
+<li><strong>Visual drive cards</strong> - Assign custom icons to each drive for instant recognition. See online/offline status, storage details, and more without opening a drive.</li>
+<li><strong>Project organization</strong> - Group drives into color-coded projects directly from the dashboard. Drag and drop drives between projects, collapse/expand groups, and sort your library however works best for you.</li>
+<li><strong>Search and sort</strong> - Filter your drive library instantly. Sort by name, date added, size, or project.</li>
+</ul>
+<p style="margin-top: 8px; font-size: 13px; color: var(--muted);"><em>Note: You may need to recreate projects if you had projects in a previous version of DriveVault.</em></p>
+<br>
+  <h4>Enhanced Search</h4>
+<ul>
+<li><strong>Improved search</strong> with helpful tips and safeguards against overly broad queries that could freeze the app.</li>
+<li>Search is now faster and more reliable.</li>
+</ul>
+  <br>
+<h4>Modern Interface Updates</h4>
+<ul>
+<li>New, smoother and more informative <strong>initializing sequence</strong> when opening the app.</li>
+<li>New <strong>column/icon view toggle buttons</strong> in the bottom toolbar.</li>
+<li>Updated <strong>"Add Drives" button</strong> with distinctive glowing green styling to differentiate the action from "Scan Drives".</li>
+<li>Quick access to App Store reviews and feedback with the new <strong>'Star' icon</strong>.</li>
+</ul>
+</div>
+<div class="release-details">
+<h4>Bug Fixes & Improvements</h4>
+<ul>
+<li>EXIF and metadata now properly saved and searchable across all files. <em>Please rescan drives to assign metadata if you have old scans missing it.</em></li>
+<li>Advanced search now correctly returns results with custom tags, notes and ratings.</li>
+<li>Tags and notes persistence between sessions fully resolved.</li>
+<li>Improved drive re-scan functionality for drives with new content.</li>
+<li>Fixed layout issue where smaller app window sizes could force the metadata progress bar to overlap with other UI elements.</li>
+<li>Fixed layout issue during scanning where users occasionally saw two different dialogue windows on top of each other.</li>
+</ul>
+<p style="margin-top: 12px; font-size: 13px; color: var(--muted);"><em>Note: If re-scan does not perform as expected, try deleting the previews folder (accessed via the "i" icon next to a drive), forgetting the drive and performing a fresh scan. We are still testing some aspects of re-scan functionality.</em></p>
+<div class="release-note" style="margin-top: 16px;">
+<p>Thank you for using DriveVault! If you're enjoying the app, we'd love to hear from you — tap the new <strong>Review button</strong> to share your feedback. 💙</p>
+</div>
+</div>
+</div>
+</div>
+</article>
+
 <!-- V1.1.1 - Bug Fixes -->
-<article class="release open" data-version="1.1.1">
+<article class="release" data-version="1.1.1">
 <div class="release-dot"></div>
 <div class="release-card">
 <div class="release-header" onclick="toggleRelease(this.parentElement.parentElement)">
@@ -692,7 +758,6 @@ padding: 16px 18px;
 </div>
 </div>
 </article>
-
 <!-- V1.1 - Feature Update -->
 <article class="release" data-version="1.1">
 <div class="release-dot"></div>
@@ -764,7 +829,7 @@ padding: 16px 18px;
 <div class="release-header" onclick="toggleRelease(this.parentElement.parentElement)">
 <div class="release-meta">
 <div class="release-top">
-<span class="release-badge major">🚀  Public Launch</span>
+<span class="release-badge major">🚀   Public Launch</span>
 <span class="release-version">v1.0</span>
 <span class="release-date">March 2026</span>
 </div>
@@ -793,7 +858,7 @@ padding: 16px 18px;
 <div class="release-note">
 <p>We're a small, independent team and we're incredibly proud to reach this milestone. DriveVault has been through extensive beta testing over several months, but the nature of external hard drives means there are endless combinations of hardware, file systems, and workflows out there.</p>
 <p style="margin-top: 12px;"><strong>If you encounter an edge case or something unexpected:</strong> please be patient with us, and <a href="https://drivevault.canny.io/report-bugs" target="_blank" rel="noopener" style="color: var(--blue);">submit a bug report</a>. Your feedback directly shapes DriveVault's future. Together, we'll make this the most powerful drive cataloguing tool on the Mac.</p>
-<p style="margin-top: 12px;">Thank you for believing in what we're building. 💙 </p>
+<p style="margin-top: 12px;">Thank you for believing in what we're building. 💙  </p>
 </div>
 </div>
 </div>
@@ -1004,7 +1069,7 @@ padding: 16px 18px;
 <ul>
 <li>Improved error handling for disconnected network volumes.</li>
 <li>Added first pass of drive personalization (custom icon & name).</li>
-<li>Keyboard nav: ← /\u8594  to move columns, \u8984 K to jump to search.</li>
+<li>Keyboard nav: ←  /\\u8594  to move columns, \\u8984 K to jump to search.</li>
 </ul>
 </div>
 </div>
