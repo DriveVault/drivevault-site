@@ -1,2350 +1,2076 @@
-
+<!DOCTYPE html>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-M3XM1E1TQK"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-M3XM1E1TQK');
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-M3XM1E1TQK');
 </script>
-  
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>DriveVault - Hard Drives Unplugged</title>
-  <meta name="description" content="DriveVault scans your external drives once, then lets you browse and search them anytime - even when they are unplugged." />
-
-  <link rel="icon" href="/favicon.png" type="image/png" />
-  <link rel="apple-touch-icon" href="/favicon.png" />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-  <style>
-    html {
-      scroll-behavior: smooth;
-    }
-
-    :root{
-      --bg:#ffffff;
-      --text:#0b0d12;
-      --muted:#5f6775;
-      --line:rgba(10,12,18,.08);
-      --shadow:0 20px 60px rgba(10,12,18,.08);
-      --shadow2:0 14px 30px rgba(10,12,18,.09);
-      --blue:#2f6bff;
-      --blue2:#6aa2ff;
-      --green:#22c55e;
-    }
-
-    *{box-sizing:border-box; margin:0; padding:0}
-    body{
-      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-      background:var(--bg);
-      color:var(--text);
-      overflow-x:hidden;
-    }
-
-    /* Subtle Apple-ish blobs */
-    .bg-blobs{
-      display:none;
-    }
-    .blob{position:absolute; width:52vw; height:52vw; border-radius:999px; filter:blur(80px); opacity:.22;}
-    .blob.b1{left:-18vw; top:-16vw; background:radial-gradient(circle at 30% 30%, rgba(106,162,255,.9), transparent 60%)}
-    .blob.b2{right:-18vw; top:-12vw; background:radial-gradient(circle at 55% 45%, rgba(154,106,255,.9), transparent 60%)}
-    .blob.b3{left:10vw; bottom:-24vw; background:radial-gradient(circle at 45% 55%, rgba(34,197,94,.9), transparent 60%)}
-
-    /* Top header */
-    .topbar{
-      position:fixed; inset:0 0 auto 0; height:68px; z-index:50;
-      display:flex; align-items:center; justify-content:center;
-      background:rgba(255,255,255,.72);
-      backdrop-filter:saturate(160%) blur(12px);
-      border-bottom:1px solid var(--line);
-    }
-    .topbar .wrap{width:min(1200px,94vw); display:flex; align-items:center; gap:16px;}
-    .brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text); font-weight:800;}
-    .brand img{width:22px; height:22px}
-    .brand span{font-size:14px; letter-spacing:.2px}
-    .nav{margin-left:auto; display:flex; align-items:center; gap:18px;}
-    .nav a{color:#2b3140; text-decoration:none; font-size:13px; padding:8px 10px; border-radius:10px; transition:background .25s ease, color .25s ease;}
-    .nav a:hover{background:rgba(10,12,18,.05); color:#0b0d12}
-    .cta-top{
-      margin-left:4px;
-      padding:10px 14px;
-      border-radius:12px;
-      font-weight:800;
-      font-size:13px;
-      color:#fff;
-      text-decoration:none;
-      background:linear-gradient(135deg,var(--blue),var(--blue2));
-      box-shadow:0 10px 22px rgba(34,197,94,.25);
-      transition:transform .2s ease, box-shadow .35s ease;
-      position:relative;
-      overflow:hidden;
-      isolation:isolate;
-    }
-    .cta-top::before{
-      content:'';
-      position:absolute;
-      inset:0;
-      background:linear-gradient(135deg,#22c55e,#4ade80);
-      transition:opacity .35s ease;
-      z-index:-1;
-    }
-    .cta-top:hover{
-      transform:translateY(-1px);
-      box-shadow:0 16px 30px rgba(47,107,255,.26);
-    }
-    .cta-top:hover::before{
-      opacity:0;
-    }
-
-    /* Mobile nav */
-    .hamburger{
-      display:none;
-      margin-left:auto;
-      width:36px;
-      height:36px;
-      border-radius:10px;
-      border:1px solid rgba(10,12,18,.12);
-      background:#fff;
-      box-shadow:0 6px 16px rgba(10,12,18,.08);
-      align-items:center;
-      justify-content:center;
-      cursor:pointer;
-    }
-
-    .hamburger span{
-      width:18px;
-      height:2px;
-      background:#0b0d12;
-      position:relative;
-      display:block;
-    }
-
-    .hamburger span::before,
-    .hamburger span::after{
-      content:"";
-      position:absolute;
-      left:0;
-      width:18px;
-      height:2px;
-      background:#0b0d12;
-    }
-
-    .hamburger span::before{ top:-6px; }
-    .hamburger span::after{ top:6px; }
-
-    @media (max-width: 900px){
-      .nav{
-        position:fixed;
-        top:68px;
-        left:0;
-        right:0;
-        background:#ffffff;
-        border-bottom:1px solid var(--line);
-        flex-direction:column;
-        gap:6px;
-        padding:12px 16px 16px;
-        display:none;
-      }
-
-      .nav.open{
-        display:flex;
-      }
-
-      .nav a{
-        width:100%;
-        text-align:left;
-        padding:12px 14px;
-        font-size:15px;
-      }
-
-      .cta-top{
-        width:100%;
-        text-align:center;
-        margin-top:6px;
-      }
-
-      .hamburger{
-        display:flex;
-      }
-    }
-
-    /* Page layout */
-    main{padding-top:68px;}
-
-    /* Hero */
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>DriveVault - Hard Drives Unplugged</title>
+<meta name="description" content="DriveVault scans your external drives once, then lets you browse and search them anytime - even when they are unplugged." />
+<link rel="icon" href="/favicon.png" type="image/png" />
+<link rel="apple-touch-icon" href="/favicon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+html {
+scroll-behavior: smooth;
+}
+:root{
+--bg:#ffffff;
+--text:#0b0d12;
+--muted:#5f6775;
+--line:rgba(10,12,18,.08);
+--shadow:0 20px 60px rgba(10,12,18,.08);
+--shadow2:0 14px 30px rgba(10,12,18,.09);
+--blue:#2f6bff;
+--blue2:#6aa2ff;
+--green:#22c55e;
+}
+*{box-sizing:border-box; margin:0; padding:0}
+body{
+font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+background:var(--bg);
+color:var(--text);
+overflow-x:hidden;
+}
+/* Subtle Apple-ish blobs */
+.bg-blobs{
+display:none;
+}
+.blob{position:absolute; width:52vw; height:52vw; border-radius:999px; filter:blur(80px); opacity:.22;}
+.blob.b1{left:-18vw; top:-16vw; background:radial-gradient(circle at 30% 30%, rgba(106,162,255,.9), transparent 60%)}
+.blob.b2{right:-18vw; top:-12vw; background:radial-gradient(circle at 55% 45%, rgba(154,106,255,.9), transparent 60%)}
+.blob.b3{left:10vw; bottom:-24vw; background:radial-gradient(circle at 45% 55%, rgba(34,197,94,.9), transparent 60%)}
+/* Top header */
+.topbar{
+position:fixed; inset:0 0 auto 0; height:68px; z-index:50;
+display:flex; align-items:center; justify-content:center;
+background:rgba(255,255,255,.72);
+backdrop-filter:saturate(160%) blur(12px);
+border-bottom:1px solid var(--line);
+}
+.topbar .wrap{width:min(1200px,94vw); display:flex; align-items:center; gap:16px;}
+.brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text); font-weight:800;}
+.brand img{width:22px; height:22px}
+.brand span{font-size:14px; letter-spacing:.2px}
+.nav{margin-left:auto; display:flex; align-items:center; gap:18px;}
+.nav a{color:#2b3140; text-decoration:none; font-size:13px; padding:8px 10px; border-radius:10px; transition:background .25s ease, color .25s ease;}
+.nav a:hover{background:rgba(10,12,18,.05); color:#0b0d12}
+.cta-top{
+margin-left:4px;
+padding:10px 14px;
+border-radius:12px;
+font-weight:800;
+font-size:13px;
+color:#fff;
+text-decoration:none;
+background:linear-gradient(135deg,var(--blue),var(--blue2));
+box-shadow:0 10px 22px rgba(34,197,94,.25);
+transition:transform .2s ease, box-shadow .35s ease;
+position:relative;
+overflow:hidden;
+isolation:isolate;
+}
+.cta-top::before{
+content:'';
+position:absolute;
+inset:0;
+background:linear-gradient(135deg,#22c55e,#4ade80);
+transition:opacity .35s ease;
+z-index:-1;
+}
+.cta-top:hover{
+transform:translateY(-1px);
+box-shadow:0 16px 30px rgba(47,107,255,.26);
+}
+.cta-top:hover::before{
+opacity:0;
+}
+/* Mobile nav */
+.hamburger{
+display:none;
+margin-left:auto;
+width:36px;
+height:36px;
+border-radius:10px;
+border:1px solid rgba(10,12,18,.12);
+background:#fff;
+box-shadow:0 6px 16px rgba(10,12,18,.08);
+align-items:center;
+justify-content:center;
+cursor:pointer;
+}
+.hamburger span{
+width:18px;
+height:2px;
+background:#0b0d12;
+position:relative;
+display:block;
+}
+.hamburger span::before,
+.hamburger span::after{
+content:"";
+position:absolute;
+left:0;
+width:18px;
+height:2px;
+background:#0b0d12;
+}
+.hamburger span::before{ top:-6px; }
+.hamburger span::after{ top:6px; }
+@media (max-width: 900px){
+.nav{
+position:fixed;
+top:68px;
+left:0;
+right:0;
+background:#ffffff;
+border-bottom:1px solid var(--line);
+flex-direction:column;
+gap:6px;
+padding:12px 16px 16px;
+display:none;
+}
+.nav.open{
+display:flex;
+}
+.nav a{
+width:100%;
+text-align:left;
+padding:12px 14px;
+font-size:15px;
+}
+.cta-top{
+width:100%;
+text-align:center;
+margin-top:6px;
+}
+.hamburger{
+display:flex;
+}
+}
+/* Page layout */
+main{padding-top:68px;}
+/* Hero */
 .hero {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding-top: 300px; /* MORE space above title */
-  padding-bottom: 0;
-  box-sizing: border-box;
-  overflow: hidden;
+position: relative;
+min-height: 100vh;
+display: flex;
+align-items: flex-start;
+justify-content: center;
+padding-top: 300px; /* MORE space above title */
+padding-bottom: 0;
+box-sizing: border-box;
+overflow: hidden;
 }
-
-    .hero-bg-video {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      transform: translateY(-270px);
-    }
-
+.hero-bg-video {
+position: absolute;
+inset: 0;
+z-index: 0;
+pointer-events: none;
+transform: translateY(-270px);
+}
 @media (max-width: 768px){
-  .hero-video-intro{
-    max-width:100% !important;
-    margin:40px auto 56px;
-  }
-}
-
 .hero-video-intro{
-  max-width: 1800px;
+max-width:100% !important;
+margin:40px auto 56px;
 }
-
-    .hero-bg-video video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .hero-inner {
-      position: relative;
-      z-index: 2;
-      min-height: calc(100vh - 68px);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding-bottom: 120px; /* pushes content up visually */
-    }
-    .hero-image {
-      padding-top: 80px;
-      padding-bottom: 120px;
-    }
-
-  .parallax-drive{
-    position:absolute;
-    right:-120px;
-    bottom:600px;
-    width:360px;
-    max-width:60vw;
-    pointer-events:none;
-    z-index:6;
-    opacity:1;
-    transform:translate3d(0,0,0) rotate(-8deg);
-    transition:transform 0.1s linear;
-  }
-
-  .parallax-drive-left{
-    position:absolute;
-    left:-140px;
-    bottom:520px;
-    width:320px;
-    max-width:55vw;
-    pointer-events:none;
-    z-index:6;
-    opacity:1;
-    transform:translate3d(0,0,0) rotate(6deg);
-    transition:transform 0.1s linear;
-  }
-
-  /* Large parallax drive (overlay, not in layout flow) */
-  .parallax-drive-large{
-    position: absolute;
-    right: -220px;
-    top: 0;
-    width: 720px;
-    max-width: 70vw;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .parallax-drive-large img{
-    display: block;
-    width: 100%;
-    height: auto;
-    will-change: transform;
-  }
-
-  @media (max-width:768px){
-    .parallax-drive-left{
-      display:none !important;
-    }
-  }
-
-  /* Hide large parallax drive on mobile */
-  @media (max-width: 768px){
-    .parallax-drive{
-      width:260px;
-      right:-140px;
-    }
-    .parallax-drive{
-      display: none !important;
-    }
-    .parallax-drive-large{
-      display: none !important;
-    }
-  }
-
-    .hero-inner {
-      text-align: center;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    /* Remove hero title animation, always show hero title */
-    .h1 {
-      opacity: 1 !important;
-    }
-
-    .h1 span {
-      display: block;
-      opacity: 1 !important;
-      transform: none !important;
-      animation: none !important;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .hero-inner *,
-      .h1 span {
-        opacity: 1;
-        transform: none;
-        animation: none;
-      }
-    }
-
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid rgba(34,197,94,.22);
-      background:rgba(34,197,94,.08);
-      color:#155f36;
-      font-weight:700;
-      font-size:12px;
-      margin-bottom:18px;
-      box-shadow:0 10px 28px rgba(34,197,94,.08);
-    }
-    .pill .dot{
-      width:8px; height:8px; border-radius:999px; background:var(--green);
-      box-shadow:0 0 0 0 rgba(34,197,94,.35);
-      animation:pulse 1.8s ease-in-out infinite;
-    }
-    @keyframes pulse{
-      0%{box-shadow:0 0 0 0 rgba(34,197,94,.38)}
-      70%{box-shadow:0 0 0 10px rgba(34,197,94,0)}
-      100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}
-    }
-
-    .h1{
-      font-size:clamp(40px,5.6vw,68px);
-      line-height:1.05;
-      letter-spacing:-0.015em;
-      font-weight:700;
-
-      background:linear-gradient(
-        120deg,
-        #3b82f6 0%,
-        #6366f1 25%,
-        #8b5cf6 45%,
-        #ec4899 65%,
-        #f97316 85%
-      );
-      background-size:200% 200%;
-
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
-      -webkit-text-fill-color:transparent;
-
-      animation:heroGradient 12s ease-in-out infinite;
-    }
-
-
-    @media (max-width: 768px){
-      .h1{
-        font-size: 30px;
-        line-height: 1.15;
-        letter-spacing: -0.01em;
-      }
-
-      .h1 br{
-        display:block;
-        content:"";
-        margin-bottom:6px;
-      }
-    }
-    @keyframes heroGradient{
-      0%{background-position:0% 50%}
-      50%{background-position:100% 50%}
-      100%{background-position:0% 50%}
-    }
-    .sub{
-      max-width:680px;
-      margin:18px auto 18px;
-      color:var(--muted);
-      font-size:15px;
-      line-height:1.55;
-    }
-
-  .cta-minimal{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    margin-top:32px;
-    margin-bottom:48px;
-    padding:18px 36px;
-
-    font-size:15px;
-    font-weight:800;
-    letter-spacing:-0.01em;
-    text-decoration:none;
-
-    color:#ffffff;
-    background:#000000;
-    /* background-size:200% 200%; */
-
-    border:none;
-    border-radius:999px;
-
-    box-shadow:
-      0 14px 40px rgba(47,107,255,.35),
-      inset 0 1px 0 rgba(255,255,255,.35);
-
-    transition:
-      transform .25s cubic-bezier(.2,.9,.2,1),
-      box-shadow .35s ease,
-      background-position .6s ease;
-    position: relative;
-    z-index: 5;
-  }
-
-  /* Extra space before hero video so hero text fills viewport */
-  .hero-inner .vimeo-breakout{
-    margin-top: 50px;
-  }
-
-    .cta-minimal:hover{
-      transform:translateY(-2px);
-      background: linear-gradient(
-        135deg,
-        #2f6bff 0%,
-        #6a5cff 45%,
-        #8b5cf6 70%,
-        #ec4899 100%
-      );
-      background-size:200% 200%;
-      background-position:100% 50%;
-      box-shadow:
-        0 22px 60px rgba(47,107,255,.45),
-        inset 0 1px 0 rgba(255,255,255,.45);
-    }
-
-    .cta-minimal:active{
-      transform:translateY(0);
-      box-shadow:
-        0 10px 26px rgba(47,107,255,.35),
-        inset 0 2px 4px rgba(0,0,0,.15);
-    }
-
-    /* Hero visual */
-    .visual{
-      position:relative;
-      width:min(980px, 94vw);
-      margin:-20px auto 0;
-      padding:0;
-    }
-    .screen-wrap{
-      position:relative;
-      width:100%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      transform:translateZ(0);
-    }
-    /* FIX: make it straight + bigger */
-    .screen{
-      width:min(1220px, 98vw);
-      height:auto;
-      display:block;
-      transform:rotate(0deg);
-    }
-
-    /* Floating feature chips */
-    .chip{
-      position:absolute;
-      display:flex;
-      align-items:center;
-      gap:10px;
-      padding:14px 18px;
-      border-radius:999px;
-      background:rgba(255,255,255,.86);
-      border:1px solid rgba(10,12,18,.08);
-      box-shadow:0 18px 40px rgba(10,12,18,.10);
-      color:#0b0d12;
-      font-weight:800;
-      font-size:13px;
-      white-space:nowrap;
-      transform:translateZ(0);
-      transition:transform .35s cubic-bezier(.2,.9,.2,1), box-shadow .45s ease, background .45s ease;
-      will-change:transform;
-    }
-    .chip .ico{
-      width:32px; height:32px;
-      border-radius:12px;
-      display:grid; place-items:center;
-      background:rgba(47,107,255,.10);
-      border:1px solid rgba(47,107,255,.18);
-      color:var(--blue);
-      flex:0 0 auto;
-      transition:transform .55s cubic-bezier(.2,.9,.2,1);
-      transform-origin:center;
-    }
-    .chip:hover{
-      transform:translateY(-4px) scale(1.05);
-      box-shadow:0 24px 55px rgba(10,12,18,.14), 0 0 0 1px rgba(47,107,255,.08);
-      background:rgba(255,255,255,.92);
-    }
-    .chip:hover .ico{transform:rotate(360deg)}
-
-    @media (prefers-reduced-motion: reduce){
-      .pill .dot{animation:none}
-      .chip{animation:none}
-      .chip:hover .ico{transform:none}
-    }
-
-    .chip.float1{animation:floatA 7.5s ease-in-out infinite}
-    .chip.float2{animation:floatB 8.2s ease-in-out infinite}
-    .chip.float3{animation:floatC 9.1s ease-in-out infinite}
-    .chip.float4{animation:floatA 8.8s ease-in-out infinite}
-    .chip.float5{animation:floatB 7.9s ease-in-out infinite}
-    .chip.float6{animation:floatC 8.6s ease-in-out infinite}
-    .chip.float7{animation:floatA 9.4s ease-in-out infinite}
-    .chip.float8{animation:floatB 9.8s ease-in-out infinite}
-
-    @keyframes floatA{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-    @keyframes floatB{0%,100%{transform:translateY(0)}50%{transform:translateY(12px)}}
-    @keyframes floatC{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
-
-    /* Chip positioning (tuned so screen sits in the middle) */
-    .chip.c1{left:6%; top:28%;}
-    .chip.c2{left:1%; top:48%;}
-    .chip.c3{left:10%; top:14%;}
-    .chip.c4{right:8%; top:16%;}
-    .chip.c5{right:2%; top:38%;}
-    .chip.c6{right:10%; top:58%;}
-    .chip.c7{left:16%; top:64%;}
-    .chip.c8{right:18%; top:68%;}
-
-    /* Video preview block (clean + editorial) */
-    .video-block{
-      position:relative;
-      width:min(1300px, 96vw);
-      margin:0 auto 64px;
-      display:flex;
-      justify-content:flex-end;
-    }
-
-    /* Video + info layout */
-    .video-row{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:60px;
-      align-items:center;
-      justify-items:center;
-      width: 94vw;
-      max-width: 1500px;
-      margin: 0 auto 80px;
-      position: relative;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    .video-row.reverse{
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .video-row.reverse .video-info{
-      order:2;
-    }
-
-    .video-row.reverse .video-wrap{
-      order:1;
-    }
-
-    .video-info{
-      max-width:480px;
-      width:100%;
-    }
-
-    .video-row.reverse .video-info{
-      /* no special positioning needed */
-    }
-
-    .video-info h3 {
-      font-size: 32px;
-      line-height: 1.15;
-      font-weight: 900;
-      letter-spacing: -0.02em;
-      margin-bottom: 12px;
-    }
-
-    .video-info p{
-      font-size:15px;
-      line-height:1.6;
-      color:var(--muted);
-    }
-
-    @media (max-width:960px){
-      .video-row{
-        display:flex;
-        flex-direction:column;
-        gap:24px;
-        margin-bottom:64px;
-        width: 94vw;
-        max-width: 600px;
-        left: 50%;
-        transform: translateX(-50%);
-      }
-
-      .video-row.reverse{
-        flex-direction:column;
-      }
-
-      .video-row .video-wrap{
-        order:1;
-      }
-
-      .video-row .video-info{
-        order:2;
-      }
-
-      .video-info{
-        max-width:100%;
-        text-align:left;
-      }
-
-      .video-info h3{
-        font-size:26px;
-      }
-
-      .video-wrap{
-        width:100%;
-        max-width:100%;
-        border-radius:14px;
-        overflow:hidden;
-        background:transparent;
-      }
-
-      .video-wrap video{
-        display:block;
-        width:100%;
-        height:auto;
-        background:transparent;
-      }
-    }
-
-    .video-wrap{
-      position:relative;
-      width:100%;
-      max-width:100%;
-      border-radius:18px;
-      overflow:visible;
-      background:transparent;
-    }
-
-    .video-row.reverse .video-wrap{
-      /* no special positioning needed */
-    }
-
-    .video-wrap video{
-      width:100%;
-      height:auto;
-      display:block;
-    }
-
-    .video-label{
-      position:absolute;
-      top:-36px;
-      left:32px;
-      z-index:10;
-
-      padding:14px 20px;
-      background:#ffffff;
-      border-radius:14px;
-
-      font-size:14px;
-      font-weight:800;
-      letter-spacing:-0.01em;
-      color:#0b0d12;
-
-      box-shadow:
-        0 12px 30px rgba(10,12,18,.10),
-        inset 0 1px 0 rgba(255,255,255,.85);
-      display:none;
-    }
-
-    @media (max-width:860px){
-      .video-block{
-        justify-content:center;
-      }
-
-      .video-wrap{
-        width:100%;
-      }
-
-      .video-label{
-        top:16px;
-        left:16px;
-      }
-    }
-
-    /* Section */
-    .section{
-      padding:72px 16px 80px;
-      display:flex;
-      justify-content:center;
-    }
-    .section .container{width:min(1100px, 94vw)}
-    .sec-title{
-      text-align:center;
-      font-size:clamp(28px,3.8vw,46px);
-      font-weight:900;
-      letter-spacing:-.02em;
-    }
-    .sec-sub{
-      text-align:center;
-      color:var(--muted);
-      max-width:760px;
-      margin:12px auto 34px;
-      line-height:1.6;
-    }
-
-    /* How It Works section */
-    .how-it-works {
-      padding-top: 160px;
-      padding-bottom: 80px;
-    }
-
-    .how-steps {
-      display: flex;
-      flex-direction: column;
-      gap: 40px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .how-step-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      align-items: center;
-      opacity: 0;
-      transform: translateY(60px);
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .how-step-row.in-view {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .how-step-row:nth-child(1) { transition-delay: 0s; }
-    .how-step-row:nth-child(2) { transition-delay: 0.15s; }
-    .how-step-row:nth-child(3) { transition-delay: 0.3s; }
-
-    .how-step-row.reverse {
-      direction: rtl;
-    }
-
-    .how-step-row.reverse > * {
-      direction: ltr;
-    }
-
-    .how-step-number {
-      font-size: clamp(180px, 22vw, 280px);
-      font-weight: 900;
-      line-height: 0.85;
-      background: linear-gradient(145deg, #ff6b4a 0%, #ff8a65 25%, #f77062 50%, #fe5196 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      opacity: 0.9;
-      text-align: center;
-      user-select: none;
-      filter: drop-shadow(0 20px 40px rgba(255, 107, 74, 0.15));
-      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease, opacity 0.4s ease;
-    }
-
-    .how-step-row:hover .how-step-number {
-      transform: scale(1.08) rotate(-3deg);
-      filter: drop-shadow(0 30px 60px rgba(255, 107, 74, 0.3));
-      opacity: 1;
-    }
-
-    .how-step-row.reverse:hover .how-step-number {
-      transform: scale(1.08) rotate(3deg);
-    }
-
-    .how-step-card {
-      position: relative;
-      padding: 40px 36px;
-      border-radius: 28px;
-      background: rgba(255,255,255,.85);
-      border: 1px solid rgba(10,12,18,.06);
-      box-shadow: 
-        0 4px 6px rgba(10,12,18,.02),
-        0 12px 24px rgba(10,12,18,.04),
-        0 24px 48px rgba(10,12,18,.06);
-      backdrop-filter: blur(8px);
-      transition: 
-        transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
-        box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-        border-color 0.4s ease;
-      overflow: hidden;
-    }
-
-    .how-step-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(
-        800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-        rgba(47, 107, 255, 0.06),
-        transparent 40%
-      );
-      opacity: 0;
-      transition: opacity 0.5s ease;
-      pointer-events: none;
-    }
-
-    .how-step-card:hover::before {
-      opacity: 1;
-    }
-
-    .how-step-card::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255,255,255,0.4),
-        transparent
-      );
-      transition: left 0.7s ease;
-      pointer-events: none;
-    }
-
-    .how-step-card:hover::after {
-      left: 100%;
-    }
-
-    .how-step-row:hover .how-step-card {
-      transform: translateY(-12px) scale(1.02);
-      box-shadow: 
-        0 8px 16px rgba(10,12,18,.04),
-        0 32px 64px rgba(10,12,18,.1),
-        0 64px 128px rgba(10,12,18,.08),
-        0 0 0 1px rgba(47,107,255,.1);
-      border-color: rgba(47,107,255,.15);
-    }
-
-    .how-step-icon {
-      width: 56px;
-      height: 56px;
-      border-radius: 16px;
-      display: grid;
-      place-items: center;
-      margin-bottom: 20px;
-      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
-    }
-
-    .how-step-row:hover .how-step-icon {
-      transform: scale(1.15) rotate(-5deg);
-    }
-
-    .how-step-icon.scan {
-      color: #2f6bff;
-      background: linear-gradient(135deg, rgba(47,107,255,.12), rgba(99,102,241,.12));
-      border: 1px solid rgba(47,107,255,.2);
-    }
-
-    .how-step-row:hover .how-step-icon.scan {
-      box-shadow: 0 8px 24px rgba(47,107,255,.3);
-    }
-
-    .how-step-icon.search {
-      color: #16a34a;
-      background: linear-gradient(135deg, rgba(34,197,94,.12), rgba(74,222,128,.12));
-      border: 1px solid rgba(34,197,94,.2);
-    }
-
-    .how-step-row:hover .how-step-icon.search {
-      box-shadow: 0 8px 24px rgba(34,197,94,.3);
-    }
-
-    .how-step-icon.tools {
-      color: #8b5cf6;
-      background: linear-gradient(135deg, rgba(139,92,246,.12), rgba(168,85,247,.12));
-      border: 1px solid rgba(139,92,246,.2);
-    }
-
-    .how-step-row:hover .how-step-icon.tools {
-      box-shadow: 0 8px 24px rgba(139,92,246,.3);
-    }
-
-    .how-step-card h3 {
-      font-size: 24px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      margin-bottom: 12px;
-      color: var(--text);
-      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .how-step-row:hover .how-step-card h3 {
-      transform: translateX(4px);
-    }
-
-    .how-step-card p {
-      font-size: 15px;
-      line-height: 1.7;
-      color: var(--muted);
-      transition: color 0.4s ease;
-    }
-
-    .how-step-row:hover .how-step-card p {
-      color: #3d4555;
-    }
-
-    .how-step-card p strong {
-      color: var(--text);
-      font-weight: 600;
-    }
-
-    @media (max-width: 800px) {
-      .how-step-row {
-        grid-template-columns: 1fr;
-        gap: 24px;
-        text-align: center;
-      }
-
-      .how-step-row.reverse {
-        direction: ltr;
-      }
-
-      .how-step-number {
-        font-size: 140px;
-        order: -1;
-      }
-
-      .how-step-card {
-        padding: 32px 28px;
-      }
-
-      .how-step-row:hover .how-step-number {
-        transform: scale(1.05);
-      }
-
-      .how-step-row:hover .how-step-card {
-        transform: translateY(-8px);
-      }
-    }
-
-    /* Legacy grid styles - hidden */
-    .how-grid {
-      display: none;
-    }
-
-    .how-card {
-      display: none;
-    }
-
+}
+.hero-video-intro{
+max-width: 1800px;
+}
+.hero-bg-video video {
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+.hero-inner {
+position: relative;
+z-index: 2;
+min-height: calc(100vh - 68px);
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+text-align: center;
+padding-bottom: 120px; /* pushes content up visually */
+}
+.hero-image {
+padding-top: 80px;
+padding-bottom: 120px;
+}
+.parallax-drive{
+position:absolute;
+right:-120px;
+bottom:600px;
+width:360px;
+max-width:60vw;
+pointer-events:none;
+z-index:6;
+opacity:1;
+transform:translate3d(0,0,0) rotate(-8deg);
+transition:transform 0.1s linear;
+}
+.parallax-drive-left{
+position:absolute;
+left:-140px;
+bottom:520px;
+width:320px;
+max-width:55vw;
+pointer-events:none;
+z-index:6;
+opacity:1;
+transform:translate3d(0,0,0) rotate(6deg);
+transition:transform 0.1s linear;
+}
+/* Large parallax drive (overlay, not in layout flow) */
+.parallax-drive-large{
+position: absolute;
+right: -220px;
+top: 0;
+width: 720px;
+max-width: 70vw;
+pointer-events: none;
+z-index: 0;
+}
+.parallax-drive-large img{
+display: block;
+width: 100%;
+height: auto;
+will-change: transform;
+}
+@media (max-width:768px){
+.parallax-drive-left{
+display:none !important;
+}
+}
+/* Hide large parallax drive on mobile */
+@media (max-width: 768px){
+.parallax-drive{
+width:260px;
+right:-140px;
+}
+.parallax-drive{
+display: none !important;
+}
+.parallax-drive-large{
+display: none !important;
+}
+}
+.hero-inner {
+text-align: center;
+max-width: 900px;
+margin: 0 auto;
+}
+/* Remove hero title animation, always show hero title */
+.h1 {
+opacity: 1 !important;
+}
+.h1 span {
+display: block;
+opacity: 1 !important;
+transform: none !important;
+animation: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+.hero-inner *,
+.h1 span {
+opacity: 1;
+transform: none;
+animation: none;
+}
+}
+.pill{
+display:inline-flex;
+align-items:center;
+gap:10px;
+padding:8px 12px;
+border-radius:999px;
+border:1px solid rgba(34,197,94,.22);
+background:rgba(34,197,94,.08);
+color:#155f36;
+font-weight:700;
+font-size:12px;
+margin-bottom:18px;
+box-shadow:0 10px 28px rgba(34,197,94,.08);
+}
+.pill .dot{
+width:8px; height:8px; border-radius:999px; background:var(--green);
+box-shadow:0 0 0 0 rgba(34,197,94,.35);
+animation:pulse 1.8s ease-in-out infinite;
+}
+@keyframes pulse{
+0%{box-shadow:0 0 0 0 rgba(34,197,94,.38)}
+70%{box-shadow:0 0 0 10px rgba(34,197,94,0)}
+100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}
+}
+.h1{
+font-size:clamp(40px,5.6vw,68px);
+line-height:1.05;
+letter-spacing:-0.015em;
+font-weight:700;
+background:linear-gradient(
+120deg,
+#3b82f6 0%,
+#6366f1 25%,
+#8b5cf6 45%,
+#ec4899 65%,
+#f97316 85%
+);
+background-size:200% 200%;
+-webkit-background-clip:text;
+background-clip:text;
+color:transparent;
+-webkit-text-fill-color:transparent;
+animation:heroGradient 12s ease-in-out infinite;
+}
+@media (max-width: 768px){
+.h1{
+font-size: 30px;
+line-height: 1.15;
+letter-spacing: -0.01em;
+}
+.h1 br{
+display:block;
+content:"";
+margin-bottom:6px;
+}
+}
+@keyframes heroGradient{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+.sub{
+max-width:680px;
+margin:18px auto 18px;
+color:var(--muted);
+font-size:15px;
+line-height:1.55;
+}
+.cta-minimal{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+margin-top:32px;
+margin-bottom:48px;
+padding:18px 36px;
+font-size:15px;
+font-weight:800;
+letter-spacing:-0.01em;
+text-decoration:none;
+color:#ffffff;
+background:#000000;
+/* background-size:200% 200%; */
+border:none;
+border-radius:999px;
+box-shadow:
+0 14px 40px rgba(47,107,255,.35),
+inset 0 1px 0 rgba(255,255,255,.35);
+transition:
+transform .25s cubic-bezier(.2,.9,.2,1),
+box-shadow .35s ease,
+background-position .6s ease;
+position: relative;
+z-index: 5;
+}
+/* Extra space before hero video so hero text fills viewport */
+.hero-inner .vimeo-breakout{
+margin-top: 50px;
+}
+.cta-minimal:hover{
+transform:translateY(-2px);
+background: linear-gradient(
+135deg,
+#2f6bff 0%,
+#6a5cff 45%,
+#8b5cf6 70%,
+#ec4899 100%
+);
+background-size:200% 200%;
+background-position:100% 50%;
+box-shadow:
+0 22px 60px rgba(47,107,255,.45),
+inset 0 1px 0 rgba(255,255,255,.45);
+}
+.cta-minimal:active{
+transform:translateY(0);
+box-shadow:
+0 10px 26px rgba(47,107,255,.35),
+inset 0 2px 4px rgba(0,0,0,.15);
+}
+/* Hero visual */
+.visual{
+position:relative;
+width:min(980px, 94vw);
+margin:-20px auto 0;
+padding:0;
+}
+.screen-wrap{
+position:relative;
+width:100%;
+display:flex;
+align-items:center;
+justify-content:center;
+transform:translateZ(0);
+}
+/* FIX: make it straight + bigger */
+.screen{
+width:min(1220px, 98vw);
+height:auto;
+display:block;
+transform:rotate(0deg);
+}
+/* Floating feature chips */
+.chip{
+position:absolute;
+display:flex;
+align-items:center;
+gap:10px;
+padding:14px 18px;
+border-radius:999px;
+background:rgba(255,255,255,.86);
+border:1px solid rgba(10,12,18,.08);
+box-shadow:0 18px 40px rgba(10,12,18,.10);
+color:#0b0d12;
+font-weight:800;
+font-size:13px;
+white-space:nowrap;
+transform:translateZ(0);
+transition:transform .35s cubic-bezier(.2,.9,.2,1), box-shadow .45s ease, background .45s ease;
+will-change:transform;
+}
+.chip .ico{
+width:32px; height:32px;
+border-radius:12px;
+display:grid; place-items:center;
+background:rgba(47,107,255,.10);
+border:1px solid rgba(47,107,255,.18);
+color:var(--blue);
+flex:0 0 auto;
+transition:transform .55s cubic-bezier(.2,.9,.2,1);
+transform-origin:center;
+}
+.chip:hover{
+transform:translateY(-4px) scale(1.05);
+box-shadow:0 24px 55px rgba(10,12,18,.14), 0 0 0 1px rgba(47,107,255,.08);
+background:rgba(255,255,255,.92);
+}
+.chip:hover .ico{transform:rotate(360deg)}
+@media (prefers-reduced-motion: reduce){
+.pill .dot{animation:none}
+.chip{animation:none}
+.chip:hover .ico{transform:none}
+}
+.chip.float1{animation:floatA 7.5s ease-in-out infinite}
+.chip.float2{animation:floatB 8.2s ease-in-out infinite}
+.chip.float3{animation:floatC 9.1s ease-in-out infinite}
+.chip.float4{animation:floatA 8.8s ease-in-out infinite}
+.chip.float5{animation:floatB 7.9s ease-in-out infinite}
+.chip.float6{animation:floatC 8.6s ease-in-out infinite}
+.chip.float7{animation:floatA 9.4s ease-in-out infinite}
+.chip.float8{animation:floatB 9.8s ease-in-out infinite}
+@keyframes floatA{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes floatB{0%,100%{transform:translateY(0)}50%{transform:translateY(12px)}}
+@keyframes floatC{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+/* Chip positioning (tuned so screen sits in the middle) */
+.chip.c1{left:6%; top:28%;}
+.chip.c2{left:1%; top:48%;}
+.chip.c3{left:10%; top:14%;}
+.chip.c4{right:8%; top:16%;}
+.chip.c5{right:2%; top:38%;}
+.chip.c6{right:10%; top:58%;}
+.chip.c7{left:16%; top:64%;}
+.chip.c8{right:18%; top:68%;}
+/* Video preview block (clean + editorial) */
+.video-block{
+position:relative;
+width:min(1300px, 96vw);
+margin:0 auto 64px;
+display:flex;
+justify-content:flex-end;
+}
+/* Video + info layout */
+.video-row{
+display:grid;
+grid-template-columns: 1fr 1fr;
+gap:60px;
+align-items:center;
+justify-items:center;
+width: 94vw;
+max-width: 1500px;
+margin: 0 auto 80px;
+position: relative;
+left: 50%;
+transform: translateX(-50%);
+}
+.video-row.reverse{
+grid-template-columns: 1fr 1fr;
+}
+.video-row.reverse .video-info{
+order:2;
+}
+.video-row.reverse .video-wrap{
+order:1;
+}
+.video-info{
+max-width:480px;
+width:100%;
+}
+.video-row.reverse .video-info{
+/* no special positioning needed */
+}
+.video-info h3 {
+font-size: 32px;
+line-height: 1.15;
+font-weight: 900;
+letter-spacing: -0.02em;
+margin-bottom: 12px;
+}
+.video-info p{
+font-size:15px;
+line-height:1.6;
+color:var(--muted);
+}
+@media (max-width:960px){
+.video-row{
+display:flex;
+flex-direction:column;
+gap:24px;
+margin-bottom:64px;
+width: 94vw;
+max-width: 600px;
+left: 50%;
+transform: translateX(-50%);
+}
+.video-row.reverse{
+flex-direction:column;
+}
+.video-row .video-wrap{
+order:1;
+}
+.video-row .video-info{
+order:2;
+}
+.video-info{
+max-width:100%;
+text-align:left;
+}
+.video-info h3{
+font-size:26px;
+}
+.video-wrap{
+width:100%;
+max-width:100%;
+border-radius:14px;
+overflow:hidden;
+background:transparent;
+}
+.video-wrap video{
+display:block;
+width:100%;
+height:auto;
+background:transparent;
+}
+}
+.video-wrap{
+position:relative;
+width:100%;
+max-width:100%;
+border-radius:18px;
+overflow:visible;
+background:transparent;
+}
+.video-row.reverse .video-wrap{
+/* no special positioning needed */
+}
+.video-wrap video{
+width:100%;
+height:auto;
+display:block;
+}
+.video-label{
+position:absolute;
+top:-36px;
+left:32px;
+z-index:10;
+padding:14px 20px;
+background:#ffffff;
+border-radius:14px;
+font-size:14px;
+font-weight:800;
+letter-spacing:-0.01em;
+color:#0b0d12;
+box-shadow:
+0 12px 30px rgba(10,12,18,.10),
+inset 0 1px 0 rgba(255,255,255,.85);
+display:none;
+}
+@media (max-width:860px){
+.video-block{
+justify-content:center;
+}
+.video-wrap{
+width:100%;
+}
+.video-label{
+top:16px;
+left:16px;
+}
+}
+/* Section */
+.section{
+padding:72px 16px 80px;
+display:flex;
+justify-content:center;
+}
+.section .container{width:min(1100px, 94vw)}
+.sec-title{
+text-align:center;
+font-size:clamp(28px,3.8vw,46px);
+font-weight:900;
+letter-spacing:-.02em;
+}
+.sec-sub{
+text-align:center;
+color:var(--muted);
+max-width:760px;
+margin:12px auto 34px;
+line-height:1.6;
+}
+/* How It Works section */
+.how-it-works {
+padding-top: 160px;
+padding-bottom: 80px;
+}
+.how-steps {
+display: flex;
+flex-direction: column;
+gap: 40px;
+max-width: 1100px;
+margin: 0 auto;
+}
+.how-step-row {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 60px;
+align-items: center;
+opacity: 0;
+transform: translateY(60px);
+transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.how-step-row.in-view {
+opacity: 1;
+transform: translateY(0);
+}
+.how-step-row:nth-child(1) { transition-delay: 0s; }
+.how-step-row:nth-child(2) { transition-delay: 0.15s; }
+.how-step-row:nth-child(3) { transition-delay: 0.3s; }
+.how-step-row.reverse {
+direction: rtl;
+}
+.how-step-row.reverse > * {
+direction: ltr;
+}
+.how-step-number {
+font-size: clamp(180px, 22vw, 280px);
+font-weight: 900;
+line-height: 0.85;
+background: linear-gradient(145deg, #ff6b4a 0%, #ff8a65 25%, #f77062 50%, #fe5196 100%);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+opacity: 0.9;
+text-align: center;
+user-select: none;
+filter: drop-shadow(0 20px 40px rgba(255, 107, 74, 0.15));
+transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease, opacity 0.4s ease;
+}
+.how-step-row:hover .how-step-number {
+transform: scale(1.08) rotate(-3deg);
+filter: drop-shadow(0 30px 60px rgba(255, 107, 74, 0.3));
+opacity: 1;
+}
+.how-step-row.reverse:hover .how-step-number {
+transform: scale(1.08) rotate(3deg);
+}
+.how-step-card {
+position: relative;
+padding: 40px 36px;
+border-radius: 28px;
+background: rgba(255,255,255,.85);
+border: 1px solid rgba(10,12,18,.06);
+box-shadow: 
+0 4px 6px rgba(10,12,18,.02),
+0 12px 24px rgba(10,12,18,.04),
+0 24px 48px rgba(10,12,18,.06);
+backdrop-filter: blur(8px);
+transition: 
+transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+border-color 0.4s ease;
+overflow: hidden;
+}
+.how-step-card::before {
+content: '';
+position: absolute;
+inset: 0;
+background: radial-gradient(
+800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+rgba(47, 107, 255, 0.06),
+transparent 40%
+);
+opacity: 0;
+transition: opacity 0.5s ease;
+pointer-events: none;
+}
+.how-step-card:hover::before {
+opacity: 1;
+}
+.how-step-card::after {
+content: '';
+position: absolute;
+top: 0;
+left: -100%;
+width: 100%;
+height: 100%;
+background: linear-gradient(
+90deg,
+transparent,
+rgba(255,255,255,0.4),
+transparent
+);
+transition: left 0.7s ease;
+pointer-events: none;
+}
+.how-step-card:hover::after {
+left: 100%;
+}
+.how-step-row:hover .how-step-card {
+transform: translateY(-12px) scale(1.02);
+box-shadow: 
+0 8px 16px rgba(10,12,18,.04),
+0 32px 64px rgba(10,12,18,.1),
+0 64px 128px rgba(10,12,18,.08),
+0 0 0 1px rgba(47,107,255,.1);
+border-color: rgba(47,107,255,.15);
+}
+.how-step-icon {
+width: 56px;
+height: 56px;
+border-radius: 16px;
+display: grid;
+place-items: center;
+margin-bottom: 20px;
+transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+.how-step-row:hover .how-step-icon {
+transform: scale(1.15) rotate(-5deg);
+}
+.how-step-icon.scan {
+color: #2f6bff;
+background: linear-gradient(135deg, rgba(47,107,255,.12), rgba(99,102,241,.12));
+border: 1px solid rgba(47,107,255,.2);
+}
+.how-step-row:hover .how-step-icon.scan {
+box-shadow: 0 8px 24px rgba(47,107,255,.3);
+}
+.how-step-icon.search {
+color: #16a34a;
+background: linear-gradient(135deg, rgba(34,197,94,.12), rgba(74,222,128,.12));
+border: 1px solid rgba(34,197,94,.2);
+}
+.how-step-row:hover .how-step-icon.search {
+box-shadow: 0 8px 24px rgba(34,197,94,.3);
+}
+.how-step-icon.tools {
+color: #8b5cf6;
+background: linear-gradient(135deg, rgba(139,92,246,.12), rgba(168,85,247,.12));
+border: 1px solid rgba(139,92,246,.2);
+}
+.how-step-row:hover .how-step-icon.tools {
+box-shadow: 0 8px 24px rgba(139,92,246,.3);
+}
+.how-step-card h3 {
+font-size: 24px;
+font-weight: 800;
+letter-spacing: -0.02em;
+margin-bottom: 12px;
+color: var(--text);
+transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.how-step-row:hover .how-step-card h3 {
+transform: translateX(4px);
+}
+.how-step-card p {
+font-size: 15px;
+line-height: 1.7;
+color: var(--muted);
+transition: color 0.4s ease;
+}
+.how-step-row:hover .how-step-card p {
+color: #3d4555;
+}
+.how-step-card p strong {
+color: var(--text);
+font-weight: 600;
+}
+@media (max-width: 800px) {
+.how-step-row {
+grid-template-columns: 1fr;
+gap: 24px;
+text-align: center;
+}
+.how-step-row.reverse {
+direction: ltr;
+}
+.how-step-number {
+font-size: 140px;
+order: -1;
+}
+.how-step-card {
+padding: 32px 28px;
+}
+.how-step-row:hover .how-step-number {
+transform: scale(1.05);
+}
+.how-step-row:hover .how-step-card {
+transform: translateY(-8px);
+}
+}
+/* Legacy grid styles - hidden */
+.how-grid {
+display: none;
+}
+.how-card {
+display: none;
+}
 .how-accordion-trigger{
-  margin-top:100px;
-  margin-bottom:32px;
-  display:flex;
-  justify-content:center;
+margin-top:100px;
+margin-bottom:32px;
+display:flex;
+justify-content:center;
 }
-
 .how-accordion-btn{
-  display:flex;
-  align-items:center;
-  gap:14px;
-  padding:22px 36px;
-  font-size:17px;
-  font-weight:800;
-  letter-spacing:-0.01em;
-  border-radius:999px;
-  border:1px solid rgba(47,107,255,.3);
-  background: linear-gradient(135deg, #ffffff 0%, #f8faff 100%);
-  color:#0b0d12;
-  cursor:pointer;
-  box-shadow:
-    0 4px 12px rgba(47,107,255,.1),
-    0 16px 48px rgba(47,107,255,.2);
-  transition:
-    transform .35s cubic-bezier(.16,1,.3,1),
-    box-shadow .4s ease,
-    border-color .35s ease,
-    background .35s ease;
+display:flex;
+align-items:center;
+gap:14px;
+padding:22px 36px;
+font-size:17px;
+font-weight:800;
+letter-spacing:-0.01em;
+border-radius:999px;
+border:1px solid rgba(47,107,255,.3);
+background: linear-gradient(135deg, #ffffff 0%, #f8faff 100%);
+color:#0b0d12;
+cursor:pointer;
+box-shadow:
+0 4px 12px rgba(47,107,255,.1),
+0 16px 48px rgba(47,107,255,.2);
+transition:
+transform .35s cubic-bezier(.16,1,.3,1),
+box-shadow .4s ease,
+border-color .35s ease,
+background .35s ease;
 }
-
 .how-accordion-btn:hover{
-  transform:translateY(-4px) scale(1.02);
-  background: linear-gradient(135deg, #ffffff 0%, #f0f5ff 100%);
-  box-shadow:
-    0 8px 20px rgba(47,107,255,.15),
-    0 28px 70px rgba(47,107,255,.3);
-  border-color:rgba(47,107,255,.5);
+transform:translateY(-4px) scale(1.02);
+background: linear-gradient(135deg, #ffffff 0%, #f0f5ff 100%);
+box-shadow:
+0 8px 20px rgba(47,107,255,.15),
+0 28px 70px rgba(47,107,255,.3);
+border-color:rgba(47,107,255,.5);
 }
-
-
 .how-accordion-btn .chevron{
-  display:inline-block;
-  font-size:20px;
-  transition:transform .35s cubic-bezier(.16,1,.3,1);
+display:inline-block;
+font-size:20px;
+transition:transform .35s cubic-bezier(.16,1,.3,1);
 }
-
 .how-accordion-content{
-  max-height:0;
-  overflow:hidden;
-  transition:max-height .9s cubic-bezier(.2,.9,.2,1);
-  margin-bottom:72px;
+max-height:0;
+overflow:hidden;
+transition:max-height .9s cubic-bezier(.2,.9,.2,1);
+margin-bottom:72px;
 }
-
 .how-accordion-inner{
-  padding-top:48px;
-  padding-bottom:8px;
+padding-top:48px;
+padding-bottom:8px;
 }
-
-    /* Feature grid */
-    .grid{display:grid; gap:18px; grid-template-columns:repeat(2, minmax(0, 1fr));}
-    .card{
-      position:relative;
-      border-radius:22px;
-      background:rgba(255,255,255,.70);
-      border:1px solid rgba(10,12,18,.08);
-      box-shadow:0 18px 42px rgba(10,12,18,.07);
-      padding:28px;
-      overflow:hidden;
-      transition:box-shadow .55s ease, transform .35s cubic-bezier(.2,.9,.2,1);
-    }
-
-    /* Glow that fades in and out smoothly */
-    .card::before{
-      content:"";
-      position:absolute; inset:-2px;
-      background:
-        radial-gradient(800px 220px at 40% 10%, rgba(47,107,255,.22), transparent 55%),
-        radial-gradient(700px 240px at 80% 30%, rgba(154,106,255,.18), transparent 60%),
-        radial-gradient(700px 260px at 30% 80%, rgba(34,197,94,.16), transparent 60%);
-      opacity:0;
-      transition:opacity .85s ease;
-      pointer-events:none;
-    }
-    .card:hover::before{opacity:1}
-    .card:hover{
-      transform:translateY(-3px);
-      box-shadow:0 30px 80px rgba(10,12,18,.11);
-    }
-
-    .card.big{grid-column:1 / -1; display:flex; gap:22px; align-items:flex-start}
-
-    .ficon{
-      width:76px; height:76px;
-      border-radius:22px;
-      display:grid; place-items:center;
-      background:rgba(47,107,255,.09);
-      border:1px solid rgba(47,107,255,.16);
-      color:var(--blue);
-      box-shadow:0 18px 40px rgba(47,107,255,.10);
-      transition:transform .65s cubic-bezier(.2,.9,.2,1);
-      transform-origin:center;
-      flex:0 0 auto;
-      margin-bottom:16px; /* FIX: more breathing room before headings */
-    }
-    .card:hover .ficon{transform:rotate(360deg)}
-
-    .card:nth-child(2) .ficon{background:rgba(34,197,94,.10); border-color:rgba(34,197,94,.18); color:#16a34a; box-shadow:0 18px 40px rgba(34,197,94,.12)}
-    .card:nth-child(3) .ficon{background:rgba(154,106,255,.10); border-color:rgba(154,106,255,.18); color:#7c3aed; box-shadow:0 18px 40px rgba(154,106,255,.12)}
-    .card:nth-child(4) .ficon{background:rgba(47,107,255,.09); border-color:rgba(47,107,255,.16); color:var(--blue); box-shadow:0 18px 40px rgba(47,107,255,.10)}
-
-    /* FIX: give the heading block a bit more space from icon */
-    .kicker{
-      font-size:12px;
-      color:#6b7280;
-      text-transform:uppercase;
-      letter-spacing:.12em;
-      font-weight:800;
-      margin:10px 0 10px;
-    }
-
-    .card h3{font-size:18px; font-weight:900; letter-spacing:-.01em; margin-bottom:8px}
-    .card p{color:var(--muted); line-height:1.65; font-size:14px; max-width:72ch}
-
-    @media (max-width:860px){
-      .grid{grid-template-columns:1fr}
-      .card.big{grid-column:auto; flex-direction:column}
-      .visual{margin-top:30px}
-      .chip{font-size:12px; padding:12px 14px}
-      .chip .ico{width:28px; height:28px}
-      .screen{transform:rotate(0deg)}
-      .chip.c1{left:2%; top:22%}
-      .chip.c2{left:-1%; top:44%}
-      .chip.c3{left:4%; top:10%}
-      .chip.c4{right:4%; top:12%}
-      .chip.c5{right:1%; top:34%}
-      .chip.c6{right:6%; top:58%}
-      .chip.c7{left:10%; top:68%}
-      .chip.c8{right:10%; top:74%}
-    }
-
-    /* Hide floating hero pills on mobile for clarity */
-    @media (max-width: 768px){
-      .chip{
-        display:none !important;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce){
-      .card:hover .ficon{transform:none}
-      .card{transition:none}
-      .card::before{transition:none}
-    }
-
-    .pricing-grid{
-      display:grid;
-      grid-template-columns:repeat(6, minmax(0, 1fr));
-      gap:22px;
-      margin-bottom:24px;
-    }
-
-    @media (max-width: 768px){
-      .pricing-grid{
-        grid-template-columns: 1fr;
-        gap:20px;
-      }
-    }
-
-    .pricing-card{
-      border-radius:22px;
-      background:rgba(255,255,255,.75);
-      border:1px solid rgba(10,12,18,.08);
-      padding:28px;
-      text-align:center;
-    }
-
-    .pricing-card{
-      position:relative;
-      transition:
-        transform .35s cubic-bezier(.2,.9,.2,1),
-        box-shadow .45s ease,
-        background .45s ease,
-        border-color .45s ease;
-    }
-
-    .pricing-card:hover{
-      transform:translateY(-6px);
-      box-shadow:0 30px 80px rgba(47,107,255,.18);
-      border-color:rgba(47,107,255,.45);
-      background:linear-gradient(
-        180deg,
-        rgba(47,107,255,.14),
-        rgba(255,255,255,.92)
-      );
-    }
-
-    .pricing-card.popular{
-      border-color:rgba(47,107,255,.45);
-      background:linear-gradient(
-        180deg,
-        rgba(47,107,255,.14),
-        rgba(255,255,255,.88)
-      );
-    }
-
-    .popular-badge{
-      position:absolute;
-      top:-14px;
-      right:-14px;
-      padding:6px 12px;
-      font-size:11px;
-      font-weight:800;
-      letter-spacing:.04em;
-      text-transform:uppercase;
-      border-radius:999px;
-      color:#0b0d12;
-      background:linear-gradient(135deg,#ffd166,#fbbf24);
-      box-shadow:0 8px 18px rgba(251,191,36,.35);
-      z-index:2;
-    }
-
-    .pricing-card h3{
-      font-size:18px;
-      font-weight:900;
-      letter-spacing:-.01em;
-      margin-bottom:6px;
-    }
-
-    .pricing-card .price{
-      font-size:28px;
-      font-weight:900;
-      margin-bottom:6px;
-    }
-
-    .pricing-card .tier-desc{
-      font-size:14px;
-      color:var(--muted);
-    }
-
-    .pricing-card.highlight{
-      background:rgba(255,255,255,.75);
-      border:1px solid rgba(10,12,18,.08);
-    }
-
-    footer{
-      padding:28px 16px 40px;
-      border-top:1px solid var(--line);
-      color:#6b7280;
-      display:flex;
-      justify-content:center;
-    }
-    footer .fwrap{width:min(1100px, 94vw); display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap}
-    footer a{color:#6b7280; text-decoration:none}
-    footer a:hover{text-decoration:underline}
-
-
-
+/* Feature grid */
+.grid{display:grid; gap:18px; grid-template-columns:repeat(2, minmax(0, 1fr));}
+.card{
+position:relative;
+border-radius:22px;
+background:rgba(255,255,255,.70);
+border:1px solid rgba(10,12,18,.08);
+box-shadow:0 18px 42px rgba(10,12,18,.07);
+padding:28px;
+overflow:hidden;
+transition:box-shadow .55s ease, transform .35s cubic-bezier(.2,.9,.2,1);
+}
+/* Glow that fades in and out smoothly */
+.card::before{
+content:"";
+position:absolute; inset:-2px;
+background:
+radial-gradient(800px 220px at 40% 10%, rgba(47,107,255,.22), transparent 55%),
+radial-gradient(700px 240px at 80% 30%, rgba(154,106,255,.18), transparent 60%),
+radial-gradient(700px 260px at 30% 80%, rgba(34,197,94,.16), transparent 60%);
+opacity:0;
+transition:opacity .85s ease;
+pointer-events:none;
+}
+.card:hover::before{opacity:1}
+.card:hover{
+transform:translateY(-3px);
+box-shadow:0 30px 80px rgba(10,12,18,.11);
+}
+.card.big{grid-column:1 / -1; display:flex; gap:22px; align-items:flex-start}
+.ficon{
+width:76px; height:76px;
+border-radius:22px;
+display:grid; place-items:center;
+background:rgba(47,107,255,.09);
+border:1px solid rgba(47,107,255,.16);
+color:var(--blue);
+box-shadow:0 18px 40px rgba(47,107,255,.10);
+transition:transform .65s cubic-bezier(.2,.9,.2,1);
+transform-origin:center;
+flex:0 0 auto;
+margin-bottom:16px; /* FIX: more breathing room before headings */
+}
+.card:hover .ficon{transform:rotate(360deg)}
+.card:nth-child(2) .ficon{background:rgba(34,197,94,.10); border-color:rgba(34,197,94,.18); color:#16a34a; box-shadow:0 18px 40px rgba(34,197,94,.12)}
+.card:nth-child(3) .ficon{background:rgba(154,106,255,.10); border-color:rgba(154,106,255,.18); color:#7c3aed; box-shadow:0 18px 40px rgba(154,106,255,.12)}
+.card:nth-child(4) .ficon{background:rgba(47,107,255,.09); border-color:rgba(47,107,255,.16); color:var(--blue); box-shadow:0 18px 40px rgba(47,107,255,.10)}
+/* FIX: give the heading block a bit more space from icon */
+.kicker{
+font-size:12px;
+color:#6b7280;
+text-transform:uppercase;
+letter-spacing:.12em;
+font-weight:800;
+margin:10px 0 10px;
+}
+.card h3{font-size:18px; font-weight:900; letter-spacing:-.01em; margin-bottom:8px}
+.card p{color:var(--muted); line-height:1.65; font-size:14px; max-width:72ch}
+@media (max-width:860px){
+.grid{grid-template-columns:1fr}
+.card.big{grid-column:auto; flex-direction:column}
+.visual{margin-top:30px}
+.chip{font-size:12px; padding:12px 14px}
+.chip .ico{width:28px; height:28px}
+.screen{transform:rotate(0deg)}
+.chip.c1{left:2%; top:22%}
+.chip.c2{left:-1%; top:44%}
+.chip.c3{left:4%; top:10%}
+.chip.c4{right:4%; top:12%}
+.chip.c5{right:1%; top:34%}
+.chip.c6{right:6%; top:58%}
+.chip.c7{left:10%; top:68%}
+.chip.c8{right:10%; top:74%}
+}
+/* Hide floating hero pills on mobile for clarity */
+@media (max-width: 768px){
+.chip{
+display:none !important;
+}
+}
+@media (prefers-reduced-motion: reduce){
+.card:hover .ficon{transform:none}
+.card{transition:none}
+.card::before{transition:none}
+}
+.pricing-grid{
+display:grid;
+grid-template-columns:repeat(6, minmax(0, 1fr));
+gap:22px;
+margin-bottom:24px;
+}
+@media (max-width: 768px){
+.pricing-grid{
+grid-template-columns: 1fr;
+gap:20px;
+}
+}
+.pricing-card{
+border-radius:22px;
+background:rgba(255,255,255,.75);
+border:1px solid rgba(10,12,18,.08);
+padding:28px;
+text-align:center;
+}
+.pricing-card{
+position:relative;
+transition:
+transform .35s cubic-bezier(.2,.9,.2,1),
+box-shadow .45s ease,
+background .45s ease,
+border-color .45s ease;
+}
+.pricing-card:hover{
+transform:translateY(-6px);
+box-shadow:0 30px 80px rgba(47,107,255,.18);
+border-color:rgba(47,107,255,.45);
+background:linear-gradient(
+180deg,
+rgba(47,107,255,.14),
+rgba(255,255,255,.92)
+);
+}
+.pricing-card.popular{
+border-color:rgba(47,107,255,.45);
+background:linear-gradient(
+180deg,
+rgba(47,107,255,.14),
+rgba(255,255,255,.88)
+);
+}
+.popular-badge{
+position:absolute;
+top:-14px;
+right:-14px;
+padding:6px 12px;
+font-size:11px;
+font-weight:800;
+letter-spacing:.04em;
+text-transform:uppercase;
+border-radius:999px;
+color:#0b0d12;
+background:linear-gradient(135deg,#ffd166,#fbbf24);
+box-shadow:0 8px 18px rgba(251,191,36,.35);
+z-index:2;
+}
+.pricing-card h3{
+font-size:18px;
+font-weight:900;
+letter-spacing:-.01em;
+margin-bottom:6px;
+}
+.pricing-card .price{
+font-size:28px;
+font-weight:900;
+margin-bottom:6px;
+}
+.pricing-card .tier-desc{
+font-size:14px;
+color:var(--muted);
+}
+.pricing-card.highlight{
+background:rgba(255,255,255,.75);
+border:1px solid rgba(10,12,18,.08);
+}
+footer{
+padding:28px 16px 40px;
+border-top:1px solid var(--line);
+color:#6b7280;
+display:flex;
+justify-content:center;
+}
+footer .fwrap{width:min(1100px, 94vw); display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap}
+footer a{color:#6b7280; text-decoration:none}
+footer a:hover{text-decoration:underline}
 /* Single drive add-on row */
 .addon-row{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:24px;
-  width:100%;
-  padding:26px 30px;
-
-  border-radius:20px;
-  background:#ffffff;
-  border:2px solid rgba(47,107,255,.35);
-
-  box-shadow:
-    0 20px 45px rgba(47,107,255,.18),
-    inset 0 1px 0 rgba(255,255,255,.9);
-
-  transition:
-    transform .3s cubic-bezier(.2,.9,.2,1),
-    box-shadow .35s ease,
-    border-color .35s ease;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:24px;
+width:100%;
+padding:26px 30px;
+border-radius:20px;
+background:#ffffff;
+border:2px solid rgba(47,107,255,.35);
+box-shadow:
+0 20px 45px rgba(47,107,255,.18),
+inset 0 1px 0 rgba(255,255,255,.9);
+transition:
+transform .3s cubic-bezier(.2,.9,.2,1),
+box-shadow .35s ease,
+border-color .35s ease;
 }
-
 .addon-row:hover{
-  transform:translateY(-2px);
-  box-shadow:
-    0 28px 70px rgba(47,107,255,.28),
-    inset 0 1px 0 rgba(255,255,255,.95);
-  border-color:rgba(47,107,255,.6);
+transform:translateY(-2px);
+box-shadow:
+0 28px 70px rgba(47,107,255,.28),
+inset 0 1px 0 rgba(255,255,255,.95);
+border-color:rgba(47,107,255,.6);
 }
-
 .addon-left{
-  display:flex;
-  align-items:center;
-  gap:18px;
+display:flex;
+align-items:center;
+gap:18px;
 }
-
 .addon-icon{
-  width:46px;
-  height:46px;
-  border-radius:14px;
-  display:grid;
-  place-items:center;
-  font-size:22px;
-  font-weight:900;
-  color:#ffffff;
-  background:linear-gradient(135deg,#2f6bff,#6aa2ff);
-  box-shadow:0 12px 28px rgba(47,107,255,.35);
-  flex:0 0 auto;
+width:46px;
+height:46px;
+border-radius:14px;
+display:grid;
+place-items:center;
+font-size:22px;
+font-weight:900;
+color:#ffffff;
+background:linear-gradient(135deg,#2f6bff,#6aa2ff);
+box-shadow:0 12px 28px rgba(47,107,255,.35);
+flex:0 0 auto;
 }
-
 .addon-title{
-  font-size:16px;
-  font-weight:900;
-  letter-spacing:-.01em;
-  margin-bottom:4px;
+font-size:16px;
+font-weight:900;
+letter-spacing:-.01em;
+margin-bottom:4px;
 }
-
 .addon-sub{
-  font-size:14px;
-  color:var(--muted);
+font-size:14px;
+color:var(--muted);
 }
-
 .addon-right{
-  text-align:right;
+text-align:right;
 }
-
 .addon-price{
-  font-size:22px;
-  font-weight:900;
-  letter-spacing:-.01em;
+font-size:22px;
+font-weight:900;
+letter-spacing:-.01em;
 }
-
 .addon-note{
-  font-size:12px;
-  color:var(--muted);
+font-size:12px;
+color:var(--muted);
 }
-
 @media (max-width:720px){
-  .addon-row{
-    flex-direction:column;
-    align-items:flex-start;
-  }
-
-  .addon-right{
-    text-align:left;
-  }
+.addon-row{
+flex-direction:column;
+align-items:flex-start;
 }
-    
-    /* Signup scroll connector - anchored to form */
+.addon-right{
+text-align:left;
+}
+}
+/* Signup scroll connector - anchored to form */
 .connector-wrap{
-  position:absolute;
-  inset:0;
-  pointer-events:none;
+position:absolute;
+inset:0;
+pointer-events:none;
 }
-
 .connector-line{
-  position:absolute;
-  top: calc(50% + 120px);
-  height:6px;
-  background:linear-gradient(90deg,#6b5cff 0%, #ff6aa2 100%);
-  border-radius:6px;
-  box-shadow:0 0 36px rgba(107,92,255,.55);
-  transform:translateY(-50%);
+position:absolute;
+top: calc(50% + 120px);
+height:6px;
+background:linear-gradient(90deg,#6b5cff 0%, #ff6aa2 100%);
+border-radius:6px;
+box-shadow:0 0 36px rgba(107,92,255,.55);
+transform:translateY(-50%);
 }
-
-    .connector-dot{
-      position:absolute;
-      top:50%;
-      width:18px;
-      height:18px;
-      transform:translate(-50%,-50%) scale(0.85);
-      border-radius:50%;
-      background:#2f6bff;
-      box-shadow:0 0 22px rgba(47,107,255,.45);
-      transition:
-        transform .35s cubic-bezier(.2,.9,.2,1),
-        box-shadow .35s ease;
-    }
-
-    .connector-dot-small {
-      width: 12px;
-      height: 12px;
-    }
-
-    /* Right side multi-line connector styles */
-    .connector-right-main {
-      background: linear-gradient(90deg, #22c55e 0%, #4ade80 50%, #86efac 100%);
-      height: 8px;
-      box-shadow: 
-        0 0 30px rgba(34,197,94,.6),
-        0 0 60px rgba(34,197,94,.4),
-        0 0 100px rgba(34,197,94,.2);
-      z-index: 3;
-    }
-
-    .connector-right-main .connector-dot {
-      background: linear-gradient(135deg, #22c55e, #4ade80);
-      width: 22px;
-      height: 22px;
-      box-shadow: 
-        0 0 20px rgba(34,197,94,.8),
-        0 0 40px rgba(34,197,94,.5),
-        0 0 80px rgba(34,197,94,.3);
-    }
-
-    .connector-right-upper {
-      background: linear-gradient(90deg, #3b82f6 0%, #60a5fa 50%, #93c5fd 100%);
-      height: 5px;
-      opacity: 0.85;
-      transform: translateY(-50%) rotate(-8deg);
-      transform-origin: left center;
-      z-index: 2;
-      box-shadow: 
-        0 0 25px rgba(59,130,246,.5),
-        0 0 50px rgba(59,130,246,.3);
-    }
-
-    .connector-right-upper .connector-dot {
-      background: linear-gradient(135deg, #3b82f6, #60a5fa);
-      box-shadow: 
-        0 0 15px rgba(59,130,246,.7),
-        0 0 30px rgba(59,130,246,.4);
-    }
-
-    .connector-right-lower {
-      background: linear-gradient(90deg, #a855f7 0%, #c084fc 50%, #e9d5ff 100%);
-      height: 5px;
-      opacity: 0.85;
-      transform: translateY(-50%) rotate(8deg);
-      transform-origin: left center;
-      z-index: 2;
-      box-shadow: 
-        0 0 25px rgba(168,85,247,.5),
-        0 0 50px rgba(168,85,247,.3);
-    }
-
-    .connector-right-lower .connector-dot {
-      background: linear-gradient(135deg, #a855f7, #c084fc);
-      box-shadow: 
-        0 0 15px rgba(168,85,247,.7),
-        0 0 30px rgba(168,85,247,.4);
-    }
-
-    /* Pulsing glow animation for all right connectors */
-    @keyframes connectorGlow {
-      0%, 100% {
-        filter: brightness(1) drop-shadow(0 0 20px currentColor);
-      }
-      50% {
-        filter: brightness(1.3) drop-shadow(0 0 40px currentColor);
-      }
-    }
-
-    @keyframes connectorPulse {
-      0% {
-        transform: translate(-50%,-50%) scale(calc(var(--dot-scale, 1) * 0.92));
-      }
-      50% {
-        transform: translate(-50%,-50%) scale(calc(var(--dot-scale, 1) * 1.15));
-      }
-      100% {
-        transform: translate(-50%,-50%) scale(calc(var(--dot-scale, 1) * 0.92));
-      }
-    }
-
-    @keyframes energyFlow {
-      0% {
-        background-position: -100% 50%;
-      }
-      100% {
-        background-position: 100% 50%;
-      }
-    }
-
-    #signup-dot-right {
-      animation: connectorPulse 1.8s ease-in-out infinite;
-    }
-
-    .connector-right-main.active {
-      background: linear-gradient(90deg, #22c55e 0%, #4ade80 30%, #86efac 50%, #4ade80 70%, #22c55e 100%);
-      background-size: 200% 100%;
-      animation: energyFlow 1.5s ease-in-out infinite;
-    }
-
-    .connector-right-upper.active {
-      background: linear-gradient(90deg, #3b82f6 0%, #60a5fa 30%, #93c5fd 50%, #60a5fa 70%, #3b82f6 100%);
-      background-size: 200% 100%;
-      animation: energyFlow 1.8s ease-in-out infinite;
-    }
-    
-    .connector-right-lower.active {
-      background: linear-gradient(90deg, #a855f7 0%, #c084fc 30%, #e9d5ff 50%, #c084fc 70%, #a855f7 100%);
-      background-size: 200% 100%;
-      animation: energyFlow 2s ease-in-out infinite;
-    }
-
-    /* Energy particles */
-    .energy-particles {
-      position: absolute;
-      top: calc(50% + 120px);
-      transform: translateY(-50%);
-      pointer-events: none;
-    }
-
-    .particle {
-      position: absolute;
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #4ade80;
-      opacity: 0;
-      box-shadow: 0 0 10px #4ade80, 0 0 20px #4ade80;
-    }
-
-    @keyframes particleFly1 {
-      0% { transform: translate(0, 0) scale(1); opacity: 0; }
-      10% { opacity: 1; }
-      100% { transform: translate(150px, -60px) scale(0); opacity: 0; }
-    }
-
-    @keyframes particleFly2 {
-      0% { transform: translate(0, 0) scale(1); opacity: 0; }
-      10% { opacity: 1; }
-      100% { transform: translate(180px, -30px) scale(0); opacity: 0; }
-    }
-
-    @keyframes particleFly3 {
-      0% { transform: translate(0, 0) scale(1); opacity: 0; }
-      10% { opacity: 1; }
-      100% { transform: translate(200px, 0px) scale(0); opacity: 0; }
-    }
-
-    @keyframes particleFly4 {
-      0% { transform: translate(0, 0) scale(1); opacity: 0; }
-      10% { opacity: 1; }
-      100% { transform: translate(180px, 30px) scale(0); opacity: 0; }
-    }
-
-    @keyframes particleFly5 {
-      0% { transform: translate(0, 0) scale(1); opacity: 0; }
-      10% { opacity: 1; }
-      100% { transform: translate(150px, 60px) scale(0); opacity: 0; }
-    }
-
-    .particle.active.p1 { animation: particleFly1 1.5s ease-out infinite; animation-delay: 0s; }
-    .particle.active.p2 { animation: particleFly2 1.5s ease-out infinite; animation-delay: 0.2s; background: #60a5fa; box-shadow: 0 0 10px #60a5fa, 0 0 20px #60a5fa; }
-    .particle.active.p3 { animation: particleFly3 1.5s ease-out infinite; animation-delay: 0.4s; }
-    .particle.active.p4 { animation: particleFly4 1.5s ease-out infinite; animation-delay: 0.6s; background: #c084fc; box-shadow: 0 0 10px #c084fc, 0 0 20px #c084fc; }
-    .particle.active.p5 { animation: particleFly5 1.5s ease-out infinite; animation-delay: 0.8s; }
-
+.connector-dot{
+position:absolute;
+top:50%;
+width:18px;
+height:18px;
+transform:translate(-50%,-50%) scale(0.85);
+border-radius:50%;
+background:#2f6bff;
+box-shadow:0 0 22px rgba(47,107,255,.45);
+transition:
+transform .35s cubic-bezier(.2,.9,.2,1),
+box-shadow .35s ease;
+}
+.connector-dot-small {
+width: 12px;
+height: 12px;
+}
+/* Right side multi-line connector styles */
+.connector-right-main {
+background: linear-gradient(90deg, #22c55e 0%, #4ade80 50%, #86efac 100%);
+height: 8px;
+box-shadow: 
+0 0 30px rgba(34,197,94,.6),
+0 0 60px rgba(34,197,94,.4),
+0 0 100px rgba(34,197,94,.2);
+z-index: 3;
+}
+.connector-right-main .connector-dot {
+background: linear-gradient(135deg, #22c55e, #4ade80);
+width: 22px;
+height: 22px;
+box-shadow: 
+0 0 20px rgba(34,197,94,.8),
+0 0 40px rgba(34,197,94,.5),
+0 0 80px rgba(34,197,94,.3);
+}
+.connector-right-upper {
+background: linear-gradient(90deg, #3b82f6 0%, #60a5fa 50%, #93c5fd 100%);
+height: 5px;
+opacity: 0.85;
+transform: translateY(-50%) rotate(-8deg);
+transform-origin: left center;
+z-index: 2;
+box-shadow: 
+0 0 25px rgba(59,130,246,.5),
+0 0 50px rgba(59,130,246,.3);
+}
+.connector-right-upper .connector-dot {
+background: linear-gradient(135deg, #3b82f6, #60a5fa);
+box-shadow: 
+0 0 15px rgba(59,130,246,.7),
+0 0 30px rgba(59,130,246,.4);
+}
+.connector-right-lower {
+background: linear-gradient(90deg, #a855f7 0%, #c084fc 50%, #e9d5ff 100%);
+height: 5px;
+opacity: 0.85;
+transform: translateY(-50%) rotate(8deg);
+transform-origin: left center;
+z-index: 2;
+box-shadow: 
+0 0 25px rgba(168,85,247,.5),
+0 0 50px rgba(168,85,247,.3);
+}
+.connector-right-lower .connector-dot {
+background: linear-gradient(135deg, #a855f7, #c084fc);
+box-shadow: 
+0 0 15px rgba(168,85,247,.7),
+0 0 30px rgba(168,85,247,.4);
+}
+/* Pulsing glow animation for all right connectors */
+@keyframes connectorGlow {
+0%, 100% {
+filter: brightness(1) drop-shadow(0 0 20px currentColor);
+}
+50% {
+filter: brightness(1.3) drop-shadow(0 0 40px currentColor);
+}
+}
+@keyframes connectorPulse {
+0% {
+transform: translate(-50%,-50%) scale(calc(var(--dot-scale, 1) * 0.92));
+}
+50% {
+transform: translate(-50%,-50%) scale(calc(var(--dot-scale, 1) * 1.15));
+}
+100% {
+transform: translate(-50%,-50%) scale(calc(var(--dot-scale, 1) * 0.92));
+}
+}
+@keyframes energyFlow {
+0% {
+background-position: -100% 50%;
+}
+100% {
+background-position: 100% 50%;
+}
+}
+#signup-dot-right {
+animation: connectorPulse 1.8s ease-in-out infinite;
+}
+.connector-right-main.active {
+background: linear-gradient(90deg, #22c55e 0%, #4ade80 30%, #86efac 50%, #4ade80 70%, #22c55e 100%);
+background-size: 200% 100%;
+animation: energyFlow 1.5s ease-in-out infinite;
+}
+.connector-right-upper.active {
+background: linear-gradient(90deg, #3b82f6 0%, #60a5fa 30%, #93c5fd 50%, #60a5fa 70%, #3b82f6 100%);
+background-size: 200% 100%;
+animation: energyFlow 1.8s ease-in-out infinite;
+}
+.connector-right-lower.active {
+background: linear-gradient(90deg, #a855f7 0%, #c084fc 30%, #e9d5ff 50%, #c084fc 70%, #a855f7 100%);
+background-size: 200% 100%;
+animation: energyFlow 2s ease-in-out infinite;
+}
+/* Energy particles */
+.energy-particles {
+position: absolute;
+top: calc(50% + 120px);
+transform: translateY(-50%);
+pointer-events: none;
+}
+.particle {
+position: absolute;
+width: 6px;
+height: 6px;
+border-radius: 50%;
+background: #4ade80;
+opacity: 0;
+box-shadow: 0 0 10px #4ade80, 0 0 20px #4ade80;
+}
+@keyframes particleFly1 {
+0% { transform: translate(0, 0) scale(1); opacity: 0; }
+10% { opacity: 1; }
+100% { transform: translate(150px, -60px) scale(0); opacity: 0; }
+}
+@keyframes particleFly2 {
+0% { transform: translate(0, 0) scale(1); opacity: 0; }
+10% { opacity: 1; }
+100% { transform: translate(180px, -30px) scale(0); opacity: 0; }
+}
+@keyframes particleFly3 {
+0% { transform: translate(0, 0) scale(1); opacity: 0; }
+10% { opacity: 1; }
+100% { transform: translate(200px, 0px) scale(0); opacity: 0; }
+}
+@keyframes particleFly4 {
+0% { transform: translate(0, 0) scale(1); opacity: 0; }
+10% { opacity: 1; }
+100% { transform: translate(180px, 30px) scale(0); opacity: 0; }
+}
+@keyframes particleFly5 {
+0% { transform: translate(0, 0) scale(1); opacity: 0; }
+10% { opacity: 1; }
+100% { transform: translate(150px, 60px) scale(0); opacity: 0; }
+}
+.particle.active.p1 { animation: particleFly1 1.5s ease-out infinite; animation-delay: 0s; }
+.particle.active.p2 { animation: particleFly2 1.5s ease-out infinite; animation-delay: 0.2s; background: #60a5fa; box-shadow: 0 0 10px #60a5fa, 0 0 20px #60a5fa; }
+.particle.active.p3 { animation: particleFly3 1.5s ease-out infinite; animation-delay: 0.4s; }
+.particle.active.p4 { animation: particleFly4 1.5s ease-out infinite; animation-delay: 0.6s; background: #c084fc; box-shadow: 0 0 10px #c084fc, 0 0 20px #c084fc; }
+.particle.active.p5 { animation: particleFly5 1.5s ease-out infinite; animation-delay: 0.8s; }
 @media (max-width: 768px){
-  .connector-wrap{
-    display:none !important;
-  }
+.connector-wrap{
+display:none !important;
 }
-
+}
 /* Ensure signup form sits above connector */
 .signup-form {
-  position: relative;
-  z-index: 2;
+position: relative;
+z-index: 2;
 }
-
 /* Vimeo hero breakout - desktop only */
 .vimeo-breakout {
-  width: 130%;
-  max-width: none;
-  position: relative;
-  margin: 0 auto;
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0;
-  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(.2,.9,.2,1);
-  will-change: opacity, transform;
+width: 130%;
+max-width: none;
+position: relative;
+margin: 0 auto;
+left: 50%;
+transform: translateX(-50%);
+opacity: 0;
+transition: opacity 0.8s ease, transform 0.8s cubic-bezier(.2,.9,.2,1);
+will-change: opacity, transform;
 }
-
 .hero .vimeo-spacer {
-  height: 25vh;
-  pointer-events: none;
+height: 25vh;
+pointer-events: none;
 }
-
 .vimeo-breakout.in-view {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
+opacity: 1;
+transform: translateX(-50%) translateY(0);
 }
-
 /* Aspect ratio wrapper */
 .video-wrapper {
-  position: relative;
-  width: 100%;
-  max-width: 100%;
-  padding-top: 56.25%;
-  border-radius: 22px;
-  overflow: hidden;
-  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.15);
+position: relative;
+width: 100%;
+max-width: 100%;
+padding-top: 56.25%;
+border-radius: 22px;
+overflow: hidden;
+box-shadow: 0 40px 80px rgba(0, 0, 0, 0.15);
 }
-
 .video-wrapper,
 .vimeo-breakout {
-  position: relative;
-  z-index: 3;
+position: relative;
+z-index: 3;
 }
-
 .video-wrapper iframe {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+position: absolute;
+inset: 0;
+width: 100%;
+height: 100%;
 }
-
 @media (max-width: 768px) {
-  .vimeo-spacer {
-    display: none;
-  }
-
-  .vimeo-breakout {
-    width: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    margin: 40px auto 48px;
-    opacity: 1;
-  }
+.vimeo-spacer {
+display: none;
 }
-
+.vimeo-breakout {
+width: 100%;
+left: 50%;
+transform: translateX(-50%);
+margin: 40px auto 48px;
+opacity: 1;
+}
+}
 /* -----------------------------
-   HERO MOBILE SPACING FIX
-   Tighten top spacing + pull CTA up
+HERO MOBILE SPACING FIX
+Tighten top spacing + pull CTA up
 ------------------------------*/
 @media (max-width: 768px) {
-
-  /* Reduce excessive top padding on hero */
-  .hero {
-    min-height: 100svh;
-    padding-top: 140px;
-    padding-bottom: 40px;
-  }
-
-  /* Center hero content properly */
-  .hero-inner {
-    min-height: auto;
-    padding-bottom: 0;
-    transform: none !important;
-  }
-
-  /* Pull badge closer to header */
-  .pill {
-    margin-bottom: 14px;
-  }
-
-  /* Tighten headline stack */
-  .h1 {
-    margin-top: 0;
-    margin-bottom: 12px;
-  }
-
-  .sub {
-    margin-top: 10px;
-    margin-bottom: 22px;
-  }
-
-  /* Pull App Store button up */
-  .cta-minimal {
-    margin-top: 18px;
-    margin-bottom: 28px;
-  }
-
-  /* Reduce spacer that pushes video too far down */
-  .hero .vimeo-spacer {
-    height: 6vh;
-  }
-
-  /* Bring video closer to hero content */
-  .vimeo-breakout {
-    margin-top: 24px;
-    margin-bottom: 48px;
-  }
+/* Reduce excessive top padding on hero */
+.hero {
+min-height: 100svh;
+padding-top: 140px;
+padding-bottom: 40px;
+}
+/* Center hero content properly */
+.hero-inner {
+min-height: auto;
+padding-bottom: 0;
+transform: none !important;
+}
+/* Pull badge closer to header */
+.pill {
+margin-bottom: 14px;
+}
+/* Tighten headline stack */
+.h1 {
+margin-top: 0;
+margin-bottom: 12px;
+}
+.sub {
+margin-top: 10px;
+margin-bottom: 22px;
+}
+/* Pull App Store button up */
+.cta-minimal {
+margin-top: 18px;
+margin-bottom: 28px;
+}
+/* Reduce spacer that pushes video too far down */
+.hero .vimeo-spacer {
+height: 6vh;
+}
+/* Bring video closer to hero content */
+.vimeo-breakout {
+margin-top: 24px;
+margin-bottom: 48px;
+}
 }
 </style>
 </head>
-
 <body>
-  <div class="bg-blobs" aria-hidden="true">
-    <div class="blob b1"></div>
-    <div class="blob b2"></div>
-    <div class="blob b3"></div>
-  </div>
-
-  <header class="topbar" role="banner">
-    <div class="wrap">
-      <a class="brand" href="/">
-        <img src="/favicon.png" alt="DriveVault logo">
-        <span>DriveVault</span>
-      </a>
-      <nav class="nav" id="mobileNav" role="navigation" aria-label="Primary">
-        <a href="#features">Features</a>
-        <a href="#pricing">Pricing</a>
-        <a href="/changelog.html">Changelog</a>
-        <a href="/blog.html">Blog</a>
-        <a href="/faq.html">FAQ</a>
-        <a class="cta-top" href="https://apps.apple.com/us/app/drivevault-offline-catalog/id6751731655?mt=12">Download on the App Store </a>
-      </nav>
-      <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false" id="hamburgerBtn">
-        <span></span>
-      </button>
-    </div>
-  </header>
-
-
-  
-  <main id="main-content">
-    <section class="hero">
-      <div class="hero-bg-video" aria-hidden="true">
-        <video
-          src="https://cdn.shopify.com/videos/c/o/v/08d9a1b3ad9248eaabd94655ccab2a90.mp4"
-          autoplay
-          muted
-          loop
-          playsinline
-        ></video>
-      </div>
-      <div class="hero-inner">
-        <div class="pill"><span class="dot" aria-hidden="true"></span> The offline hard drive cataloguer for Mac</div>
-
-     <h1 class="h1 hero-title">
-  <span class="hero-line line-1">Scan hard drives once.</span>
-  <span class="hero-line line-2">Search them unplugged.</span>
-  <span class="hero-line line-3">Forever.</span>
-</h1>
-
-        <p class="sub">Never lose a file again. Build an offline, powerful, catalogue of your hard drives with DriveVault. </p>
-        <a class="cta-minimal" href="https://apps.apple.com/us/app/drivevault-offline-catalog/id6751731655?mt=12" rel="noopener" target="_blank">
-          Download on the App Store for free 
-        </a>
-        <div class="vimeo-spacer"></div>
-<div class="vimeo-breakout">
-  <div class="video-wrapper">
-    <iframe
-      src="https://player.vimeo.com/video/1158590679?h=7f3e67f5d7&badge=0&autopause=0&loop=1&title=0&byline=0&portrait=0"
-      frameborder="0"
-      allow="autoplay; fullscreen; picture-in-picture"
-      allowfullscreen
-      referrerpolicy="strict-origin-when-cross-origin"
-      title="Introducing: DriveVault for MacOS">
-    </iframe>
-  </div>
+<div class="bg-blobs" aria-hidden="true">
+<div class="blob b1"></div>
+<div class="blob b2"></div>
+<div class="blob b3"></div>
 </div>
-
-      </div>
-    </section>
-
-
-    <section class="hero-image">
-      <div class="visual" aria-label="DriveVault app preview">
-        <img
-          src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/Hard_Drive_4.png?v=1769276563"
-          alt="External hard drive"
-          class="parallax-drive"
-        />
-        <img
-          src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/Hard_Drive_1.png?v=1769277171"
-          alt="External hard drive"
-          class="parallax-drive-left"
-        />
-        <div class="screen-wrap">
-          <video
-            class="screen"
-            src="https://cdn.shopify.com/videos/c/o/v/21917fa1a3584ae499719c2d58f8db98.mp4"
-            autoplay
-            muted
-            loop
-            playsinline
-          ></video>
-
-          <div class="chip c1 float1"><span class="ico">🔎</span>Fast global search</div>
-          <div class="chip c2 float2"><span class="ico">📊</span>Reports and library stats</div>
-          <div class="chip c3 float3"><span class="ico">🏷️</span>Uses rich metadata</div>
-          <div class="chip c4 float4"><span class="ico">📁</span>Create Projects</div>
-          <div class="chip c5 float5"><span class="ico">⚖️</span>Compare drives</div>
-          <div class="chip c6 float6"><span class="ico">⭐</span>Search by rating</div>
-          <div class="chip c7 float7"><span class="ico">🎛️</span>Smart Filter</div>
-          <div class="chip c8 float8"><span class="ico">⇄</span>Export + Import Libraries</div>
-        </div>
-      </div>
-    </section>
-
-  
-
+<header class="topbar" role="banner">
+<div class="wrap">
+<a class="brand" href="/">
+<img src="/favicon.png" alt="DriveVault logo">
+<span>DriveVault</span>
+</a>
+<nav class="nav" id="mobileNav" role="navigation" aria-label="Primary">
+<a href="#features">Features</a>
+<a href="#pricing">Pricing</a>
+<a href="/changelog.html">Changelog</a>
+<a href="/blog.html">Blog</a>
+<a href="/faq.html">FAQ</a>
+<a class="cta-top" href="https://apps.apple.com/us/app/drivevault-offline-catalog/id6751731655?mt=12">Download on the App Store </a>
+</nav>
+<button class="hamburger" aria-label="Toggle navigation" aria-expanded="false" id="hamburgerBtn">
+<span></span>
+</button>
+</div>
+</header>
+<main id="main-content">
+<section class="hero">
+<div class="hero-bg-video" aria-hidden="true">
+<video
+src="https://cdn.shopify.com/videos/c/o/v/08d9a1b3ad9248eaabd94655ccab2a90.mp4"
+autoplay
+muted
+loop
+playsinline
+></video>
+</div>
+<div class="hero-inner">
+<div class="pill"><span class="dot" aria-hidden="true"></span> The offline hard drive cataloguer for Mac</div>
+<h1 class="h1 hero-title">
+<span class="hero-line line-1">Scan hard drives once.</span>
+<span class="hero-line line-2">Search them unplugged.</span>
+<span class="hero-line line-3">Forever.</span>
+</h1>
+<p class="sub">Never lose a file again. Build an offline, powerful, catalogue of your hard drives with DriveVault. </p>
+<a class="cta-minimal" href="https://apps.apple.com/us/app/drivevault-offline-catalog/id6751731655?mt=12" rel="noopener" target="_blank">
+Download on the App Store for free 
+</a>
+<div class="vimeo-spacer"></div>
+<div class="vimeo-breakout">
+<div class="video-wrapper">
+<iframe
+src="https://player.vimeo.com/video/1158590679?h=7f3e67f5d7&badge=0&autopause=0&loop=1&title=0&byline=0&portrait=0"
+frameborder="0"
+allow="autoplay; fullscreen; picture-in-picture"
+allowfullscreen
+referrerpolicy="strict-origin-when-cross-origin"
+title="Introducing: DriveVault for MacOS">
+</iframe>
+</div>
+</div>
+</div>
+</section>
+<section class="hero-image">
+<div class="visual" aria-label="DriveVault app preview">
+<img
+src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/Hard_Drive_4.png?v=1769276563"
+alt="External hard drive"
+class="parallax-drive"
+/>
+<img
+src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/Hard_Drive_1.png?v=1769277171"
+alt="External hard drive"
+class="parallax-drive-left"
+/>
+<div class="screen-wrap">
+<video
+class="screen"
+src="https://cdn.shopify.com/videos/c/o/v/21917fa1a3584ae499719c2d58f8db98.mp4"
+autoplay
+muted
+loop
+playsinline
+></video>
+<div class="chip c1 float1"><span class="ico">\uc0\u55357 \u56590 </span>Fast global search</div>
+<div class="chip c2 float2"><span class="ico">\uc0\u55357 \u56522 </span>Reports and library stats</div>
+<div class="chip c3 float3"><span class="ico">\uc0\u55356 \u57335 \u65039 </span>Uses rich metadata</div>
+<div class="chip c4 float4"><span class="ico">\uc0\u55357 \u56513 </span>Create Projects</div>
+<div class="chip c5 float5"><span class="ico">\uc0\u9878 \u65039 </span>Compare drives</div>
+<div class="chip c6 float6"><span class="ico">\uc0\u11088 </span>Search by rating</div>
+<div class="chip c7 float7"><span class="ico">\uc0\u55356 \u57243 \u65039 </span>Smart Filter</div>
+<div class="chip c8 float8"><span class="ico">\uc0\u8644 </span>Export + Import Libraries</div>
+</div>
+</div>
+</section>
 <!-- How It Works Section - UPDATED COPY -->
 <section class="section how-it-works" style="position:relative; overflow:hidden;">
-  <div class="parallax-drive-large">
-    <img
-      src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/hard_drive_5.png?v=1769277764"
-      alt="External hard drive"
-      class="parallax-drive-large-img"
-    />
-  </div>
-  <div class="container">
-    <h2 class="sec-title" style="margin-bottom:14px;">How DriveVault Works</h2>
-    <p class="sec-sub" style="margin-bottom:56px;">
-      Three steps to never lose a file again.
-    </p>
-
-    <div class="how-steps">
-      <!-- Step 1 -->
-      <div class="how-step-row">
-        <div class="how-step-number">1</div>
-        <div class="how-step-card">
-          <div class="how-step-icon scan">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <rect x="3" y="5" width="18" height="12" rx="2.5" stroke="currentColor" stroke-width="2"/>
-              <circle cx="7.5" cy="15" r="1" fill="currentColor"/>
-            </svg>
-          </div>
-          <h3>Scan your drives</h3>
-          <p>
-            Plug in a drive and hit scan - that's it. DriveVault indexes every file, folder, and piece of metadata in minutes. Choose <strong>Full Scan</strong> for thumbnail previews you can browse offline, or <strong>Quick Scan</strong> to catalogue massive drives in seconds. Once scanned, you'll never need to guess what's on that drive again.
-          </p>
-        </div>
-      </div>
-
-      <!-- Step 2 -->
-      <div class="how-step-row reverse">
-        <div class="how-step-number">2</div>
-        <div class="how-step-card">
-          <div class="how-step-icon search">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="2"/>
-              <path d="M16.5 16.5L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <h3>Search everything, unplugged</h3>
-          <p>
-            Need that client project from 2019? Type a few letters and DriveVault finds it across every drive you've ever scanned - even the ones sitting in a drawer. Search by name, path, file type, or metadata. No cables required.
-          </p>
-        </div>
-      </div>
-
-      <!-- Step 3 -->
-      <div class="how-step-row">
-        <div class="how-step-number">3</div>
-        <div class="how-step-card">
-          <div class="how-step-icon tools">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <rect x="3" y="4" width="18" height="12" rx="2" stroke="currentColor" stroke-width="2"/>
-              <path d="M2 18h20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <h3>Organize, compare, and share</h3>
-          <p>
-            Tag files, rate your best shots, and add notes without touching the original drive. Compare two drives to verify backups or spot missing files. Export your entire library and share it with a teammate - they'll see everything you see, instantly. Professional tools, zero learning curve.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Keep old grid hidden for backwards compatibility -->
-    <div class="how-grid" style="display:none;">
-      <div class="how-card">
-        <div class="how-step how-icon how-icon-scan">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <rect x="3" y="5" width="18" height="12" rx="2.5" stroke="currentColor" stroke-width="2"/>
-            <circle cx="7.5" cy="15" r="1" fill="currentColor"/>
-          </svg>
-        </div>
-        <h3>Scan your drives</h3>
-        <p>
-          Plug in a drive and hit scan - that's it. DriveVault indexes every file, folder, and piece of metadata in minutes. Choose <strong>Full Scan</strong> for thumbnail previews you can browse offline, or <strong>Quick Scan</strong> to catalogue massive drives in seconds. Once scanned, you'll never need to guess what's on that drive again.
-        </p>
-      </div>
-
-      <div class="how-card">
-        <div class="how-step how-icon how-icon-search">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="2"/>
-            <path d="M16.5 16.5L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <h3>Search everything, unplugged</h3>
-        <p>
-          Need that client project from 2019? Type a few letters and DriveVault finds it across every drive you've ever scanned - even the ones sitting in a drawer. Search by name, path, file type, or metadata. No cables required.
-        </p>
-      </div>
-
-      <div class="how-card">
-        <div class="how-step how-icon how-icon-work">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <rect x="3" y="4" width="18" height="12" rx="2" stroke="currentColor" stroke-width="2"/>
-            <path d="M2 18h20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <h3>Organize, compare, and share</h3>
-        <p>
-          Tag files, rate your best shots, and add notes without touching the original drive. Compare two drives to verify backups or spot missing files. Export your entire library and share it with a teammate - they'll see everything you see, instantly. Professional tools, zero learning curve.
-        </p>
-      </div>
-    </div>
-
-    <!-- Accordion block -->
-    <div class="how-accordion-trigger">
-      <button class="how-accordion-btn" type="button">
-        <span>Explore DriveVault features</span>
-        <span class="chevron">⌄</span>
-      </button>
-    </div>
-    <div class="how-accordion-content" id="howAccordion">
-      <div class="how-accordion-inner">
-        <div class="video-wrap" style="width:100%; max-width:1100px; margin:0 auto;">
-          <iframe
-            src="https://www.youtube.com/embed/Lah8EJ5LLFk?si=udOl0AcjX3JR7lfU"
-            title="DriveVault App Introduction"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-            style="
-              width:100%;
-              aspect-ratio:16/9;
-              border-radius:18px;
-              box-shadow:0 30px 80px rgba(10,12,18,.18);
-            "
-          ></iframe>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="parallax-drive-large">
+<img
+src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/hard_drive_5.png?v=1769277764"
+alt="External hard drive"
+class="parallax-drive-large-img"
+/>
+</div>
+<div class="container">
+<h2 class="sec-title" style="margin-bottom:14px;">How DriveVault Works</h2>
+<p class="sec-sub" style="margin-bottom:56px;">
+Three steps to never lose a file again.
+</p>
+<div class="how-steps">
+<!-- Step 1 -->
+<div class="how-step-row">
+<div class="how-step-number">1</div>
+<div class="how-step-card">
+<div class="how-step-icon scan">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+<rect x="3" y="5" width="18" height="12" rx="2.5" stroke="currentColor" stroke-width="2"/>
+<circle cx="7.5" cy="15" r="1" fill="currentColor"/>
+</svg>
+</div>
+<h3>Scan your drives</h3>
+<p>
+Plug in a drive and hit scan - that's it. DriveVault indexes every file, folder, and piece of metadata in minutes. Choose <strong>Full Scan</strong> for thumbnail previews you can browse offline, or <strong>Quick Scan</strong> to catalogue massive drives in seconds. Once scanned, you'll never need to guess what's on that drive again.
+</p>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="how-step-row reverse">
+<div class="how-step-number">2</div>
+<div class="how-step-card">
+<div class="how-step-icon search">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+<circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="2"/>
+<path d="M16.5 16.5L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+</svg>
+</div>
+<h3>Search everything, unplugged</h3>
+<p>
+Need that client project from 2019? Type a few letters and DriveVault finds it across every drive you've ever scanned - even the ones sitting in a drawer. Search by name, path, file type, or metadata. No cables required.
+</p>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="how-step-row">
+<div class="how-step-number">3</div>
+<div class="how-step-card">
+<div class="how-step-icon tools">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+<rect x="3" y="4" width="18" height="12" rx="2" stroke="currentColor" stroke-width="2"/>
+<path d="M2 18h20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+</svg>
+</div>
+<h3>Organize, compare, and share</h3>
+<p>
+Tag files, rate your best shots, and add notes without touching the original drive. Compare two drives to verify backups or spot missing files. Export your entire library and share it with a teammate - they'll see everything you see, instantly. Professional tools, zero learning curve.
+</p>
+</div>
+</div>
+</div>
+<!-- Keep old grid hidden for backwards compatibility -->
+<div class="how-grid" style="display:none;">
+<div class="how-card">
+<div class="how-step how-icon how-icon-scan">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+<rect x="3" y="5" width="18" height="12" rx="2.5" stroke="currentColor" stroke-width="2"/>
+<circle cx="7.5" cy="15" r="1" fill="currentColor"/>
+</svg>
+</div>
+<h3>Scan your drives</h3>
+<p>
+Plug in a drive and hit scan - that's it. DriveVault indexes every file, folder, and piece of metadata in minutes. Choose <strong>Full Scan</strong> for thumbnail previews you can browse offline, or <strong>Quick Scan</strong> to catalogue massive drives in seconds. Once scanned, you'll never need to guess what's on that drive again.
+</p>
+</div>
+<div class="how-card">
+<div class="how-step how-icon how-icon-search">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+<circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="2"/>
+<path d="M16.5 16.5L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+</svg>
+</div>
+<h3>Search everything, unplugged</h3>
+<p>
+Need that client project from 2019? Type a few letters and DriveVault finds it across every drive you've ever scanned - even the ones sitting in a drawer. Search by name, path, file type, or metadata. No cables required.
+</p>
+</div>
+<div class="how-card">
+<div class="how-step how-icon how-icon-work">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+<rect x="3" y="4" width="18" height="12" rx="2" stroke="currentColor" stroke-width="2"/>
+<path d="M2 18h20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+</svg>
+</div>
+<h3>Organize, compare, and share</h3>
+<p>
+Tag files, rate your best shots, and add notes without touching the original drive. Compare two drives to verify backups or spot missing files. Export your entire library and share it with a teammate - they'll see everything you see, instantly. Professional tools, zero learning curve.
+</p>
+</div>
+</div>
+<!-- Accordion block -->
+<div class="how-accordion-trigger">
+<button class="how-accordion-btn" type="button">
+<span>Explore DriveVault features</span>
+<span class="chevron">\uc0\u8964 </span>
+</button>
+</div>
+<div class="how-accordion-content" id="howAccordion">
+<div class="how-accordion-inner">
+<div class="video-wrap" style="width:100%; max-width:1100px; margin:0 auto;">
+<iframe
+src="https://www.youtube.com/embed/Lah8EJ5LLFk?si=udOl0AcjX3JR7lfU"
+title="DriveVault App Introduction"
+frameborder="0"
+allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+allowfullscreen
+style="
+width:100%;
+aspect-ratio:16/9;
+border-radius:18px;
+box-shadow:0 30px 80px rgba(10,12,18,.18);
+"
+></iframe>
+</div>
+</div>
+</div>
+</div>
 </section>
-
-    <!-- Mailing List Signup -->
+<!-- Mailing List Signup -->
 <section class="section signup-section" style="padding-top:72px; padding-bottom:122px; position:relative;">
-      <div class="container signup-content">
-        <h2 class="sec-title" style="margin-top:100px; margin-bottom:18px;">
-          Plug yourself in
-        </h2>
-        <div class="connector-wrap" aria-hidden="true">
-          <div class="connector-line" id="signup-connector">
-            <span class="connector-dot" id="signup-dot"></span>
-          </div>
-        </div>
-        <div class="connector-wrap right" aria-hidden="true">
-          <!-- Main center line -->
-          <div class="connector-line connector-right-main" id="signup-connector-right">
-            <span class="connector-dot" id="signup-dot-right"></span>
-          </div>
-          <!-- Upper curving line -->
-          <div class="connector-line connector-right-upper" id="signup-connector-right-upper">
-            <span class="connector-dot connector-dot-small"></span>
-          </div>
-          <!-- Lower curving line -->
-          <div class="connector-line connector-right-lower" id="signup-connector-right-lower">
-            <span class="connector-dot connector-dot-small"></span>
-          </div>
-          <!-- Particle sparks -->
-          <div class="energy-particles" id="energy-particles">
-            <span class="particle p1"></span>
-            <span class="particle p2"></span>
-            <span class="particle p3"></span>
-            <span class="particle p4"></span>
-            <span class="particle p5"></span>
-          </div>
-        </div>
-        <form
-          action="https://formspree.io/f/xpwjwzrv"
-          method="POST"
-          id="mailing-list-form"
-          class="signup-form"
-          style="
-            display:flex;
-            gap:12px;
-            justify-content:center;
-            align-items:center;
-            flex-wrap:wrap;
-          "
-        >
-          <input
-            type="email"
-            name="email"
-            required
-            placeholder="you@example.com"
-            aria-label="Email address"
-            style="
-              padding:16px 18px;
-              font-size:15px;
-              border-radius:14px;
-              border:1px solid rgba(10,12,18,.15);
-              min-width:260px;
-              outline:none;
-              font-family:inherit;
-            "
-          />
-          <button
-            type="submit"
-            class="cta-minimal"
-            style="
-              margin:0;
-              padding:16px 28px;
-              font-size:15px;
-            "
-          >
-            Sign Up
-          </button>
-        </form>
-        <p id="form-success" style="
-          display:none;
-          margin-top:16px;
-          color:#16a34a;
-          font-weight:600;
-          text-align:center;
-        ">
-          Thanks for signing up. You're on the list.
-        </p>
-      </div>
-    </section>
-
-    
- 
+<div class="container signup-content">
+<h2 class="sec-title" style="margin-top:100px; margin-bottom:18px;">
+Plug yourself in
+</h2>
+<div class="connector-wrap" aria-hidden="true">
+<div class="connector-line" id="signup-connector">
+<span class="connector-dot" id="signup-dot"></span>
+</div>
+</div>
+<div class="connector-wrap right" aria-hidden="true">
+<!-- Main center line -->
+<div class="connector-line connector-right-main" id="signup-connector-right">
+<span class="connector-dot" id="signup-dot-right"></span>
+</div>
+<!-- Upper curving line -->
+<div class="connector-line connector-right-upper" id="signup-connector-right-upper">
+<span class="connector-dot connector-dot-small"></span>
+</div>
+<!-- Lower curving line -->
+<div class="connector-line connector-right-lower" id="signup-connector-right-lower">
+<span class="connector-dot connector-dot-small"></span>
+</div>
+<!-- Particle sparks -->
+<div class="energy-particles" id="energy-particles">
+<span class="particle p1"></span>
+<span class="particle p2"></span>
+<span class="particle p3"></span>
+<span class="particle p4"></span>
+<span class="particle p5"></span>
+</div>
+</div>
+<form
+action="https://formspree.io/f/xpwjwzrv"
+method="POST"
+id="mailing-list-form"
+class="signup-form"
+style="
+display:flex;
+gap:12px;
+justify-content:center;
+align-items:center;
+flex-wrap:wrap;
+"
+>
+<input
+type="email"
+name="email"
+required
+placeholder="you@example.com"
+aria-label="Email address"
+style="
+padding:16px 18px;
+font-size:15px;
+border-radius:14px;
+border:1px solid rgba(10,12,18,.15);
+min-width:260px;
+outline:none;
+font-family:inherit;
+"
+/>
+<button
+type="submit"
+class="cta-minimal"
+style="
+margin:0;
+padding:16px 28px;
+font-size:15px;
+"
+>
+Sign Up
+</button>
+</form>
+<p id="form-success" style="
+display:none;
+margin-top:16px;
+color:#16a34a;
+font-weight:600;
+text-align:center;
+">
+Thanks for signing up. You're on the list.
+</p>
+</div>
+</section>
 <!-- FEATURES SECTION - UPDATED COPY -->
 <!-- Starts after the mailing list signup section -->
-
 <section class="section">
-  <div class="container">
-
-    <hr style="
-      border:none;
-      height:1px;
-      background:linear-gradient(
-        90deg,
-        rgba(10,12,18,0),
-        rgba(10,12,18,.15),
-        rgba(10,12,18,0)
-      );
-      margin:72px 0 64px;
-    ">
-    <br>  
-    <h2 id="features" class="sec-title" style="margin-bottom:12px;">
-      See your files without the drive
-    </h2>
-
-    <p class="sec-sub" style="margin-bottom:32px;">
-      DriveVault generates low-res visual previews of every image and video - so you can browse your archives like they're right in front of you. It's like having your entire hard drive in a tiny fraction of the space. Even when the drive is on a shelf, in storage, or across the world.
-    </p>
-
-    <div style="display:flex; justify-content:center; margin-bottom:96px;">
-      <div class="video-wrap" style="width:100%; max-width:1100px;">
-        <video
-          src="https://cdn.shopify.com/videos/c/o/v/37cbd7aed6a14413ac0e9a00dce02399.mp4"
-          autoplay
-          muted
-          loop
-          playsinline
-        ></video>
-      </div>
-    </div>
-
-    <div class="video-row">
-      <div class="video-info">
-        <h3>One scan. Permanent access.</h3>
-        <p>
-          Plug in a drive, hit scan, and DriveVault captures everything - file names, folder structures, metadata, and thumbnail previews for images and videos. Use <strong>Full Scan</strong> for visual browsing with rich metadata, or <strong>Quick Scan</strong> to catalogue even massive drives in seconds. Your files stay private. Nothing leaves your Mac.
-        </p>
-      </div>
-
-      <div class="video-wrap">
-        <video
-          src="https://cdn.shopify.com/videos/c/o/v/b87ede8df692474aab329e5fc000152e.mp4"
-          autoplay
-          muted
-          loop
-          playsinline
-        ></video>
-      </div>
-    </div>
-
-    <div class="video-row reverse">
-      <div class="video-info">
-        <h3>Find any file in seconds - across every drive</h3>
-        <p>
-          Looking for that shoot from three years ago? Type a few letters in the menu bar and DriveVault surfaces it instantly - no need to open the app, no need to plug anything in. Filter by file type, date, size, or metadata to zero in on exactly what you need.
-        </p>
-      </div>
-
-      <div class="video-wrap">
-        <video
-          src="https://cdn.shopify.com/videos/c/o/v/b49bc5c22d1144fe9cf811de9612deeb.mp4"
-          autoplay
-          muted
-          loop
-          playsinline
-        ></video>
-      </div>
-    </div>
-
-    <div class="video-row">
-      <div class="video-info">
-        <h3>Know your backups actually worked</h3>
-        <p>
-          Select two drives and DriveVault instantly compares them - file by file. See exactly what's missing from the smaller drive and where those files live on the larger one. No more hoping your backup is complete. Get a detailed report that shows the truth.
-        </p>
-      </div>
-
-      <div class="video-wrap">
-        <video
-          src="https://cdn.shopify.com/videos/c/o/v/577b0d9b5e8440109e62a43f8721a248.mp4"
-          autoplay
-          muted
-          loop
-          playsinline
-        ></video>
-      </div>
-    </div>
-
-    <div class="video-row reverse">
-      <div class="video-info">
-        <h3>Group drives the way your brain works</h3>
-        <p>
-          Drag drives into Projects and organise them however makes sense to you - by client, by year, by shoot, by vibe. When you've got dozens of drives, structure is everything. DriveVault makes it effortless.
-        </p>
-      </div>
-
-      <div class="video-wrap">
-        <video
-          src="https://cdn.shopify.com/videos/c/o/v/340b4af385cd4e148aca7b078cb1ce1b.mp4"
-          autoplay
-          muted
-          loop
-          playsinline
-        ></video>
-      </div>
-    </div>
-
-    <div class="video-row">
-      <div class="video-info">
-        <h3>See the big picture</h3>
-        <p>
-          How much storage do you actually have? Where is it all going? Library Stats breaks down your entire archive - total capacity, space used, file types, and more. Finally understand what you're working with across every drive you own.
-        </p>
-      </div>
-
-      <div class="video-wrap">
-        <video
-          src="https://cdn.shopify.com/videos/c/o/v/00b0c854e582417e85508004807b2fea.mp4"
-          autoplay
-          muted
-          loop
-          playsinline
-        ></video>
-      </div>
-    </div>
-
-    <div class="video-row reverse">
-      <div class="video-info">
-        <h3>Share your archive with your team</h3>
-        <p>
-          Export your library - or just specific drives - and send it to a colleague. They'll see everything you see: folder structures, previews, metadata, search. One person scans. Everyone benefits. No cloud required.
-        </p>
-      </div>
-
-      <div class="video-wrap">
-        <video
-          src="https://cdn.shopify.com/videos/c/o/v/75f6e32736a94955a429b8b28e7e7cf3.mp4"
-          autoplay
-          muted
-          loop
-          playsinline
-        ></video>
-      </div>
-    </div>
-
-    <h3 style="text-align:center; font-size:32px; line-height:1.15; font-weight:900; letter-spacing:-.02em; margin-top:96px; margin-bottom:12px;">
-      Light. Dark. Glass. Your call.
-    </h3>
-
-    <p class="sec-sub" style="margin-bottom:32px;">
-      Three beautiful themes to match your setup and your mood. 
-      <br>DriveVault looks right at home on any Mac.
-    </p>
-
-    <div style="display:flex; justify-content:center; margin-bottom:96px;">
-      <div class="video-wrap" style="width:100%; max-width:1300px;">
-        <video
-          src="https://cdn.shopify.com/videos/c/o/v/9aa695e2c4c84efd833a622dc64b85c1.mp4"
-          autoplay
-          muted
-          loop
-          playsinline
-        ></video>
-      </div>
-    </div>
-  </div>
+<div class="container">
+<hr style="
+border:none;
+height:1px;
+background:linear-gradient(
+90deg,
+rgba(10,12,18,0),
+rgba(10,12,18,.15),
+rgba(10,12,18,0)
+);
+margin:72px 0 64px;
+">
+<br>  
+<h2 id="features" class="sec-title" style="margin-bottom:12px;">
+See your files without the drive
+</h2>
+<p class="sec-sub" style="margin-bottom:32px;">
+DriveVault generates low-res visual previews of every image and video - so you can browse your archives like they're right in front of you. It's like having your entire hard drive in a tiny fraction of the space. Even when the drive is on a shelf, in storage, or across the world.
+</p>
+<div style="display:flex; justify-content:center; margin-bottom:96px;">
+<div class="video-wrap" style="width:100%; max-width:1100px;">
+<video
+src="https://cdn.shopify.com/videos/c/o/v/37cbd7aed6a14413ac0e9a00dce02399.mp4"
+autoplay
+muted
+loop
+playsinline
+></video>
+</div>
+</div>
+<div class="video-row">
+<div class="video-info">
+<h3>One scan. Permanent access.</h3>
+<p>
+Plug in a drive, hit scan, and DriveVault captures everything - file names, folder structures, metadata, and thumbnail previews for images and videos. Use <strong>Full Scan</strong> for visual browsing with rich metadata, or <strong>Quick Scan</strong> to catalogue even massive drives in seconds. Your files stay private. Nothing leaves your Mac.
+</p>
+</div>
+<div class="video-wrap">
+<video
+src="https://cdn.shopify.com/videos/c/o/v/b87ede8df692474aab329e5fc000152e.mp4"
+autoplay
+muted
+loop
+playsinline
+></video>
+</div>
+</div>
+<div class="video-row reverse">
+<div class="video-info">
+<h3>Find any file in seconds - across every drive</h3>
+<p>
+Looking for that shoot from three years ago? Type a few letters in the menu bar and DriveVault surfaces it instantly - no need to open the app, no need to plug anything in. Filter by file type, date, size, or metadata to zero in on exactly what you need.
+</p>
+</div>
+<div class="video-wrap">
+<video
+src="https://cdn.shopify.com/videos/c/o/v/b49bc5c22d1144fe9cf811de9612deeb.mp4"
+autoplay
+muted
+loop
+playsinline
+></video>
+</div>
+</div>
+<div class="video-row">
+<div class="video-info">
+<h3>Know your backups actually worked</h3>
+<p>
+Select two drives and DriveVault instantly compares them - file by file. See exactly what's missing from the smaller drive and where those files live on the larger one. No more hoping your backup is complete. Get a detailed report that shows the truth.
+</p>
+</div>
+<div class="video-wrap">
+<video
+src="https://cdn.shopify.com/videos/c/o/v/577b0d9b5e8440109e62a43f8721a248.mp4"
+autoplay
+muted
+loop
+playsinline
+></video>
+</div>
+</div>
+<div class="video-row reverse">
+<div class="video-info">
+<h3>Group drives the way your brain works</h3>
+<p>
+Drag drives into Projects and organise them however makes sense to you - by client, by year, by shoot, by vibe. When you've got dozens of drives, structure is everything. DriveVault makes it effortless.
+</p>
+</div>
+<div class="video-wrap">
+<video
+src="https://cdn.shopify.com/videos/c/o/v/340b4af385cd4e148aca7b078cb1ce1b.mp4"
+autoplay
+muted
+loop
+playsinline
+></video>
+</div>
+</div>
+<div class="video-row">
+<div class="video-info">
+<h3>See the big picture</h3>
+<p>
+How much storage do you actually have? Where is it all going? Library Stats breaks down your entire archive - total capacity, space used, file types, and more. Finally understand what you're working with across every drive you own.
+</p>
+</div>
+<div class="video-wrap">
+<video
+src="https://cdn.shopify.com/videos/c/o/v/00b0c854e582417e85508004807b2fea.mp4"
+autoplay
+muted
+loop
+playsinline
+></video>
+</div>
+</div>
+<div class="video-row reverse">
+<div class="video-info">
+<h3>Share your archive with your team</h3>
+<p>
+Export your library - or just specific drives - and send it to a colleague. They'll see everything you see: folder structures, previews, metadata, search. One person scans. Everyone benefits. No cloud required.
+</p>
+</div>
+<div class="video-wrap">
+<video
+src="https://cdn.shopify.com/videos/c/o/v/75f6e32736a94955a429b8b28e7e7cf3.mp4"
+autoplay
+muted
+loop
+playsinline
+></video>
+</div>
+</div>
+<h3 style="text-align:center; font-size:32px; line-height:1.15; font-weight:900; letter-spacing:-.02em; margin-top:96px; margin-bottom:12px;">
+Light. Dark. Glass. Your call.
+</h3>
+<p class="sec-sub" style="margin-bottom:32px;">
+Three beautiful themes to match your setup and your mood. 
+<br>DriveVault looks right at home on any Mac.
+</p>
+<div style="display:flex; justify-content:center; margin-bottom:96px;">
+<div class="video-wrap" style="width:100%; max-width:1300px;">
+<video
+src="https://cdn.shopify.com/videos/c/o/v/9aa695e2c4c84efd833a622dc64b85c1.mp4"
+autoplay
+muted
+loop
+playsinline
+></video>
+</div>
+</div>
+</div>
 </section>
-
 <section id="pricing" class="section" style="padding-top:40px;">
-  <div class="container">
-
-    <h2 class="sec-title" style="margin-bottom:8px;">
-      No Subscription. Pay once, own it forever.
-    </h2>
-
-    <h3 class="sec-title" style="font-size:clamp(22px,3vw,30px); margin-bottom:16px;">
-      Pick a plan based on how many drives you have
-    </h3>
-
-    <p class="sec-sub" style="margin-bottom:48px;">
-      Every plan unlocks every feature. No upsells, no drive size limits, no recurring fees. Just simple, honest pricing.
-    </p>
-
-    <div class="pricing-grid">
-      <div class="pricing-card">
-        <h3>Free</h3>
-        <p class="price">$0</p>
-        <p class="tier-desc">1 drive · Up to 4TB</p>
-      </div>
-
-      <div class="pricing-card">
-        <h3>Starter</h3>
-        <p class="price">$14.99</p>
-        <p class="tier-desc">Up to 5 drives</p>
-      </div>
-
-      <div class="pricing-card">
-        <h3>Pro</h3>
-        <p class="price">$24.99</p>
-        <p class="tier-desc">Up to 10 drives</p>
-      </div>
-
-      <div class="pricing-card popular">
-        <span class="popular-badge">Popular</span>
-        <h3>Advanced</h3>
-        <p class="price">$34.99</p>
-        <p class="tier-desc">Up to 15 drives</p>
-      </div>
-
-      <div class="pricing-card">
-        <h3>Ultimate</h3>
-        <p class="price">$45.99</p>
-        <p class="tier-desc">Up to 20 drives</p>
-      </div>
-
-      <div class="pricing-card">
-        <h3>Unlimited</h3>
-        <p class="price">$99.99</p>
-        <p class="tier-desc">Unlimited drives</p>
-      </div>
-    </div>
-
-  </div>
+<div class="container">
+<h2 class="sec-title" style="margin-bottom:8px;">
+No Subscription. Pay once, own it forever.
+</h2>
+<h3 class="sec-title" style="font-size:clamp(22px,3vw,30px); margin-bottom:16px;">
+Pick a plan based on how many drives you have
+</h3>
+<p class="sec-sub" style="margin-bottom:48px;">
+Every plan unlocks every feature. No upsells, no drive size limits, no recurring fees. Just simple, honest pricing.
+</p>
+<div class="pricing-grid">
+<div class="pricing-card">
+<h3>Free</h3>
+<p class="price">$0</p>
+<p class="tier-desc">1 drive \'b7 Up to 4TB</p>
+</div>
+<div class="pricing-card">
+<h3>Starter</h3>
+<p class="price">$14.99</p>
+<p class="tier-desc">Up to 5 drives</p>
+</div>
+<div class="pricing-card">
+<h3>Pro</h3>
+<p class="price">$24.99</p>
+<p class="tier-desc">Up to 10 drives</p>
+</div>
+<div class="pricing-card popular">
+<span class="popular-badge">Popular</span>
+<h3>Advanced</h3>
+<p class="price">$34.99</p>
+<p class="tier-desc">Up to 15 drives</p>
+</div>
+<div class="pricing-card">
+<h3>Ultimate</h3>
+<p class="price">$45.99</p>
+<p class="tier-desc">Up to 20 drives</p>
+</div>
+<div class="pricing-card">
+<h3>Unlimited</h3>
+<p class="price">$99.99</p>
+<p class="tier-desc">Unlimited drives</p>
+</div>
+</div>
+</div>
 </section>
-
 <section class="section" style="padding-top:0;">
-  <div class="container">
-
-    <h3 class="sec-title" style="font-size:clamp(22px,3vw,28px); margin-bottom:20px;">
-      DriveVault can also grow with you
-    </h3>
-
-    <div class="addon-row">
-      <div class="addon-left">
-        <div class="addon-icon">+</div>
-        <div>
-          <div class="addon-title">Add a single drive</div>
-          <div class="addon-sub">
-            Increase your DriveVault capacity by one additional drive
-          </div>
-        </div>
-      </div>
-
-      <div class="addon-right">
-        <div class="addon-price">$9.99</div>
-        <div class="addon-note">one-time purchase</div>
-      </div>
-    </div>
-
-  </div>
+<div class="container">
+<h3 class="sec-title" style="font-size:clamp(22px,3vw,28px); margin-bottom:20px;">
+DriveVault can also grow with you
+</h3>
+<div class="addon-row">
+<div class="addon-left">
+<div class="addon-icon">+</div>
+<div>
+<div class="addon-title">Add a single drive</div>
+<div class="addon-sub">
+Increase your DriveVault capacity by one additional drive
+</div>
+</div>
+</div>
+<div class="addon-right">
+<div class="addon-price">$9.99</div>
+<div class="addon-note">one-time purchase</div>
+</div>
+</div>
+<div class="addon-row">
+<div class="addon-left">
+<div class="addon-icon" style="font-size: 18px;">+5</div>
+<div>
+<div class="addon-title">Add five drives</div>
+<div class="addon-sub">
+Increase your DriveVault capacity by five additional drives
+</div>
+</div>
+</div>
+<div class="addon-right">
+<div class="addon-price">$34.99</div>
+<div class="addon-note">one-time purchase · save 30%</div>
+</div>
+</div>
+</div>
 </section>
-
 <section class="section" style="padding-top:0;">
-  <div class="container">
-
-    <hr style="
-      border:none;
-      height:1px;
-      background:linear-gradient(
-        90deg,
-        rgba(10,12,18,0),
-        rgba(10,12,18,.15),
-        rgba(10,12,18,0)
-      );
-      margin:72px 0 64px;
-    ">
-
-    <div style="
-      text-align:center;
-      padding:48px 0 24px;
-    ">
-      <h2 style="
-        font-size:clamp(28px,4vw,42px);
-        font-weight:900;
-        letter-spacing:-.02em;
-        margin-bottom:18px;
-      ">
-        Ready to build your powerful DriveVault?
-      </h2>
-
-      <p style="
-        max-width:680px;
-        margin:0 auto 28px;
-        color:var(--muted);
-        font-size:16px;
-        line-height:1.6;
-      ">
-        Scan your drives once, then browse and search them forever.<br>Even when they're unplugged.
-      </p>
-
-      <a class="cta-minimal" href="https://apps.apple.com/us/app/drivevault-offline-catalog/id6751731655?mt=12" rel="noopener" target="_blank">
-        Download on the App Store 
-      </a>
-    </div>
-
-  </div>
+<div class="container">
+<hr style="
+border:none;
+height:1px;
+background:linear-gradient(
+90deg,
+rgba(10,12,18,0),
+rgba(10,12,18,.15),
+rgba(10,12,18,0)
+);
+margin:72px 0 64px;
+">
+<div style="
+text-align:center;
+padding:48px 0 24px;
+">
+<h2 style="
+font-size:clamp(28px,4vw,42px);
+font-weight:900;
+letter-spacing:-.02em;
+margin-bottom:18px;
+">
+Ready to build your powerful DriveVault?
+</h2>
+<p style="
+max-width:680px;
+margin:0 auto 28px;
+color:var(--muted);
+font-size:16px;
+line-height:1.6;
+">
+Scan your drives once, then browse and search them forever.<br>Even when they're unplugged.
+</p>
+<a class="cta-minimal" href="https://apps.apple.com/us/app/drivevault-offline-catalog/id6751731655?mt=12" rel="noopener" target="_blank">
+Download on the App Store 
+</a>
+</div>
+</div>
 </section>
-
-
-    
-    <footer>
-      <div class="fwrap">
-        <div>© <span id="year"></span> DriveVault // <b></b>Part of the Full Access family</b></div>
-        <div style="display:flex; gap:14px; flex-wrap:wrap">
-          <a href="/privacy.html">Privacy</a>
-          <a href="/terms.html">Terms</a>
-          <a href="/contact.html">Contact</a>
-        </div>
-      </div>
-    </footer>
-  </main>
-
-  <script>
-    // Insert prefersReducedMotion at the very top of the script block
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    document.getElementById('year').textContent = new Date().getFullYear();
-
+<footer>
+<div class="fwrap">
+<div>© <span id="year"></span> DriveVault // <b></b>Part of the Full Access family</b></div>
+<div style="display:flex; gap:14px; flex-wrap:wrap">
+<a href="/privacy.html">Privacy</a>
+<a href="/terms.html">Terms</a>
+<a href="/contact.html">Contact</a>
+</div>
+</div>
+</footer>
+</main>
+<script>
+// Insert prefersReducedMotion at the very top of the script block
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+document.getElementById('year').textContent = new Date().getFullYear();
 // --- Parallax (subtle, launch-grade) ---
 // --- Section-relative parallax for large drive (How It Works) ---
 const howSection = document.querySelector('.how-it-works');
 const largeDrive = document.querySelector('.parallax-drive-large-img');
-
 if (!prefersReducedMotion && howSection && largeDrive) {
-  function onHowScroll() {
-    const rect = howSection.getBoundingClientRect();
-    const vh = window.innerHeight;
-
-    // Progress from when section enters to when it leaves
-    const progress = Math.min(
-      1,
-      Math.max(
-        0,
-        (vh - rect.top) / (rect.height + vh)
-      )
-    );
-
-    // Subtle upward drift only while section is active
-    const translateY = (progress - 0.5) * -140;
-    largeDrive.style.transform = `translate3d(0, ${translateY}px, 0)`;
-  }
-
-  window.addEventListener('scroll', onHowScroll, { passive: true });
-  onHowScroll();
+function onHowScroll() {
+const rect = howSection.getBoundingClientRect();
+const vh = window.innerHeight;
+// Progress from when section enters to when it leaves
+const progress = Math.min(
+1,
+Math.max(
+0,
+(vh - rect.top) / (rect.height + vh)
+)
+);
+// Subtle upward drift only while section is active
+const translateY = (progress - 0.5) * -140;
+largeDrive.style.transform = `translate3d(0, ${translateY}px, 0)`;
+}
+window.addEventListener('scroll', onHowScroll, { passive: true });
+onHowScroll();
 }
 // Goals:
 // - Only run while the hero visual is in view
 // - Smooth motion via rAF + lerp (no snapping)
 // - Tiny "micro-settle" on scroll stop
 // - Blobs drift with slight X and Y parallax for depth
-
 if (prefersReducedMotion) {
 // Respect reduced-motion: do nothing
 } else {
@@ -2358,511 +2084,437 @@ const heroInner = document.querySelector('.hero-inner');
 const heroTitle = document.querySelector('.h1');
 const heroSub = document.querySelector('.sub');
 const visual = document.querySelector('.visual');
-
 // We keep our own transforms so we don't fight CSS hover transforms
 const chipBase = new Map();
 chips.forEach((c) => {
-  chipBase.set(c, { x: 0, y: 0 });
+chipBase.set(c, { x: 0, y: 0 });
 });
-
 let enabled = true; // will be toggled by IntersectionObserver
 let targetY = window.scrollY;
 let currentY = window.scrollY;
 let rafId = null;
 let scrollStopTimer = null;
-
 // IntersectionObserver: only animate when hero/visual is near viewport
 const ioTarget = visual || hero;
 const io = ioTarget
-  ? new IntersectionObserver(
-      (entries) => {
-        enabled = entries.some((e) => e.isIntersecting);
-        // When re-enabled, sync positions so there's no jump
-        if (enabled) {
-          targetY = window.scrollY;
-          currentY = window.scrollY;
-          start();
-        }
-      },
-      { root: null, threshold: 0, rootMargin: '200px 0px 200px 0px' }
-    )
-  : null;
+? new IntersectionObserver(
+(entries) => {
+enabled = entries.some((e) => e.isIntersecting);
+// When re-enabled, sync positions so there's no jump
+if (enabled) {
+targetY = window.scrollY;
+currentY = window.scrollY;
+start();
+}
+},
+{ root: null, threshold: 0, rootMargin: '200px 0px 200px 0px' }
+)
+: null;
 if (io && ioTarget) io.observe(ioTarget);
-
 // Smooth animation loop
 function start() {
-  if (rafId) return;
-  rafId = requestAnimationFrame(tick);
+if (rafId) return;
+rafId = requestAnimationFrame(tick);
 }
-
 function stop() {
-  if (!rafId) return;
-  cancelAnimationFrame(rafId);
-  rafId = null;
+if (!rafId) return;
+cancelAnimationFrame(rafId);
+rafId = null;
 }
-
 function clamp(n, min, max) {
-  return Math.max(min, Math.min(max, n));
+return Math.max(min, Math.min(max, n));
 }
-
 function tick() {
-  rafId = requestAnimationFrame(tick);
-  if (!enabled) {
-    stop();
-    return;
-  }
-
-  // Lerp for smoothness
-  currentY += (targetY - currentY) * 0.08;
-
-  // Normalize within hero range for text fades
-  let heroProgress = 0;
-  if (hero) {
-    const rect = hero.getBoundingClientRect();
-    const heroHeight = hero.offsetHeight || window.innerHeight;
-    // 0 at top of hero, 1 when hero is mostly scrolled past
-    heroProgress = clamp((window.innerHeight - rect.bottom) / (heroHeight * 0.65), 0, 1);
-  }
-
-  // Subtle screen parallax
-  if (screen) {
-    const y = currentY * 0.035;
-    // Keep it perfectly straight (no rotation changes here)
-    screen.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0)`;
-  }
-
-  // Parallax hard drive image (rises into view early with subtle rotation)
-  if (parallaxDrive) {
-    const driveY = currentY * 0.14;
-    const driveRotate = -8 + currentY * 0.01;
-    parallaxDrive.style.transform =
-      `translate3d(0, ${-driveY}px, 0) rotate(${driveRotate}deg)`;
-  }
-  if (parallaxDriveLeft) {
-    const driveYLeft = currentY * 0.095;
-    const driveXLeft = currentY * 0.015;
-    const driveRotateLeft = 6 - currentY * 0.006;
-    parallaxDriveLeft.style.transform =
-      `translate3d(${driveXLeft}px, ${-driveYLeft}px, 0) rotate(${driveRotateLeft}deg)`;
-  }
-
-
-  // Chips parallax with slight offsets so they keep their layout
-  chips.forEach((chip, i) => {
-    const base = chipBase.get(chip) || { x: 0, y: 0 };
-    const speed = 0.045 + i * 0.004;
-    const y = base.y + currentY * speed;
-    chip.style.transform = `translate3d(${base.x}px, ${y.toFixed(2)}px, 0)`;
-  });
-
-  // Blobs drift very slowly with slight X movement for depth
-  blobs.forEach((blob, i) => {
-    const y = currentY * (0.012 + i * 0.007);
-    const x = currentY * (0.004 + i * 0.002) * (i % 2 === 0 ? 1 : -1);
-    blob.style.transform = `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, 0)`;
-  });
-
-  // Tiny upward drift for the hero text stack
-
-  // Tiny upward drift for the hero text stack
-  if (heroInner) {
-    const lift = -heroProgress * 10;
-    heroInner.style.transform = `translate3d(0, ${lift.toFixed(2)}px, 0)`;
-  }
+rafId = requestAnimationFrame(tick);
+if (!enabled) {
+stop();
+return;
 }
-
+// Lerp for smoothness
+currentY += (targetY - currentY) * 0.08;
+// Normalize within hero range for text fades
+let heroProgress = 0;
+if (hero) {
+const rect = hero.getBoundingClientRect();
+const heroHeight = hero.offsetHeight || window.innerHeight;
+// 0 at top of hero, 1 when hero is mostly scrolled past
+heroProgress = clamp((window.innerHeight - rect.bottom) / (heroHeight * 0.65), 0, 1);
+}
+// Subtle screen parallax
+if (screen) {
+const y = currentY * 0.035;
+// Keep it perfectly straight (no rotation changes here)
+screen.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0)`;
+}
+// Parallax hard drive image (rises into view early with subtle rotation)
+if (parallaxDrive) {
+const driveY = currentY * 0.14;
+const driveRotate = -8 + currentY * 0.01;
+parallaxDrive.style.transform =
+`translate3d(0, ${-driveY}px, 0) rotate(${driveRotate}deg)`;
+}
+if (parallaxDriveLeft) {
+const driveYLeft = currentY * 0.095;
+const driveXLeft = currentY * 0.015;
+const driveRotateLeft = 6 - currentY * 0.006;
+parallaxDriveLeft.style.transform =
+`translate3d(${driveXLeft}px, ${-driveYLeft}px, 0) rotate(${driveRotateLeft}deg)`;
+}
+// Chips parallax with slight offsets so they keep their layout
+chips.forEach((chip, i) => {
+const base = chipBase.get(chip) || { x: 0, y: 0 };
+const speed = 0.045 + i * 0.004;
+const y = base.y + currentY * speed;
+chip.style.transform = `translate3d(${base.x}px, ${y.toFixed(2)}px, 0)`;
+});
+// Blobs drift very slowly with slight X movement for depth
+blobs.forEach((blob, i) => {
+const y = currentY * (0.012 + i * 0.007);
+const x = currentY * (0.004 + i * 0.002) * (i % 2 === 0 ? 1 : -1);
+blob.style.transform = `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, 0)`;
+});
+// Tiny upward drift for the hero text stack
+// Tiny upward drift for the hero text stack
+if (heroInner) {
+const lift = -heroProgress * 10;
+heroInner.style.transform = `translate3d(0, ${lift.toFixed(2)}px, 0)`;
+}
+}
 // Scroll handler: set target and handle micro-settle
 function onScroll() {
-  targetY = window.scrollY;
-  start();
-
-  // Micro-settle: tiny scale nudge when user stops scrolling
-  if (scrollStopTimer) clearTimeout(scrollStopTimer);
-
-  // While scrolling: ensure normal scale
-  if (screen) screen.style.willChange = 'transform';
-  chips.forEach((c) => (c.style.willChange = 'transform'));
-
-  scrollStopTimer = setTimeout(() => {
-    // settle - tiny, tasteful
-    if (screen) {
-      const y = currentY * 0.035;
-      screen.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0) scale(1.006)`;
-      // return to normal after a beat
-      setTimeout(() => {
-        if (screen) screen.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0)`;
-      }, 220);
-    }
-
-    chips.forEach((chip, i) => {
-      const base = chipBase.get(chip) || { x: 0, y: 0 };
-      const speed = 0.045 + i * 0.004;
-      const y = base.y + currentY * speed;
-      chip.style.transform = `translate3d(${base.x}px, ${y.toFixed(2)}px, 0) scale(1.01)`;
-      setTimeout(() => {
-        chip.style.transform = `translate3d(${base.x}px, ${y.toFixed(2)}px, 0)`;
-      }, 200);
-    });
-
-    // Clean will-change
-    setTimeout(() => {
-      if (screen) screen.style.willChange = 'auto';
-      chips.forEach((c) => (c.style.willChange = 'auto'));
-    }, 450);
-  }, 140);
+targetY = window.scrollY;
+start();
+// Micro-settle: tiny scale nudge when user stops scrolling
+if (scrollStopTimer) clearTimeout(scrollStopTimer);
+// While scrolling: ensure normal scale
+if (screen) screen.style.willChange = 'transform';
+chips.forEach((c) => (c.style.willChange = 'transform'));
+scrollStopTimer = setTimeout(() => {
+// settle - tiny, tasteful
+if (screen) {
+const y = currentY * 0.035;
+screen.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0) scale(1.006)`;
+// return to normal after a beat
+setTimeout(() => {
+if (screen) screen.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0)`;
+}, 220);
 }
-
+chips.forEach((chip, i) => {
+const base = chipBase.get(chip) || { x: 0, y: 0 };
+const speed = 0.045 + i * 0.004;
+const y = base.y + currentY * speed;
+chip.style.transform = `translate3d(${base.x}px, ${y.toFixed(2)}px, 0) scale(1.01)`;
+setTimeout(() => {
+chip.style.transform = `translate3d(${base.x}px, ${y.toFixed(2)}px, 0)`;
+}, 200);
+});
+// Clean will-change
+setTimeout(() => {
+if (screen) screen.style.willChange = 'auto';
+chips.forEach((c) => (c.style.willChange = 'auto'));
+}, 450);
+}, 140);
+}
 window.addEventListener('scroll', onScroll, { passive: true });
-
 // Kick things off
 start();
-
 }
-
 // --- Mobile nav hamburger ---
 const hamburger = document.getElementById('hamburgerBtn');
 const mobileNav = document.getElementById('mobileNav');
-
 if (hamburger && mobileNav){
-  hamburger.addEventListener('click', () => {
-    const isOpen = mobileNav.classList.toggle('open');
-    hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-  });
-
-  // Close menu when a link is clicked
-  mobileNav.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      mobileNav.classList.remove('open');
-      hamburger.setAttribute('aria-expanded','false');
-    });
-  });
+hamburger.addEventListener('click', () => {
+const isOpen = mobileNav.classList.toggle('open');
+hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+});
+// Close menu when a link is clicked
+mobileNav.querySelectorAll('a').forEach(link => {
+link.addEventListener('click', () => {
+mobileNav.classList.remove('open');
+hamburger.setAttribute('aria-expanded','false');
+});
+});
 }
-
-    // --- How It Works scroll reveal ---
+// --- How It Works scroll reveal ---
 const howCards = document.querySelectorAll('.how-card');
-
 if ('IntersectionObserver' in window) {
-  const howObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-          howObserver.unobserve(entry.target);
-        }
-      });
-    },
-    {
-      threshold: 0.2,
-      rootMargin: '0px 0px -80px 0px'
-    }
-  );
-
-  howCards.forEach(card => howObserver.observe(card));
-} else {
-  // Fallback: show immediately
-  howCards.forEach(card => card.classList.add('in-view'));
+const howObserver = new IntersectionObserver(
+(entries) => {
+entries.forEach((entry) => {
+if (entry.isIntersecting) {
+entry.target.classList.add('in-view');
+howObserver.unobserve(entry.target);
 }
-
+});
+},
+{
+threshold: 0.2,
+rootMargin: '0px 0px -80px 0px'
+}
+);
+howCards.forEach(card => howObserver.observe(card));
+} else {
+// Fallback: show immediately
+howCards.forEach(card => card.classList.add('in-view'));
+}
 // --- How It Works NEW staggered steps scroll reveal ---
 const howStepRows = document.querySelectorAll('.how-step-row');
-
 if ('IntersectionObserver' in window && howStepRows.length > 0) {
-  const stepObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-          stepObserver.unobserve(entry.target);
-        }
-      });
-    },
-    {
-      threshold: 0.15,
-      rootMargin: '0px 0px -100px 0px'
-    }
-  );
-
-  howStepRows.forEach(row => stepObserver.observe(row));
-} else {
-  // Fallback: show immediately
-  howStepRows.forEach(row => row.classList.add('in-view'));
+const stepObserver = new IntersectionObserver(
+(entries) => {
+entries.forEach((entry) => {
+if (entry.isIntersecting) {
+entry.target.classList.add('in-view');
+stepObserver.unobserve(entry.target);
 }
-
+});
+},
+{
+threshold: 0.15,
+rootMargin: '0px 0px -100px 0px'
+}
+);
+howStepRows.forEach(row => stepObserver.observe(row));
+} else {
+// Fallback: show immediately
+howStepRows.forEach(row => row.classList.add('in-view'));
+}
 // --- Mouse tracking for card glow effect ---
 const howStepCards = document.querySelectorAll('.how-step-card');
 howStepCards.forEach(card => {
-  card.addEventListener('mousemove', (e) => {
-    const rect = card.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    card.style.setProperty('--mouse-x', x + '%');
-    card.style.setProperty('--mouse-y', y + '%');
-  });
+card.addEventListener('mousemove', (e) => {
+const rect = card.getBoundingClientRect();
+const x = ((e.clientX - rect.left) / rect.width) * 100;
+const y = ((e.clientY - rect.top) / rect.height) * 100;
+card.style.setProperty('--mouse-x', x + '%');
+card.style.setProperty('--mouse-y', y + '%');
 });
-
+});
 // --- Vimeo Hero Video fade-in reveal ---
 const vimeoBreakout = document.querySelector('.vimeo-breakout');
-
 if (vimeoBreakout && 'IntersectionObserver' in window) {
-  const vimeoObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateX(-50%) translateY(0)';
-          vimeoObserver.unobserve(entry.target);
-        }
-      });
-    },
-    {
-      threshold: 0.15
-    }
-  );
-
-  vimeoObserver.observe(vimeoBreakout);
+const vimeoObserver = new IntersectionObserver(
+(entries) => {
+entries.forEach(entry => {
+if (entry.isIntersecting) {
+entry.target.classList.add('in-view');
+entry.target.style.opacity = '1';
+entry.target.style.transform = 'translateX(-50%) translateY(0)';
+vimeoObserver.unobserve(entry.target);
 }
-
-    // Mailing List AJAX submit
-    const mailingForm = document.getElementById('mailing-list-form');
-    const successMsg = document.getElementById('form-success');
-
-    if (mailingForm) {
-      mailingForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        const formData = new FormData(mailingForm);
-
-        try {
-          const response = await fetch(mailingForm.action, {
-            method: 'POST',
-            body: formData,
-            headers: {
-              'Accept': 'application/json'
-            }
-          });
-
-          if (response.ok) {
-            mailingForm.reset();
-            successMsg.style.display = 'block';
-            successMsg.style.marginLeft = 'auto';
-            successMsg.style.marginRight = 'auto';
-          }
-        } catch (err) {
-          // Silently fail to avoid breaking UX
-        }
-      });
-    }
-    // --- Signup connector: animated on scroll ---
-    const connectorLine = document.getElementById('signup-connector');
-    const connectorDot = document.getElementById('signup-dot');
-    const connectorLineRight = document.getElementById('signup-connector-right');
-    const connectorDotRight = document.getElementById('signup-dot-right');
-    const connectorLineUpper = document.getElementById('signup-connector-right-upper');
-    const connectorLineLower = document.getElementById('signup-connector-right-lower');
-    const energyParticles = document.getElementById('energy-particles');
-    const particles = document.querySelectorAll('.particle');
-    const signupForm = document.querySelector('.signup-form');
-
-    if (window.innerWidth > 768 && connectorLine && connectorDot && connectorLineRight && connectorDotRight && signupForm) {
-      let maxWidth = 0;
-      let startX = -140;
-      let particlesActivated = false;
-
-      function recalc() {
-        const formRect = signupForm.getBoundingClientRect();
-
-        const leftStartX = -140;
-        const leftEndX = formRect.left - 14;
-        maxWidth = Math.max(0, leftEndX - leftStartX);
-
-        // Left connector (incoming)
-        connectorLine.style.left = `${leftStartX}px`;
-        connectorLine.style.width = `0px`;
-        connectorDot.style.left = `0px`;
-
-        // Right connectors (outgoing) - all start from same point
-        const rightStartX = formRect.right + 14;
-        
-        connectorLineRight.style.left = `${rightStartX}px`;
-        connectorLineRight.style.width = `0px`;
-        connectorDotRight.style.left = `0px`;
-
-        if (connectorLineUpper) {
-          connectorLineUpper.style.left = `${rightStartX}px`;
-          connectorLineUpper.style.width = `0px`;
-          const upperDot = connectorLineUpper.querySelector('.connector-dot');
-          if (upperDot) upperDot.style.left = `0px`;
-        }
-
-        if (connectorLineLower) {
-          connectorLineLower.style.left = `${rightStartX}px`;
-          connectorLineLower.style.width = `0px`;
-          const lowerDot = connectorLineLower.querySelector('.connector-dot');
-          if (lowerDot) lowerDot.style.left = `0px`;
-        }
-
-        if (energyParticles) {
-          energyParticles.style.left = `${rightStartX}px`;
-        }
-      }
-
-      function onScroll() {
-        const rect = signupForm.getBoundingClientRect();
-        const vh = window.innerHeight;
-
-        const progress = Math.min(
-          1,
-          Math.max(
-            0,
-            (vh - rect.top) / (vh * 0.6)
-          )
-        );
-
-        // Softer ease-out tail
-        const easeInOut = progress * progress * (3 - 2 * progress);
-        const tailEase = 1 - Math.pow(1 - easeInOut, 3);
-        const eased = tailEase;
-
-        const width = maxWidth * eased;
-        connectorLine.style.width = `${width}px`;
-        connectorLine.style.transition = 'width 0.18s cubic-bezier(0.2, 0.8, 0.2, 1)';
-        connectorDot.style.transition = 'left 0.18s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.35s cubic-bezier(0.2, 0.9, 0.2, 1)';
-
-        // Glow ramps with progress
-        const glowStrength = 0.35 + eased * 0.65;
-        connectorLine.style.boxShadow = `0 0 ${24 + eased * 36}px rgba(107,92,255,${glowStrength})`;
-
-        connectorDot.style.left = `${width}px`;
-        connectorDot.style.boxShadow = `0 0 ${18 + eased * 32}px rgba(107,92,255,${glowStrength})`;
-
-        // Stronger dot arrival scale
-        if (eased > 0.9) {
-          const arriveProgress = Math.min(1, (eased - 0.9) / 0.1);
-          const scale = 0.85 + arriveProgress * 0.45; // up to 1.3
-          connectorDot.style.transform = `translate(-50%,-50%) scale(${scale})`;
-        } else {
-          connectorDot.style.transform = 'translate(-50%,-50%) scale(0.85)';
-        }
-
-        // Right side - staggered multi-line animation
-        const outDelay = 0.55;
-        const outProgress = Math.max(0, (progress - outDelay) / (1 - outDelay));
-        const outEase = outProgress * outProgress * (3 - 2 * outProgress);
-
-        // Main line (center)
-        const outWidth = maxWidth * outEase;
-        connectorLineRight.style.width = `${outWidth}px`;
-        connectorLineRight.style.boxShadow = `
-          0 0 ${30 + outEase * 50}px rgba(34,197,94,${0.4 + outEase * 0.5}),
-          0 0 ${60 + outEase * 80}px rgba(34,197,94,${0.2 + outEase * 0.3})
-        `;
-        connectorDotRight.style.left = `${outWidth}px`;
-        connectorDotRight.style.boxShadow = `
-          0 0 ${20 + outEase * 40}px rgba(34,197,94,${0.5 + outEase * 0.5}),
-          0 0 ${40 + outEase * 60}px rgba(34,197,94,${0.3 + outEase * 0.4})
-        `;
-
-        // Upper line (blue) - slightly delayed, full length
-        const upperDelay = 0.62;
-        const upperProgress = Math.max(0, (progress - upperDelay) / (1 - upperDelay));
-        const upperEase = upperProgress * upperProgress * (3 - 2 * upperProgress);
-        const upperWidth = maxWidth * upperEase;
-
-        if (connectorLineUpper) {
-          connectorLineUpper.style.width = `${upperWidth}px`;
-          connectorLineUpper.style.boxShadow = `
-            0 0 ${25 + upperEase * 40}px rgba(59,130,246,${0.3 + upperEase * 0.5}),
-            0 0 ${50 + upperEase * 60}px rgba(59,130,246,${0.15 + upperEase * 0.25})
-          `;
-          const upperDot = connectorLineUpper.querySelector('.connector-dot');
-          if (upperDot) {
-            upperDot.style.left = `${upperWidth}px`;
-            upperDot.style.boxShadow = `0 0 ${15 + upperEase * 25}px rgba(59,130,246,${0.5 + upperEase * 0.5})`;
-          }
-        }
-
-        // Lower line (purple) - more delayed, full length
-        const lowerDelay = 0.68;
-        const lowerProgress = Math.max(0, (progress - lowerDelay) / (1 - lowerDelay));
-        const lowerEase = lowerProgress * lowerProgress * (3 - 2 * lowerProgress);
-        const lowerWidth = maxWidth * lowerEase;
-
-        if (connectorLineLower) {
-          connectorLineLower.style.width = `${lowerWidth}px`;
-          connectorLineLower.style.boxShadow = `
-            0 0 ${25 + lowerEase * 40}px rgba(168,85,247,${0.3 + lowerEase * 0.5}),
-            0 0 ${50 + lowerEase * 60}px rgba(168,85,247,${0.15 + lowerEase * 0.25})
-          `;
-          const lowerDot = connectorLineLower.querySelector('.connector-dot');
-          if (lowerDot) {
-            lowerDot.style.left = `${lowerWidth}px`;
-            lowerDot.style.boxShadow = `0 0 ${15 + lowerEase * 25}px rgba(168,85,247,${0.5 + lowerEase * 0.5})`;
-          }
-        }
-
-        // Activate energy flow animation when mostly extended
-        if (outEase > 0.7) {
-          connectorLineRight.classList.add('active');
-          if (connectorLineUpper) connectorLineUpper.classList.add('active');
-          if (connectorLineLower) connectorLineLower.classList.add('active');
-          
-          // Activate particles
-          if (!particlesActivated && outEase > 0.85) {
-            particlesActivated = true;
-            particles.forEach(p => p.classList.add('active'));
-            if (energyParticles) {
-              energyParticles.style.left = `${signupForm.getBoundingClientRect().right + 14 + outWidth - 20}px`;
-            }
-          }
-        } else {
-          connectorLineRight.classList.remove('active');
-          if (connectorLineUpper) connectorLineUpper.classList.remove('active');
-          if (connectorLineLower) connectorLineLower.classList.remove('active');
-          particles.forEach(p => p.classList.remove('active'));
-          particlesActivated = false;
-        }
-
-        // Update particle position as line extends
-        if (energyParticles && outEase > 0) {
-          const baseLeft = signupForm.getBoundingClientRect().right + 14;
-          energyParticles.style.left = `${baseLeft + outWidth - 10}px`;
-        }
-
-        if (outEase > 0.9) {
-          const arrive = Math.min(1, (outEase - 0.9) / 0.1);
-          const baseScale = 0.85 + arrive * 0.45;
-          connectorDotRight.style.setProperty('--dot-scale', baseScale);
-        } else {
-          connectorDotRight.style.setProperty('--dot-scale', 0.85);
-        }
-      }
-
-      window.addEventListener('resize', recalc);
-      window.addEventListener('scroll', onScroll, { passive: true });
-
-      connectorDotRight.style.setProperty('--dot-scale', 0.85);
-      recalc();
-      onScroll();
-    }
-    // --- Accordion for How It Works ---
-    const accordionBtn = document.querySelector('.how-accordion-btn');
-    const accordion = document.getElementById('howAccordion');
-
-    if (accordionBtn && accordion){
-      accordionBtn.addEventListener('click', () => {
-        const isOpen = accordion.classList.toggle('open');
-        accordionBtn.querySelector('.chevron').style.transform =
-          isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
-
-        if (isOpen){
-          accordion.style.maxHeight = accordion.scrollHeight + 'px';
-        } else {
-          accordion.style.maxHeight = '0px';
-        }
-      });
-    }
+});
+},
+{
+threshold: 0.15
+}
+);
+vimeoObserver.observe(vimeoBreakout);
+}
+// Mailing List AJAX submit
+const mailingForm = document.getElementById('mailing-list-form');
+const successMsg = document.getElementById('form-success');
+if (mailingForm) {
+mailingForm.addEventListener('submit', async (e) => {
+e.preventDefault();
+const formData = new FormData(mailingForm);
+try {
+const response = await fetch(mailingForm.action, {
+method: 'POST',
+body: formData,
+headers: {
+'Accept': 'application/json'
+}
+});
+if (response.ok) {
+mailingForm.reset();
+successMsg.style.display = 'block';
+successMsg.style.marginLeft = 'auto';
+successMsg.style.marginRight = 'auto';
+}
+} catch (err) {
+// Silently fail to avoid breaking UX
+}
+});
+}
+// --- Signup connector: animated on scroll ---
+const connectorLine = document.getElementById('signup-connector');
+const connectorDot = document.getElementById('signup-dot');
+const connectorLineRight = document.getElementById('signup-connector-right');
+const connectorDotRight = document.getElementById('signup-dot-right');
+const connectorLineUpper = document.getElementById('signup-connector-right-upper');
+const connectorLineLower = document.getElementById('signup-connector-right-lower');
+const energyParticles = document.getElementById('energy-particles');
+const particles = document.querySelectorAll('.particle');
+const signupForm = document.querySelector('.signup-form');
+if (window.innerWidth > 768 && connectorLine && connectorDot && connectorLineRight && connectorDotRight && signupForm) {
+let maxWidth = 0;
+let startX = -140;
+let particlesActivated = false;
+function recalc() {
+const formRect = signupForm.getBoundingClientRect();
+const leftStartX = -140;
+const leftEndX = formRect.left - 14;
+maxWidth = Math.max(0, leftEndX - leftStartX);
+// Left connector (incoming)
+connectorLine.style.left = `${leftStartX}px`;
+connectorLine.style.width = `0px`;
+connectorDot.style.left = `0px`;
+// Right connectors (outgoing) - all start from same point
+const rightStartX = formRect.right + 14;
+connectorLineRight.style.left = `${rightStartX}px`;
+connectorLineRight.style.width = `0px`;
+connectorDotRight.style.left = `0px`;
+if (connectorLineUpper) {
+connectorLineUpper.style.left = `${rightStartX}px`;
+connectorLineUpper.style.width = `0px`;
+const upperDot = connectorLineUpper.querySelector('.connector-dot');
+if (upperDot) upperDot.style.left = `0px`;
+}
+if (connectorLineLower) {
+connectorLineLower.style.left = `${rightStartX}px`;
+connectorLineLower.style.width = `0px`;
+const lowerDot = connectorLineLower.querySelector('.connector-dot');
+if (lowerDot) lowerDot.style.left = `0px`;
+}
+if (energyParticles) {
+energyParticles.style.left = `${rightStartX}px`;
+}
+}
+function onScroll() {
+const rect = signupForm.getBoundingClientRect();
+const vh = window.innerHeight;
+const progress = Math.min(
+1,
+Math.max(
+0,
+(vh - rect.top) / (vh * 0.6)
+)
+);
+// Softer ease-out tail
+const easeInOut = progress * progress * (3 - 2 * progress);
+const tailEase = 1 - Math.pow(1 - easeInOut, 3);
+const eased = tailEase;
+const width = maxWidth * eased;
+connectorLine.style.width = `${width}px`;
+connectorLine.style.transition = 'width 0.18s cubic-bezier(0.2, 0.8, 0.2, 1)';
+connectorDot.style.transition = 'left 0.18s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.35s cubic-bezier(0.2, 0.9, 0.2, 1)';
+// Glow ramps with progress
+const glowStrength = 0.35 + eased * 0.65;
+connectorLine.style.boxShadow = `0 0 ${24 + eased * 36}px rgba(107,92,255,${glowStrength})`;
+connectorDot.style.left = `${width}px`;
+connectorDot.style.boxShadow = `0 0 ${18 + eased * 32}px rgba(107,92,255,${glowStrength})`;
+// Stronger dot arrival scale
+if (eased > 0.9) {
+const arriveProgress = Math.min(1, (eased - 0.9) / 0.1);
+const scale = 0.85 + arriveProgress * 0.45; // up to 1.3
+connectorDot.style.transform = `translate(-50%,-50%) scale(${scale})`;
+} else {
+connectorDot.style.transform = 'translate(-50%,-50%) scale(0.85)';
+}
+// Right side - staggered multi-line animation
+const outDelay = 0.55;
+const outProgress = Math.max(0, (progress - outDelay) / (1 - outDelay));
+const outEase = outProgress * outProgress * (3 - 2 * outProgress);
+// Main line (center)
+const outWidth = maxWidth * outEase;
+connectorLineRight.style.width = `${outWidth}px`;
+connectorLineRight.style.boxShadow = `
+0 0 ${30 + outEase * 50}px rgba(34,197,94,${0.4 + outEase * 0.5}),
+0 0 ${60 + outEase * 80}px rgba(34,197,94,${0.2 + outEase * 0.3})
+`;
+connectorDotRight.style.left = `${outWidth}px`;
+connectorDotRight.style.boxShadow = `
+0 0 ${20 + outEase * 40}px rgba(34,197,94,${0.5 + outEase * 0.5}),
+0 0 ${40 + outEase * 60}px rgba(34,197,94,${0.3 + outEase * 0.4})
+`;
+// Upper line (blue) - slightly delayed, full length
+const upperDelay = 0.62;
+const upperProgress = Math.max(0, (progress - upperDelay) / (1 - upperDelay));
+const upperEase = upperProgress * upperProgress * (3 - 2 * upperProgress);
+const upperWidth = maxWidth * upperEase;
+if (connectorLineUpper) {
+connectorLineUpper.style.width = `${upperWidth}px`;
+connectorLineUpper.style.boxShadow = `
+0 0 ${25 + upperEase * 40}px rgba(59,130,246,${0.3 + upperEase * 0.5}),
+0 0 ${50 + upperEase * 60}px rgba(59,130,246,${0.15 + upperEase * 0.25})
+`;
+const upperDot = connectorLineUpper.querySelector('.connector-dot');
+if (upperDot) {
+upperDot.style.left = `${upperWidth}px`;
+upperDot.style.boxShadow = `0 0 ${15 + upperEase * 25}px rgba(59,130,246,${0.5 + upperEase * 0.5})`;
+}
+}
+// Lower line (purple) - more delayed, full length
+const lowerDelay = 0.68;
+const lowerProgress = Math.max(0, (progress - lowerDelay) / (1 - lowerDelay));
+const lowerEase = lowerProgress * lowerProgress * (3 - 2 * lowerProgress);
+const lowerWidth = maxWidth * lowerEase;
+if (connectorLineLower) {
+connectorLineLower.style.width = `${lowerWidth}px`;
+connectorLineLower.style.boxShadow = `
+0 0 ${25 + lowerEase * 40}px rgba(168,85,247,${0.3 + lowerEase * 0.5}),
+0 0 ${50 + lowerEase * 60}px rgba(168,85,247,${0.15 + lowerEase * 0.25})
+`;
+const lowerDot = connectorLineLower.querySelector('.connector-dot');
+if (lowerDot) {
+lowerDot.style.left = `${lowerWidth}px`;
+lowerDot.style.boxShadow = `0 0 ${15 + lowerEase * 25}px rgba(168,85,247,${0.5 + lowerEase * 0.5})`;
+}
+}
+// Activate energy flow animation when mostly extended
+if (outEase > 0.7) {
+connectorLineRight.classList.add('active');
+if (connectorLineUpper) connectorLineUpper.classList.add('active');
+if (connectorLineLower) connectorLineLower.classList.add('active');
+// Activate particles
+if (!particlesActivated && outEase > 0.85) {
+particlesActivated = true;
+particles.forEach(p => p.classList.add('active'));
+if (energyParticles) {
+energyParticles.style.left = `${signupForm.getBoundingClientRect().right + 14 + outWidth - 20}px`;
+}
+}
+} else {
+connectorLineRight.classList.remove('active');
+if (connectorLineUpper) connectorLineUpper.classList.remove('active');
+if (connectorLineLower) connectorLineLower.classList.remove('active');
+particles.forEach(p => p.classList.remove('active'));
+particlesActivated = false;
+}
+// Update particle position as line extends
+if (energyParticles && outEase > 0) {
+const baseLeft = signupForm.getBoundingClientRect().right + 14;
+energyParticles.style.left = `${baseLeft + outWidth - 10}px`;
+}
+if (outEase > 0.9) {
+const arrive = Math.min(1, (outEase - 0.9) / 0.1);
+const baseScale = 0.85 + arrive * 0.45;
+connectorDotRight.style.setProperty('--dot-scale', baseScale);
+} else {
+connectorDotRight.style.setProperty('--dot-scale', 0.85);
+}
+}
+window.addEventListener('resize', recalc);
+window.addEventListener('scroll', onScroll, { passive: true });
+connectorDotRight.style.setProperty('--dot-scale', 0.85);
+recalc();
+onScroll();
+}
+// --- Accordion for How It Works ---
+const accordionBtn = document.querySelector('.how-accordion-btn');
+const accordion = document.getElementById('howAccordion');
+if (accordionBtn && accordion){
+accordionBtn.addEventListener('click', () => {
+const isOpen = accordion.classList.toggle('open');
+accordionBtn.querySelector('.chevron').style.transform =
+isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
+if (isOpen){
+accordion.style.maxHeight = accordion.scrollHeight + 'px';
+} else {
+accordion.style.maxHeight = '0px';
+}
+});
+}
 </script>
 </body>
-
 </html>
