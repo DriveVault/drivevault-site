@@ -2,298 +2,429 @@
 <html lang="en">
 <head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-M3XM1E1TQK"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-M3XM1E1TQK');
-</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-M3XM1E1TQK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-M3XM1E1TQK');
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>DriveVault - Terms of Service</title>
-
+  <title>Terms of Service - DriveVault</title>
   <meta name="description" content="DriveVault Terms of Service. Learn the conditions governing your use of the DriveVault macOS application." />
-
   <link rel="icon" href="/favicon.png" type="image/png" />
   <link rel="apple-touch-icon" href="/favicon.png" />
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --bg:#ffffff;
-      --text:#0b0d12;
-      --muted:#5f6775;
-      --line:rgba(10,12,18,.08);
+    :root {
+      --bg: #ffffff;
+      --bg-alt: #f8f9fa;
+      --text: #0b0d12;
+      --muted: #5f6775;
+      --line: rgba(10,12,18,.08);
+      --blue: #2f6bff;
+      --blue2: #6aa2ff;
+      --green: #22c55e;
     }
 
-    *{box-sizing:border-box; margin:0; padding:0}
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    body{
-      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-      background:var(--bg);
-      color:var(--text);
-      overflow-x:hidden;
+    body {
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
 
-    html{
-      scroll-behavior:smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     /* Header */
-    .topbar{
-      position:fixed;
-      inset:0 0 auto 0;
-      height:68px;
-      z-index:50;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background:rgba(255,255,255,.75);
-      backdrop-filter:saturate(160%) blur(12px);
-      border-bottom:1px solid var(--line);
+    .topbar {
+      position: fixed;
+      inset: 0 0 auto 0;
+      height: 68px;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,.75);
+      backdrop-filter: saturate(160%) blur(12px);
+      -webkit-backdrop-filter: saturate(160%) blur(12px);
+      border-bottom: 1px solid var(--line);
     }
 
-    .topbar .wrap{
-      width:min(1200px,94vw);
-      display:flex;
-      align-items:center;
-      gap:16px;
+    .topbar .wrap {
+      width: min(1200px, 94vw);
+      display: flex;
+      align-items: center;
+      gap: 16px;
     }
 
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      text-decoration:none;
-      color:var(--text);
-      font-weight:800;
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 800;
     }
 
-    .brand img{
-      width:22px;
-      height:22px;
+    .brand img {
+      width: 22px;
+      height: 22px;
     }
 
-    .brand span{
-      font-size:14px;
-      letter-spacing:.2px;
+    .brand span {
+      font-size: 14px;
+      letter-spacing: .2px;
     }
 
-    .nav{
-      margin-left:auto;
-      display:flex;
-      align-items:center;
-      gap:18px;
+    .nav {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 18px;
     }
 
-    .nav a{
-      color:#2b3140;
-      text-decoration:none;
-      font-size:13px;
-      padding:8px 10px;
-      border-radius:10px;
+    .nav a {
+      color: #2b3140;
+      text-decoration: none;
+      font-size: 13px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      transition: background .2s, color .2s;
     }
 
-    .nav a:hover{
-      background:rgba(10,12,18,.05);
-      color:#0b0d12;
+    .nav a:hover {
+      background: rgba(10,12,18,.05);
+      color: #0b0d12;
     }
 
-    .cta-top{
-      padding:10px 14px;
-      border-radius:12px;
-      font-weight:800;
-      font-size:13px;
-      color:#ffffff;
-      text-decoration:none;
-      background:linear-gradient(135deg,#2f6bff,#6aa2ff);
+    .cta-top {
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 13px;
+      color: #ffffff;
+      text-decoration: none;
+      background: linear-gradient(135deg, var(--blue), var(--blue2));
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform .2s, box-shadow .2s;
     }
 
-    .hamburger{
-      display:none;
-      margin-left:auto;
-      width:36px;
-      height:36px;
-      border-radius:10px;
-      border:1px solid rgba(10,12,18,.12);
-      background:#ffffff;
-      align-items:center;
-      justify-content:center;
-      cursor:pointer;
+    .cta-top:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(47,107,255,.3);
     }
 
-    .hamburger span{
-      width:18px;
-      height:2px;
-      background:#0b0d12;
-      position:relative;
-      display:block;
+    .cta-top svg {
+      width: 14px;
+      height: 14px;
+      fill: currentColor;
+    }
+
+    .hamburger {
+      display: none;
+      margin-left: auto;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      border: 1px solid rgba(10,12,18,.12);
+      background: #ffffff;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      width: 18px;
+      height: 2px;
+      background: #0b0d12;
+      position: relative;
+      display: block;
     }
 
     .hamburger span::before,
-    .hamburger span::after{
-      content:"";
-      position:absolute;
-      left:0;
-      width:18px;
-      height:2px;
-      background:#0b0d12;
+    .hamburger span::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 18px;
+      height: 2px;
+      background: #0b0d12;
     }
 
-    .hamburger span::before{top:-6px}
-    .hamburger span::after{top:6px}
+    .hamburger span::before { top: -6px; }
+    .hamburger span::after { top: 6px; }
 
-    @media (max-width:900px){
-      .nav{
-        position:fixed;
-        top:68px;
-        left:0;
-        right:0;
-        background:#ffffff;
-        border-bottom:1px solid var(--line);
-        flex-direction:column;
-        gap:6px;
-        padding:12px 16px 16px;
-        display:none;
+    @media (max-width: 900px) {
+      .nav {
+        position: fixed;
+        top: 68px;
+        left: 0;
+        right: 0;
+        background: #ffffff;
+        border-bottom: 1px solid var(--line);
+        flex-direction: column;
+        gap: 6px;
+        padding: 12px 16px 16px;
+        display: none;
       }
-
-      .nav.open{
-        display:flex;
-      }
-
+      .nav.open { display: flex; }
       .nav a,
-      .cta-top{
-        width:100%;
-        text-align:left;
-        padding:12px 14px;
-        font-size:15px;
+      .cta-top {
+        width: 100%;
+        text-align: left;
+        padding: 12px 14px;
+        font-size: 15px;
+        justify-content: center;
       }
-
-      .hamburger{
-        display:flex;
-      }
+      .hamburger { display: flex; }
     }
 
-    main{
-      padding-top:68px;
+    main { padding-top: 68px; }
+
+    /* Hero section */
+    .terms-hero {
+      padding: 72px 16px 48px;
+      background: linear-gradient(180deg, var(--bg-alt) 0%, var(--bg) 100%);
+      text-align: center;
+    }
+
+    .terms-hero h1 {
+      font-size: clamp(36px, 5vw, 52px);
+      font-weight: 900;
+      letter-spacing: -.03em;
+      margin-bottom: 12px;
+    }
+
+    .terms-hero .updated {
+      color: var(--muted);
+      font-size: 15px;
     }
 
     /* Terms content */
-    .terms{
-      padding:64px 16px 96px;
-      display:flex;
-      justify-content:center;
+    .terms {
+      padding: 48px 16px 96px;
+      display: flex;
+      justify-content: center;
     }
 
-    .terms-inner{
-      width:min(900px,94vw);
+    .terms-inner {
+      width: min(720px, 94vw);
     }
 
-    .terms h1{
-      font-size:clamp(32px,4vw,44px);
-      font-weight:900;
-      letter-spacing:-.02em;
-      margin-bottom:8px;
+    /* Important box at top */
+    .important-box {
+      background: linear-gradient(135deg, rgba(47,107,255,.08), rgba(106,162,255,.04));
+      border: 1px solid rgba(47,107,255,.2);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 48px;
     }
 
-    .terms .updated{
-      color:var(--muted);
-      font-size:14px;
-      remember-bottom:32px;
-      margin-bottom:32px;
+    .important-box p {
+      font-size: 15px;
+      line-height: 1.7;
+      color: #2b3140;
+      margin: 0;
     }
 
-    .important{
-      background:rgba(10,12,18,.04);
-      border:1px solid var(--line);
-      border-radius:14px;
-      padding:20px 22px;
-      margin-bottom:36px;
+    .terms-section {
+      margin-bottom: 36px;
     }
 
-    .important p{
-      font-size:15px;
-      line-height:1.65;
+    .terms-section h2 {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -.01em;
+      margin-bottom: 14px;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
-    .terms h2{
-      font-size:22px;
-      font-weight:800;
-      letter-spacing:-.01em;
-      margin-top:40px;
-      margin-bottom:12px;
+    .terms-section h2 .num {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--blue), var(--blue2));
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 800;
+      flex-shrink: 0;
     }
 
-    .terms h3{
-      font-size:18px;
-      font-weight:800;
-      margin-top:24px;
-      margin-bottom:10px;
+    .terms-section h2 .icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, rgba(47,107,255,.1), rgba(106,162,255,.1));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
     }
 
-    .terms p,
-    .terms li{
-      font-size:15px;
-      line-height:1.7;
-      color:#2b3140;
+    .terms-section h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      color: var(--text);
     }
 
-    .terms p{
-      margin-bottom:14px;
+    .terms-section p,
+    .terms-section li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: #3d4452;
     }
 
-    .terms ul{
-      padding-left:20px;
-      margin-bottom:14px;
+    .terms-section p {
+      margin-bottom: 14px;
     }
 
-    .terms li{
-      margin-bottom:8px;
+    .terms-section ul {
+      padding-left: 0;
+      margin-bottom: 14px;
+      list-style: none;
     }
 
-    .terms a{
-      color:#2f6bff;
-      text-decoration:none;
-      font-weight:600;
+    .terms-section li {
+      margin-bottom: 10px;
+      padding-left: 24px;
+      position: relative;
     }
 
-    .terms a:hover{
-      text-decoration:underline;
+    .terms-section li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 10px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--blue);
     }
 
-    footer{
-      padding:28px 16px 40px;
-      border-top:1px solid var(--line);
-      color:#6b7280;
-      display:flex;
-      justify-content:center;
+    .terms-section a {
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color .2s;
     }
 
-    footer .fwrap{
-      width:min(1100px,94vw);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
-      flex-wrap:wrap;
+    .terms-section a:hover {
+      color: var(--blue2);
+      text-decoration: underline;
     }
 
-    footer a{
-      color:#6b7280;
-      text-decoration:none;
+    /* Warning box */
+    .warning-box {
+      background: linear-gradient(135deg, rgba(251,191,36,.1), rgba(251,191,36,.04));
+      border: 1px solid rgba(251,191,36,.3);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin: 16px 0;
     }
 
-    footer a:hover{
-      text-decoration:underline;
+    .warning-box h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #b45309;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .warning-box p {
+      margin-bottom: 0;
+      font-size: 14px;
+      color: #78350f;
+    }
+
+    /* Contact box */
+    .contact-box {
+      background: var(--bg-alt);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 24px;
+      margin-top: 48px;
+    }
+
+    .contact-box h2 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .contact-box p {
+      font-size: 15px;
+      line-height: 1.7;
+      color: #3d4452;
+      margin-bottom: 8px;
+    }
+
+    .contact-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    .contact-box a {
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .contact-box a:hover {
+      text-decoration: underline;
+    }
+
+    /* Footer */
+    footer {
+      padding: 28px 16px 40px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      display: flex;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    footer .fwrap {
+      width: min(1100px, 94vw);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    footer a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color .2s;
+    }
+
+    footer a:hover {
+      color: var(--text);
     }
   </style>
 </head>
-
 <body>
 
 <header class="topbar">
@@ -302,16 +433,17 @@
       <img src="/favicon.png" alt="DriveVault logo">
       <span>DriveVault</span>
     </a>
-
     <nav class="nav" id="mobileNav">
       <a href="/#features">Features</a>
       <a href="/#pricing">Pricing</a>
       <a href="/changelog.html">Changelog</a>
       <a href="/blog.html">Blog</a>
       <a href="/faq.html">FAQ</a>
-      <a class="cta-top" href="https://apps.apple.com/us/app/drivevault-offline-catalog/id6751731655?mt=12">Download on the App Store</a>
+      <a class="cta-top" href="https://apps.apple.com/us/app/drivevault-offline-catalog/id6751731655?mt=12">
+        <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        Download Free
+      </a>
     </nav>
-
     <button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation">
       <span></span>
     </button>
@@ -319,148 +451,181 @@
 </header>
 
 <main>
+  <section class="terms-hero">
+    <h1>Terms of Service</h1>
+    <div class="updated">Last updated: April 13, 2026</div>
+  </section>
+
   <section class="terms">
     <div class="terms-inner">
-
-      <h1>Terms of Service</h1>
-      <div class="updated">Last updated: August 27, 2025</div>
-
-      <div class="important">
+      <div class="important-box">
         <p>
-          By downloading, installing, or using DriveVault, you acknowledge that you have read,
-          understood, and agree to be bound by these Terms of Service. If you do not agree to
-          these Terms, do not use the application.
+          By downloading, installing, or using DriveVault, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service. If you do not agree to these Terms, please do not use the application.
         </p>
       </div>
 
-      <h2>1. Acceptance of Terms</h2>
-      <p>
-        These Terms of Service govern your use of DriveVault provided by the DriveVault
-        development team. By accessing or using DriveVault, you agree to comply with and
-        be bound by these Terms.
+      <div class="terms-section">
+        <h2><span class="num">1</span> Acceptance of Terms</h2>
+        <p>
+          These Terms of Service govern your use of DriveVault, developed and maintained by the DriveVault team. By accessing or using DriveVault, you agree to comply with and be bound by these Terms.
+        </p>
+      </div>
+
+      <div class="terms-section">
+        <h2><span class="num">2</span> Description of Service</h2>
+        <p>DriveVault is a drive cataloging application for macOS that allows you to:</p>
+        <ul>
+          <li>Create offline catalogs of external drives through read-only scanning</li>
+          <li>Generate visual previews and extract metadata from your files</li>
+          <li>Search across all cataloged drives - even when disconnected</li>
+          <li>Organize drives into projects with custom icons, tags, notes, and ratings</li>
+          <li>Compare drives and generate library reports</li>
+          <li>Export and import drive catalogs for sharing or backup</li>
+          <li>Optionally create folder structures at user-selected locations</li>
+        </ul>
+        <div class="warning-box">
+          <h4>⚠️ Not a Backup Service</h4>
+          <p>
+            DriveVault creates catalogs for offline reference only. It does not copy, sync, or back up your files. You are solely responsible for maintaining proper backups of your data.
+          </p>
+        </div>
+      </div>
+
+      <div class="terms-section">
+        <h2><span class="num">3</span> How DriveVault Works</h2>
+        <p>
+          DriveVault operates using read-only scanning within the macOS sandbox. The app reads your files to generate previews and extract metadata, but it never modifies or deletes your original files.
+        </p>
+        <p>
+          Optional write operations are strictly limited to user-authorized actions, such as creating folder structures at locations you explicitly choose. These operations never overwrite existing files.
+        </p>
+      </div>
+
+      <div class="terms-section">
+        <h2><span class="num">4</span> Your Responsibilities</h2>
+        <p>When using DriveVault, you agree to:</p>
+        <ul>
+          <li>Maintain regular backups of your important data</li>
+          <li>Ensure your drives are in good working condition before scanning</li>
+          <li>Use the app in accordance with these Terms and all applicable laws</li>
+          <li>Not rely on DriveVault as your sole record of what files exist on a drive</li>
+        </ul>
+      </div>
+
+      <div class="terms-section">
+        <h2><span class="num">5</span> Prohibited Uses</h2>
+        <p>You agree not to:</p>
+        <ul>
+          <li>Reverse engineer, decompile, or redistribute the application</li>
+          <li>Use DriveVault for any illegal purpose</li>
+          <li>Attempt to circumvent any security measures or licensing restrictions</li>
+          <li>Use the app in any way that violates the rights of others</li>
+        </ul>
+      </div>
+
+      <div class="terms-section">
+        <h2><span class="num">6</span> Purchases and Pricing</h2>
+        <p>
+          DriveVault is available as a free download with your first drive (up to 4TB) free forever. Additional drive capacity is available as one-time purchases through the Mac App Store - there are no subscriptions.
+        </p>
+        <p>
+          All payments are processed by Apple. We do not receive or store your payment details. You can manage your purchases in your App Store account settings.
+        </p>
+        <p>
+          Refunds are handled by Apple in accordance with their policies. Generally, once a purchase has been made and the features unlocked, refunds may not be available.
+        </p>
+      </div>
+
+      <div class="terms-section">
+        <h2><span class="num">7</span> Privacy</h2>
+        <p>
+          DriveVault works entirely offline. The app does not connect to the internet, collect analytics, or transmit any of your data. All drive catalogs, previews, and metadata remain on your Mac.
+        </p>
+        <p>
+          For full details on how we handle information (including website signups), see our <a href="/privacy.html">Privacy Policy</a>.
+        </p>
+      </div>
+
+      <div class="terms-section">
+        <h2><span class="num">8</span> Limitation of Liability</h2>
+        <p>
+          To the maximum extent permitted by law, DriveVault is provided "as is" without warranty of any kind. We shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including but not limited to data loss or hardware failure.
+        </p>
+        <p>
+          Our total liability for any claims arising from your use of DriveVault shall not exceed the amount you paid for the software, if any.
+        </p>
+      </div>
+
+      <div class="terms-section">
+        <h2><span class="num">9</span> Disclaimer of Warranties</h2>
+        <p>
+          DriveVault is provided without warranties of any kind, whether express, implied, or statutory, including but not limited to implied warranties of merchantability, fitness for a particular purpose, and non-infringement.
+        </p>
+      </div>
+
+      <div class="terms-section">
+        <h2><span class="num">10</span> Indemnification</h2>
+        <p>
+          You agree to indemnify, defend, and hold harmless the DriveVault team from any claims, damages, losses, or expenses arising from your use of the application or violation of these Terms.
+        </p>
+      </div>
+
+      <div class="terms-section">
+        <h2><span class="num">11</span> Updates</h2>
+        <p>
+          We may release updates to DriveVault that add features, fix bugs, or modify functionality. Updates are delivered through the Mac App Store. Continued use of DriveVault after an update constitutes acceptance of any changes.
+        </p>
+      </div>
+
+      <div class="terms-section">
+        <h2><span class="num">12</span> Termination</h2>
+        <p>
+          These Terms remain in effect for as long as you use DriveVault. You may terminate at any time by deleting the application. We reserve the right to terminate or suspend access to DriveVault for violations of these Terms.
+        </p>
+      </div>
+
+      <div class="terms-section">
+        <h2><span class="num">13</span> Governing Law</h2>
+        <p>
+          These Terms are governed by and construed in accordance with the laws of England and Wales, without regard to conflict of law principles.
+        </p>
+      </div>
+
+      <div class="terms-section">
+        <h2><span class="num">14</span> Severability</h2>
+        <p>
+          If any provision of these Terms is found to be unenforceable or invalid, that provision shall be limited or eliminated to the minimum extent necessary, and the remaining provisions shall remain in full force and effect.
+        </p>
+      </div>
+
+      <div class="terms-section">
+        <h2><span class="num">15</span> Changes to Terms</h2>
+        <p>
+          We may update these Terms from time to time. Changes are effective upon posting to this page. We encourage you to review these Terms periodically.
+        </p>
+      </div>
+
+      <div class="terms-section">
+        <h2><span class="num">16</span> Force Majeure</h2>
+        <p>
+          We shall not be liable for any failure or delay in performance due to circumstances beyond our reasonable control, including but not limited to acts of God, natural disasters, war, terrorism, or internet outages.
+        </p>
+      </div>
+
+      <div class="contact-box">
+        <h2><span class="icon">💬</span> Contact &amp; Security</h2>
+        <p>
+          <strong>Website:</strong> <a href="https://www.drivevault.io">www.drivevault.io</a><br>
+          <strong>Email:</strong> <a href="mailto:hello@drivevault.io">hello@drivevault.io</a>
+        </p>
+        <p>
+          DriveVault uses Apple's security frameworks and macOS sandboxing. If you discover a security issue, please report it responsibly to <a href="mailto:hello@drivevault.io">hello@drivevault.io</a>.
+        </p>
+      </div>
+
+      <p style="margin-top: 48px; font-size: 13px; color: var(--muted); text-align: center;">
+        © 2026 DriveVault. All rights reserved.
       </p>
-
-      <h2>2. Description of Service</h2>
-      <p>DriveVault is a drive scanning and cataloging application for macOS that:</p>
-      <ul>
-        <li>Creates offline catalogs of external drives through read-only scanning.</li>
-        <li>Optionally creates folder structures at user-selected locations with explicit permission.</li>
-        <li>Generates file previews and metadata for organizational purposes.</li>
-        <li>Allows export and import of drive catalogs.</li>
-        <li>Provides file organization, search, reporting, and comparison tools.</li>
-      
-      </ul>
-
-      <h3>Important Clarification – Not a Backup Service</h3>
-      <p>
-        DriveVault is not a backup application. It does not create copies of your files, and
-        catalogs are provided for offline reference only. You are solely responsible for
-        maintaining proper backups of your data.
-      </p>
-
-      <h2>3. Critical Liability Disclaimer</h2>
-      <p>
-        DriveVault operates using read-only scanning and macOS sandboxing. Optional write
-        operations are strictly limited to user-authorized folder creation and never modify
-        or overwrite existing files.
-      </p>
-
-      <h2>4. User Responsibilities</h2>
-      <ul>
-        <li>Maintain regular backups of important data.</li>
-        <li>Ensure drives are in good working condition.</li>
-        <li>Use the app in accordance with these Terms.</li>
-        <li>Comply with all applicable laws.</li>
-      </ul>
-
-      <h2>5. Prohibited Uses</h2>
-      <ul>
-        <li>Reverse engineering or redistributing the application.</li>
-        <li>Using DriveVault for illegal purposes.</li>
-        <li>Circumventing security measures.</li>
-        <li>Violating others’ privacy rights.</li>
-      </ul>
-
-      <h2>6. Privacy</h2>
-      <p>
-        DriveVault processes all data locally on your Mac and does not collect analytics,
-        tracking, or telemetry. For full details, see our
-        <a href="/privacy.html">Privacy Policy</a>.
-      </p>
-
-      <h2>7. Limitation of Liability</h2>
-      <p>
-        To the maximum extent permitted by law, DriveVault is provided “as is” and we shall
-        not be liable for any damages, data loss, or hardware failure. Total liability shall
-        not exceed the amount paid for the software, if any.
-      </p>
-
-      <h2>8. Disclaimer of Warranties</h2>
-      <p>
-        The software is provided without warranties of any kind, express or implied.
-      </p>
-
-      <h2>9. Indemnification</h2>
-      <p>
-        You agree to indemnify and hold harmless the DriveVault development team from any
-        claims arising from your use of the application.
-      </p>
-
-      <h2>10. Software Updates</h2>
-      <p>
-        We may provide updates that modify features or requirements. Continued use
-        constitutes acceptance of updated Terms.
-      </p>
-
-      <h2>11. Termination</h2>
-      <p>
-        These Terms remain in effect until terminated by discontinuing use or deleting
-        the application.
-      </p>
-
-      <h2>12. Governing Law</h2>
-      <p>
-        These Terms are governed by the laws of our primary place of business.
-      </p>
-
-      <h2>13. Subscriptions and Billing</h2>
-      <p>
-        Subscriptions are billed and managed through the Apple App Store. Refunds
-        are handled directly by Apple.
-      </p>
-
-      <h2>14. Severability</h2>
-      <p>
-        If any provision is found unenforceable, the remaining provisions remain in effect.
-      </p>
-
-      <h2>15. Changes to Terms</h2>
-      <p>
-        We may update these Terms at any time. Changes are effective upon posting.
-      </p>
-
-      <h2>16. Force Majeure</h2>
-      <p>
-        We are not liable for failures caused by events beyond our reasonable control.
-      </p>
-
-      <h2>Contact Information</h2>
-      <p>
-        Website: <a href="https://www.drivevault.io">www.drivevault.io</a><br>
-        Email: <a href="mailto:hello@drivevault.io">hello@drivevault.io</a>
-      </p>
-
-      <h2>Security Notice</h2>
-      <p>
-        DriveVault uses Apple’s security frameworks and macOS sandboxing. If you discover
-        a security issue, please report it responsibly to
-        <a href="mailto:hello@drivevault.io">hello@drivevault.io</a>.
-      </p>
-
-      <p style="margin-top:48px; font-size:13px; color:var(--muted);">
-        © 2026 DriveVault
-      </p>
-
     </div>
   </section>
 </main>
@@ -478,10 +643,8 @@
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
-
   const hamburger = document.getElementById('hamburgerBtn');
   const mobileNav = document.getElementById('mobileNav');
-
   hamburger.addEventListener('click', () => {
     mobileNav.classList.toggle('open');
   });
