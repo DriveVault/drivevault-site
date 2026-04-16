@@ -1,4 +1,6 @@
-
+<!DOCTYPE html>
+\deftab720
+\outl0\strokewidth0 \strokec2 
 <!DOCTYPE html>
 <!DOCTYPE html>
 <html lang="en">
@@ -211,7 +213,7 @@ padding-bottom: 120px;
 .parallax-drive{
 position:absolute;
 right:-120px;
-bottom:600px;
+bottom:-100px;
 width:360px;
 max-width:60vw;
 pointer-events:none;
@@ -223,7 +225,7 @@ transition:transform 0.1s linear;
 .parallax-drive-left{
 position:absolute;
 left:-140px;
-bottom:520px;
+bottom:-180px;
 width:320px;
 max-width:55vw;
 pointer-events:none;
@@ -1343,8 +1345,8 @@ z-index: 2;
 }
 /* Vimeo hero breakout - desktop only */
 .vimeo-breakout {
-width: 130%;
-max-width: none;
+width: 160%;
+max-width: 1400px;
 position: relative;
 margin: 0 auto;
 left: 50%;
@@ -1439,6 +1441,308 @@ margin-top: 24px;
 margin-bottom: 48px;
 }
 }
+/* Card Stack Scroll Section */
+.card-stack-section {
+  padding: 60px 0 0;
+  background: var(--bg);
+  position: relative;
+  z-index: 10;
+}
+
+.card-stack-container {
+  width: calc(100vw - 48px);
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.card-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  filter: blur(20px);
+  opacity: 0;
+  transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+.card-stack.in-view {
+  filter: blur(0);
+  opacity: 1;
+}
+
+.card-stack.blur-out {
+  filter: blur(20px);
+  opacity: 0;
+}
+
+.stack-card {
+  position: sticky;
+  top: 90px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,.12), 0 2px 8px rgba(0,0,0,.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: #fff;
+}
+
+.stack-card-inner {
+  position: relative;
+}
+
+.stack-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0);
+  pointer-events: none;
+  transition: background 0.15s ease;
+  border-radius: 20px;
+}
+
+.stack-card:nth-child(1) { top: 90px; }
+.stack-card:nth-child(2) { top: 105px; }
+.stack-card:nth-child(3) { top: 120px; }
+.stack-card:nth-child(4) { top: 135px; }
+.stack-card:nth-child(5) { top: 150px; }
+.stack-card:nth-child(6) { top: 165px; }
+
+.stack-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 20px;
+}
+
+.stack-card:nth-child(1) { transform: scale(1); z-index: 1; }
+.stack-card:nth-child(2) { transform: scale(0.98); z-index: 2; }
+.stack-card:nth-child(3) { transform: scale(0.96); z-index: 3; }
+.stack-card:nth-child(4) { transform: scale(0.94); z-index: 4; }
+.stack-card:nth-child(5) { transform: scale(0.92); z-index: 5; }
+.stack-card:nth-child(6) { transform: scale(0.90); z-index: 6; }
+
+/* Parallax CTA Section */
+.parallax-cta-section {
+  padding: 120px 20px 80px;
+  background: var(--bg);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Unplugging parallax elements */
+.unplug-cable {
+  position: absolute;
+  left: 35%;
+  top: 50%;
+  transform: translateY(-50%) translateX(-100%);
+  width: 1200px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.8s ease 0.3s;
+}
+
+.unplug-drive {
+  position: absolute;
+  right: 35%;
+  top: 50%;
+  transform: translateY(-50%) translateX(100%);
+  width: 500px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.8s ease 0.3s;
+}
+
+.unplug-cable img,
+.unplug-drive img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.parallax-cta-section.in-view .unplug-cable,
+.parallax-cta-section.in-view .unplug-drive {
+  opacity: 0.9;
+}
+
+@media (max-width: 1400px) {
+  .unplug-cable,
+  .unplug-drive {
+    opacity: 0 !important;
+    display: none;
+  }
+}
+
+.parallax-cta-container {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+}
+
+.parallax-cta-line {
+  display: block;
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  color: var(--text);
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.parallax-cta-line:nth-child(1) { transition-delay: 0s; }
+.parallax-cta-line:nth-child(2) { transition-delay: 0.15s; }
+
+.parallax-cta-section.in-view .parallax-cta-line {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.parallax-cta-btn-wrap {
+  margin-top: 40px;
+  opacity: 0;
+  transform: translateY(30px) scale(0.9);
+  transition: opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s;
+}
+
+.parallax-cta-section.in-view .parallax-cta-btn-wrap {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.parallax-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 32px;
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+  background: linear-gradient(135deg, var(--green), #17a34a);
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(34, 197, 94, 0.4), 0 0 0 0 rgba(34, 197, 94, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.parallax-cta-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.parallax-cta-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 32px rgba(34, 197, 94, 0.5), 0 0 0 4px rgba(34, 197, 94, 0.2);
+}
+
+.parallax-cta-btn:hover::before {
+  opacity: 1;
+}
+
+.parallax-cta-btn svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+@media (max-width: 768px) {
+  .parallax-cta-section {
+    padding: 80px 20px;
+  }
+  
+  .parallax-cta-line {
+    font-size: clamp(24px, 6vw, 32px);
+  }
+  
+  .parallax-cta-btn {
+    padding: 16px 24px;
+    font-size: 15px;
+  }
+}
+
+/* Scroll indicator */
+.scroll-indicator {
+  margin-top: 120px;
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease 0.5s, transform 0.8s ease 0.5s;
+}
+
+.parallax-cta-section.in-view .scroll-indicator {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-line {
+  width: 1px;
+  height: 120px;
+  background: linear-gradient(to bottom, transparent, var(--text), transparent);
+  opacity: 0;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.6s, opacity 0.8s ease 0.6s;
+}
+
+.parallax-cta-section.in-view .scroll-line {
+  opacity: 0.25;
+  transform: scaleY(1);
+}
+
+/* Parallax movement for scroll indicator */
+.scroll-indicator-parallax {
+  transition: transform 0.1s linear;
+}
+
+.card-stack-spacer {
+  height: 5vh;
+}
+
+@media (max-width: 768px) {
+  .card-stack-section {
+    padding: 40px 0 0;
+  }
+  
+  .card-stack-container {
+    width: calc(100vw - 32px);
+  }
+  
+  .stack-card {
+    border-radius: 14px;
+  }
+  
+  .stack-card img {
+    border-radius: 14px;
+  }
+  
+  .stack-card:nth-child(1) { top: 76px; }
+  .stack-card:nth-child(2) { top: 84px; }
+  .stack-card:nth-child(3) { top: 92px; }
+  .stack-card:nth-child(4) { top: 100px; }
+  .stack-card:nth-child(5) { top: 108px; }
+  .stack-card:nth-child(6) { top: 116px; }
+  
+  .stack-card:nth-child(1) { transform: scale(1); }
+  .stack-card:nth-child(2) { transform: scale(0.985); }
+  .stack-card:nth-child(3) { transform: scale(0.97); }
+  .stack-card:nth-child(4) { transform: scale(0.955); }
+  .stack-card:nth-child(5) { transform: scale(0.94); }
+  .stack-card:nth-child(6) { transform: scale(0.925); }
+  
+  .card-stack-spacer {
+    height: 3vh;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1515,26 +1819,77 @@ src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/Hard_Drive_1.png?v=1
 alt="External hard drive"
 class="parallax-drive-left"
 />
-<div class="screen-wrap">
-<video
-class="screen"
-src="https://cdn.shopify.com/videos/c/o/v/21917fa1a3584ae499719c2d58f8db98.mp4"
-autoplay
-muted
-loop
-playsinline
-></video>
-<div class="chip c1 float1"><span class="ico">🔎 </span>Fast global search</div>
-<div class="chip c2 float2"><span class="ico">📊 </span>Reports and library stats</div>
-<div class="chip c3 float3"><span class="ico">🏷️ </span>Uses rich metadata</div>
-<div class="chip c4 float4"><span class="ico">📁 </span>Create Projects</div>
-<div class="chip c5 float5"><span class="ico">⚖️ </span>Compare drives</div>
-<div class="chip c6 float6"><span class="ico">⭐ </span>Search by rating</div>
-<div class="chip c7 float7"><span class="ico">🎛️ </span>Smart Filter</div>
-<div class="chip c8 float8"><span class="ico">⇄ </span>Export + Import Libraries</div>
+</div>
+</section>
+
+<!-- Card Stack Section -->
+<section class="card-stack-section">
+<div class="card-stack-container">
+<div class="card-stack">
+<div class="stack-card">
+<div class="stack-card-inner">
+<img src="https://i.ibb.co/dsF0w0jW/2.jpg" alt="DriveVault feature overview" loading="lazy">
+<div class="stack-card-overlay"></div>
+</div>
+</div>
+<div class="stack-card">
+<div class="stack-card-inner">
+<img src="https://i.ibb.co/Hp2BqCPw/3.jpg" alt="DriveVault visual browsing" loading="lazy">
+<div class="stack-card-overlay"></div>
+</div>
+</div>
+<div class="stack-card">
+<div class="stack-card-inner">
+<img src="https://i.ibb.co/rKpBhsBC/4.jpg" alt="DriveVault search capabilities" loading="lazy">
+<div class="stack-card-overlay"></div>
+</div>
+</div>
+<div class="stack-card">
+<div class="stack-card-inner">
+<img src="https://i.ibb.co/S4q8GsBP/5.jpg" alt="DriveVault organization features" loading="lazy">
+<div class="stack-card-overlay"></div>
+</div>
+</div>
+<div class="stack-card">
+<div class="stack-card-inner">
+<img src="https://i.ibb.co/FTj2wdn/6.jpg" alt="DriveVault drive management" loading="lazy">
+<div class="stack-card-overlay"></div>
+</div>
+</div>
+<div class="stack-card">
+<div class="stack-card-inner">
+<img src="https://i.ibb.co/CKMw6m74/7.jpg" alt="DriveVault reporting" loading="lazy">
+<div class="stack-card-overlay"></div>
+</div>
+</div>
+</div>
+<div class="card-stack-spacer"></div>
+</div>
+</section>
+
+<!-- Parallax CTA Section -->
+<section class="parallax-cta-section">
+<div class="unplug-cable">
+<img src="https://i.ibb.co/mV0B4S02/usbccable2.png" alt="USB-C cable" loading="lazy">
+</div>
+<div class="unplug-drive">
+<img src="https://i.ibb.co/nstzZY9B/hard-drive.png" alt="External hard drive" loading="lazy">
+</div>
+<div class="parallax-cta-container">
+<span class="parallax-cta-line">Ready to build your</span>
+<span class="parallax-cta-line">offline catalog?</span>
+<div class="parallax-cta-btn-wrap">
+<a href="https://apps.apple.com/us/app/drivevault-offline-catalog/id6751731655?mt=12" class="parallax-cta-btn" target="_blank" rel="noopener">
+<svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+Download Free on the App Store
+</a>
+</div>
+<div class="scroll-indicator scroll-indicator-parallax">
+<div class="scroll-line"></div>
 </div>
 </div>
 </section>
+
 <!-- How It Works Section - UPDATED COPY -->
 <section class="section how-it-works" style="position:relative; overflow:hidden;">
 <div class="parallax-drive-large">
@@ -1921,7 +2276,7 @@ Every plan unlocks every feature. No upsells, no drive size limits, no recurring
 <div class="pricing-card">
 <h3>Free</h3>
 <p class="price">$0</p>
-<p class="tier-desc">1 drive \\'b7 Up to 4TB</p>
+<p class="tier-desc">1 drive \\\\'b7 Up to 4TB</p>
 </div>
 <div class="pricing-card">
 <h3>Starter</h3>
@@ -1984,7 +2339,7 @@ Increase your DriveVault capacity by five additional drives
 </div>
 <div class="addon-right">
 <div class="addon-price">$34.99</div>
-<div class="addon-note">one-time purchase \'b7 save 30%</div>
+<div class="addon-note">one-time purchase \\'b7 save 30%</div>
 </div>
 </div>
 </div>
@@ -2031,7 +2386,7 @@ Download on the App Store
 </section>
 <footer>
 <div class="fwrap">
-<div>© <span id="year"></span> DriveVault // <b></b>Part of the Full Access family</b></div>
+<div>\'a9 <span id="year"></span> DriveVault // <b></b>Part of the Full Access family</b></div>
 <div style="display:flex; gap:14px; flex-wrap:wrap">
 <a href="/privacy.html">Privacy</a>
 <a href="/terms.html">Terms</a>
@@ -2516,6 +2871,134 @@ accordion.style.maxHeight = '0px';
 }
 });
 }
+
+// Card stack darkening effect on scroll
+function initCardStackDarkening() {
+  const section = document.querySelector('.card-stack-section');
+  const cardStack = document.querySelector('.card-stack');
+  const cards = document.querySelectorAll('.stack-card');
+  if (!section || !cardStack || !cards.length) return;
+  
+  function updateOverlays() {
+    const sectionRect = section.getBoundingClientRect();
+    const sectionTop = sectionRect.top;
+    const sectionBottom = sectionRect.bottom;
+    const windowHeight = window.innerHeight;
+    
+    // Blur in: when section top enters viewport
+    const blurInStart = windowHeight * 0.8; // Start blur-in when section is 80% down viewport
+    const blurInEnd = windowHeight * 0.3; // Fully visible when section is 30% down viewport
+    
+    // Blur out: when section bottom leaves viewport
+    const blurOutStart = windowHeight * 0.5; // Start blur-out when bottom is at 50% of viewport
+    const blurOutEnd = windowHeight * 0.1; // Fully blurred when bottom is at 10% of viewport
+    
+    // Calculate blur-in progress
+    if (sectionTop > blurInStart) {
+      // Section not yet in view - fully blurred
+      cardStack.classList.remove('in-view');
+      cardStack.classList.remove('blur-out');
+    } else if (sectionTop > blurInEnd) {
+      // Blurring in
+      const progress = 1 - (sectionTop - blurInEnd) / (blurInStart - blurInEnd);
+      cardStack.style.filter = `blur(${20 * (1 - progress)}px)`;
+      cardStack.style.opacity = progress;
+      cardStack.classList.remove('in-view');
+      cardStack.classList.remove('blur-out');
+    } else if (sectionBottom > blurOutStart) {
+      // Fully in view
+      cardStack.classList.add('in-view');
+      cardStack.classList.remove('blur-out');
+      cardStack.style.filter = '';
+      cardStack.style.opacity = '';
+    } else if (sectionBottom > blurOutEnd) {
+      // Blurring out
+      const progress = (sectionBottom - blurOutEnd) / (blurOutStart - blurOutEnd);
+      cardStack.style.filter = `blur(${20 * (1 - progress)}px)`;
+      cardStack.style.opacity = progress;
+      cardStack.classList.remove('in-view');
+      cardStack.classList.remove('blur-out');
+    } else {
+      // Section has scrolled past - fully blurred
+      cardStack.classList.remove('in-view');
+      cardStack.classList.add('blur-out');
+      cardStack.style.filter = '';
+      cardStack.style.opacity = '';
+    }
+    
+    // Darkening effect for individual cards
+    cards.forEach((card, index) => {
+      const overlay = card.querySelector('.stack-card-overlay');
+      if (!overlay || index >= cards.length - 1) return;
+      
+      const cardHeight = card.offsetHeight;
+      const gap = 24;
+      const zoneStart = index * (cardHeight + gap);
+      
+      const scrollIntoSection = -sectionTop;
+      const progressThroughZone = (scrollIntoSection - zoneStart) / cardHeight;
+      
+      if (progressThroughZone > 0.3 && progressThroughZone < 2) {
+        const darkenProgress = Math.min((progressThroughZone - 0.3) / 0.7, 1);
+        const maxDarken = 0.55;
+        overlay.style.background = `rgba(0,0,0,${darkenProgress * maxDarken})`;
+      } else if (progressThroughZone >= 2) {
+        overlay.style.background = 'rgba(0,0,0,0.55)';
+      } else {
+        overlay.style.background = 'rgba(0,0,0,0)';
+      }
+    });
+  }
+  
+  window.addEventListener('scroll', updateOverlays, { passive: true });
+  updateOverlays();
+}
+
+initCardStackDarkening();
+
+// Parallax CTA section scroll trigger
+function initParallaxCTA() {
+  const ctaSection = document.querySelector('.parallax-cta-section');
+  const scrollIndicator = document.querySelector('.scroll-indicator-parallax');
+  const unplugCable = document.querySelector('.unplug-cable');
+  const unplugDrive = document.querySelector('.unplug-drive');
+  if (!ctaSection) return;
+  
+  function checkCTAVisibility() {
+    const rect = ctaSection.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+    
+    // Trigger when section is 70% into viewport
+    if (rect.top < windowHeight * 0.7 && rect.bottom > 0) {
+      ctaSection.classList.add('in-view');
+    }
+    
+    // Parallax effect for scroll indicator
+    if (scrollIndicator && rect.top < windowHeight && rect.bottom > 0) {
+      const scrollProgress = (windowHeight - rect.top) / (windowHeight + rect.height);
+      const parallaxOffset = scrollProgress * 50;
+      scrollIndicator.style.transform = `translateY(${parallaxOffset}px)`;
+    }
+    
+    // Unplugging parallax effect
+    if ((unplugCable || unplugDrive) && rect.top < windowHeight && rect.bottom > 0) {
+      const scrollProgress = (windowHeight - rect.top) / (windowHeight + rect.height);
+      const unplugOffset = scrollProgress * 500; // How far they move apart
+      
+      if (unplugCable) {
+        unplugCable.style.transform = `translateY(-50%) translateX(calc(-100% - ${unplugOffset}px))`;
+      }
+      if (unplugDrive) {
+        unplugDrive.style.transform = `translateY(-50%) translateX(calc(100% + ${unplugOffset}px))`;
+      }
+    }
+  }
+  
+  window.addEventListener('scroll', checkCTAVisibility, { passive: true });
+  checkCTAVisibility();
+}
+
+initParallaxCTA();
 </script>
 </body>
 </html>
