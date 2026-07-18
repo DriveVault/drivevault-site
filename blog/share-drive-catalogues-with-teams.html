@@ -1,0 +1,383 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>How to Share Drive Catalogues with Your Team | DriveVault</title>
+<meta name="description" content="DriveVault lets you share your entire drive catalogue - or a beautiful visual report - with anyone on your team, anywhere in the world. No cloud required. Here is how it works." />
+<meta name="keywords" content="share drive catalogue team, share hard drive contents remotely, team asset management external drives, drive catalog sharing Mac, share external drive index team, collaborate external drives Mac, share file list with client, export drive contents report" />
+<meta name="author" content="DriveVault" />
+<link rel="icon" href="/favicon.png" type="image/png" />
+<link rel="apple-touch-icon" href="/favicon.png" />
+<link rel="canonical" href="https://drivevault.app/blog/share-drive-catalogues-with-teams.html" />
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to Share Drive Catalogues with Your Team">
+<meta property="og:description" content="Three ways to share your entire drive library - or a beautiful visual report - with anyone on your team, anywhere in the world.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1600&q=80">
+<meta property="og:url" content="https://drivevault.app/blog/share-drive-catalogues-with-teams.html">
+<meta property="og:site_name" content="DriveVault">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How to Share Drive Catalogues with Your Team">
+<meta name="twitter:description" content="Three ways DriveVault solves the problem of sharing external drive contents with remote teammates and clients.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+:root{
+--bg:#ffffff;--bg-secondary:#f8fafc;--text:#0b0d12;--muted:#5f6775;
+--line:rgba(10,12,18,.08);--shadow:0 20px 60px rgba(10,12,18,.08);
+--blue:#2f6bff;--blue2:#6aa2ff;--green:#22c55e;--gold:#f59e0b;--purple:#8b5cf6;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6}
+/* HEADER */
+.topbar{position:fixed;inset:0 0 auto 0;height:68px;z-index:50;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.72);backdrop-filter:saturate(160%) blur(12px);-webkit-backdrop-filter:saturate(160%) blur(12px);border-bottom:1px solid var(--line)}
+.topbar .wrap{width:min(1200px,94vw);display:flex;align-items:center;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);font-weight:800}
+.brand img{width:22px;height:22px}
+.brand span{font-size:14px;letter-spacing:.2px}
+.nav{margin-left:auto;display:flex;align-items:center;gap:18px}
+.nav a{color:#2b3140;text-decoration:none;font-size:13px;padding:8px 10px;border-radius:10px;transition:background .25s ease,color .25s ease}
+.nav a:hover{background:rgba(10,12,18,.05);color:#0b0d12}
+.cta-top{margin-left:4px;padding:10px 14px;border-radius:12px;font-weight:800;font-size:13px;color:#fff;text-decoration:none;background:linear-gradient(135deg,var(--blue),var(--blue2));box-shadow:0 10px 22px rgba(34,197,94,.25);transition:transform .2s ease,box-shadow .35s ease;position:relative;overflow:hidden;isolation:isolate}
+.cta-top::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#22c55e,#4ade80);transition:opacity .35s ease;z-index:-1}
+.cta-top:hover{transform:translateY(-1px);box-shadow:0 16px 30px rgba(47,107,255,.26)}
+.cta-top:hover::before{opacity:0}
+.hamburger{display:none;margin-left:auto;width:36px;height:36px;border-radius:10px;border:1px solid rgba(10,12,18,.12);background:#fff;box-shadow:0 6px 16px rgba(10,12,18,.08);align-items:center;justify-content:center;cursor:pointer}
+.hamburger span{width:18px;height:2px;background:#0b0d12;position:relative;display:block}
+.hamburger span::before,.hamburger span::after{content:"";position:absolute;left:0;width:18px;height:2px;background:#0b0d12}
+.hamburger span::before{top:-6px}
+.hamburger span::after{top:6px}
+@media(max-width:900px){.nav{position:fixed;top:68px;left:0;right:0;background:#fff;border-bottom:1px solid var(--line);flex-direction:column;gap:6px;padding:12px 16px 16px;display:none;box-shadow:0 20px 40px rgba(10,12,18,.1)}.nav.open{display:flex}.nav a{width:100%;text-align:left;padding:12px 14px;font-size:15px}.cta-top{width:100%;text-align:center;margin-top:6px}.hamburger{display:flex}}
+/* LAYOUT */
+main{padding:calc(68px + 48px) 16px 80px}
+.article-container{width:min(780px,94vw);margin:0 auto}
+.article-hero{text-align:center;margin-bottom:40px}
+.eyebrow{display:inline-block;background:linear-gradient(135deg,rgba(47,107,255,.1),rgba(106,162,255,.1));color:var(--blue);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;border-radius:20px;margin-bottom:16px}
+.article-hero h1{font-size:clamp(28px,5vw,44px);font-weight:900;line-height:1.1;letter-spacing:-0.02em;margin-bottom:16px;color:var(--text)}
+.post-meta{color:var(--muted);font-size:14px;margin-bottom:32px}
+.cover-image{border-radius:20px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line)}
+.cover-image img{width:100%;height:auto;display:block;aspect-ratio:16/9;object-fit:cover;background:var(--bg-secondary)}
+/* CONTENT */
+.article-content{background:var(--bg);line-height:1.75}
+.article-content p{margin:20px 0;color:#374151;font-size:17px}
+.article-content h2{font-size:26px;font-weight:800;margin:48px 0 16px;color:var(--text);letter-spacing:-0.01em}
+.article-content h3{font-size:19px;font-weight:700;margin:28px 0 10px;color:var(--text)}
+.article-content a{color:var(--blue);text-decoration:underline;text-decoration-color:rgba(47,107,255,.3);text-underline-offset:2px;transition:text-decoration-color .2s ease}
+.article-content a:hover{text-decoration-color:var(--blue)}
+.intro-text{font-size:19px;font-weight:500;color:#1f2937;line-height:1.7}
+/* METHOD CARDS */
+.method-grid{display:flex;flex-direction:column;gap:24px;margin:40px 0}
+.method-card{border-radius:20px;overflow:hidden;border:1px solid var(--line);box-shadow:0 4px 24px rgba(10,12,18,.06)}
+.method-card-top{padding:28px;display:flex;align-items:flex-start;gap:20px}
+.method-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.method-icon.blue{background:linear-gradient(135deg,rgba(47,107,255,.12),rgba(106,162,255,.08))}
+.method-icon.green{background:linear-gradient(135deg,rgba(34,197,94,.12),rgba(34,197,94,.06))}
+.method-icon.purple{background:linear-gradient(135deg,rgba(139,92,246,.12),rgba(139,92,246,.06))}
+.method-header{flex:1}
+.method-number{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px}
+.method-number.blue{color:var(--blue)}
+.method-number.green{color:#16a34a}
+.method-number.purple{color:#7c3aed}
+.method-header h3{font-size:21px;font-weight:900;margin:0 0 4px;letter-spacing:-0.01em}
+.method-subtitle{font-size:13px;color:var(--muted);font-weight:500}
+.method-body{padding:0 28px 28px}
+.method-body p{margin:0 0 16px;color:#374151;font-size:16px}
+.method-body p:last-child{margin-bottom:0}
+/* Use case pills */
+.use-case-list{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
+.use-case-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:99px;font-size:13px;font-weight:600;border:1px solid}
+.use-case-pill.blue{background:rgba(47,107,255,.07);border-color:rgba(47,107,255,.15);color:var(--blue)}
+.use-case-pill.green{background:rgba(34,197,94,.07);border-color:rgba(34,197,94,.15);color:#16a34a}
+.use-case-pill.purple{background:rgba(139,92,246,.07);border-color:rgba(139,92,246,.15);color:#7c3aed}
+/* What's included list */
+.included-list{list-style:none;padding:0;margin:16px 0;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.included-list li{font-size:14px;color:#374151;padding-left:22px;position:relative;line-height:1.5}
+.included-list li::before{content:"✓";position:absolute;left:0;color:var(--green);font-weight:700;font-size:12px}
+@media(max-width:540px){.included-list{grid-template-columns:1fr}}
+/* Decision helper */
+.decision-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:32px 0}
+.decision-card{border-radius:14px;padding:20px;border:1px solid var(--line);background:var(--bg-secondary);text-align:center}
+.decision-card .decision-icon{font-size:28px;margin-bottom:10px}
+.decision-card h4{font-size:14px;font-weight:800;color:var(--text);margin-bottom:8px}
+.decision-card p{font-size:13px;color:var(--muted);line-height:1.5;margin:0}
+@media(max-width:580px){.decision-grid{grid-template-columns:1fr}}
+/* Scenario block */
+.scenario-block{background:var(--bg-secondary);border-radius:16px;padding:24px 28px;margin:32px 0}
+.scenario-block h3{margin:0 0 16px;font-size:18px}
+.scenario-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:14px}
+.scenario-item{display:flex;align-items:flex-start;gap:14px;padding:14px;background:#fff;border-radius:12px;border:1px solid var(--line)}
+.scenario-emoji{font-size:22px;flex-shrink:0;line-height:1}
+.scenario-text{font-size:15px;color:#374151;line-height:1.5}
+.scenario-text strong{color:var(--text);display:block;margin-bottom:2px}
+/* Privacy callout */
+.privacy-callout{background:linear-gradient(135deg,rgba(34,197,94,.06),rgba(34,197,94,.02));border:1px solid rgba(34,197,94,.15);border-radius:16px;padding:22px 26px;margin:32px 0;display:flex;align-items:flex-start;gap:16px}
+.privacy-callout-icon{font-size:24px;flex-shrink:0;margin-top:2px}
+.privacy-callout-text{font-size:15px;color:#374151;line-height:1.6}
+.privacy-callout-text strong{color:var(--text);display:block;margin-bottom:4px;font-size:16px}
+/* Inline CTA */
+.inline-cta{display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--bg-secondary);border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin:32px 0}
+.inline-cta-text{font-size:14px;color:var(--muted);line-height:1.5}
+.inline-cta-text strong{color:var(--text);display:block;margin-bottom:2px;font-size:15px}
+.inline-cta-btn{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;padding:10px 18px;border-radius:10px;font-weight:700;font-size:13px;color:#fff !important;text-decoration:none !important;background:linear-gradient(135deg,var(--blue),var(--blue2));box-shadow:0 6px 18px rgba(47,107,255,.22);transition:transform .2s ease,box-shadow .3s ease;flex-shrink:0}
+.inline-cta-btn:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(47,107,255,.3)}
+@media(max-width:560px){.inline-cta{flex-direction:column;align-items:flex-start}.inline-cta-btn{width:100%;justify-content:center}}
+/* CTA Box */
+.cta-box{background:linear-gradient(135deg,rgba(47,107,255,.08),rgba(106,162,255,.05));border:1px solid rgba(47,107,255,.15);border-radius:20px;padding:32px;text-align:center;margin:48px 0}
+.cta-box strong{display:block;font-size:20px;font-weight:800;margin-bottom:8px;color:var(--text)}
+.cta-box p{margin:0 0 20px 0;color:var(--muted);font-size:16px}
+.cta-button{display:inline-block;padding:14px 28px;border-radius:14px;font-weight:800;font-size:15px;color:#fff !important;text-decoration:none !important;background:linear-gradient(135deg,var(--blue),var(--blue2));box-shadow:0 10px 30px rgba(47,107,255,.25);transition:transform .2s ease,box-shadow .3s ease}
+.cta-button:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(47,107,255,.3);color:#fff !important;text-decoration:none !important}
+/* Post Nav */
+.post-nav{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:48px}
+.post-nav a{display:flex;flex-direction:column;padding:20px;border-radius:16px;border:1px solid var(--line);background:var(--bg);text-decoration:none;transition:border-color .25s ease,box-shadow .25s ease}
+.post-nav a:hover{border-color:rgba(47,107,255,.3);box-shadow:0 10px 30px rgba(10,12,18,.06)}
+.post-nav-label{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.post-nav-title{font-size:15px;font-weight:700;color:var(--text);line-height:1.4}
+@media(max-width:600px){.post-nav{grid-template-columns:1fr}}
+/* Footer */
+.site-footer{background:var(--bg-secondary);border-top:1px solid var(--line);padding:40px 16px;text-align:center}
+.footer-content{max-width:1200px;margin:0 auto}
+.footer-brand{display:inline-flex;align-items:center;gap:10px;margin-bottom:16px;font-weight:800;color:var(--text)}
+.footer-brand img{width:24px;height:24px}
+.footer-text{color:var(--muted);font-size:14px}
+/* Float CTA */
+.float-cta{position:fixed;right:20px;bottom:20px;z-index:40;display:inline-flex;align-items:center;gap:8px;padding:14px 20px;border-radius:14px;font-weight:800;font-size:14px;color:#fff;text-decoration:none;background:linear-gradient(135deg,var(--blue),var(--blue2));box-shadow:0 10px 40px rgba(47,107,255,.35);transition:transform .2s ease,box-shadow .3s ease}
+.float-cta:hover{transform:translateY(-2px);box-shadow:0 14px 50px rgba(47,107,255,.4)}
+@media(max-width:640px){.float-cta{left:16px;right:16px;justify-content:center}}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"How to Share Drive Catalogues with Your Team","description":"DriveVault lets you share your entire drive catalogue - or a beautiful visual report - with anyone on your team, anywhere in the world. No cloud required.","datePublished":"2026-07-18","dateModified":"2026-07-18","author":{"@type":"Organization","name":"DriveVault"},"publisher":{"@type":"Organization","name":"DriveVault","logo":{"@type":"ImageObject","url":"/favicon.png"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://drivevault.app/blog/share-drive-catalogues-with-teams.html"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"DriveVault","operatingSystem":"macOS","applicationCategory":"UtilitiesApplication","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Search and browse external hard drives without plugging them in. Scan once, share anywhere."}</script>
+</head>
+<body>
+<header class="topbar" role="banner">
+<div class="wrap">
+<a class="brand" href="/"><img src="/favicon.png" alt="DriveVault logo"><span>DriveVault</span></a>
+<nav class="nav" id="mobileNav" role="navigation" aria-label="Primary">
+<a href="/#features">Features</a>
+<a href="/#pricing">Pricing</a>
+<a href="/changelog.html">Changelog</a>
+<a href="/blog.html">Blog</a>
+<a href="/faq.html">FAQ</a>
+<a class="cta-top" href="https://apps.apple.com/us/app/drivevault-offline-catalog/id6751731655?mt=12" target="_blank" rel="noopener">Download on the App Store</a>
+</nav>
+<button class="hamburger" aria-label="Toggle navigation" aria-expanded="false" id="hamburgerBtn"><span></span></button>
+</div>
+</header>
+
+<main>
+<div class="article-container">
+
+<header class="article-hero">
+<span class="eyebrow">Team Workflow</span>
+<h1>Share Your Drive Catalogues with Anyone on Your Team</h1>
+<p class="post-meta">Published July 18, 2026 &bull; 6 min read</p>
+<div class="cover-image">
+<img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1600&q=80" alt="Team collaborating on shared drive catalogues" loading="lazy">
+</div>
+</header>
+
+<article class="article-content">
+
+<p class="intro-text">Let's save you some time: DriveVault is the easiest way to share an external hard drive catalogue with someone on your team, wherever they are in the world. Scan a drive once, and you can send its entire contents - searchable, browsable, completely offline - to anyone in seconds.</p>
+
+<p>There are three ways to do it in DriveVault, each suited to a slightly different situation. Here they are.</p>
+
+<div class="method-grid">
+
+<!-- Method 1 -->
+<div class="method-card">
+<div class="method-card-top">
+<div class="method-icon blue">📦</div>
+<div class="method-header">
+<div class="method-number blue">Method 1</div>
+<h3>Export and Import Full Catalogues</h3>
+<div class="method-subtitle">For teams where everyone uses DriveVault</div>
+</div>
+</div>
+<div class="method-body">
+<p>This is the deepest form of sharing. Export a complete drive catalogue as a <strong>.drivevault file</strong> and send it to anyone on your team. When they import it into their own DriveVault, they can browse and search the drive exactly as if they had scanned it themselves - every folder, every file, every piece of metadata, every tag and rating you have applied. The drive does not need to be anywhere near them.</p>
+<p>A .drivevault file is self-contained and compressed - transfer it by email, AirDrop, shared cloud folder, or USB stick. The recipient gets full search, full browsing, and full offline preview capabilities instantly.</p>
+<p><strong>What travels with the catalogue:</strong></p>
+<ul class="included-list">
+<li>Complete file and folder structure</li>
+<li>All file sizes and dates</li>
+<li>EXIF, video, and audio metadata</li>
+<li>Star ratings you have applied</li>
+<li>Custom tags and notes</li>
+<li>Offline preview thumbnails</li>
+<li>Drive statistics</li>
+<li>Instant search index</li>
+</ul>
+<div class="use-case-list">
+<span class="use-case-pill blue">Remote team members</span>
+<span class="use-case-pill blue">Multi-location studios</span>
+<span class="use-case-pill blue">Project handoffs</span>
+<span class="use-case-pill blue">Archive transfers</span>
+</div>
+</div>
+</div>
+
+<!-- Method 2 -->
+<div class="method-card">
+<div class="method-card-top">
+<div class="method-icon green">📊</div>
+<div class="method-header">
+<div class="method-number green">Method 2</div>
+<h3>HTML Reports</h3>
+<div class="method-subtitle">For clients, stakeholders, or anyone without DriveVault</div>
+</div>
+</div>
+<div class="method-body">
+<p>Not everyone on a project uses DriveVault - and some people just need to see what is on a drive, not browse it interactively. For those situations, DriveVault generates a <strong>beautiful, self-contained HTML report</strong> that opens in any web browser on any device - Mac, Windows, iPhone, anything.</p>
+<p>These are not plain text file lists. They are visual dashboards with interactive charts showing file type breakdowns, storage distribution, category summaries, and a searchable, sortable file table. They open offline, require no software, and look professional enough to send directly to a client or present in a meeting.</p>
+<p>A timestamped HTML report is also a permanent record - a snapshot of a drive at a specific point in time, useful for audit trails, delivery documentation, and archiving.</p>
+<div class="use-case-list">
+<span class="use-case-pill green">Client deliverables</span>
+<span class="use-case-pill green">Stakeholder reviews</span>
+<span class="use-case-pill green">Archive documentation</span>
+<span class="use-case-pill green">Audit trails</span>
+<span class="use-case-pill green">Project sign-off</span>
+</div>
+</div>
+</div>
+
+<!-- Method 3 -->
+<div class="method-card">
+<div class="method-card-top">
+<div class="method-icon purple">📋</div>
+<div class="method-header">
+<div class="method-number purple">Method 3</div>
+<h3>CSV Export</h3>
+<div class="method-subtitle">For data workflows, inventory systems, and analysis</div>
+</div>
+</div>
+<div class="method-body">
+<p>Sometimes a team needs raw data rather than a visual interface. A production coordinator building an asset inventory in Excel. A post-production supervisor importing drive contents into a project management database. A producer running analysis across multiple drive libraries to find duplicate files or calculate storage usage.</p>
+<p>DriveVault exports a clean, standard <strong>CSV file</strong> with every file on a drive listed as a row - filename, full path, size in bytes, human-readable size, last modified date, and file category. It opens in Excel, Google Sheets, Numbers, or feeds directly into any database or automation workflow.</p>
+<p>This is also the most portable format of the three - a CSV file is readable by virtually any software and will remain so indefinitely, making it ideal for compliance documentation or long-term archive records.</p>
+<div class="use-case-list">
+<span class="use-case-pill purple">Asset inventory</span>
+<span class="use-case-pill purple">Data analysis</span>
+<span class="use-case-pill purple">Database imports</span>
+<span class="use-case-pill purple">Compliance records</span>
+<span class="use-case-pill purple">Custom reporting</span>
+</div>
+</div>
+</div>
+
+</div>
+
+<h2>Which Method Is Right for the Situation?</h2>
+
+<div class="decision-grid">
+<div class="decision-card">
+<div class="decision-icon">📦</div>
+<h4>Export Catalogue</h4>
+<p>Your teammate needs to search and browse the drive themselves, with full previews and metadata</p>
+</div>
+<div class="decision-card">
+<div class="decision-icon">📊</div>
+<h4>HTML Report</h4>
+<p>You need to share drive contents with someone who does not use DriveVault, or for documentation</p>
+</div>
+<div class="decision-card">
+<div class="decision-icon">📋</div>
+<h4>CSV Export</h4>
+<p>You need the raw data in a spreadsheet, database, or workflow tool for analysis or inventory</p>
+</div>
+</div>
+
+<h2>Real Scenarios Where This Matters</h2>
+
+<div class="scenario-block">
+<h3>Teams and studios who use this every day</h3>
+<ul class="scenario-list">
+<li class="scenario-item">
+<div class="scenario-emoji">🎬</div>
+<div class="scenario-text"><strong>Production company with multiple edit suites</strong>Scan drives in one suite, export the catalogue, and anyone in another location can search the contents without the drive leaving the room.</div>
+</li>
+<li class="scenario-item">
+<div class="scenario-emoji">📸</div>
+<div class="scenario-text"><strong>Photography studio delivering to clients</strong>Generate an HTML report of delivered assets - a professional, visually polished record of exactly what was handed over, when, and in what format.</div>
+</li>
+<li class="scenario-item">
+<div class="scenario-emoji">🗄️</div>
+<div class="scenario-text"><strong>Archive manager maintaining a physical library</strong>Export CSV files of each drive for import into a broader asset management or inventory system. Every drive catalogued, every file indexed, all in one place.</div>
+</li>
+<li class="scenario-item">
+<div class="scenario-emoji">🎙️</div>
+<div class="scenario-text"><strong>Podcast or music production team</strong>Share audio session catalogues with producers, editors, or clients so anyone can see exactly what takes exist on a drive without needing to be in the studio.</div>
+</li>
+<li class="scenario-item">
+<div class="scenario-emoji">🏢</div>
+<div class="scenario-text"><strong>Onboarding a new team member</strong>Send them a catalogue of every project drive on day one. They can search years of archived work from the start, without needing to wait for a physical drive handoff.</div>
+</li>
+</ul>
+</div>
+
+<div class="privacy-callout">
+<div class="privacy-callout-icon">🔒</div>
+<div class="privacy-callout-text">
+<strong>No cloud, no accounts, no tracking.</strong>
+All three sharing methods work entirely through direct file transfer - email, AirDrop, shared folder, USB stick, whatever you normally use. DriveVault never sees your data, never sends anything to a server, and never requires anyone to create an account. The catalogue is yours, and you control who it goes to.
+</div>
+</div>
+
+<h2>A Note on Pricing and Tiers</h2>
+
+<p>All three sharing methods - catalogue export and import, HTML reports, and CSV export - are available on every DriveVault tier, including the permanent free tier. There are no collaboration paywalls.</p>
+
+<p>The one thing to be aware of with catalogue imports: the recipient needs to have available drive slots in their tier to accept the import. The free tier includes one drive up to 4TB. Paid tiers start with 5 drives and scale from there, all as one-time purchases with no subscriptions. If someone on your team is regularly receiving catalogues from multiple drives, a paid tier is the practical choice - but the feature itself is always available.</p>
+
+<div class="cta-box">
+<strong>Your first drive is free, forever.</strong>
+<p>Download DriveVault, scan a drive, and try the export in under ten minutes. No payment details, no trial clock.</p>
+<a class="cta-button" href="https://apps.apple.com/us/app/drivevault-offline-catalog/id6751731655?mt=12" target="_blank" rel="noopener">Download DriveVault Free</a>
+</div>
+
+</article>
+
+<nav class="post-nav" aria-label="Post navigation">
+<a href="/blog/best-external-hard-drives-for-photographers.html">
+<span class="post-nav-label">Related</span>
+<span class="post-nav-title">The Best External Hard Drive for Photographers in 2026</span>
+</a>
+<a href="/blog/best-mac-apps-photographers-multiple-drives.html">
+<span class="post-nav-label">Related</span>
+<span class="post-nav-title">The Best Apps, Tools and Websites for Mac Photographers</span>
+</a>
+</nav>
+
+</div>
+</main>
+
+<footer class="site-footer">
+<div class="footer-content">
+<div class="footer-brand"><img src="/favicon.png" alt="DriveVault"><span>DriveVault</span></div>
+<p class="footer-text">© 2026 DriveVault. All rights reserved.</p>
+</div>
+</footer>
+
+<a class="float-cta" href="https://apps.apple.com/us/app/drivevault-offline-catalog/id6751731655?mt=12" target="_blank" rel="noopener" aria-label="Download DriveVault on the App Store">Download Free -></a>
+
+<script>
+const hamburger = document.getElementById('hamburgerBtn');
+const mobileNav = document.getElementById('mobileNav');
+if (hamburger && mobileNav) {
+  hamburger.addEventListener('click', () => {
+    const isOpen = mobileNav.classList.toggle('open');
+    hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  mobileNav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileNav.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    });
+  });
+}
+</script>
+</body>
+</html>
