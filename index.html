@@ -1,1579 +1,3001 @@
 
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WTNS: track change over time</title>
-<meta name="description" content="WTNS is a premium iOS photo journaling app for tracking meaningful change over time. Perfectly aligned photos with ghost overlay technology, custom metrics, and privacy-first local storage.">
-<meta name="keywords" content="photo journaling app, progress tracking photos, before and after photo app, time-lapse transformation, visual diary, fitness progress photos, skin care tracking, home renovation app, private photo journal">
-<meta property="og:title" content="WTNS: track change over time">
-<meta property="og:description" content="The beautiful, private way to document transformation. Perfectly aligned photos, custom metrics, and your data stays on your device.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://drivevault.github.io/witness/">
-<meta property="og:image" content="https://drivevault.github.io/witness/Favicon.png">
-
-<link rel="icon" type="image/png" href="Favicon.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<meta name="theme-color" content="#1C1C1E">
-
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M3XM1E1TQK"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-M3XM1E1TQK');
+</script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>DriveVault - Hard Drives Unplugged</title>
+<meta name="description" content="DriveVault scans your external drives once, then lets you browse and search them anytime - even when they are unplugged." />
+<link rel="icon" href="/favicon.png" type="image/png" />
+<link rel="apple-touch-icon" href="/favicon.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400;1,6..72,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --peach: #ED8C85;
-  --peach-deep: #E0736B;
-  --peach-soft: #F6B4AE;
-  --bg: #FDF5F0;
-  --surface: #FFFFFF;
-  --surface-2: #FBEFE8;
-  --ink: #2A2226;
-  --text: #333333;
-  --text-2: #808080;
-  --line: #EADFD7;
-  --glow: rgba(237,140,133,0.22);
-  --shadow: rgba(103, 74, 68, 0.12);
-  --frost: rgba(255,255,255,0.62);
+html {
+scroll-behavior: smooth;
 }
-[data-theme="dark"] {
-  --bg: #1C1C1E;
-  --surface: #2C2C2E;
-  --surface-2: #262628;
-  --ink: #F2F2F2;
-  --text: #E7E4E2;
-  --text-2: #B3B3B3;
-  --line: #3A3A3D;
-  --glow: rgba(237,140,133,0.20);
-  --shadow: rgba(0,0,0,0.45);
-  --frost: rgba(44,44,46,0.55);
+:root{
+--bg:#ffffff;
+--text:#0b0d12;
+--muted:#5f6775;
+--line:rgba(10,12,18,.08);
+--shadow:0 20px 60px rgba(10,12,18,.08);
+--shadow2:0 14px 30px rgba(10,12,18,.09);
+--blue:#2f6bff;
+--blue2:#6aa2ff;
+--green:#22c55e;
 }
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+*{box-sizing:border-box; margin:0; padding:0}
+body{
+font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+background:var(--bg);
+color:var(--text);
+overflow-x:hidden;
 }
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  line-height: 1.6;
-  overflow-x: hidden;
-  transition: background 0.5s ease, color 0.5s ease;
+/* Subtle Apple-ish blobs */
+.bg-blobs{
+display:none;
 }
-h1,h2,h3,h4 { font-family: 'Newsreader', Georgia, serif; color: var(--ink); font-weight: 400; letter-spacing: -0.01em; line-height: 1.08; }
-a { color: inherit; text-decoration: none; }
-img { display: block; max-width: 100%; }
-.wrap { width: min(1160px, 92vw); margin: 0 auto; }
-
-.btn {
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  padding: 0.9rem 1.6rem; border-radius: 14px; font-weight: 600; font-size: 0.95rem;
-  cursor: pointer; border: none; transition: transform 0.25s cubic-bezier(.34,1.56,.64,1), box-shadow 0.25s ease;
+.blob{position:absolute; width:52vw; height:52vw; border-radius:999px; filter:blur(80px); opacity:.22;}
+.blob.b1{left:-18vw; top:-16vw; background:radial-gradient(circle at 30% 30%, rgba(106,162,255,.9), transparent 60%)}
+.blob.b2{right:-18vw; top:-12vw; background:radial-gradient(circle at 55% 45%, rgba(154,106,255,.9), transparent 60%)}
+.blob.b3{left:10vw; bottom:-24vw; background:radial-gradient(circle at 45% 55%, rgba(34,197,94,.9), transparent 60%)}
+/* Top header */
+.topbar{
+position:fixed; inset:0 0 auto 0; height:68px; z-index:50;
+display:flex; align-items:center; justify-content:center;
+background:rgba(255,255,255,.72);
+backdrop-filter:saturate(160%) blur(12px);
+border-bottom:1px solid var(--line);
 }
-.btn-primary {
-  background: linear-gradient(135deg, var(--peach) 0%, var(--peach-deep) 100%);
-  color: #fff; box-shadow: 0 8px 24px var(--glow);
+.topbar .wrap{width:min(1200px,94vw); display:flex; align-items:center; gap:16px;}
+.brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text); font-weight:800;}
+.brand img{width:22px; height:22px}
+.brand span{font-size:14px; letter-spacing:.2px}
+.nav{margin-left:auto; display:flex; align-items:center; gap:18px;}
+.nav a{color:#2b3140; text-decoration:none; font-size:13px; padding:8px 10px; border-radius:10px; transition:background .25s ease, color .25s ease;}
+.nav a:hover{background:rgba(10,12,18,.05); color:#0b0d12}
+.cta-top{
+margin-left:4px;
+padding:10px 14px;
+border-radius:12px;
+font-weight:800;
+font-size:13px;
+color:#fff;
+text-decoration:none;
+background:linear-gradient(135deg,var(--blue),var(--blue2));
+box-shadow:0 10px 22px rgba(34,197,94,.25);
+transition:transform .2s ease, box-shadow .35s ease;
+position:relative;
+overflow:hidden;
+isolation:isolate;
 }
-.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 14px 34px var(--glow); }
-.btn-primary:active { transform: translateY(-1px); }
-.btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); }
-.btn-ghost:hover { border-color: var(--peach); color: var(--peach-deep); }
-:focus-visible { outline: 3px solid var(--peach); outline-offset: 3px; border-radius: 6px; }
-
-.appstore {
-  display: inline-flex; align-items: center; gap: 0.65rem;
-  background: var(--ink); color: var(--bg); padding: 0.75rem 1.35rem; border-radius: 14px;
-  transition: transform 0.25s cubic-bezier(.34,1.56,.64,1);
+.cta-top::before{
+content:'';
+position:absolute;
+inset:0;
+background:linear-gradient(135deg,#22c55e,#4ade80);
+transition:opacity .35s ease;
+z-index:-1;
 }
-[data-theme="dark"] .appstore { background: #fff; color: #111; }
-.appstore:hover { transform: translateY(-3px); }
-.appstore svg { width: 22px; height: 22px; flex: none; }
-.appstore small { display: block; font-size: 0.62rem; opacity: 0.8; line-height: 1; margin-bottom: 2px; }
-.appstore span { font-weight: 600; font-size: 1.05rem; line-height: 1; }
-
-nav {
-  position: sticky; top: 0; z-index: 100;
-  backdrop-filter: blur(18px) saturate(1.4); -webkit-backdrop-filter: blur(18px) saturate(1.4);
-  background: var(--frost); border-bottom: 1px solid var(--line);
+.cta-top:hover{
+transform:translateY(-1px);
+box-shadow:0 16px 30px rgba(47,107,255,.26);
 }
-nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; }
-.brand { display: flex; align-items: center; gap: 0.6rem; font-family: 'Newsreader'; font-size: 1.4rem; color: var(--ink); font-weight: 500; letter-spacing: -0.02em; }
-.brand .aperture { width: 26px; height: 26px; flex: none; }
-.brand .brand-logo { width: 30px; height: 30px; flex: none; border-radius: 8px; object-fit: cover; box-shadow: 0 2px 8px var(--shadow); }
-.navlinks { display: flex; align-items: center; gap: 2rem; }
-.navlinks a { font-size: 0.9rem; color: var(--text-2); transition: color 0.2s; }
-.navlinks a:hover { color: var(--peach-deep); }
-.nav-actions { display: flex; align-items: center; gap: 0.9rem; }
-.theme-toggle {
-  width: 42px; height: 42px; border-radius: 12px; border: 1px solid var(--line);
-  background: var(--surface); cursor: pointer; display: grid; place-items: center; color: var(--ink);
-  transition: border-color 0.2s, transform 0.3s;
+.cta-top:hover::before{
+opacity:0;
 }
-.theme-toggle:hover { border-color: var(--peach); transform: rotate(15deg); }
-.theme-toggle svg { width: 20px; height: 20px; }
-@media (max-width: 1060px){ .navlinks{ gap: 1.15rem; } .navlinks a{ font-size: 0.85rem; } }
-@media (max-width: 900px){ .navlinks{ display:none; } }
-
-.hero { position: relative; padding: 5.5rem 0 4rem; overflow: hidden; }
-.hero::before {
-  content:""; position:absolute; top:-30%; left:50%; transform:translateX(-50%);
-  width: 900px; height: 900px; border-radius: 50%;
-  background: radial-gradient(circle, var(--glow) 0%, transparent 62%);
-  pointer-events:none; z-index:0;
+/* Mobile nav */
+.hamburger{
+display:none;
+margin-left:auto;
+width:36px;
+height:36px;
+border-radius:10px;
+border:1px solid rgba(10,12,18,.12);
+background:#fff;
+box-shadow:0 6px 16px rgba(10,12,18,.08);
+align-items:center;
+justify-content:center;
+cursor:pointer;
 }
-.hero .wrap { position: relative; z-index: 1; display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 3.5rem; align-items: center; }
-.hero-appicon-frame {
-  width: 92px; height: 92px; border-radius: 21px; margin-bottom: 1.4rem;
-  box-shadow: 0 14px 34px var(--glow); background: var(--surface-2);
-  border: 1px solid var(--line);
-  display: grid; place-items: center; flex: none; padding: 15px;
+.hamburger span{
+width:18px;
+height:2px;
+background:#0b0d12;
+position:relative;
+display:block;
 }
-.hero-appicon { width: 100%; height: 100%; display: block; object-fit: contain; }
-.eyebrow {
-  display:inline-flex; align-items:center; gap:0.5rem; font-size:0.78rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase;
-  color: var(--peach-deep); background: var(--surface-2); padding: 0.4rem 0.85rem; border-radius: 999px; margin-bottom: 1.6rem;
-  border: 1px solid var(--line);
+.hamburger span::before,
+.hamburger span::after{
+content:"";
+position:absolute;
+left:0;
+width:18px;
+height:2px;
+background:#0b0d12;
 }
-.eyebrow .dot { width:7px; height:7px; border-radius:50%; background: var(--peach); }
-.hero h1 { font-size: clamp(2.6rem, 5.2vw, 4rem); margin-bottom: 1.3rem; }
-.hero h1 em { font-style: italic; color: var(--peach-deep); }
-.hero .lede { font-size: 1.15rem; color: var(--text-2); max-width: 42ch; margin-bottom: 2.2rem; }
-.hero-cta { display:flex; align-items:center; gap: 1rem; flex-wrap: wrap; }
-.hero-note { margin-top: 1.4rem; font-size: 0.85rem; color: var(--text-2); display:flex; align-items:center; gap:0.5rem; }
-.hero-note svg { width:16px; height:16px; color: var(--peach); }
-
-.ghost-demo {
-  background: var(--surface); border: 1px solid var(--line); border-radius: 26px; padding: 1.1rem;
-  box-shadow: 0 30px 70px var(--shadow); position: relative;
-}
-.ghost-stage {
-  position: relative; border-radius: 18px; overflow: hidden; aspect-ratio: 3/4; background: var(--surface-2);
-}
-.ghost-stage img { position:absolute; inset:0; width:100%; height:100%; object-fit: cover; }
-.ghost-stage .stage-img { will-change: opacity; }
-.ghost-grid {
-  position:absolute; inset:0; z-index:3; pointer-events:none; opacity:0.5;
-  background-image: linear-gradient(var(--frost) 1px, transparent 1px), linear-gradient(90deg, var(--frost) 1px, transparent 1px);
-  background-size: 33.33% 33.33%;
-  mix-blend-mode: overlay;
-}
-.ghost-badge {
-  position:absolute; top: 0.9rem; left: 0.9rem; z-index: 4;
-  backdrop-filter: blur(10px); background: rgba(20,20,22,0.55); color:#fff;
-  font-size:0.72rem; font-weight:600; letter-spacing:0.04em; padding: 0.35rem 0.7rem; border-radius: 999px;
-  display:flex; align-items:center; gap:0.4rem;
-}
-.ghost-badge .rec { width:7px; height:7px; border-radius:50%; background: var(--peach); animation: pulse 1.8s infinite; }
-@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
-
-/* Overlay metric chart on the hero cactus slider */
-.ghost-chart {
-  position:absolute; left:0.9rem; right:0.9rem; bottom:0.9rem; z-index:4;
-  background: rgba(20,20,22,0.5); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-  border:1px solid rgba(255,255,255,0.12); border-radius:14px; padding:0.7rem 0.85rem 0.55rem;
-}
-.ghost-chart .gc-head { display:flex; align-items:baseline; justify-content:space-between; margin-bottom:0.3rem; }
-.ghost-chart .gc-label { font-size:0.66rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:rgba(255,255,255,0.7); }
-.ghost-chart .gc-value { font-size:1rem; font-weight:700; color:#fff; font-variant-numeric:tabular-nums; }
-.ghost-chart .gc-value span { color:var(--peach-soft); }
-.ghost-chart .gc-plot { position:relative; width:100%; height:44px; }
-.ghost-chart svg { display:block; width:100%; height:44px; overflow:visible; }
-.gc-line { fill:none; stroke:var(--peach); stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; }
-.gc-area { fill:url(#gcFill); }
-#gcClip { transition: width 0.45s cubic-bezier(.34,1.4,.5,1); }
-.gc-grid { stroke:rgba(255,255,255,0.12); stroke-width:1; }
-.gc-dot {
-  position:absolute; width:11px; height:11px; border-radius:50%;
-  background:#fff; border:2.5px solid var(--peach); box-shadow:0 1px 4px rgba(0,0,0,0.35);
-  transform:translate(-50%,-50%); left:2%; top:88%;
-  transition:left 0.45s cubic-bezier(.34,1.4,.5,1), top 0.45s cubic-bezier(.34,1.4,.5,1);
-}
-.ghost-controls { padding: 1rem 0.6rem 0.4rem; }
-.ghost-controls .row { display:flex; align-items:center; justify-content:space-between; margin-bottom: 0.5rem; }
-.ghost-controls label { font-size:0.82rem; font-weight:600; color: var(--ink); }
-.ghost-controls .val { font-size:0.82rem; color: var(--peach-deep); font-weight:600; font-variant-numeric: tabular-nums; }
-input[type=range] {
-  -webkit-appearance:none; appearance:none; width:100%; height:6px; border-radius:999px;
-  background: linear-gradient(90deg, var(--peach) var(--fill,55%), var(--line) var(--fill,55%));
-  cursor:pointer;
-}
-input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance:none; width:22px; height:22px; border-radius:50%; background:#fff;
-  border: 3px solid var(--peach); box-shadow: 0 2px 8px var(--glow); cursor:pointer;
-}
-input[type=range]::-moz-range-thumb {
-  width:22px; height:22px; border-radius:50%; background:#fff; border:3px solid var(--peach); box-shadow:0 2px 8px var(--glow); cursor:pointer;
-}
-.ghost-hint { font-size:0.76rem; color: var(--text-2); text-align:center; margin-top:0.5rem; }
-
+.hamburger span::before{ top:-6px; }
+.hamburger span::after{ top:6px; }
 @media (max-width: 900px){
-  .hero .wrap { grid-template-columns: 1fr; gap: 2.5rem; }
-  .ghost-demo { max-width: 400px; margin: 0 auto; }
-  .hero .lede { max-width: none; }
+.nav{
+position:fixed;
+top:68px;
+left:0;
+right:0;
+background:#ffffff;
+border-bottom:1px solid var(--line);
+flex-direction:column;
+gap:6px;
+padding:12px 16px 16px;
+display:none;
 }
-
-section.block { padding: 6rem 0; position: relative; }
-.section-head { max-width: 52ch; margin-bottom: 3.5rem; }
-.section-head.center { margin-left:auto; margin-right:auto; text-align:center; }
-.kicker { font-size:0.78rem; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color: var(--peach-deep); margin-bottom: 1rem; }
-.section-head h2 { font-size: clamp(2rem, 3.8vw, 2.9rem); margin-bottom: 1rem; text-wrap: balance; }
-.section-head p { font-size: 1.1rem; color: var(--text-2); text-wrap: pretty; }
-.section-head.center p { max-width: 56ch; margin-left:auto; margin-right:auto; }
-/* Deliberate line break in headings; disable balance when a manual break is used */
-.brk { display: none; }
-@media (min-width: 560px){ .brk { display: inline; } h2:has(.brk){ text-wrap: initial; } }
-
-/* Progressive enhancement: only hide for animation once JS confirms it can reveal them */
-.js-anim .reveal { opacity:0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(.2,.7,.3,1); }
-.js-anim .reveal.in { opacity:1; transform:none; }
-
-.journeys { background: var(--surface-2); }
-.journey { margin-bottom: 5rem; }
-.journey:last-child { margin-bottom:0; }
-/* Copy sits as a header row above the full-width filmstrip */
-.journey-copy { display:grid; grid-template-columns: 1fr auto; gap:1.5rem 2rem; align-items:end; margin-bottom:1.5rem; }
-.journey-copy .tag { font-size:0.78rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color: var(--peach-deep); }
-.journey-copy .copy-text { grid-column: 1; }
-.journey-copy h3 { font-size: 2rem; margin: 0.5rem 0 0.8rem; }
-.journey-copy p { color: var(--text-2); margin: 0; max-width: 60ch; }
-.metric-strip { display:flex; gap: 0.7rem; flex-wrap:wrap; grid-column: 2; align-self:end; }
-.metric-chip {
-  background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 0.6rem 0.85rem;
-  display:flex; flex-direction:column; min-width: 92px;
+.nav.open{
+display:flex;
 }
-.metric-chip .k { font-size:0.68rem; color: var(--text-2); text-transform:uppercase; letter-spacing:0.05em; }
-.metric-chip .v { font-size:1.05rem; font-weight:600; color: var(--ink); font-variant-numeric:tabular-nums; }
-.metric-chip .v .up { color: var(--peach-deep); font-size:0.8rem; }
-
-/* Full-width filmstrip: 5 large images side by side */
-.filmstrip { display:grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; }
-.filmstrip .frame {
-  aspect-ratio: 4/5; border-radius: 16px; overflow:hidden; background: var(--surface); border:1px solid var(--line);
-  position:relative; box-shadow: 0 12px 28px var(--shadow); transition: transform 0.3s ease;
+.nav a{
+width:100%;
+text-align:left;
+padding:12px 14px;
+font-size:15px;
 }
-.filmstrip .frame:hover { transform: translateY(-6px) scale(1.02); z-index:2; }
-.filmstrip .frame img { width:100%; height:100%; object-fit:cover; }
-.filmstrip .frame .stamp {
-  position:absolute; bottom:0; left:0; right:0; font-size:0.8rem; font-weight:600; color:#fff;
-  background: linear-gradient(transparent, rgba(0,0,0,0.65)); padding: 1.4rem 0.6rem 0.6rem; text-align:center;
+.cta-top{
+width:100%;
+text-align:center;
+margin-top:6px;
 }
-@media (max-width: 820px){
-  .journey-copy { grid-template-columns: 1fr; gap:1rem; }
-  .metric-strip { grid-column:1; }
-  .journey-copy h3 { font-size: 1.6rem; }
-  /* Mobile: swipeable horizontal filmstrip so each photo stays large */
-  .filmstrip {
-    display: flex; gap: 0.75rem; overflow-x: auto; scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch; padding-bottom: 0.5rem; margin: 0 -6vw; padding-left: 6vw; padding-right: 6vw;
-    scrollbar-width: none;
-  }
-  .filmstrip::-webkit-scrollbar { display: none; }
-  .filmstrip .frame {
-    flex: 0 0 62%; scroll-snap-align: center; aspect-ratio: 4/5;
-  }
-  .filmstrip .frame:hover { transform: none; }
-  .filmstrip .frame .stamp { font-size: 0.8rem; padding: 1.2rem 0.6rem 0.6rem; }
+.hamburger{
+display:flex;
 }
-
-/* ---------- Expandable journey examples ---------- */
-.jx { display:grid; grid-template-columns: repeat(3, 1fr); column-gap: 1.1rem; row-gap: 0; }
-.jx-item { display: contents; }
-
-.jx-tab {
-  grid-row: 1; position: relative; display: block; width: 100%; padding: 0; margin: 0;
-  aspect-ratio: 4/5; border-radius: 20px; overflow: hidden; cursor: pointer;
-  border: 1px solid var(--line); background: var(--surface); box-shadow: 0 12px 30px var(--shadow);
-  font-family: inherit; text-align: left; color: #fff;
-  transition: transform 0.35s cubic-bezier(.2,.7,.3,1), box-shadow 0.35s ease, border-color 0.35s ease;
 }
-.jx-item:nth-child(1) .jx-tab { grid-column: 1; }
-.jx-item:nth-child(2) .jx-tab { grid-column: 2; }
-.jx-item:nth-child(3) .jx-tab { grid-column: 3; }
-.jx-tab img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(.2,.7,.3,1); }
-.jx-tab::after {
-  content: ""; position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.80) 0%, rgba(0,0,0,0.34) 40%, rgba(0,0,0,0) 70%);
+/* Page layout */
+main{padding-top:68px;}
+/* Hero */
+.hero {
+position: relative;
+min-height: 100vh;
+display: flex;
+align-items: flex-start;
+justify-content: center;
+padding-top: 300px; /* MORE space above title */
+padding-bottom: 0;
+box-sizing: border-box;
+overflow: hidden;
 }
-.jx-tab:hover { transform: translateY(-6px); box-shadow: 0 20px 46px var(--shadow); }
-.jx-tab:hover img { transform: scale(1.05); }
-.jx-tab.active { border-color: var(--peach); box-shadow: 0 18px 42px var(--glow); }
-.jx-tab.active img { transform: scale(1.05); }
-
-.jx-cap { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: 1.3rem 1.15rem 1.1rem; }
-.jx-tag { display: block; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--peach); margin-bottom: 0.45rem; }
-.jx-title { display: block; font-family: 'Newsreader', Georgia, serif; font-size: 1.3rem; line-height: 1.15; color: #fff; margin-bottom: 0.7rem; }
-.jx-cue { display: inline-flex; align-items: center; gap: 0.42rem; font-size: 0.82rem; font-weight: 600; color: rgba(255,255,255,0.88); }
-.jx-cue svg { width: 15px; height: 15px; transition: transform 0.4s cubic-bezier(.2,.7,.3,1); }
-.jx-tab.active .jx-cue svg { transform: rotate(180deg); }
-
-/* Panels default to open so the examples are still readable without JS.
-   Script adds .jx-on, which collapses them into the click-to-expand behaviour. */
-.jx-panel {
-  grid-column: 1 / -1; display: grid; grid-template-rows: 1fr;
-  transition: grid-template-rows 0.55s cubic-bezier(.2,.7,.3,1);
+.hero-bg-video {
+position: absolute;
+inset: 0;
+z-index: 0;
+pointer-events: none;
+transform: translateY(-270px);
 }
-.jx-item:nth-child(1) .jx-panel { grid-row: 2; }
-.jx-item:nth-child(2) .jx-panel { grid-row: 3; }
-.jx-item:nth-child(3) .jx-panel { grid-row: 4; }
-.jx.jx-on .jx-panel { grid-template-rows: 0fr; }
-.jx.jx-on .jx-panel.open { grid-template-rows: 1fr; }
-.jx-panel.instant, .jx.jx-init .jx-panel { transition: none; }
-.jx-panel-inner { overflow: hidden; min-height: 0; }
-.jx-panel-pad { padding-top: 2.6rem; }
-.jx-panel .journey-copy { margin-bottom: 1.6rem; }
-
-@media (max-width: 820px){
-  .jx { display: flex; flex-direction: column; gap: 0; }
-  .jx-tab { aspect-ratio: 4/3; margin-bottom: 0.9rem; border-radius: 18px; }
-  .jx-tab:hover { transform: none; }
-  .jx-tab:hover img { transform: none; }
-  .jx-title { font-size: 1.18rem; }
-  .jx-panel-inner { margin: 0 -6vw; padding-left: 6vw; padding-right: 6vw; }
-  .jx-panel-pad { padding-top: 0.2rem; padding-bottom: 1.6rem; }
+@media (max-width: 768px){
+.hero-video-intro{
+max-width:100% !important;
+margin:40px auto 56px;
 }
-
-/* ---------- Metrics graph ---------- */
-#metrics { --sc-color: var(--peach-deep); --hp-color: #4FA9A0; }
-[data-theme="dark"] #metrics { --sc-color: var(--peach); --hp-color: #5FC4B8; }
-.metric-card {
-  background: var(--surface); border: 1px solid var(--line); border-radius: 24px;
-  padding: 2rem 2rem 1.5rem; box-shadow: 0 24px 60px var(--shadow); max-width: 920px; margin: 0 auto;
 }
-.metric-head { display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; flex-wrap:wrap; margin-bottom:1rem; }
-.metric-title { display:block; font-family:'Newsreader'; font-size:1.3rem; color:var(--ink); }
-.metric-sub { display:block; font-size:0.85rem; color:var(--text-2); margin-top:0.15rem; }
-.metric-legend { display:flex; gap:1.2rem; align-items:center; }
-.leg { display:inline-flex; align-items:center; gap:0.45rem; font-size:0.82rem; font-weight:600; color:var(--text); }
-.leg i { width:14px; height:3px; border-radius:2px; display:inline-block; }
-.leg-sc i { background: var(--sc-color); }
-.leg-hp i { background: var(--hp-color); }
-.metric-plot { width:100%; }
-.metric-svg { width:100%; height:auto; display:block; overflow:visible; }
-.metric-svg .grid { stroke: var(--line); stroke-width:1; }
-.metric-svg .axis-lbl { fill: var(--text-2); font-family:'Inter',sans-serif; font-size:12px; }
-.metric-svg .line { stroke-width:3; stroke-linecap:round; stroke-linejoin:round; }
-.metric-svg .line-sc { stroke: var(--sc-color); }
-.metric-svg .line-hp { stroke: var(--hp-color); }
-.metric-svg .pt { stroke:var(--surface); stroke-width:2.5; }
-.metric-svg .pt-sc { fill: var(--sc-color); }
-.metric-svg .pt-hp { fill: var(--hp-color); }
-.metric-foot { font-size:0.92rem; color:var(--text-2); margin-top:1.2rem; max-width:64ch; }
-
-/* Draw-on-scroll: lines hidden via dashoffset, areas + points faded, until .drawn */
-.metric-svg .line { stroke-dasharray: var(--len, 1200); stroke-dashoffset: var(--len, 1200); }
-.metric-svg .area { opacity:0; transition: opacity 1.2s ease 0.3s; }
-.metric-svg .pt { opacity:0; transform: scale(0.2); transform-origin:center; transform-box: fill-box;
-  transition: opacity 0.35s ease, transform 0.45s cubic-bezier(.34,1.56,.64,1); }
-.metric-svg.drawn .line { transition: stroke-dashoffset 2s cubic-bezier(.65,0,.35,1); stroke-dashoffset: 0; }
-.metric-svg.drawn .area { opacity:1; }
-.metric-svg.drawn .pt { opacity:1; transform: scale(1); transition-delay: calc(1.1s + var(--i) * 0.08s); }
+.hero-video-intro{
+max-width: 1800px;
+}
+.hero-bg-video video {
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+.hero-inner {
+position: relative;
+z-index: 2;
+min-height: calc(100vh - 68px);
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+text-align: center;
+padding-bottom: 120px; /* pushes content up visually */
+}
+.hero-image {
+padding-top: 80px;
+padding-bottom: 120px;
+}
+.parallax-drive{
+position:absolute;
+right:-120px;
+bottom:-100px;
+width:360px;
+max-width:60vw;
+pointer-events:none;
+z-index:6;
+opacity:1;
+transform:translate3d(0,0,0) rotate(-8deg);
+transition:transform 0.1s linear;
+}
+.parallax-drive-left{
+position:absolute;
+left:-140px;
+bottom:-180px;
+width:320px;
+max-width:55vw;
+pointer-events:none;
+z-index:6;
+opacity:1;
+transform:translate3d(0,0,0) rotate(6deg);
+transition:transform 0.1s linear;
+}
+/* Large parallax drive (overlay, not in layout flow) */
+.parallax-drive-large{
+position: absolute;
+right: -220px;
+top: 0;
+width: 720px;
+max-width: 70vw;
+pointer-events: none;
+z-index: 0;
+}
+.parallax-drive-large img{
+display: block;
+width: 100%;
+height: auto;
+will-change: transform;
+}
+@media (max-width:768px){
+.parallax-drive-left{
+display:none !important;
+}
+}
+/* Hide large parallax drive on mobile */
+@media (max-width: 768px){
+.parallax-drive{
+width:260px;
+right:-140px;
+}
+.parallax-drive{
+display: none !important;
+}
+.parallax-drive-large{
+display: none !important;
+}
+}
+.hero-inner {
+text-align: center;
+max-width: 900px;
+margin: 0 auto;
+}
+/* Remove hero title animation, always show hero title */
+.h1 {
+opacity: 1 !important;
+}
+.h1 span {
+display: block;
+opacity: 1 !important;
+transform: none !important;
+animation: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+.hero-inner *,
+.h1 span {
+opacity: 1;
+transform: none;
+animation: none;
+}
+}
+.pill{
+display:inline-flex;
+align-items:center;
+gap:10px;
+padding:8px 12px;
+border-radius:999px;
+border:1px solid rgba(34,197,94,.22);
+background:rgba(34,197,94,.08);
+color:#155f36;
+font-weight:700;
+font-size:12px;
+margin-bottom:18px;
+box-shadow:0 10px 28px rgba(34,197,94,.08);
+}
+.pill .dot{
+width:8px; height:8px; border-radius:999px; background:var(--green);
+box-shadow:0 0 0 0 rgba(34,197,94,.35);
+animation:pulse 1.8s ease-in-out infinite;
+}
+@keyframes pulse{
+0%{box-shadow:0 0 0 0 rgba(34,197,94,.38)}
+70%{box-shadow:0 0 0 10px rgba(34,197,94,0)}
+100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}
+}
+.h1{
+font-size:clamp(40px,5.6vw,68px);
+line-height:1.05;
+letter-spacing:-0.015em;
+font-weight:700;
+background:linear-gradient(
+120deg,
+#3b82f6 0%,
+#6366f1 25%,
+#8b5cf6 45%,
+#ec4899 65%,
+#f97316 85%
+);
+background-size:200% 200%;
+-webkit-background-clip:text;
+background-clip:text;
+color:transparent;
+-webkit-text-fill-color:transparent;
+animation:heroGradient 12s ease-in-out infinite;
+}
+@media (max-width: 768px){
+.h1{
+font-size: 30px;
+line-height: 1.15;
+letter-spacing: -0.01em;
+}
+.h1 br{
+display:block;
+content:"";
+margin-bottom:6px;
+}
+}
+@keyframes heroGradient{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+.sub{
+max-width:680px;
+margin:18px auto 18px;
+color:var(--muted);
+font-size:15px;
+line-height:1.55;
+}
+.cta-minimal{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+margin-top:32px;
+margin-bottom:48px;
+padding:18px 36px;
+font-size:15px;
+font-weight:800;
+letter-spacing:-0.01em;
+text-decoration:none;
+color:#ffffff;
+background:#000000;
+/* background-size:200% 200%; */
+border:none;
+border-radius:999px;
+box-shadow:
+0 14px 40px rgba(47,107,255,.35),
+inset 0 1px 0 rgba(255,255,255,.35);
+transition:
+transform .25s cubic-bezier(.2,.9,.2,1),
+box-shadow .35s ease,
+background-position .6s ease;
+position: relative;
+z-index: 5;
+}
+/* Extra space before hero video so hero text fills viewport */
+.hero-inner .vimeo-breakout{
+margin-top: 50px;
+}
+.cta-minimal:hover{
+transform:translateY(-2px);
+background: linear-gradient(
+135deg,
+#2f6bff 0%,
+#6a5cff 45%,
+#8b5cf6 70%,
+#ec4899 100%
+);
+background-size:200% 200%;
+background-position:100% 50%;
+box-shadow:
+0 22px 60px rgba(47,107,255,.45),
+inset 0 1px 0 rgba(255,255,255,.45);
+}
+.cta-minimal:active{
+transform:translateY(0);
+box-shadow:
+0 10px 26px rgba(47,107,255,.35),
+inset 0 2px 4px rgba(0,0,0,.15);
+}
+/* Hero visual */
+.visual{
+position:relative;
+width:min(980px, 94vw);
+margin:-20px auto 0;
+padding:0;
+}
+.screen-wrap{
+position:relative;
+width:100%;
+display:flex;
+align-items:center;
+justify-content:center;
+transform:translateZ(0);
+}
+/* FIX: make it straight + bigger */
+.screen{
+width:min(1220px, 98vw);
+height:auto;
+display:block;
+transform:rotate(0deg);
+}
+/* Floating feature chips */
+.chip{
+position:absolute;
+display:flex;
+align-items:center;
+gap:10px;
+padding:14px 18px;
+border-radius:999px;
+background:rgba(255,255,255,.86);
+border:1px solid rgba(10,12,18,.08);
+box-shadow:0 18px 40px rgba(10,12,18,.10);
+color:#0b0d12;
+font-weight:800;
+font-size:13px;
+white-space:nowrap;
+transform:translateZ(0);
+transition:transform .35s cubic-bezier(.2,.9,.2,1), box-shadow .45s ease, background .45s ease;
+will-change:transform;
+}
+.chip .ico{
+width:32px; height:32px;
+border-radius:12px;
+display:grid; place-items:center;
+background:rgba(47,107,255,.10);
+border:1px solid rgba(47,107,255,.18);
+color:var(--blue);
+flex:0 0 auto;
+transition:transform .55s cubic-bezier(.2,.9,.2,1);
+transform-origin:center;
+}
+.chip:hover{
+transform:translateY(-4px) scale(1.05);
+box-shadow:0 24px 55px rgba(10,12,18,.14), 0 0 0 1px rgba(47,107,255,.08);
+background:rgba(255,255,255,.92);
+}
+.chip:hover .ico{transform:rotate(360deg)}
 @media (prefers-reduced-motion: reduce){
-  .metric-svg .line { stroke-dashoffset:0; }
-  .metric-svg .area, .metric-svg .pt { opacity:1; transform:none; }
+.pill .dot{animation:none}
+.chip{animation:none}
+.chip:hover .ico{transform:none}
+}
+.chip.float1{animation:floatA 7.5s ease-in-out infinite}
+.chip.float2{animation:floatB 8.2s ease-in-out infinite}
+.chip.float3{animation:floatC 9.1s ease-in-out infinite}
+.chip.float4{animation:floatA 8.8s ease-in-out infinite}
+.chip.float5{animation:floatB 7.9s ease-in-out infinite}
+.chip.float6{animation:floatC 8.6s ease-in-out infinite}
+.chip.float7{animation:floatA 9.4s ease-in-out infinite}
+.chip.float8{animation:floatB 9.8s ease-in-out infinite}
+@keyframes floatA{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes floatB{0%,100%{transform:translateY(0)}50%{transform:translateY(12px)}}
+@keyframes floatC{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+/* Chip positioning (tuned so screen sits in the middle) */
+.chip.c1{left:6%; top:28%;}
+.chip.c2{left:1%; top:48%;}
+.chip.c3{left:10%; top:14%;}
+.chip.c4{right:8%; top:16%;}
+.chip.c5{right:2%; top:38%;}
+.chip.c6{right:10%; top:58%;}
+.chip.c7{left:16%; top:64%;}
+.chip.c8{right:18%; top:68%;}
+/* Video preview block (clean + editorial) */
+.video-block{
+position:relative;
+width:min(1300px, 96vw);
+margin:0 auto 64px;
+display:flex;
+justify-content:flex-end;
+}
+/* Video + info layout */
+.video-row{
+display:grid;
+grid-template-columns: 1fr 1fr;
+gap:60px;
+align-items:center;
+justify-items:center;
+width: 94vw;
+max-width: 1500px;
+margin: 0 auto 80px;
+position: relative;
+left: 50%;
+transform: translateX(-50%);
+}
+.video-row.reverse{
+grid-template-columns: 1fr 1fr;
+}
+.video-row.reverse .video-info{
+order:2;
+}
+.video-row.reverse .video-wrap{
+order:1;
+}
+.video-info{
+max-width:480px;
+width:100%;
+}
+.video-row.reverse .video-info{
+/* no special positioning needed */
+}
+.video-info h3 {
+font-size: 32px;
+line-height: 1.15;
+font-weight: 900;
+letter-spacing: -0.02em;
+margin-bottom: 12px;
+}
+.video-info p{
+font-size:15px;
+line-height:1.6;
+color:var(--muted);
+}
+@media (max-width:960px){
+.video-row{
+display:flex;
+flex-direction:column;
+gap:24px;
+margin-bottom:64px;
+width: 94vw;
+max-width: 600px;
+left: 50%;
+transform: translateX(-50%);
+}
+.video-row.reverse{
+flex-direction:column;
+}
+.video-row .video-wrap{
+order:1;
+}
+.video-row .video-info{
+order:2;
+}
+.video-info{
+max-width:100%;
+text-align:left;
+}
+.video-info h3{
+font-size:26px;
+}
+.video-wrap{
+width:100%;
+max-width:100%;
+border-radius:14px;
+overflow:hidden;
+background:transparent;
+}
+.video-wrap video{
+display:block;
+width:100%;
+height:auto;
+background:transparent;
+}
+}
+.video-wrap{
+position:relative;
+width:100%;
+max-width:100%;
+border-radius:18px;
+overflow:visible;
+background:transparent;
+}
+.video-row.reverse .video-wrap{
+/* no special positioning needed */
+}
+.video-wrap video{
+width:100%;
+height:auto;
+display:block;
+}
+.video-label{
+position:absolute;
+top:-36px;
+left:32px;
+z-index:10;
+padding:14px 20px;
+background:#ffffff;
+border-radius:14px;
+font-size:14px;
+font-weight:800;
+letter-spacing:-0.01em;
+color:#0b0d12;
+box-shadow:
+0 12px 30px rgba(10,12,18,.10),
+inset 0 1px 0 rgba(255,255,255,.85);
+display:none;
+}
+@media (max-width:860px){
+.video-block{
+justify-content:center;
+}
+.video-wrap{
+width:100%;
+}
+.video-label{
+top:16px;
+left:16px;
+}
+}
+/* Section */
+.section{
+padding:72px 16px 80px;
+display:flex;
+justify-content:center;
+}
+.section .container{width:min(1100px, 94vw)}
+.sec-title{
+text-align:center;
+font-size:clamp(28px,3.8vw,46px);
+font-weight:900;
+letter-spacing:-.02em;
+}
+.sec-sub{
+text-align:center;
+color:var(--muted);
+max-width:760px;
+margin:12px auto 34px;
+line-height:1.6;
+}
+/* How It Works section */
+.how-it-works {
+padding-top: 160px;
+padding-bottom: 80px;
+}
+.how-steps {
+display: flex;
+flex-direction: column;
+gap: 40px;
+max-width: 1100px;
+margin: 0 auto;
+}
+.how-step-row {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 60px;
+align-items: center;
+opacity: 0;
+transform: translateY(60px);
+transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.how-step-row.in-view {
+opacity: 1;
+transform: translateY(0);
+}
+.how-step-row:nth-child(1) { transition-delay: 0s; }
+.how-step-row:nth-child(2) { transition-delay: 0.15s; }
+.how-step-row:nth-child(3) { transition-delay: 0.3s; }
+.how-step-row.reverse {
+direction: rtl;
+}
+.how-step-row.reverse > * {
+direction: ltr;
+}
+.how-step-number {
+font-size: clamp(180px, 22vw, 280px);
+font-weight: 900;
+line-height: 0.85;
+background: linear-gradient(145deg, #ff6b4a 0%, #ff8a65 25%, #f77062 50%, #fe5196 100%);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+opacity: 0.9;
+text-align: center;
+user-select: none;
+filter: drop-shadow(0 20px 40px rgba(255, 107, 74, 0.15));
+transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease, opacity 0.4s ease;
+}
+.how-step-row:hover .how-step-number {
+transform: scale(1.08) rotate(-3deg);
+filter: drop-shadow(0 30px 60px rgba(255, 107, 74, 0.3));
+opacity: 1;
+}
+.how-step-row.reverse:hover .how-step-number {
+transform: scale(1.08) rotate(3deg);
+}
+.how-step-card {
+position: relative;
+padding: 40px 36px;
+border-radius: 28px;
+background: rgba(255,255,255,.85);
+border: 1px solid rgba(10,12,18,.06);
+box-shadow: 
+0 4px 6px rgba(10,12,18,.02),
+0 12px 24px rgba(10,12,18,.04),
+0 24px 48px rgba(10,12,18,.06);
+backdrop-filter: blur(8px);
+transition: 
+transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+border-color 0.4s ease;
+overflow: hidden;
+}
+.how-step-card::before {
+content: '';
+position: absolute;
+inset: 0;
+background: radial-gradient(
+800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+rgba(47, 107, 255, 0.06),
+transparent 40%
+);
+opacity: 0;
+transition: opacity 0.5s ease;
+pointer-events: none;
+}
+.how-step-card:hover::before {
+opacity: 1;
+}
+.how-step-card::after {
+content: '';
+position: absolute;
+top: 0;
+left: -100%;
+width: 100%;
+height: 100%;
+background: linear-gradient(
+90deg,
+transparent,
+rgba(255,255,255,0.4),
+transparent
+);
+transition: left 0.7s ease;
+pointer-events: none;
+}
+.how-step-card:hover::after {
+left: 100%;
+}
+.how-step-row:hover .how-step-card {
+transform: translateY(-12px) scale(1.02);
+box-shadow: 
+0 8px 16px rgba(10,12,18,.04),
+0 32px 64px rgba(10,12,18,.1),
+0 64px 128px rgba(10,12,18,.08),
+0 0 0 1px rgba(47,107,255,.1);
+border-color: rgba(47,107,255,.15);
+}
+.how-step-icon {
+width: 56px;
+height: 56px;
+border-radius: 16px;
+display: grid;
+place-items: center;
+margin-bottom: 20px;
+transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+.how-step-row:hover .how-step-icon {
+transform: scale(1.15) rotate(-5deg);
+}
+.how-step-icon.scan {
+color: #2f6bff;
+background: linear-gradient(135deg, rgba(47,107,255,.12), rgba(99,102,241,.12));
+border: 1px solid rgba(47,107,255,.2);
+}
+.how-step-row:hover .how-step-icon.scan {
+box-shadow: 0 8px 24px rgba(47,107,255,.3);
+}
+.how-step-icon.search {
+color: #16a34a;
+background: linear-gradient(135deg, rgba(34,197,94,.12), rgba(74,222,128,.12));
+border: 1px solid rgba(34,197,94,.2);
+}
+.how-step-row:hover .how-step-icon.search {
+box-shadow: 0 8px 24px rgba(34,197,94,.3);
+}
+.how-step-icon.tools {
+color: #8b5cf6;
+background: linear-gradient(135deg, rgba(139,92,246,.12), rgba(168,85,247,.12));
+border: 1px solid rgba(139,92,246,.2);
+}
+.how-step-row:hover .how-step-icon.tools {
+box-shadow: 0 8px 24px rgba(139,92,246,.3);
+}
+.how-step-card h3 {
+font-size: 24px;
+font-weight: 800;
+letter-spacing: -0.02em;
+margin-bottom: 12px;
+color: var(--text);
+transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.how-step-row:hover .how-step-card h3 {
+transform: translateX(4px);
+}
+.how-step-card p {
+font-size: 15px;
+line-height: 1.7;
+color: var(--muted);
+transition: color 0.4s ease;
+}
+.how-step-row:hover .how-step-card p {
+color: #3d4555;
+}
+.how-step-card p strong {
+color: var(--text);
+font-weight: 600;
+}
+@media (max-width: 800px) {
+.how-step-row {
+grid-template-columns: 1fr;
+gap: 24px;
+text-align: center;
+}
+.how-step-row.reverse {
+direction: ltr;
+}
+.how-step-number {
+font-size: 140px;
+order: -1;
+}
+.how-step-card {
+padding: 32px 28px;
+}
+.how-step-row:hover .how-step-number {
+transform: scale(1.05);
+}
+.how-step-row:hover .how-step-card {
+transform: translateY(-8px);
+}
+}
+/* Legacy grid styles - hidden */
+.how-grid {
+display: none;
+}
+.how-card {
+display: none;
+}
+.how-accordion-trigger{
+margin-top:100px;
+margin-bottom:32px;
+display:flex;
+justify-content:center;
+}
+.how-accordion-btn{
+display:flex;
+align-items:center;
+gap:14px;
+padding:22px 36px;
+font-size:17px;
+font-weight:800;
+letter-spacing:-0.01em;
+border-radius:999px;
+border:1px solid rgba(47,107,255,.3);
+background: linear-gradient(135deg, #ffffff 0%, #f8faff 100%);
+color:#0b0d12;
+cursor:pointer;
+box-shadow:
+0 4px 12px rgba(47,107,255,.1),
+0 16px 48px rgba(47,107,255,.2);
+transition:
+transform .35s cubic-bezier(.16,1,.3,1),
+box-shadow .4s ease,
+border-color .35s ease,
+background .35s ease;
+}
+.how-accordion-btn:hover{
+transform:translateY(-4px) scale(1.02);
+background: linear-gradient(135deg, #ffffff 0%, #f0f5ff 100%);
+box-shadow:
+0 8px 20px rgba(47,107,255,.15),
+0 28px 70px rgba(47,107,255,.3);
+border-color:rgba(47,107,255,.5);
+}
+.how-accordion-btn .chevron{
+display:inline-block;
+font-size:20px;
+transition:transform .35s cubic-bezier(.16,1,.3,1);
+}
+.how-accordion-content{
+max-height:0;
+overflow:hidden;
+transition:max-height .9s cubic-bezier(.2,.9,.2,1);
+margin-bottom:72px;
+}
+.how-accordion-inner{
+padding-top:48px;
+padding-bottom:8px;
+}
+/* Feature grid */
+.grid{display:grid; gap:18px; grid-template-columns:repeat(2, minmax(0, 1fr));}
+.card{
+position:relative;
+border-radius:22px;
+background:rgba(255,255,255,.70);
+border:1px solid rgba(10,12,18,.08);
+box-shadow:0 18px 42px rgba(10,12,18,.07);
+padding:28px;
+overflow:hidden;
+transition:box-shadow .55s ease, transform .35s cubic-bezier(.2,.9,.2,1);
+}
+/* Glow that fades in and out smoothly */
+.card::before{
+content:"";
+position:absolute; inset:-2px;
+background:
+radial-gradient(800px 220px at 40% 10%, rgba(47,107,255,.22), transparent 55%),
+radial-gradient(700px 240px at 80% 30%, rgba(154,106,255,.18), transparent 60%),
+radial-gradient(700px 260px at 30% 80%, rgba(34,197,94,.16), transparent 60%);
+opacity:0;
+transition:opacity .85s ease;
+pointer-events:none;
+}
+.card:hover::before{opacity:1}
+.card:hover{
+transform:translateY(-3px);
+box-shadow:0 30px 80px rgba(10,12,18,.11);
+}
+.card.big{grid-column:1 / -1; display:flex; gap:22px; align-items:flex-start}
+.ficon{
+width:76px; height:76px;
+border-radius:22px;
+display:grid; place-items:center;
+background:rgba(47,107,255,.09);
+border:1px solid rgba(47,107,255,.16);
+color:var(--blue);
+box-shadow:0 18px 40px rgba(47,107,255,.10);
+transition:transform .65s cubic-bezier(.2,.9,.2,1);
+transform-origin:center;
+flex:0 0 auto;
+margin-bottom:16px; /* FIX: more breathing room before headings */
+}
+.card:hover .ficon{transform:rotate(360deg)}
+.card:nth-child(2) .ficon{background:rgba(34,197,94,.10); border-color:rgba(34,197,94,.18); color:#16a34a; box-shadow:0 18px 40px rgba(34,197,94,.12)}
+.card:nth-child(3) .ficon{background:rgba(154,106,255,.10); border-color:rgba(154,106,255,.18); color:#7c3aed; box-shadow:0 18px 40px rgba(154,106,255,.12)}
+.card:nth-child(4) .ficon{background:rgba(47,107,255,.09); border-color:rgba(47,107,255,.16); color:var(--blue); box-shadow:0 18px 40px rgba(47,107,255,.10)}
+/* FIX: give the heading block a bit more space from icon */
+.kicker{
+font-size:12px;
+color:#6b7280;
+text-transform:uppercase;
+letter-spacing:.12em;
+font-weight:800;
+margin:10px 0 10px;
+}
+.card h3{font-size:18px; font-weight:900; letter-spacing:-.01em; margin-bottom:8px}
+.card p{color:var(--muted); line-height:1.65; font-size:14px; max-width:72ch}
+@media (max-width:860px){
+.grid{grid-template-columns:1fr}
+.card.big{grid-column:auto; flex-direction:column}
+.visual{margin-top:30px}
+.chip{font-size:12px; padding:12px 14px}
+.chip .ico{width:28px; height:28px}
+.screen{transform:rotate(0deg)}
+.chip.c1{left:2%; top:22%}
+.chip.c2{left:-1%; top:44%}
+.chip.c3{left:4%; top:10%}
+.chip.c4{right:4%; top:12%}
+.chip.c5{right:1%; top:34%}
+.chip.c6{right:6%; top:58%}
+.chip.c7{left:10%; top:68%}
+.chip.c8{right:10%; top:74%}
+}
+/* Hide floating hero pills on mobile for clarity */
+@media (max-width: 768px){
+.chip{
+display:none !important;
+}
+}
+@media (prefers-reduced-motion: reduce){
+.card:hover .ficon{transform:none}
+.card{transition:none}
+.card::before{transition:none}
+}
+.pricing-grid{
+display:grid;
+grid-template-columns:repeat(6, minmax(0, 1fr));
+gap:22px;
+margin-bottom:24px;
+}
+@media (max-width: 768px){
+.pricing-grid{
+grid-template-columns: 1fr;
+gap:20px;
+}
+}
+.pricing-card{
+border-radius:22px;
+background:rgba(255,255,255,.75);
+border:1px solid rgba(10,12,18,.08);
+padding:28px;
+text-align:center;
+}
+.pricing-card{
+position:relative;
+transition:
+transform .35s cubic-bezier(.2,.9,.2,1),
+box-shadow .45s ease,
+background .45s ease,
+border-color .45s ease;
+}
+.pricing-card:hover{
+transform:translateY(-6px);
+box-shadow:0 30px 80px rgba(47,107,255,.18);
+border-color:rgba(47,107,255,.45);
+background:linear-gradient(
+180deg,
+rgba(47,107,255,.14),
+rgba(255,255,255,.92)
+);
+}
+.pricing-card.popular{
+border-color:rgba(47,107,255,.45);
+background:linear-gradient(
+180deg,
+rgba(47,107,255,.14),
+rgba(255,255,255,.88)
+);
+}
+.popular-badge{
+position:absolute;
+top:-14px;
+right:-14px;
+padding:6px 12px;
+font-size:11px;
+font-weight:800;
+letter-spacing:.04em;
+text-transform:uppercase;
+border-radius:999px;
+color:#0b0d12;
+background:linear-gradient(135deg,#ffd166,#fbbf24);
+box-shadow:0 8px 18px rgba(251,191,36,.35);
+z-index:2;
+}
+.pricing-card h3{
+font-size:18px;
+font-weight:900;
+letter-spacing:-.01em;
+margin-bottom:6px;
+}
+.pricing-card .price{
+font-size:28px;
+font-weight:900;
+margin-bottom:6px;
+}
+.pricing-card .tier-desc{
+font-size:14px;
+color:var(--muted);
+}
+.pricing-card.highlight{
+background:rgba(255,255,255,.75);
+border:1px solid rgba(10,12,18,.08);
+}
+footer{
+padding:28px 16px 40px;
+border-top:1px solid var(--line);
+color:#6b7280;
+display:flex;
+justify-content:center;
+}
+footer .fwrap{width:min(1100px, 94vw); display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap}
+footer a{color:#6b7280; text-decoration:none}
+footer a:hover{text-decoration:underline}
+/* Single drive add-on row */
+.addon-row{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:24px;
+width:100%;
+padding:26px 30px;
+border-radius:20px;
+background:#ffffff;
+border:2px solid rgba(47,107,255,.35);
+box-shadow:
+0 20px 45px rgba(47,107,255,.18),
+inset 0 1px 0 rgba(255,255,255,.9);
+transition:
+transform .3s cubic-bezier(.2,.9,.2,1),
+box-shadow .35s ease,
+border-color .35s ease;
+}
+.addon-row:hover{
+transform:translateY(-2px);
+box-shadow:
+0 28px 70px rgba(47,107,255,.28),
+inset 0 1px 0 rgba(255,255,255,.95);
+border-color:rgba(47,107,255,.6);
+}
+.addon-left{
+display:flex;
+align-items:center;
+gap:18px;
+}
+.addon-icon{
+width:46px;
+height:46px;
+border-radius:14px;
+display:grid;
+place-items:center;
+font-size:22px;
+font-weight:900;
+color:#ffffff;
+background:linear-gradient(135deg,#2f6bff,#6aa2ff);
+box-shadow:0 12px 28px rgba(47,107,255,.35);
+flex:0 0 auto;
+}
+.addon-title{
+font-size:16px;
+font-weight:900;
+letter-spacing:-.01em;
+margin-bottom:4px;
+}
+.addon-sub{
+font-size:14px;
+color:var(--muted);
+}
+.addon-right{
+text-align:right;
+}
+.addon-price{
+font-size:22px;
+font-weight:900;
+letter-spacing:-.01em;
+}
+.addon-note{
+font-size:12px;
+color:var(--muted);
+}
+@media (max-width:720px){
+.addon-row{
+flex-direction:column;
+align-items:flex-start;
+}
+.addon-right{
+text-align:left;
+}
+}
+/* Signup scroll connector - anchored to form */
+.connector-wrap{
+position:absolute;
+inset:0;
+pointer-events:none;
+}
+.connector-line{
+position:absolute;
+top: calc(50% + 120px);
+height:6px;
+background:linear-gradient(90deg,#6b5cff 0%, #ff6aa2 100%);
+border-radius:6px;
+box-shadow:0 0 36px rgba(107,92,255,.55);
+transform:translateY(-50%);
+}
+.connector-dot{
+position:absolute;
+top:50%;
+width:18px;
+height:18px;
+transform:translate(-50%,-50%) scale(0.85);
+border-radius:50%;
+background:#2f6bff;
+box-shadow:0 0 22px rgba(47,107,255,.45);
+transition:
+transform .35s cubic-bezier(.2,.9,.2,1),
+box-shadow .35s ease;
+}
+.connector-dot-small {
+width: 12px;
+height: 12px;
+}
+/* Right side multi-line connector styles */
+.connector-right-main {
+background: linear-gradient(90deg, #22c55e 0%, #4ade80 50%, #86efac 100%);
+height: 8px;
+box-shadow: 
+0 0 30px rgba(34,197,94,.6),
+0 0 60px rgba(34,197,94,.4),
+0 0 100px rgba(34,197,94,.2);
+z-index: 3;
+}
+.connector-right-main .connector-dot {
+background: linear-gradient(135deg, #22c55e, #4ade80);
+width: 22px;
+height: 22px;
+box-shadow: 
+0 0 20px rgba(34,197,94,.8),
+0 0 40px rgba(34,197,94,.5),
+0 0 80px rgba(34,197,94,.3);
+}
+.connector-right-upper {
+background: linear-gradient(90deg, #3b82f6 0%, #60a5fa 50%, #93c5fd 100%);
+height: 5px;
+opacity: 0.85;
+transform: translateY(-50%) rotate(-8deg);
+transform-origin: left center;
+z-index: 2;
+box-shadow: 
+0 0 25px rgba(59,130,246,.5),
+0 0 50px rgba(59,130,246,.3);
+}
+.connector-right-upper .connector-dot {
+background: linear-gradient(135deg, #3b82f6, #60a5fa);
+box-shadow: 
+0 0 15px rgba(59,130,246,.7),
+0 0 30px rgba(59,130,246,.4);
+}
+.connector-right-lower {
+background: linear-gradient(90deg, #a855f7 0%, #c084fc 50%, #e9d5ff 100%);
+height: 5px;
+opacity: 0.85;
+transform: translateY(-50%) rotate(8deg);
+transform-origin: left center;
+z-index: 2;
+box-shadow: 
+0 0 25px rgba(168,85,247,.5),
+0 0 50px rgba(168,85,247,.3);
+}
+.connector-right-lower .connector-dot {
+background: linear-gradient(135deg, #a855f7, #c084fc);
+box-shadow: 
+0 0 15px rgba(168,85,247,.7),
+0 0 30px rgba(168,85,247,.4);
+}
+/* Pulsing glow animation for all right connectors */
+@keyframes connectorGlow {
+0%, 100% {
+filter: brightness(1) drop-shadow(0 0 20px currentColor);
+}
+50% {
+filter: brightness(1.3) drop-shadow(0 0 40px currentColor);
+}
+}
+@keyframes connectorPulse {
+0% {
+transform: translate(-50%,-50%) scale(calc(var(--dot-scale, 1) * 0.92));
+}
+50% {
+transform: translate(-50%,-50%) scale(calc(var(--dot-scale, 1) * 1.15));
+}
+100% {
+transform: translate(-50%,-50%) scale(calc(var(--dot-scale, 1) * 0.92));
+}
+}
+@keyframes energyFlow {
+0% {
+background-position: -100% 50%;
+}
+100% {
+background-position: 100% 50%;
+}
+}
+#signup-dot-right {
+animation: connectorPulse 1.8s ease-in-out infinite;
+}
+.connector-right-main.active {
+background: linear-gradient(90deg, #22c55e 0%, #4ade80 30%, #86efac 50%, #4ade80 70%, #22c55e 100%);
+background-size: 200% 100%;
+animation: energyFlow 1.5s ease-in-out infinite;
+}
+.connector-right-upper.active {
+background: linear-gradient(90deg, #3b82f6 0%, #60a5fa 30%, #93c5fd 50%, #60a5fa 70%, #3b82f6 100%);
+background-size: 200% 100%;
+animation: energyFlow 1.8s ease-in-out infinite;
+}
+.connector-right-lower.active {
+background: linear-gradient(90deg, #a855f7 0%, #c084fc 30%, #e9d5ff 50%, #c084fc 70%, #a855f7 100%);
+background-size: 200% 100%;
+animation: energyFlow 2s ease-in-out infinite;
+}
+/* Energy particles */
+.energy-particles {
+position: absolute;
+top: calc(50% + 120px);
+transform: translateY(-50%);
+pointer-events: none;
+}
+.particle {
+position: absolute;
+width: 6px;
+height: 6px;
+border-radius: 50%;
+background: #4ade80;
+opacity: 0;
+box-shadow: 0 0 10px #4ade80, 0 0 20px #4ade80;
+}
+@keyframes particleFly1 {
+0% { transform: translate(0, 0) scale(1); opacity: 0; }
+10% { opacity: 1; }
+100% { transform: translate(150px, -60px) scale(0); opacity: 0; }
+}
+@keyframes particleFly2 {
+0% { transform: translate(0, 0) scale(1); opacity: 0; }
+10% { opacity: 1; }
+100% { transform: translate(180px, -30px) scale(0); opacity: 0; }
+}
+@keyframes particleFly3 {
+0% { transform: translate(0, 0) scale(1); opacity: 0; }
+10% { opacity: 1; }
+100% { transform: translate(200px, 0px) scale(0); opacity: 0; }
+}
+@keyframes particleFly4 {
+0% { transform: translate(0, 0) scale(1); opacity: 0; }
+10% { opacity: 1; }
+100% { transform: translate(180px, 30px) scale(0); opacity: 0; }
+}
+@keyframes particleFly5 {
+0% { transform: translate(0, 0) scale(1); opacity: 0; }
+10% { opacity: 1; }
+100% { transform: translate(150px, 60px) scale(0); opacity: 0; }
+}
+.particle.active.p1 { animation: particleFly1 1.5s ease-out infinite; animation-delay: 0s; }
+.particle.active.p2 { animation: particleFly2 1.5s ease-out infinite; animation-delay: 0.2s; background: #60a5fa; box-shadow: 0 0 10px #60a5fa, 0 0 20px #60a5fa; }
+.particle.active.p3 { animation: particleFly3 1.5s ease-out infinite; animation-delay: 0.4s; }
+.particle.active.p4 { animation: particleFly4 1.5s ease-out infinite; animation-delay: 0.6s; background: #c084fc; box-shadow: 0 0 10px #c084fc, 0 0 20px #c084fc; }
+.particle.active.p5 { animation: particleFly5 1.5s ease-out infinite; animation-delay: 0.8s; }
+@media (max-width: 768px){
+.connector-wrap{
+display:none !important;
+}
+}
+/* Ensure signup form sits above connector */
+.signup-form {
+position: relative;
+z-index: 2;
+}
+/* Vimeo hero breakout - desktop only */
+.vimeo-breakout {
+width: 160%;
+max-width: 1400px;
+position: relative;
+margin: 0 auto;
+left: 50%;
+transform: translateX(-50%);
+opacity: 0;
+transition: opacity 0.8s ease, transform 0.8s cubic-bezier(.2,.9,.2,1);
+will-change: opacity, transform;
+}
+.hero .vimeo-spacer {
+height: 25vh;
+pointer-events: none;
+}
+.vimeo-breakout.in-view {
+opacity: 1;
+transform: translateX(-50%) translateY(0);
+}
+/* Aspect ratio wrapper */
+.video-wrapper {
+position: relative;
+width: 100%;
+max-width: 100%;
+padding-top: 56.25%;
+border-radius: 22px;
+overflow: hidden;
+box-shadow: 0 40px 80px rgba(0, 0, 0, 0.15);
+}
+.video-wrapper,
+.vimeo-breakout {
+position: relative;
+z-index: 3;
+}
+.video-wrapper iframe {
+position: absolute;
+inset: 0;
+width: 100%;
+height: 100%;
+}
+@media (max-width: 768px) {
+.vimeo-spacer {
+display: none;
+}
+.vimeo-breakout {
+width: 100%;
+left: 50%;
+transform: translateX(-50%);
+margin: 40px auto 48px;
+opacity: 1;
+}
+}
+/* -----------------------------
+HERO MOBILE SPACING FIX
+Tighten top spacing + pull CTA up
+------------------------------*/
+@media (max-width: 768px) {
+/* Reduce excessive top padding on hero */
+.hero {
+min-height: 100svh;
+padding-top: 140px;
+padding-bottom: 40px;
+}
+/* Center hero content properly */
+.hero-inner {
+min-height: auto;
+padding-bottom: 0;
+transform: none !important;
+}
+/* Pull badge closer to header */
+.pill {
+margin-bottom: 14px;
+}
+/* Tighten headline stack */
+.h1 {
+margin-top: 0;
+margin-bottom: 12px;
+}
+.sub {
+margin-top: 10px;
+margin-bottom: 22px;
+}
+/* Pull App Store button up */
+.cta-minimal {
+margin-top: 18px;
+margin-bottom: 28px;
+}
+/* Reduce spacer that pushes video too far down */
+.hero .vimeo-spacer {
+height: 6vh;
+}
+/* Bring video closer to hero content */
+.vimeo-breakout {
+margin-top: 24px;
+margin-bottom: 48px;
+}
+}
+/* Card Stack Scroll Section */
+.card-stack-section {
+  padding: 60px 0 0;
+  background: var(--bg);
+  position: relative;
+  z-index: 10;
 }
 
-.metric-tags { margin-top:2rem; }
-.metric-tags-hint { text-align:center; font-size:0.82rem; color:var(--text-2); margin-bottom:0.9rem; }
-.metric-tag-row { display:flex; flex-wrap:wrap; gap:0.6rem; justify-content:center; }
-.mtag {
-  background:var(--surface); border:1px solid var(--line); border-radius:999px; padding:0.5rem 1rem;
-  font-size:0.85rem; color:var(--text-2); font-family:inherit; line-height:1.3;
-  transition: border-color 0.2s, color 0.2s, background 0.2s, box-shadow 0.2s;
+.card-stack-container {
+  width: calc(100vw - 48px);
+  max-width: 1600px;
+  margin: 0 auto;
 }
-button.mtag { cursor:pointer; }
-.mtag:hover { border-color:var(--peach-soft); color:var(--peach-deep); }
-.mtag.active {
-  border-color:var(--peach); background:var(--peach-soft); color:#7A3B36;
-  font-weight:600; box-shadow:0 4px 14px var(--glow);
-}
-.mtag-custom { background: linear-gradient(135deg, var(--peach), var(--peach-deep)); color:#fff; border-color:transparent; font-weight:600; }
-@media (max-width:600px){ .metric-card{ padding:1.4rem 1rem 1rem; } .metric-legend{ gap:0.8rem; } }
 
-.feature-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; }
-.fcard {
-  background: var(--surface); border:1px solid var(--line); border-radius: 20px; padding: 1.9rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s;
+.card-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  filter: blur(20px);
+  opacity: 0;
+  transition: filter 0.3s ease, opacity 0.3s ease;
 }
-.fcard:hover { transform: translateY(-6px); box-shadow: 0 20px 40px var(--shadow); border-color: var(--peach-soft); }
-.fcard .ico {
-  width: 52px; height: 52px; border-radius: 14px; display:grid; place-items:center; margin-bottom: 1.2rem;
-  background: linear-gradient(135deg, var(--peach-soft), var(--peach)); color:#fff;
-}
-.fcard .ico svg { width:26px; height:26px; }
-.fcard h3 { font-size: 1.3rem; margin-bottom: 0.6rem; }
-.fcard p { font-size:0.95rem; color: var(--text-2); }
-.fcard.wide { grid-column: span 2; }
-@media (max-width: 820px){ .feature-grid { grid-template-columns:1fr; } .fcard.wide{ grid-column:auto; } }
 
-/* Use-case cards keep their look; layout becomes a scrolling marquee */
-.usecase {
-  background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:1.5rem 1.2rem; text-align:center;
-  transition: transform 0.25s ease, border-color 0.25s;
-  flex: 0 0 auto; width: 200px;
+.card-stack.in-view {
+  filter: blur(0);
+  opacity: 1;
 }
-.usecase:hover { transform:translateY(-4px); border-color:var(--peach-soft); }
-.usecase .uc-ico { width:44px; height:44px; margin:0 auto 0.8rem; color:var(--peach-deep); }
-.usecase .uc-ico svg { width:100%; height:100%; }
-.usecase h4 { font-family:'Inter'; font-size:0.92rem; font-weight:600; color:var(--ink); white-space:nowrap; }
 
-/* Marquee */
-.marquee {
-  position: relative; overflow: hidden; width: 100%;
-  padding: 0.75rem 0;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-          mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+.card-stack.blur-out {
+  filter: blur(20px);
+  opacity: 0;
 }
-.marquee + .marquee { margin-top: 1rem; }
-.marquee-track {
-  display: flex; gap: 1rem; width: max-content; will-change: transform;
-}
-.marquee-left  .marquee-track { animation: scroll-left 60s linear infinite; }
-.marquee-right .marquee-track { animation: scroll-right 60s linear infinite; }
-.marquee:hover .marquee-track { animation-play-state: paused; }
-/* Both tracks hold two identical copies; translating one copy-width (-50%) loops seamlessly.
-   Left row drifts 0 -> -50%; right row drifts -50% -> 0. Both always start flush at x=0 visually. */
-@keyframes scroll-left  { from { transform: translateX(0); }      to { transform: translateX(-50%); } }
-@keyframes scroll-right { from { transform: translateX(-50%); }   to { transform: translateX(0); } }
-@media (prefers-reduced-motion: reduce) {
-  .marquee-left .marquee-track, .marquee-right .marquee-track { animation: none; transform: none; }
-  .marquee { overflow-x: auto; }
-}
-@media (max-width:820px){ .usecase{ width:160px; padding:1.2rem 1rem; } }
 
-.privacy {
-  background: #241A1C; color: #F5EDEA; border-radius: 32px; padding: 4rem; margin: 2rem 0;
-  position:relative; overflow:hidden; border: 1px solid rgba(237,140,133,0.18);
+.stack-card {
+  position: sticky;
+  top: 90px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,.12), 0 2px 8px rgba(0,0,0,.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: #fff;
 }
-[data-theme="dark"] .privacy {
-  /* Elevated surface with a peach edge so it reads as a distinct card, not a flip */
-  background: linear-gradient(160deg, #2E2224 0%, #241D1F 100%);
-  border-color: rgba(237,140,133,0.28);
-}
-.privacy::after {
-  content:""; position:absolute; right:-120px; bottom:-120px; width:420px; height:420px; border-radius:50%;
-  background: radial-gradient(circle, var(--glow), transparent 65%);
-}
-.privacy h2 { color: #FFFFFF; font-size: clamp(1.9rem,3.5vw,2.6rem); max-width: 20ch; margin-bottom:1rem; }
-.privacy .kicker { color: var(--peach-soft); }
-.privacy > .inner { position:relative; z-index:1; display:grid; grid-template-columns: 1fr 1fr; gap:3rem; align-items:center; }
-.privacy p { color: rgba(245,237,234,0.72); }
-.privacy-list { display:grid; gap:1rem; }
-.privacy-item { display:flex; gap:0.9rem; align-items:flex-start; }
-.privacy-item .check { flex:none; width:26px; height:26px; border-radius:8px; background: rgba(237,140,133,0.22); display:grid; place-items:center; color: var(--peach-soft); }
-.privacy-item .check svg { width:15px; height:15px; }
-.privacy-item strong { color: #FFFFFF; font-weight:600; display:block; font-size:0.98rem; }
-.privacy-item span { color: rgba(245,237,234,0.6); font-size:0.88rem; }
-@media (max-width:820px){ .privacy{ padding:2.5rem; } .privacy > .inner{ grid-template-columns:1fr; gap:2rem; } }
 
-/* ---------- PDF export ---------- */
-.pdfx { background: var(--surface-2); }
-.pdfx-split { display: grid; grid-template-columns: 1fr 0.85fr; gap: 4rem; align-items: center; }
-.pdfx-copy h2 { font-size: clamp(1.9rem, 3.4vw, 2.7rem); margin-bottom: 1rem; }
-.pdfx-copy h2 em { font-style: italic; color: var(--peach-deep); }
-.pdfx-copy > p { color: var(--text-2); max-width: 52ch; }
-.pdfx-list { list-style: none; display: grid; gap: 0.75rem; margin: 1.7rem 0 0; }
-.pdfx-list li { display: flex; gap: 0.65rem; align-items: flex-start; font-size: 0.95rem; color: var(--text); }
-.pdfx-list svg { width: 18px; height: 18px; flex: none; margin-top: 0.16rem; color: var(--peach-deep); }
-.pdfx-foot { margin-top: 1.7rem; font-size: 0.88rem; color: var(--text-2); display: flex; align-items: center; gap: 0.5rem; }
-.pdfx-foot svg { width: 16px; height: 16px; flex: none; color: var(--peach-deep); }
+.stack-card-inner {
+  position: relative;
+}
 
-.pdfx-figure { position: relative; }
-.pdfx-figure::before {
-  content: ""; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-  width: 130%; height: 90%; border-radius: 50%;
-  background: radial-gradient(circle, var(--glow) 0%, transparent 65%);
+.stack-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0);
   pointer-events: none;
-}
-.pdfx-page {
-  position: relative; border-radius: 8px; overflow: hidden; background: #fff;
-  box-shadow: 0 30px 66px var(--shadow), 0 0 0 1px var(--line);
-}
-.pdfx-page img { width: 100%; height: auto; display: block; }
-.pdfx-chip {
-  position: absolute; top: -0.8rem; right: -0.6rem; z-index: 2;
-  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: #fff;
-  padding: 0.4rem 0.75rem; border-radius: 10px;
-  background: linear-gradient(135deg, var(--peach) 0%, var(--peach-deep) 100%); box-shadow: 0 8px 20px var(--glow);
+  transition: background 0.15s ease;
+  border-radius: 20px;
 }
 
-@media (max-width: 900px){
-  .pdfx-split { grid-template-columns: 1fr; gap: 2.6rem; }
-  .pdfx-figure { max-width: 380px; margin: 0 auto; width: 100%; }
+.stack-card:nth-child(1) { top: 90px; }
+.stack-card:nth-child(2) { top: 105px; }
+.stack-card:nth-child(3) { top: 120px; }
+.stack-card:nth-child(4) { top: 135px; }
+.stack-card:nth-child(5) { top: 150px; }
+.stack-card:nth-child(6) { top: 165px; }
+
+.stack-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 20px;
 }
 
-/* ---------- Pricing ---------- */
-.pricing { background: var(--surface-2); }
-.bill-toggle {
-  display: inline-flex; gap: 0.3rem; padding: 0.3rem; margin: 0 auto 2.6rem; border-radius: 16px;
-  background: var(--surface); border: 1px solid var(--line);
-}
-.pricing .bill-wrap { text-align: center; }
-.bill-opt {
-  display: inline-flex; align-items: center; gap: 0.5rem; border: none; cursor: pointer;
-  font-family: inherit; font-size: 0.92rem; font-weight: 600; color: var(--text-2);
-  background: transparent; border-radius: 13px; padding: 0.7rem 1.2rem;
-  transition: background 0.3s ease, color 0.3s ease;
-}
-.bill-opt:hover { color: var(--ink); }
-.bill-opt.active { background: linear-gradient(135deg, var(--peach) 0%, var(--peach-deep) 100%); color: #fff; box-shadow: 0 6px 18px var(--glow); }
-.bill-opt .save {
-  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em; padding: 0.18rem 0.45rem; border-radius: 7px;
-  background: var(--peach-soft); color: #7A3B36;
-}
-.bill-opt.active .save { background: rgba(255,255,255,0.9); color: var(--peach-deep); }
+.stack-card:nth-child(1) { transform: scale(1); z-index: 1; }
+.stack-card:nth-child(2) { transform: scale(0.98); z-index: 2; }
+.stack-card:nth-child(3) { transform: scale(0.96); z-index: 3; }
+.stack-card:nth-child(4) { transform: scale(0.94); z-index: 4; }
+.stack-card:nth-child(5) { transform: scale(0.92); z-index: 5; }
+.stack-card:nth-child(6) { transform: scale(0.90); z-index: 6; }
 
-.plans { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; align-items: stretch; max-width: 880px; margin: 0 auto; }
-.plan {
-  position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 22px;
-  padding: 2.2rem 2rem; box-shadow: 0 14px 34px var(--shadow); display: flex; flex-direction: column;
-}
-.plan.featured { border-color: var(--peach); box-shadow: 0 18px 44px var(--glow); }
-.plan-flag {
-  position: absolute; top: -0.85rem; left: 2rem; font-size: 0.7rem; font-weight: 700;
-  letter-spacing: 0.09em; text-transform: uppercase; color: #fff; padding: 0.35rem 0.7rem; border-radius: 9px;
-  background: linear-gradient(135deg, var(--peach) 0%, var(--peach-deep) 100%); box-shadow: 0 6px 16px var(--glow);
-}
-.plan h3 { font-size: 1.5rem; margin-bottom: 0.9rem; }
-.plan-price { display: flex; align-items: baseline; gap: 0.5rem; flex-wrap: wrap; }
-.plan-price .amt { font-family: 'Newsreader', Georgia, serif; font-size: 2.9rem; color: var(--ink); line-height: 1; font-variant-numeric: tabular-nums; }
-.plan-price .per { font-size: 0.95rem; color: var(--text-2); }
-.plan-note { color: var(--text-2); font-size: 0.9rem; margin-top: 0.6rem; min-height: 2.6em; }
-.plan-list { list-style: none; margin: 1.4rem 0 1.8rem; display: grid; gap: 0.7rem; }
-.plan-list li { display: flex; gap: 0.6rem; align-items: flex-start; font-size: 0.95rem; color: var(--text); }
-.plan-list svg { width: 18px; height: 18px; flex: none; margin-top: 0.15rem; color: var(--peach-deep); }
-.plan-cta { width: 100%; justify-content: center; margin-top: auto; }
-.plan-fine { text-align: center; color: var(--text-2); font-size: 0.84rem; max-width: 60ch; margin: 2rem auto 0; }
-
-@media (max-width: 820px){
-  .plans { grid-template-columns: 1fr; max-width: 520px; }
-  .plan { padding: 1.9rem 1.5rem; }
-  .plan-note { min-height: 0; }
-  .bill-toggle { margin-bottom: 2rem; }
-  .bill-opt { padding: 0.65rem 0.9rem; font-size: 0.86rem; }
+/* Parallax CTA Section */
+.parallax-cta-section {
+  padding: 120px 20px 80px;
+  background: var(--bg);
+  position: relative;
+  overflow: hidden;
 }
 
-.finalcta { text-align:center; padding: 6rem 0; }
-.finalcta h2 { font-size: clamp(2.2rem, 5vw, 3.4rem); max-width:16ch; margin: 0 auto 1.2rem; }
-.finalcta h2 em { font-style:italic; color:var(--peach-deep); }
-.finalcta p { color:var(--text-2); font-size:1.15rem; margin-bottom:2rem; }
-
-footer { background: var(--surface-2); border-top:1px solid var(--line); padding: 4rem 0 2rem; }
-.foot-grid { display:grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap:2rem; margin-bottom:3rem; }
-.foot-brand .brand { margin-bottom:1rem; }
-.foot-brand p { color:var(--text-2); font-size:0.9rem; max-width:32ch; }
-.foot-col h4 { font-family:'Inter'; font-size:0.78rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-2); margin-bottom:1rem; font-weight:600; }
-.foot-col a { display:block; font-size:0.92rem; color:var(--text); margin-bottom:0.6rem; transition:color 0.2s; }
-.foot-col a:hover { color:var(--peach-deep); }
-.foot-bottom { display:flex; align-items:center; justify-content:space-between; padding-top:2rem; border-top:1px solid var(--line); flex-wrap:wrap; gap:1rem; }
-.foot-bottom p { font-size:0.85rem; color:var(--text-2); }
-.foot-made { font-size:0.85rem; color:var(--text-2); display:flex; align-items:center; gap:0.4rem; }
-.foot-made svg { width:15px; height:15px; color:var(--peach); }
-
-/* Mid-page download band */
-.cta-band { text-align:center; padding: 1rem 0 0; }
-.cta-band .appstore { margin: 0 auto; }
-.cta-band .cta-band-note { margin-top: 0.9rem; font-size: 0.85rem; color: var(--text-2); }
-@media (max-width:820px){ .foot-grid{ grid-template-columns:1fr 1fr; } }
-
-/* ===== Consolidated mobile optimisation ===== */
-@media (max-width: 640px){
-  .wrap { width: 88vw; }
-  section.block { padding: 3.75rem 0; }
-  .section-head { margin-bottom: 2.25rem; }
-  .section-head.center p { max-width: 100%; }
-
-  /* Hero */
-  .hero { padding: 3rem 0 2.5rem; }
-  .hero h1 { font-size: clamp(2.1rem, 8.5vw, 2.6rem); }
-  .hero .lede { font-size: 1.05rem; }
-  .hero-cta { gap: 0.75rem; }
-  .hero-cta .appstore, .hero-cta .btn { width: 100%; justify-content: center; }
-  .ghost-demo { max-width: 100%; }
-
-  /* Nav: tighten, keep brand + toggle + CTA */
-  nav .wrap { height: 60px; }
-  .brand { font-size: 1.25rem; }
-  .nav-actions .btn-primary { padding: 0.7rem 1.1rem; font-size: 0.9rem; }
-
-  /* Metrics graph: allow horizontal breathing room, stack legend under title */
-  .metric-card { padding: 1.25rem 1rem 1rem; border-radius: 20px; }
-  .metric-head { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
-  .metric-legend { gap: 1rem; }
-  .metric-svg { min-width: 0; }
-  .metric-foot { font-size: 0.88rem; }
-  .metric-tags { gap: 0.5rem; margin-top: 1.5rem; }
-  .mtag { font-size: 0.8rem; padding: 0.45rem 0.85rem; }
-
-  /* Features and privacy already stack via existing 820px rules; tighten spacing */
-  .fcard { padding: 1.5rem; }
-  .privacy { padding: 2rem 1.5rem; border-radius: 24px; }
-  .privacy h2 { font-size: 1.7rem; }
-
-  /* Section-wide download band full width */
-  .cta-band .appstore { width: 100%; justify-content: center; }
-  .finalcta { padding: 4rem 0; }
-  .finalcta h2 { font-size: clamp(1.9rem, 8vw, 2.4rem); }
-
-  /* Footer: single column reads better than cramped 2-col */
-  .foot-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem 1rem; }
-  .foot-brand { grid-column: 1 / -1; }
-  .foot-bottom { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+/* Unplugging parallax elements */
+.unplug-cable {
+  position: absolute;
+  left: 35%;
+  top: 50%;
+  transform: translateY(-50%) translateX(-100%);
+  width: 1200px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.8s ease 0.3s;
 }
 
-@media (max-width: 400px){
-  .filmstrip .frame { flex-basis: 72%; }
-  .metric-legend { flex-direction: column; gap: 0.5rem; align-items: flex-start; }
+.unplug-drive {
+  position: absolute;
+  right: 35%;
+  top: 50%;
+  transform: translateY(-50%) translateX(100%);
+  width: 500px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.8s ease 0.3s;
 }
+
+.unplug-cable img,
+.unplug-drive img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.parallax-cta-section.in-view .unplug-cable,
+.parallax-cta-section.in-view .unplug-drive {
+  opacity: 0.9;
+}
+
+@media (max-width: 1400px) {
+  .unplug-cable,
+  .unplug-drive {
+    opacity: 0 !important;
+    display: none;
+  }
+}
+
+.parallax-cta-container {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+}
+
+.parallax-cta-line {
+  display: block;
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  color: var(--text);
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.parallax-cta-line:nth-child(1) { transition-delay: 0s; }
+.parallax-cta-line:nth-child(2) { transition-delay: 0.15s; }
+
+.parallax-cta-section.in-view .parallax-cta-line {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.parallax-cta-btn-wrap {
+  margin-top: 40px;
+  opacity: 0;
+  transform: translateY(30px) scale(0.9);
+  transition: opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s;
+}
+
+.parallax-cta-section.in-view .parallax-cta-btn-wrap {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.parallax-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 32px;
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+  background: linear-gradient(135deg, var(--green), #17a34a);
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(34, 197, 94, 0.4), 0 0 0 0 rgba(34, 197, 94, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.parallax-cta-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.parallax-cta-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 32px rgba(34, 197, 94, 0.5), 0 0 0 4px rgba(34, 197, 94, 0.2);
+}
+
+.parallax-cta-btn:hover::before {
+  opacity: 1;
+}
+
+.parallax-cta-btn svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+@media (max-width: 768px) {
+  .parallax-cta-section {
+    padding: 80px 20px;
+  }
+  
+  .parallax-cta-line {
+    font-size: clamp(24px, 6vw, 32px);
+  }
+  
+  .parallax-cta-btn {
+    padding: 16px 24px;
+    font-size: 15px;
+  }
+}
+
+/* Scroll indicator */
+.scroll-indicator {
+  margin-top: 120px;
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease 0.5s, transform 0.8s ease 0.5s;
+}
+
+.parallax-cta-section.in-view .scroll-indicator {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-line {
+  width: 1px;
+  height: 120px;
+  background: linear-gradient(to bottom, transparent, var(--text), transparent);
+  opacity: 0;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.6s, opacity 0.8s ease 0.6s;
+}
+
+.parallax-cta-section.in-view .scroll-line {
+  opacity: 0.25;
+  transform: scaleY(1);
+}
+
+/* Parallax movement for scroll indicator */
+.scroll-indicator-parallax {
+  transition: transform 0.1s linear;
+}
+
+.card-stack-spacer {
+  height: 5vh;
+}
+
+@media (max-width: 768px) {
+  .card-stack-section {
+    padding: 40px 0 0;
+  }
+  
+  .card-stack-container {
+    width: calc(100vw - 32px);
+  }
+  
+  .stack-card {
+    border-radius: 14px;
+  }
+  
+  .stack-card img {
+    border-radius: 14px;
+  }
+  
+  .stack-card:nth-child(1) { top: 76px; }
+  .stack-card:nth-child(2) { top: 84px; }
+  .stack-card:nth-child(3) { top: 92px; }
+  .stack-card:nth-child(4) { top: 100px; }
+  .stack-card:nth-child(5) { top: 108px; }
+  .stack-card:nth-child(6) { top: 116px; }
+  
+  .stack-card:nth-child(1) { transform: scale(1); }
+  .stack-card:nth-child(2) { transform: scale(0.985); }
+  .stack-card:nth-child(3) { transform: scale(0.97); }
+  .stack-card:nth-child(4) { transform: scale(0.955); }
+  .stack-card:nth-child(5) { transform: scale(0.94); }
+  .stack-card:nth-child(6) { transform: scale(0.925); }
+  
+  .card-stack-spacer {
+    height: 3vh;
+  }
+}
+
 </style>
 </head>
 <body>
-
-<nav>
-  <div class="wrap">
-    <a href="#" class="brand">
-      <img class="brand-logo" src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/Logo1square.png?v=1783427870" alt="WTNS logo" width="30" height="30">
-      WTNS
-    </a>
-    <div class="navlinks">
-      <a href="#journeys">Journeys</a>
-      <a href="#metrics">Metrics</a>
-      <a href="#features">Features</a>
-      <a href="#usecases">Use cases</a>
-      <a href="#privacy">Privacy</a>
-      <a href="#pricing">Pricing</a>
-    </div>
-    <div class="nav-actions">
-      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light and dark mode">
-        <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-      </button>
-      <a href="#download" class="btn btn-primary">Get WTNS</a>
-    </div>
-  </div>
+<div class="bg-blobs" aria-hidden="true">
+<div class="blob b1"></div>
+<div class="blob b2"></div>
+<div class="blob b3"></div>
+</div>
+<header class="topbar" role="banner">
+<div class="wrap">
+<a class="brand" href="/">
+<img src="/favicon.png" alt="DriveVault logo">
+<span>DriveVault</span>
+</a>
+<nav class="nav" id="mobileNav" role="navigation" aria-label="Primary">
+<a href="#features">Features</a>
+<a href="#pricing">Pricing</a>
+<a href="/changelog.html">Changelog</a>
+<a href="/blog.html">Blog</a>
+<a href="/faq.html">FAQ</a>
+<a class="cta-top" href="https://apps.apple.com/us/app/drivevault-offline-catalog/id6751731655?mt=12">Download on the App Store </a>
 </nav>
-
-<header class="hero">
-  <div class="wrap">
-    <div class="hero-copy">
-      <div class="hero-appicon-frame"><img class="hero-appicon" src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/Logo1square.png?v=1783427870" alt="WTNS logo" width="58" height="58"></div>
-      <span class="eyebrow"><span class="dot"></span> iOS · Photo journaling</span>
-      <h1>WTNS: the iOS app for <em>capturing &amp; tracking change</em>.</h1>
-      <p class="lede">Track anything that transforms over time, one perfectly aligned photo at a time. Some changes happen slowly; that's exactly why they're worth capturing.</p>
-      <div class="hero-cta">
-        <a href="#download" class="appstore" aria-label="Download on the App Store">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 12.04c-.03-2.6 2.13-3.85 2.22-3.91-1.21-1.77-3.09-2.02-3.76-2.05-1.6-.16-3.12.94-3.93.94-.81 0-2.06-.92-3.39-.9-1.74.03-3.35 1.01-4.25 2.57-1.81 3.14-.46 7.79 1.3 10.34.86 1.25 1.89 2.65 3.24 2.6 1.3-.05 1.79-.84 3.36-.84 1.57 0 2.01.84 3.39.81 1.4-.02 2.29-1.27 3.15-2.53.99-1.45 1.4-2.86 1.42-2.93-.03-.01-2.72-1.04-2.75-4.14zM14.53 4.42c.72-.87 1.2-2.08 1.07-3.28-1.03.04-2.28.69-3.02 1.55-.66.77-1.24 2-1.08 3.18 1.15.09 2.32-.58 3.03-1.45z"/></svg>
-          <div><small>Download on the</small><span>App Store</span></div>
-        </a>
-        <a href="#journeys" class="btn btn-ghost">See it in action</a>
-      </div>
-      <div class="hero-note">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V5l-8-3z"/><path d="m9 12 2 2 4-4"/></svg>
-        No account needed. Everything stays on your device.
-      </div>
-    </div>
-
-    <div class="ghost-demo reveal">
-      <div class="ghost-stage" id="ghostStage">
-        <img class="stage-img" data-stage="0" src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/WitnessCactusExample1.png?v=1783356546" alt="Cactus at month 1" style="opacity:1">
-        <img class="stage-img" data-stage="1" src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/WitnessCactusExample2.png?v=1783356546" alt="Cactus at month 4" style="opacity:0">
-        <img class="stage-img" data-stage="2" src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/WitnessCactusExample3.png?v=1783356546" alt="Cactus at month 7" style="opacity:0">
-        <img class="stage-img" data-stage="3" src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/WitnessCactusExample4.png?v=1783356546" alt="Cactus at month 10" style="opacity:0">
-        <img class="stage-img" data-stage="4" src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/WitnessCactusExample5.png?v=1783356546" alt="Cactus at month 12" style="opacity:0">
-        <div class="ghost-grid"></div>
-        <div class="ghost-badge"><span class="rec"></span> Ghost overlay · <span id="stageLabel">Month 1</span></div>
-        <div class="ghost-chart">
-          <div class="gc-head">
-            <span class="gc-label">Height tracked</span>
-            <span class="gc-value" id="gcValue">2<span> cm</span></span>
-          </div>
-          <div class="gc-plot">
-            <svg viewBox="0 0 300 44" preserveAspectRatio="none" aria-hidden="true">
-              <defs>
-                <linearGradient id="gcFill" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stop-color="var(--peach)" stop-opacity="0.35"/>
-                  <stop offset="100%" stop-color="var(--peach)" stop-opacity="0"/>
-                </linearGradient>
-                <clipPath id="gcReveal"><rect id="gcClip" x="0" y="0" width="6" height="44"/></clipPath>
-              </defs>
-              <g clip-path="url(#gcReveal)">
-                <path class="gc-area" d="M 6,40 L 6,38.8 L 78,31.6 L 150,23.2 L 222,14.8 L 294,6.4 L 294,40 Z"/>
-                <path class="gc-line" d="M 6,38.8 L 78,31.6 L 150,23.2 L 222,14.8 L 294,6.4"/>
-              </g>
-            </svg>
-            <div class="gc-dot" id="gcDot"></div>
-          </div>
-        </div>
-      </div>
-      <div class="ghost-controls">
-        <div class="row">
-          <label for="growth">Growth timeline</label>
-          <span class="val" id="growthVal">Month 1</span>
-        </div>
-        <input type="range" id="growth" min="0" max="100" value="0" step="1" style="--fill:0%" aria-label="Cactus growth timeline">
-        <p class="ghost-hint" id="ghostHint">Playing. Drag the slider any time to take over.</p>
-      </div>
-    </div>
-  </div>
+<button class="hamburger" aria-label="Toggle navigation" aria-expanded="false" id="hamburgerBtn">
+<span></span>
+</button>
+</div>
 </header>
-
-<section class="block journeys" id="journeys">
-  <div class="wrap">
-    <div class="section-head center reveal">
-      <div class="kicker">A few of the journeys worth keeping</div>
-      <h2>If it changes,<br class="brk">you can witness it.</h2>
-      <p><em>Anything</em> that changes visually counts: the results of your new whitening toothpaste, a hair loss and regrowth journey, a baby bump, or simply the view from your window turning through the seasons. WTNS can witness it all.</p>
-    </div>
-
-    <div class="jx reveal" id="jx">
-      <div class="jx-item">
-        <button class="jx-tab" type="button" id="jx-tab-skin" aria-expanded="false" aria-controls="jx-panel-skin">
-          <img src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/WitnessAcneExample5.png?v=1783356542" alt="" loading="lazy">
-          <span class="jx-cap">
-            <span class="jx-tag">Skin · 84 days</span>
-            <span class="jx-title">Watch skin clarity turn a corner.</span>
-            <span class="jx-cue">See the sequence <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
-          </span>
-        </button>
-        <div class="jx-panel" id="jx-panel-skin" role="region" aria-labelledby="jx-tab-skin">
-          <div class="jx-panel-inner">
-            <div class="jx-panel-pad">
-        <div class="journey-copy">
-          <div class="copy-text">
-          <p>Track a breakout back to calm with a consistent, well-lit frame, then log clarity, mood, and what you changed alongside each shot so you can see what actually worked.</p>
-          </div>
-          <div class="metric-strip">
-            <div class="metric-chip"><span class="k">Clarity</span><span class="v">4.6 <span class="up">▲ 2.8</span></span></div>
-            <div class="metric-chip"><span class="k">Mood</span><span class="v">😊 4/5</span></div>
-            <div class="metric-chip"><span class="k">Routine</span><span class="v">Retinoid</span></div>
-          </div>
-        </div>
-        <div class="filmstrip">
-            <div class="frame"><img src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/WitnessAcneExample1.png?v=1783356542" alt="Skin tracking, day 1" loading="lazy"><span class="stamp">Day 1</span></div>
-            <div class="frame"><img src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/WitnessAcneExample2.png?v=1783356542" alt="Skin tracking, day 21" loading="lazy"><span class="stamp">Day 21</span></div>
-            <div class="frame"><img src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/WitnessAcneExample3.png?v=1783356542" alt="Skin tracking, day 42" loading="lazy"><span class="stamp">Day 42</span></div>
-            <div class="frame"><img src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/WitnessAcneExample4.png?v=1783356542" alt="Skin tracking, day 63" loading="lazy"><span class="stamp">Day 63</span></div>
-            <div class="frame"><img src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/WitnessAcneExample5.png?v=1783356542" alt="Skin tracking, day 84" loading="lazy"><span class="stamp">Day 84</span></div>
-        </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="jx-item">
-        <button class="jx-tab" type="button" id="jx-tab-plant" aria-expanded="false" aria-controls="jx-panel-plant">
-          <img src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/WitnessCactusExample5.png?v=1783356546" alt="" loading="lazy">
-          <span class="jx-cap">
-            <span class="jx-tag">Plant · 1 year</span>
-            <span class="jx-title">See a cactus actually grow.</span>
-            <span class="jx-cue">See the sequence <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
-          </span>
-        </button>
-        <div class="jx-panel" id="jx-panel-plant" role="region" aria-labelledby="jx-tab-plant">
-          <div class="jx-panel-inner">
-            <div class="jx-panel-pad">
-        <div class="journey-copy">
-          <div class="copy-text">
-          <p>Snap the same frame once a month and the year compresses into a few seconds. Log height and waterings so growth spurts line up with what you did.</p>
-          </div>
-          <div class="metric-strip">
-            <div class="metric-chip"><span class="k">Height</span><span class="v">18 cm <span class="up">▲ 11</span></span></div>
-            <div class="metric-chip"><span class="k">Waterings</span><span class="v">14</span></div>
-            <div class="metric-chip"><span class="k">Interval</span><span class="v">Monthly</span></div>
-          </div>
-        </div>
-        <div class="filmstrip">
-            <div class="frame"><img src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/WitnessCactusExample1.png?v=1783356546" alt="Cactus, month 1" loading="lazy"><span class="stamp">Month 1</span></div>
-            <div class="frame"><img src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/WitnessCactusExample2.png?v=1783356546" alt="Cactus, month 4" loading="lazy"><span class="stamp">Month 4</span></div>
-            <div class="frame"><img src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/WitnessCactusExample3.png?v=1783356546" alt="Cactus, month 7" loading="lazy"><span class="stamp">Month 7</span></div>
-            <div class="frame"><img src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/WitnessCactusExample4.png?v=1783356546" alt="Cactus, month 10" loading="lazy"><span class="stamp">Month 10</span></div>
-            <div class="frame"><img src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/WitnessCactusExample5.png?v=1783356546" alt="Cactus, month 12" loading="lazy"><span class="stamp">Month 12</span></div>
-        </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="jx-item">
-        <button class="jx-tab" type="button" id="jx-tab-reno" aria-expanded="false" aria-controls="jx-panel-reno">
-          <img src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/WitnessKitchenExample5.png?v=1783356551" alt="" loading="lazy">
-          <span class="jx-cap">
-            <span class="jx-tag">Renovation · 6 weeks</span>
-            <span class="jx-title">From demo day to finished kitchen.</span>
-            <span class="jx-cue">See the sequence <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
-          </span>
-        </button>
-        <div class="jx-panel" id="jx-panel-reno" role="region" aria-labelledby="jx-tab-reno">
-          <div class="jx-panel-inner">
-            <div class="jx-panel-pad">
-        <div class="journey-copy">
-          <div class="copy-text">
-          <p>Document a renovation from the same corner and keep budget, contractor notes, and satisfaction next to every stage, so the before/after tells the whole story, cost included.</p>
-          </div>
-          <div class="metric-strip">
-            <div class="metric-chip"><span class="k">Spent</span><span class="v">£11.4k</span></div>
-            <div class="metric-chip"><span class="k">Satisfaction</span><span class="v">⭐ 5/5</span></div>
-            <div class="metric-chip"><span class="k">Stage</span><span class="v">Complete</span></div>
-          </div>
-        </div>
-        <div class="filmstrip">
-            <div class="frame"><img src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/WitnessKitchenExample1.png?v=1783356551" alt="Kitchen renovation, week 1" loading="lazy"><span class="stamp">Week 1</span></div>
-            <div class="frame"><img src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/WitnessKitchenExample2.png?v=1783356551" alt="Kitchen renovation, week 2" loading="lazy"><span class="stamp">Week 2</span></div>
-            <div class="frame"><img src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/WitnessKitchenExample3.png?v=1783356551" alt="Kitchen renovation, week 4" loading="lazy"><span class="stamp">Week 4</span></div>
-            <div class="frame"><img src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/WitnessKitchenExample4.png?v=1783356550" alt="Kitchen renovation, week 5" loading="lazy"><span class="stamp">Week 5</span></div>
-            <div class="frame"><img src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/WitnessKitchenExample5.png?v=1783356551" alt="Kitchen renovation, week 6" loading="lazy"><span class="stamp">Week 6</span></div>
-        </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<main id="main-content">
+<section class="hero">
+<div class="hero-bg-video" aria-hidden="true">
+<video
+src="https://cdn.shopify.com/videos/c/o/v/08d9a1b3ad9248eaabd94655ccab2a90.mp4"
+autoplay
+muted
+loop
+playsinline
+></video>
+</div>
+<div class="hero-inner">
+<div class="pill"><span class="dot" aria-hidden="true"></span> The offline hard drive cataloguer for Mac Desktop</div>
+<h1 class="h1 hero-title">
+<span class="hero-line line-1">Scan hard drives once.</span>
+<span class="hero-line line-2">Search them unplugged.</span>
+<span class="hero-line line-3">Forever.</span>
+</h1>
+<p class="sub">Never lose a file again. Build an offline, powerful, catalogue of your hard drives with DriveVault. </p>
+<a class="cta-minimal" href="https://apps.apple.com/us/app/drivevault-offline-catalog/id6751731655?mt=12" rel="noopener" target="_blank">
+Download on the App Store for free 
+</a>
+<div class="vimeo-spacer"></div>
+<div class="vimeo-breakout">
+<div class="video-wrapper">
+<iframe
+src="https://player.vimeo.com/video/1158590679?h=7f3e67f5d7&badge=0&autopause=0&loop=1&title=0&byline=0&portrait=0"
+frameborder="0"
+allow="autoplay; fullscreen; picture-in-picture"
+allowfullscreen
+referrerpolicy="strict-origin-when-cross-origin"
+title="Introducing: DriveVault for MacOS">
+</iframe>
+</div>
+</div>
+</div>
+</section>
+<section class="hero-image">
+<div class="visual" aria-label="DriveVault app preview">
+<img
+src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/Hard_Drive_4.png?v=1769276563"
+alt="External hard drive"
+class="parallax-drive"
+/>
+<img
+src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/Hard_Drive_1.png?v=1769277171"
+alt="External hard drive"
+class="parallax-drive-left"
+/>
+</div>
 </section>
 
-<section class="block" id="metrics">
-  <div class="wrap">
-    <div class="section-head center reveal">
-      <div class="kicker">The metric that photos can't show</div>
-      <h2>Track how you <em>feel</em>, not just how you look.</h2>
-      <p>Change happens so slowly that it's hard to notice. So stop guessing: add data points alongside your photos and see whether that cream really did work, whether your teeth are whiter, your hair is thicker, your plant is taller. Say goodbye to placebos.</p>
-    </div>
+<!-- Card Stack Section -->
+<section class="card-stack-section">
+<div class="card-stack-container">
+<div class="card-stack">
+<div class="stack-card">
+<div class="stack-card-inner">
+<img src="https://i.ibb.co/dsF0w0jW/2.jpg" alt="DriveVault feature overview" loading="lazy">
+<div class="stack-card-overlay"></div>
+</div>
+</div>
+<div class="stack-card">
+<div class="stack-card-inner">
+<img src="https://i.ibb.co/Hp2BqCPw/3.jpg" alt="DriveVault visual browsing" loading="lazy">
+<div class="stack-card-overlay"></div>
+</div>
+</div>
+<div class="stack-card">
+<div class="stack-card-inner">
+<img src="https://i.ibb.co/rKpBhsBC/4.jpg" alt="DriveVault search capabilities" loading="lazy">
+<div class="stack-card-overlay"></div>
+</div>
+</div>
+<div class="stack-card">
+<div class="stack-card-inner">
+<img src="https://i.ibb.co/S4q8GsBP/5.jpg" alt="DriveVault organization features" loading="lazy">
+<div class="stack-card-overlay"></div>
+</div>
+</div>
+<div class="stack-card">
+<div class="stack-card-inner">
+<img src="https://i.ibb.co/FTj2wdn/6.jpg" alt="DriveVault drive management" loading="lazy">
+<div class="stack-card-overlay"></div>
+</div>
+</div>
+<div class="stack-card">
+<div class="stack-card-inner">
+<img src="https://i.ibb.co/CKMw6m74/7.jpg" alt="DriveVault reporting" loading="lazy">
+<div class="stack-card-overlay"></div>
+</div>
+</div>
+</div>
+<div class="card-stack-spacer"></div>
+</div>
+</section>
 
-    <div class="metric-card reveal">
-      <div class="metric-head">
-        <div>
-          <span class="metric-title" id="metricTitle">Skin confidence journey</span>
-          <span class="metric-sub" id="metricSub">New retinoid routine · 9 months</span>
-        </div>
-        <div class="metric-legend">
-          <span class="leg leg-sc" id="legSc"><i></i> Self-consciousness</span>
-          <span class="leg leg-hp" id="legHp"><i></i> Happiness</span>
-        </div>
-      </div>
-      <div class="metric-plot">
-        <svg class="metric-svg" id="metricSvg" viewBox="0 0 800 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Line graph: self-consciousness falling from 85 to 27 while happiness rises from 30 to 81 over nine months">
-  <defs>
-    <linearGradient id="scFill" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="var(--sc-color)" stop-opacity="0.18"/>
-      <stop offset="100%" stop-color="var(--sc-color)" stop-opacity="0"/>
-    </linearGradient>
-    <linearGradient id="hpFill" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="var(--hp-color)" stop-opacity="0.22"/>
-      <stop offset="100%" stop-color="var(--hp-color)" stop-opacity="0"/>
-    </linearGradient>
-  </defs>
-  <g class="grid-group"><line class="grid" x1="70" y1="360.0" x2="760" y2="360.0"/><line class="grid" x1="70" y1="280.0" x2="760" y2="280.0"/><line class="grid" x1="70" y1="200.0" x2="760" y2="200.0"/><line class="grid" x1="70" y1="120.0" x2="760" y2="120.0"/><line class="grid" x1="70" y1="40.0" x2="760" y2="40.0"/><text class="axis-lbl" x="58" y="364.0" text-anchor="end">0</text><text class="axis-lbl" x="58" y="284.0" text-anchor="end">25</text><text class="axis-lbl" x="58" y="204.0" text-anchor="end">50</text><text class="axis-lbl" x="58" y="124.0" text-anchor="end">75</text><text class="axis-lbl" x="58" y="44.0" text-anchor="end">100</text><text class="axis-lbl" x="70.0" y="392" text-anchor="middle">Start</text><text class="axis-lbl" x="146.7" y="392" text-anchor="middle">M1</text><text class="axis-lbl" x="223.3" y="392" text-anchor="middle">M2</text><text class="axis-lbl" x="300.0" y="392" text-anchor="middle">M3</text><text class="axis-lbl" x="376.7" y="392" text-anchor="middle">M4</text><text class="axis-lbl" x="453.3" y="392" text-anchor="middle">M5</text><text class="axis-lbl" x="530.0" y="392" text-anchor="middle">M6</text><text class="axis-lbl" x="606.7" y="392" text-anchor="middle">M7</text><text class="axis-lbl" x="683.3" y="392" text-anchor="middle">M8</text><text class="axis-lbl" x="760.0" y="392" text-anchor="middle">M9</text></g>
-  <path class="area area-sc" d="M 70.0,88.0 C 82.8,89.6 121.1,91.7 146.7,97.6 C 172.2,103.5 197.8,121.1 223.3,123.2 C 248.9,125.3 274.4,106.1 300.0,110.4 C 325.6,114.7 351.1,138.1 376.7,148.8 C 402.2,159.5 427.8,171.7 453.3,174.4 C 478.9,177.1 504.4,157.3 530.0,164.8 C 555.6,172.3 581.2,204.3 606.7,219.2 C 632.2,234.1 657.8,245.3 683.3,254.4 C 708.8,263.5 747.2,270.4 760.0,273.6 L 760.0,360 L 70.0,360 Z" fill="url(#scFill)"/>
-  <path class="area area-hp" d="M 70.0,264.0 C 82.8,261.9 121.1,257.1 146.7,251.2 C 172.2,245.3 197.8,230.9 223.3,228.8 C 248.9,226.7 274.4,243.2 300.0,238.4 C 325.6,233.6 351.1,210.1 376.7,200.0 C 402.2,189.9 427.8,180.3 453.3,177.6 C 478.9,174.9 504.4,189.9 530.0,184.0 C 555.6,178.1 581.2,152.5 606.7,142.4 C 632.2,132.3 657.8,130.1 683.3,123.2 C 708.8,116.3 747.2,104.5 760.0,100.8 L 760.0,360 L 70.0,360 Z" fill="url(#hpFill)"/>
-  <path class="line line-sc" id="lineSc" d="M 70.0,88.0 C 82.8,89.6 121.1,91.7 146.7,97.6 C 172.2,103.5 197.8,121.1 223.3,123.2 C 248.9,125.3 274.4,106.1 300.0,110.4 C 325.6,114.7 351.1,138.1 376.7,148.8 C 402.2,159.5 427.8,171.7 453.3,174.4 C 478.9,177.1 504.4,157.3 530.0,164.8 C 555.6,172.3 581.2,204.3 606.7,219.2 C 632.2,234.1 657.8,245.3 683.3,254.4 C 708.8,263.5 747.2,270.4 760.0,273.6" fill="none"/>
-  <path class="line line-hp" id="lineHp" d="M 70.0,264.0 C 82.8,261.9 121.1,257.1 146.7,251.2 C 172.2,245.3 197.8,230.9 223.3,228.8 C 248.9,226.7 274.4,243.2 300.0,238.4 C 325.6,233.6 351.1,210.1 376.7,200.0 C 402.2,189.9 427.8,180.3 453.3,177.6 C 478.9,174.9 504.4,189.9 530.0,184.0 C 555.6,178.1 581.2,152.5 606.7,142.4 C 632.2,132.3 657.8,130.1 683.3,123.2 C 708.8,116.3 747.2,104.5 760.0,100.8" fill="none"/>
-  <g class="pts-group"><circle class="pt pt-hp" cx="70.0" cy="264.0" r="5" style="--i:0"/><circle class="pt pt-hp" cx="146.7" cy="251.2" r="5" style="--i:1"/><circle class="pt pt-hp" cx="223.3" cy="228.8" r="5" style="--i:2"/><circle class="pt pt-hp" cx="300.0" cy="238.4" r="5" style="--i:3"/><circle class="pt pt-hp" cx="376.7" cy="200.0" r="5" style="--i:4"/><circle class="pt pt-hp" cx="453.3" cy="177.6" r="5" style="--i:5"/><circle class="pt pt-hp" cx="530.0" cy="184.0" r="5" style="--i:6"/><circle class="pt pt-hp" cx="606.7" cy="142.4" r="5" style="--i:7"/><circle class="pt pt-hp" cx="683.3" cy="123.2" r="5" style="--i:8"/><circle class="pt pt-hp" cx="760.0" cy="100.8" r="5" style="--i:9"/><circle class="pt pt-sc" cx="70.0" cy="88.0" r="5" style="--i:0"/><circle class="pt pt-sc" cx="146.7" cy="97.6" r="5" style="--i:1"/><circle class="pt pt-sc" cx="223.3" cy="123.2" r="5" style="--i:2"/><circle class="pt pt-sc" cx="300.0" cy="110.4" r="5" style="--i:3"/><circle class="pt pt-sc" cx="376.7" cy="148.8" r="5" style="--i:4"/><circle class="pt pt-sc" cx="453.3" cy="174.4" r="5" style="--i:5"/><circle class="pt pt-sc" cx="530.0" cy="164.8" r="5" style="--i:6"/><circle class="pt pt-sc" cx="606.7" cy="219.2" r="5" style="--i:7"/><circle class="pt pt-sc" cx="683.3" cy="254.4" r="5" style="--i:8"/><circle class="pt pt-sc" cx="760.0" cy="273.6" r="5" style="--i:9"/></g>
+<!-- Parallax CTA Section -->
+<section class="parallax-cta-section">
+<div class="unplug-cable">
+<img src="https://i.ibb.co/mV0B4S02/usbccable2.png" alt="USB-C cable" loading="lazy">
+</div>
+<div class="unplug-drive">
+<img src="https://i.ibb.co/nstzZY9B/hard-drive.png" alt="External hard drive" loading="lazy">
+</div>
+<div class="parallax-cta-container">
+<span class="parallax-cta-line">Ready to build your</span>
+<span class="parallax-cta-line">offline catalog?</span>
+<div class="parallax-cta-btn-wrap">
+<a href="https://apps.apple.com/us/app/drivevault-offline-catalog/id6751731655?mt=12" class="parallax-cta-btn" target="_blank" rel="noopener">
+<svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+Download Free on the App Store
+</a>
+</div>
+<div class="scroll-indicator scroll-indicator-parallax">
+<div class="scroll-line"></div>
+</div>
+</div>
+</section>
+
+<!-- How It Works Section - UPDATED COPY -->
+<section class="section how-it-works" style="position:relative; overflow:hidden;">
+<div class="parallax-drive-large">
+<img
+src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/hard_drive_5.png?v=1769277764"
+alt="External hard drive"
+class="parallax-drive-large-img"
+/>
+</div>
+<div class="container">
+<h2 class="sec-title" style="margin-bottom:14px;">How DriveVault Works</h2>
+<p class="sec-sub" style="margin-bottom:56px;">
+Three steps to never lose a file again.
+</p>
+<div class="how-steps">
+<!-- Step 1 -->
+<div class="how-step-row">
+<div class="how-step-number">1</div>
+<div class="how-step-card">
+<div class="how-step-icon scan">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+<rect x="3" y="5" width="18" height="12" rx="2.5" stroke="currentColor" stroke-width="2"/>
+<circle cx="7.5" cy="15" r="1" fill="currentColor"/>
 </svg>
-      </div>
-      <p class="metric-foot" id="metricFoot">Self-consciousness started high and happiness low. Nine months on, with the real dips and setbacks along the way, the lines have crossed. That's the story the photos alone can't tell you.</p>
-    </div>
-
-    <div class="metric-tags reveal" id="metricTags">
-      <p class="metric-tags-hint">Tap a metric to plot a different journey</p>
-      <div class="metric-tag-row" role="group" aria-label="Choose a metric to plot">
-        <button type="button" class="mtag active" data-scn="skin" aria-pressed="true">Skin clarity</button>
-        <button type="button" class="mtag" data-scn="weight" aria-pressed="false">Weight</button>
-        <button type="button" class="mtag" data-scn="mood" aria-pressed="false">Mood</button>
-        <button type="button" class="mtag" data-scn="sleep" aria-pressed="false">Sleep quality</button>
-        <button type="button" class="mtag" data-scn="plant" aria-pressed="false">Plant height</button>
-        <button type="button" class="mtag" data-scn="reno" aria-pressed="false">Satisfaction</button>
-        <span class="mtag mtag-custom">+ your own metric</span>
-      </div>
-    </div>
-  <div class="wrap">
-    <div class="cta-band reveal">
-      <a href="#" class="appstore" aria-label="Download WTNS on the App Store">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 12.04c-.03-2.6 2.13-3.85 2.22-3.91-1.21-1.77-3.09-2.02-3.76-2.05-1.6-.16-3.12.94-3.93.94-.81 0-2.06-.92-3.39-.9-1.74.03-3.35 1.01-4.25 2.57-1.81 3.14-.46 7.79 1.3 10.34.86 1.25 1.89 2.65 3.24 2.6 1.3-.05 1.79-.84 3.36-.84 1.57 0 2.01.84 3.39.81 1.4-.02 2.29-1.27 3.15-2.53.99-1.45 1.4-2.86 1.42-2.93-.03-.01-2.72-1.04-2.75-4.14zM14.53 4.42c.72-.87 1.2-2.08 1.07-3.28-1.03.04-2.28.69-3.02 1.55-.66.77-1.24 2-1.08 3.18 1.15.09 2.32-.58 3.03-1.45z"/></svg>
-        <div><small>Download on the</small><span>App Store</span></div>
-      </a>
-      <p class="cta-band-note">Start tracking any metric, free on the App Store.</p>
-    </div>
-  </div>
-  </div>
+</div>
+<h3>Scan your drives</h3>
+<p>
+Plug in a drive and hit scan - that's it. DriveVault indexes every file, folder, and piece of metadata in minutes. Choose <strong>Full Scan</strong> for thumbnail previews you can browse offline, or <strong>Quick Scan</strong> to catalogue massive drives in seconds. Once scanned, you'll never need to guess what's on that drive again.
+</p>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="how-step-row reverse">
+<div class="how-step-number">2</div>
+<div class="how-step-card">
+<div class="how-step-icon search">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+<circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="2"/>
+<path d="M16.5 16.5L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+</svg>
+</div>
+<h3>Search everything, unplugged</h3>
+<p>
+Need that client project from 2019? Type a few letters and DriveVault finds it across every drive you've ever scanned - even the ones sitting in a drawer. Search by name, path, file type, or metadata. No cables required.
+</p>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="how-step-row">
+<div class="how-step-number">3</div>
+<div class="how-step-card">
+<div class="how-step-icon tools">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+<rect x="3" y="4" width="18" height="12" rx="2" stroke="currentColor" stroke-width="2"/>
+<path d="M2 18h20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+</svg>
+</div>
+<h3>Organize, compare, and share</h3>
+<p>
+Tag files, rate your best shots, and add notes without touching the original drive. Compare two drives to verify backups or spot missing files. Export your entire library and share it with a teammate - they'll see everything you see, instantly. Professional tools, zero learning curve.
+</p>
+</div>
+</div>
+</div>
+<!-- Keep old grid hidden for backwards compatibility -->
+<div class="how-grid" style="display:none;">
+<div class="how-card">
+<div class="how-step how-icon how-icon-scan">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+<rect x="3" y="5" width="18" height="12" rx="2.5" stroke="currentColor" stroke-width="2"/>
+<circle cx="7.5" cy="15" r="1" fill="currentColor"/>
+</svg>
+</div>
+<h3>Scan your drives</h3>
+<p>
+Plug in a drive and hit scan - that's it. DriveVault indexes every file, folder, and piece of metadata in minutes. Choose <strong>Full Scan</strong> for thumbnail previews you can browse offline, or <strong>Quick Scan</strong> to catalogue massive drives in seconds. Once scanned, you'll never need to guess what's on that drive again.
+</p>
+</div>
+<div class="how-card">
+<div class="how-step how-icon how-icon-search">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+<circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="2"/>
+<path d="M16.5 16.5L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+</svg>
+</div>
+<h3>Search everything, unplugged</h3>
+<p>
+Need that client project from 2019? Type a few letters and DriveVault finds it across every drive you've ever scanned - even the ones sitting in a drawer. Search by name, path, file type, or metadata. No cables required.
+</p>
+</div>
+<div class="how-card">
+<div class="how-step how-icon how-icon-work">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+<rect x="3" y="4" width="18" height="12" rx="2" stroke="currentColor" stroke-width="2"/>
+<path d="M2 18h20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+</svg>
+</div>
+<h3>Organize, compare, and share</h3>
+<p>
+Tag files, rate your best shots, and add notes without touching the original drive. Compare two drives to verify backups or spot missing files. Export your entire library and share it with a teammate - they'll see everything you see, instantly. Professional tools, zero learning curve.
+</p>
+</div>
+</div>
+<!-- Accordion block -->
+<div class="how-accordion-trigger">
+<button class="how-accordion-btn" type="button">
+<span>Explore DriveVault features</span>
+<span class="chevron">⌄</span>
+</button>
+</div>
+<div class="how-accordion-content" id="howAccordion">
+<div class="how-accordion-inner">
+<div class="video-wrap" style="width:100%; max-width:1100px; margin:0 auto;">
+<iframe
+src="https://www.youtube.com/embed/Lah8EJ5LLFk?si=udOl0AcjX3JR7lfU"
+title="DriveVault App Introduction"
+frameborder="0"
+allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+allowfullscreen
+style="
+width:100%;
+aspect-ratio:16/9;
+border-radius:18px;
+box-shadow:0 30px 80px rgba(10,12,18,.18);
+"
+></iframe>
+</div>
+</div>
+</div>
+</div>
 </section>
-
-<section class="block pdfx" id="export">
-  <div class="wrap">
-    <div class="pdfx-split">
-      <div class="pdfx-copy reveal">
-        <div class="kicker">Hand it to someone who can help</div>
-        <h2>Turn a record into a PDF <em>worth sharing</em>.</h2>
-        <p>Everything you captured, laid out as a clean document: the photos in order, the date on each one, the metrics you logged and the note you wrote at the time. Send it to a dentist, a dermatologist, a contractor, or the friend who keeps asking how it's going.</p>
-        <ul class="pdfx-list">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Choose how many photos to include</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Keep your notes in, or leave them out</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Show the metrics, or just the images</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Share it however you like, once it exists</span></li>
-        </ul>
-        <p class="pdfx-foot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg> Nothing leaves your iPhone until you choose to send it.</p>
-      </div>
-      <div class="pdfx-figure reveal">
-        <span class="pdfx-chip">A4 PDF</span>
-        <div class="pdfx-page">
-          <img src="WTNS%20PDF%20Export.jpg" alt="An exported WTNS record shown as an A4 PDF page, with three dated photos of a whitening toothpaste journey, each with its metric reading and a written note." loading="lazy" width="2138" height="2768">
-        </div>
-      </div>
-    </div>
-  </div>
+<!-- Mailing List Signup -->
+<section class="section signup-section" style="padding-top:72px; padding-bottom:122px; position:relative;">
+<div class="container signup-content">
+<h2 class="sec-title" style="margin-top:100px; margin-bottom:18px;">
+Plug yourself in
+</h2>
+<div class="connector-wrap" aria-hidden="true">
+<div class="connector-line" id="signup-connector">
+<span class="connector-dot" id="signup-dot"></span>
+</div>
+</div>
+<div class="connector-wrap right" aria-hidden="true">
+<!-- Main center line -->
+<div class="connector-line connector-right-main" id="signup-connector-right">
+<span class="connector-dot" id="signup-dot-right"></span>
+</div>
+<!-- Upper curving line -->
+<div class="connector-line connector-right-upper" id="signup-connector-right-upper">
+<span class="connector-dot connector-dot-small"></span>
+</div>
+<!-- Lower curving line -->
+<div class="connector-line connector-right-lower" id="signup-connector-right-lower">
+<span class="connector-dot connector-dot-small"></span>
+</div>
+<!-- Particle sparks -->
+<div class="energy-particles" id="energy-particles">
+<span class="particle p1"></span>
+<span class="particle p2"></span>
+<span class="particle p3"></span>
+<span class="particle p4"></span>
+<span class="particle p5"></span>
+</div>
+</div>
+<form
+action="https://formspree.io/f/xpwjwzrv"
+method="POST"
+id="mailing-list-form"
+class="signup-form"
+style="
+display:flex;
+gap:12px;
+justify-content:center;
+align-items:center;
+flex-wrap:wrap;
+"
+>
+<input
+type="email"
+name="email"
+required
+placeholder="you@example.com"
+aria-label="Email address"
+style="
+padding:16px 18px;
+font-size:15px;
+border-radius:14px;
+border:1px solid rgba(10,12,18,.15);
+min-width:260px;
+outline:none;
+font-family:inherit;
+"
+/>
+<button
+type="submit"
+class="cta-minimal"
+style="
+margin:0;
+padding:16px 28px;
+font-size:15px;
+"
+>
+Sign Up
+</button>
+</form>
+<p id="form-success" style="
+display:none;
+margin-top:16px;
+color:#16a34a;
+font-weight:600;
+text-align:center;
+">
+Thanks for signing up. You're on the list.
+</p>
+</div>
 </section>
-
-<section class="block" id="features">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div class="kicker">Built for the long game</div>
-      <h2>Everything you need to document change honestly.</h2>
-      <p>The photo is only half the story. WTNS keeps the numbers, the feelings, and the context right beside it.</p>
-    </div>
-    <div class="feature-grid">
-      <div class="fcard wide reveal">
-        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg></div>
-        <h3>Ghost overlay technology</h3>
-        <p>Line up your shot with a semi-transparent overlay of your last photo; opacity runs from 0 to 100%, with an optional grid for composition. No more guessing, no more crooked comparisons. It's what makes every before/after land.</p>
-      </div>
-      <div class="fcard reveal">
-        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18"/><path d="m19 9-5 5-3-3-4 4"/></svg></div>
-        <h3>Custom metrics</h3>
-        <p>Weight, cost, size, mood, sleep: 30+ presets, or build your own. Photos tell part of the story; metrics capture how you felt and what it took.</p>
-      </div>
-      <div class="fcard reveal">
-        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="6 4 20 12 6 20 6 4"/></svg></div>
-        <h3>Time-lapse playback</h3>
-        <p>Your sequence becomes a video automatically. Adjust speed from 0.5× to 4×, then export and share the whole journey.</p>
-      </div>
-      <div class="fcard reveal">
-        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h16M4 18h10"/><circle cx="19" cy="18" r="2"/></svg></div>
-        <h3>Notes on every photo</h3>
-        <p>Leave a note beside any frame: what you changed, what it cost, what threw the numbers off. Context you'll be grateful for later.</p>
-      </div>
-      <div class="fcard reveal">
-        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
-        <h3>Smart reminders</h3>
-        <p>Daily, weekly, or custom intervals with morning, afternoon, or evening preferences. Consistency, without the nagging.</p>
-      </div>
-    </div>
-  </div>
+<!-- FEATURES SECTION - UPDATED COPY -->
+<!-- Starts after the mailing list signup section -->
+<section class="section">
+<div class="container">
+<hr style="
+border:none;
+height:1px;
+background:linear-gradient(
+90deg,
+rgba(10,12,18,0),
+rgba(10,12,18,.15),
+rgba(10,12,18,0)
+);
+margin:72px 0 64px;
+">
+<br>  
+<h2 id="features" class="sec-title" style="margin-bottom:12px;">
+See your files without the drive
+</h2>
+<p class="sec-sub" style="margin-bottom:32px;">
+DriveVault generates low-res visual previews of every image and video - so you can browse your archives like they're right in front of you. It's like having your entire hard drive in a tiny fraction of the space. Even when the drive is on a shelf, in storage, or across the world.
+</p>
+<div style="display:flex; justify-content:center; margin-bottom:96px;">
+<div class="video-wrap" style="width:100%; max-width:1100px;">
+<video
+src="https://cdn.shopify.com/videos/c/o/v/6b7876da9ac0465a966d0a7f0252d0f1.mp4"
+autoplay
+muted
+loop
+playsinline
+></video>
+</div>
+</div>
+<div class="video-row">
+<div class="video-info">
+<h3>One scan. Permanent access.</h3>
+<p>
+Plug in a drive, hit scan, and DriveVault captures everything - file names, folder structures, metadata, and thumbnail previews for images and videos. Use <strong>Full Scan</strong> for visual browsing with rich metadata, or <strong>Quick Scan</strong> to catalogue even massive drives in seconds. Your files stay private. Nothing leaves your Mac.
+</p>
+</div>
+<div class="video-wrap">
+<video
+src="https://cdn.shopify.com/videos/c/o/v/b87ede8df692474aab329e5fc000152e.mp4"
+autoplay
+muted
+loop
+playsinline
+></video>
+</div>
+</div>
+<div class="video-row reverse">
+<div class="video-info">
+<h3>Find any file in seconds - across every drive</h3>
+<p>
+Looking for that shoot from three years ago? Type a few letters in the menu bar and DriveVault surfaces it instantly - no need to open the app, no need to plug anything in. Filter by file type, date, size, or metadata to zero in on exactly what you need.
+</p>
+</div>
+<div class="video-wrap">
+<video
+src="https://cdn.shopify.com/videos/c/o/v/b49bc5c22d1144fe9cf811de9612deeb.mp4"
+autoplay
+muted
+loop
+playsinline
+></video>
+</div>
+</div>
+<div class="video-row">
+<div class="video-info">
+<h3>Know your backups actually worked</h3>
+<p>
+Select two drives and DriveVault instantly compares them - file by file. See exactly what's missing from the smaller drive and where those files live on the larger one. No more hoping your backup is complete. Get a detailed report that shows the truth.
+</p>
+</div>
+<div class="video-wrap">
+<video
+src="https://cdn.shopify.com/videos/c/o/v/577b0d9b5e8440109e62a43f8721a248.mp4"
+autoplay
+muted
+loop
+playsinline
+></video>
+</div>
+</div>
+<div class="video-row reverse">
+<div class="video-info">
+<h3>Group drives the way your brain works</h3>
+<p>
+Drag drives into Projects and organise them however makes sense to you - by client, by year, by shoot, by vibe. When you've got dozens of drives, structure is everything. DriveVault makes it effortless.
+</p>
+</div>
+<div class="video-wrap">
+<video
+src="https://cdn.shopify.com/videos/c/o/v/340b4af385cd4e148aca7b078cb1ce1b.mp4"
+autoplay
+muted
+loop
+playsinline
+></video>
+</div>
+</div>
+<div class="video-row">
+<div class="video-info">
+<h3>See the big picture</h3>
+<p>
+How much storage do you actually have? Where is it all going? Library Stats breaks down your entire archive - total capacity, space used, file types, and more. Finally understand what you're working with across every drive you own.
+</p>
+</div>
+<div class="video-wrap">
+<video
+src="https://cdn.shopify.com/videos/c/o/v/00b0c854e582417e85508004807b2fea.mp4"
+autoplay
+muted
+loop
+playsinline
+></video>
+</div>
+</div>
+<div class="video-row reverse">
+<div class="video-info">
+<h3>Share your archive with your team</h3>
+<p>
+Export your library - or just specific drives - and send it to a colleague. They'll see everything you see: folder structures, previews, metadata, search. One person scans. Everyone benefits. No cloud required.
+</p>
+</div>
+<div class="video-wrap">
+<video
+src="https://cdn.shopify.com/videos/c/o/v/75f6e32736a94955a429b8b28e7e7cf3.mp4"
+autoplay
+muted
+loop
+playsinline
+></video>
+</div>
+</div>
+<h3 style="text-align:center; font-size:32px; line-height:1.15; font-weight:900; letter-spacing:-.02em; margin-top:96px; margin-bottom:12px;">
+Light. Dark. Glass. Your call.
+</h3>
+<p class="sec-sub" style="margin-bottom:32px;">
+Three beautiful themes to match your setup and your mood. 
+<br>DriveVault looks right at home on any Mac.
+</p>
+<div style="display:flex; justify-content:center; margin-bottom:96px;">
+<div class="video-wrap" style="width:100%; max-width:1300px;">
+<video
+src="https://cdn.shopify.com/videos/c/o/v/9aa695e2c4c84efd833a622dc64b85c1.mp4"
+autoplay
+muted
+loop
+playsinline
+></video>
+</div>
+</div>
+</div>
 </section>
-
-<section class="block journeys" id="usecases">
-  <div class="wrap">
-    <div class="section-head center reveal">
-      <div class="kicker">One app, countless journeys</div>
-      <h2>What will you witness?</h2>
-      <p>If it changes visually, WTNS can track it. A few of the ways people use it.</p>
-    </div>
-  </div>
-  <div class="marquee marquee-left" aria-label="Use cases, row one">
-    <div class="marquee-track">
-        <div class="usecase"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4v6a6 6 0 0 0 12 0V4"/><path d="M4 4h4M16 4h4M8 21h8"/></svg></div><h4>Fitness journey</h4></div>
-        <div class="usecase"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l9-9 9 9M5 10v10h14V10"/></svg></div><h4>Home renovation</h4></div>
-        <div class="usecase"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="4"/><path d="M5 21c0-4 3-6 7-6s7 2 7 6"/></svg></div><h4>Child development</h4></div>
-        <div class="usecase"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-9.5-8.5C.5 9 2 5.5 5.5 5.5 7.5 5.5 8.7 6.8 9.2 7.7 9.7 6.8 10.9 5.5 12.9 5.5"/><path d="M14 8l2 2 4-4"/></svg></div><h4>Mental wellness</h4></div>
-        <div class="usecase"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="5" r="2.4"/><path d="M9 10c3 0 5 2 5 5 0 2.5 1 3 2.5 3.5M9 10c-1.5 0-2.5 1.2-2.5 3v6"/></svg></div><h4>Baby bump</h4></div>
-        <div class="usecase"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5 5L3 18l3 3 6.7-6.7a4 4 0 0 0 5-5l-2.4 2.4-2.1-.5-.5-2.1z"/></svg></div><h4>DIY builds</h4></div>
-        <div class="usecase"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></svg></div><h4>Seasonal changes</h4></div>
-        <div class="usecase"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5 4 9l3 3 2-2M8 8l4 4M14 3l7 7-4 4-3-3M17.5 6.5 15 9"/></svg></div><h4>Muscle gain</h4></div>
-        <div class="usecase"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="3" width="8" height="18" rx="4"/><path d="M8 8c1.5-2 6.5-2 8 0"/></svg></div><h4>Nail growth</h4></div>
-        <div class="usecase"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="9" r="1.6"/><circle cx="19" cy="9" r="1.6"/><circle cx="8.5" cy="5.5" r="1.6"/><circle cx="15.5" cy="5.5" r="1.6"/><path d="M12 10c-3 0-5 2.5-5 5 0 2 1.5 3 3 3 1 0 1.5-.5 2-.5s1 .5 2 .5c1.5 0 3-1 3-3 0-2.5-2-5-5-5z"/></svg></div><h4>Pet growth</h4></div>
-        <div class="usecase"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 3 4 14h6l-1 7 7-11h-6l1-7z"/></svg></div><h4>Recovery & healing</h4></div>
-        <div class="usecase"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15a8 8 0 0 1 16 0v1a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM8 12v-1M12 11v-1M16 12v-1"/></svg></div><h4>Sourdough starter</h4></div>
-        <div class="usecase" aria-hidden="true"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4v6a6 6 0 0 0 12 0V4"/><path d="M4 4h4M16 4h4M8 21h8"/></svg></div><h4>Fitness journey</h4></div>
-        <div class="usecase" aria-hidden="true"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l9-9 9 9M5 10v10h14V10"/></svg></div><h4>Home renovation</h4></div>
-        <div class="usecase" aria-hidden="true"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="4"/><path d="M5 21c0-4 3-6 7-6s7 2 7 6"/></svg></div><h4>Child development</h4></div>
-        <div class="usecase" aria-hidden="true"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-9.5-8.5C.5 9 2 5.5 5.5 5.5 7.5 5.5 8.7 6.8 9.2 7.7 9.7 6.8 10.9 5.5 12.9 5.5"/><path d="M14 8l2 2 4-4"/></svg></div><h4>Mental wellness</h4></div>
-        <div class="usecase" aria-hidden="true"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="5" r="2.4"/><path d="M9 10c3 0 5 2 5 5 0 2.5 1 3 2.5 3.5M9 10c-1.5 0-2.5 1.2-2.5 3v6"/></svg></div><h4>Baby bump</h4></div>
-        <div class="usecase" aria-hidden="true"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5 5L3 18l3 3 6.7-6.7a4 4 0 0 0 5-5l-2.4 2.4-2.1-.5-.5-2.1z"/></svg></div><h4>DIY builds</h4></div>
-        <div class="usecase" aria-hidden="true"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></svg></div><h4>Seasonal changes</h4></div>
-        <div class="usecase" aria-hidden="true"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5 4 9l3 3 2-2M8 8l4 4M14 3l7 7-4 4-3-3M17.5 6.5 15 9"/></svg></div><h4>Muscle gain</h4></div>
-        <div class="usecase" aria-hidden="true"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="3" width="8" height="18" rx="4"/><path d="M8 8c1.5-2 6.5-2 8 0"/></svg></div><h4>Nail growth</h4></div>
-        <div class="usecase" aria-hidden="true"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="9" r="1.6"/><circle cx="19" cy="9" r="1.6"/><circle cx="8.5" cy="5.5" r="1.6"/><circle cx="15.5" cy="5.5" r="1.6"/><path d="M12 10c-3 0-5 2.5-5 5 0 2 1.5 3 3 3 1 0 1.5-.5 2-.5s1 .5 2 .5c1.5 0 3-1 3-3 0-2.5-2-5-5-5z"/></svg></div><h4>Pet growth</h4></div>
-        <div class="usecase" aria-hidden="true"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 3 4 14h6l-1 7 7-11h-6l1-7z"/></svg></div><h4>Recovery & healing</h4></div>
-        <div class="usecase" aria-hidden="true"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15a8 8 0 0 1 16 0v1a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM8 12v-1M12 11v-1M16 12v-1"/></svg></div><h4>Sourdough starter</h4></div>
-    </div>
-  </div>
-  <div class="marquee marquee-right" aria-label="Use cases, row two">
-    <div class="marquee-track">
-        <div class="usecase"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg></div><h4>Skin transformation</h4></div>
-        <div class="usecase"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V8M12 8C12 5 9 2 5 3c-1 4 2 7 7 5zM12 8c0-3 3-6 7-5 1 4-2 7-7 5z"/></svg></div><h4>Plant growth</h4></div>
-        <div class="usecase"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v4M16 3v4M4 11c4 1 4 9 8 9s4-8 8-9"/></svg></div><h4>Beard & hair growth</h4></div>
-        <div class="usecase"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3zM2 2l7.586 7.586M11 11l-2 2"/><circle cx="11" cy="11" r="2"/></svg></div><h4>Creative projects</h4></div>
-        <div class="usecase"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5"/><path d="M9 8.5h.01M15 8.5h.01M9.5 11.5c.8.8 3.2.8 4 0M12 14v6M8 20h8"/></svg></div><h4>Baby growth</h4></div>
-        <div class="usecase"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7l-8-4-8 4 8 4 8-4zM4 7v10l8 4 8-4V7M12 11v10"/></svg></div><h4>New products</h4></div>
-        <div class="usecase"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M6 20V9l6-5 6 5v11M9 20v-6h6v6"/></svg></div><h4>Weight loss</h4></div>
-        <div class="usecase"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c-4 3-6 7-6 11a6 6 0 0 0 12 0c0-4-2-8-6-11z"/></svg></div><h4>Hair colour</h4></div>
-        <div class="usecase"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20c2-6 5-9 8-9s6 3 8 9M9 11c0-3 1-6 3-8 2 2 3 5 3 8"/></svg></div><h4>Tattoo healing</h4></div>
-        <div class="usecase"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M6 21c0-5 2-9 6-9s6 4 6 9M12 12V7M9 7h6M10 4h4"/></svg></div><h4>Garden seasons</h4></div>
-        <div class="usecase"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8s2 3 8 3 8-3 8-3M4 8v4c0 3 3 5 8 5s8-2 8-5V8M8 11v3M12 11.5v3.5M16 11v3"/></svg></div><h4>Braces progress</h4></div>
-        <div class="usecase"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></div><h4>Travel & places</h4></div>
-        <div class="usecase" aria-hidden="true"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg></div><h4>Skin transformation</h4></div>
-        <div class="usecase" aria-hidden="true"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V8M12 8C12 5 9 2 5 3c-1 4 2 7 7 5zM12 8c0-3 3-6 7-5 1 4-2 7-7 5z"/></svg></div><h4>Plant growth</h4></div>
-        <div class="usecase" aria-hidden="true"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v4M16 3v4M4 11c4 1 4 9 8 9s4-8 8-9"/></svg></div><h4>Beard & hair growth</h4></div>
-        <div class="usecase" aria-hidden="true"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3zM2 2l7.586 7.586M11 11l-2 2"/><circle cx="11" cy="11" r="2"/></svg></div><h4>Creative projects</h4></div>
-        <div class="usecase" aria-hidden="true"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5"/><path d="M9 8.5h.01M15 8.5h.01M9.5 11.5c.8.8 3.2.8 4 0M12 14v6M8 20h8"/></svg></div><h4>Baby growth</h4></div>
-        <div class="usecase" aria-hidden="true"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7l-8-4-8 4 8 4 8-4zM4 7v10l8 4 8-4V7M12 11v10"/></svg></div><h4>New products</h4></div>
-        <div class="usecase" aria-hidden="true"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M6 20V9l6-5 6 5v11M9 20v-6h6v6"/></svg></div><h4>Weight loss</h4></div>
-        <div class="usecase" aria-hidden="true"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c-4 3-6 7-6 11a6 6 0 0 0 12 0c0-4-2-8-6-11z"/></svg></div><h4>Hair colour</h4></div>
-        <div class="usecase" aria-hidden="true"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20c2-6 5-9 8-9s6 3 8 9M9 11c0-3 1-6 3-8 2 2 3 5 3 8"/></svg></div><h4>Tattoo healing</h4></div>
-        <div class="usecase" aria-hidden="true"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M6 21c0-5 2-9 6-9s6 4 6 9M12 12V7M9 7h6M10 4h4"/></svg></div><h4>Garden seasons</h4></div>
-        <div class="usecase" aria-hidden="true"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8s2 3 8 3 8-3 8-3M4 8v4c0 3 3 5 8 5s8-2 8-5V8M8 11v3M12 11.5v3.5M16 11v3"/></svg></div><h4>Braces progress</h4></div>
-        <div class="usecase" aria-hidden="true"><div class="uc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></div><h4>Travel & places</h4></div>
-    </div>
-  </div>
+<section id="pricing" class="section" style="padding-top:40px;">
+<div class="container">
+<h2 class="sec-title" style="margin-bottom:8px;">
+No Subscription. Pay once, own it forever.
+</h2>
+<h3 class="sec-title" style="font-size:clamp(22px,3vw,30px); margin-bottom:16px;">
+Pick a plan based on how many drives you have
+</h3>
+<p class="sec-sub" style="margin-bottom:48px;">
+Every plan unlocks every feature. No upsells, no drive size limits, no recurring fees. <br>Just simple, honest pricing.
+</p>
+<div class="pricing-grid">
+<div class="pricing-card">
+<h3>Free</h3>
+<p class="price">$0</p>
+<p class="tier-desc">1 drive · Up to 4TB</p>
+</div>
+<div class="pricing-card">
+<h3>Starter</h3>
+<p class="price">$14.99</p>
+<p class="tier-desc">Up to 5 drives</p>
+</div>
+<div class="pricing-card">
+<h3>Pro</h3>
+<p class="price">$24.99</p>
+<p class="tier-desc">Up to 10 drives</p>
+</div>
+<div class="pricing-card popular">
+<span class="popular-badge">Popular</span>
+<h3>Advanced</h3>
+<p class="price">$34.99</p>
+<p class="tier-desc">Up to 15 drives</p>
+</div>
+<div class="pricing-card">
+<h3>Ultimate</h3>
+<p class="price">$45.99</p>
+<p class="tier-desc">Up to 20 drives</p>
+</div>
+<div class="pricing-card">
+<h3>Unlimited</h3>
+<p class="price">$99.99</p>
+<p class="tier-desc">Unlimited drives</p>
+</div>
+</div>
+</div>
 </section>
-
-<section class="block" id="privacy">
-  <div class="wrap">
-    <div class="privacy reveal">
-      <div class="inner">
-        <div>
-          <div class="kicker">Privacy-first, by design</div>
-          <h2>Your transformation is personal. It stays that way.</h2>
-          <p>Everything lives on your device, protected by Face ID. No account, no cloud sync required, no third-party sharing.</p>
-        </div>
-        <div class="privacy-list">
-          <div class="privacy-item"><div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 12 4 4 10-10"/></svg></div><div><strong>Face ID / Touch ID lock</strong><span>Auto-lock from immediate to 5 minutes.</span></div></div>
-          <div class="privacy-item"><div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 12 4 4 10-10"/></svg></div><div><strong>Local photo storage</strong><span>No cloud required. Optional Camera Roll backup.</span></div></div>
-          <div class="privacy-item"><div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 12 4 4 10-10"/></svg></div><div><strong>No account needed</strong><span>Open the app and start. Nothing to sign up for.</span></div></div>
-          <div class="privacy-item"><div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 12 4 4 10-10"/></svg></div><div><strong>Private, lockable records</strong><span>Hide individual records behind Face ID, so previews never show on the home screen.</span></div></div>
-        </div>
-      </div>
-    </div>
-  </div>
+<section class="section" style="padding-top:0;">
+<div class="container">
+<h3 class="sec-title" style="font-size:clamp(22px,3vw,28px); margin-bottom:20px;">
+DriveVault can also grow with you
+</h3>
+<div class="addon-row">
+<div class="addon-left">
+<div class="addon-icon">+</div>
+<div>
+<div class="addon-title">Add a single drive</div>
+<div class="addon-sub">
+Increase your DriveVault capacity by one additional drive
+</div>
+</div>
+</div>
+<div class="addon-right">
+<div class="addon-price">$9.99</div>
+<div class="addon-note">one-time purchase</div>
+</div>
+</div>
+<div class="addon-row">
+<div class="addon-left">
+<div class="addon-icon" style="font-size: 18px;">+5</div>
+<div>
+<div class="addon-title">Add five drives</div>
+<div class="addon-sub">
+Increase your DriveVault capacity by five additional drives
+</div>
+</div>
+</div>
+<div class="addon-right">
+<div class="addon-price">$34.99</div>
+<div class="addon-note">one-time purchase · save 30%</div>
+</div>
+</div>
+</div>
 </section>
-
-<section class="block" style="padding-top:0;">
-  <div class="wrap">
-    <div class="cta-band reveal">
-      <a href="#" class="appstore" aria-label="Download WTNS on the App Store">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 12.04c-.03-2.6 2.13-3.85 2.22-3.91-1.21-1.77-3.09-2.02-3.76-2.05-1.6-.16-3.12.94-3.93.94-.81 0-2.06-.92-3.39-.9-1.74.03-3.35 1.01-4.25 2.57-1.81 3.14-.46 7.79 1.3 10.34.86 1.25 1.89 2.65 3.24 2.6 1.3-.05 1.79-.84 3.36-.84 1.57 0 2.01.84 3.39.81 1.4-.02 2.29-1.27 3.15-2.53.99-1.45 1.4-2.86 1.42-2.93-.03-.01-2.72-1.04-2.75-4.14zM14.53 4.42c.72-.87 1.2-2.08 1.07-3.28-1.03.04-2.28.69-3.02 1.55-.66.77-1.24 2-1.08 3.18 1.15.09 2.32-.58 3.03-1.45z"/></svg>
-        <div><small>Download on the</small><span>App Store</span></div>
-      </a>
-      <p class="cta-band-note">No account. No cloud. Just your iPhone.</p>
-    </div>
-  </div>
+<section class="section" style="padding-top:0;">
+<div class="container">
+<hr style="
+border:none;
+height:1px;
+background:linear-gradient(
+90deg,
+rgba(10,12,18,0),
+rgba(10,12,18,.15),
+rgba(10,12,18,0)
+);
+margin:72px 0 64px;
+">
+<div style="
+text-align:center;
+padding:48px 0 24px;
+">
+<h2 style="
+font-size:clamp(28px,4vw,42px);
+font-weight:900;
+letter-spacing:-.02em;
+margin-bottom:18px;
+">
+Ready to build your powerful DriveVault?
+</h2>
+<p style="
+max-width:680px;
+margin:0 auto 28px;
+color:var(--muted);
+font-size:16px;
+line-height:1.6;
+">
+Scan your drives once, then browse and search them forever.<br>Even when they're unplugged.
+</p>
+<a class="cta-minimal" href="https://apps.apple.com/us/app/drivevault-offline-catalog/id6751731655?mt=12" rel="noopener" target="_blank">
+Download on the App Store 
+</a>
+</div>
+</div>
 </section>
-
-<section class="block pricing" id="pricing">
-  <div class="wrap">
-    <div class="section-head center reveal">
-      <div class="kicker">Pricing</div>
-      <h2>Start free. Stay free if that suits you.</h2>
-      <p>Your first record and your first five photos are free forever. Don't like it, don't pay. Only ever need five photos? It's yours.</p>
-    </div>
-
-    <div class="bill-wrap reveal">
-      <div class="bill-toggle" role="group" aria-label="Billing period">
-        <button type="button" class="bill-opt active" data-bill="year" aria-pressed="true">Yearly <span class="save">Save 58%</span></button>
-        <button type="button" class="bill-opt" data-bill="month" aria-pressed="false">Monthly</button>
-      </div>
-    </div>
-
-    <div class="plans reveal">
-      <div class="plan">
-        <h3>Free</h3>
-        <div class="plan-price"><span class="amt">$0</span><span class="per">free forever</span></div>
-        <p class="plan-note">No trial countdown and no card required. Keep it as long as you like.</p>
-        <ul class="plan-list">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Your first record</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Up to five photos</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Ghost overlay alignment</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Custom metrics and charts</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Face ID locking</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>No account, ever</span></li>
-        </ul>
-        <a href="#download" class="btn btn-ghost plan-cta">Download WTNS</a>
-      </div>
-
-      <div class="plan featured">
-        <span class="plan-flag">Unlimited</span>
-        <h3>Premium</h3>
-        <div class="plan-price"><span class="amt" id="planAmt">$19.99</span><span class="per" id="planPer">per year</span></div>
-        <p class="plan-note" id="planNote">That's $1.67 a month, a 58% saving against paying monthly.</p>
-        <ul class="plan-list">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Unlimited records</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Unlimited photos in every record</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>The full app: ghost overlay, metrics, time-lapse and reminders</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Everything still stays on your device</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Cancel any time</span></li>
-        </ul>
-        <a href="#download" class="btn btn-primary plan-cta">Get Premium</a>
-      </div>
-    </div>
-
-    <p class="plan-fine">Prices shown in USD; your local App Store price may differ. Subscriptions are billed through your Apple Account and renew automatically until cancelled, which you can do at any time in your iPhone settings. See the <a href="terms.html">Terms of Service</a> for full details.</p>
-  </div>
-</section>
-
-<section class="finalcta" id="download">
-  <div class="wrap reveal">
-    <h2>Start the record you'll be glad you <em>kept</em>.</h2>
-    <p>Free to download. Everything stays on your iPhone.</p>
-    <a href="#" class="appstore" style="margin:0 auto;" aria-label="Download WTNS on the App Store">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 12.04c-.03-2.6 2.13-3.85 2.22-3.91-1.21-1.77-3.09-2.02-3.76-2.05-1.6-.16-3.12.94-3.93.94-.81 0-2.06-.92-3.39-.9-1.74.03-3.35 1.01-4.25 2.57-1.81 3.14-.46 7.79 1.3 10.34.86 1.25 1.89 2.65 3.24 2.6 1.3-.05 1.79-.84 3.36-.84 1.57 0 2.01.84 3.39.81 1.4-.02 2.29-1.27 3.15-2.53.99-1.45 1.4-2.86 1.42-2.93-.03-.01-2.72-1.04-2.75-4.14zM14.53 4.42c.72-.87 1.2-2.08 1.07-3.28-1.03.04-2.28.69-3.02 1.55-.66.77-1.24 2-1.08 3.18 1.15.09 2.32-.58 3.03-1.45z"/></svg>
-      <div><small>Download on the</small><span>App Store</span></div>
-    </a>
-  </div>
-</section>
-
 <footer>
-  <div class="wrap">
-    <div class="foot-grid">
-      <div class="foot-brand">
-        <a href="#" class="brand">
-          <img class="brand-logo" src="https://cdn.shopify.com/s/files/1/0287/7580/9072/files/Logo1square.png?v=1783427870" alt="WTNS logo" width="30" height="30">
-          WTNS
-        </a>
-        <p>The beautiful, private way to track change over time. Made for iPhone.</p>
-      </div>
-      <div class="foot-col">
-        <h4>Product</h4>
-        <a href="#features">Features</a>
-        <a href="#usecases">Use cases</a>
-        <a href="#export">PDF export</a>
-        <a href="#privacy">Privacy</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#download">Download</a>
-      </div>
-      <div class="foot-col">
-        <h4>Legal</h4>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="terms.html">Terms of Service</a>
-      </div>
-      <div class="foot-col">
-        <h4>Support</h4>
-        <a href="mailto:Hello@DriveVault.io">Hello@DriveVault.io</a>
-      </div>
-    </div>
-    <div class="foot-bottom">
-      <p>© 2026 WTNS. All rights reserved.</p>
-      <span class="foot-made"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.5-9.5-8.5C.5 9 2 5.5 5.5 5.5c2 0 3.2 1.3 3.7 2.2.5-.9 1.7-2.2 3.7-2.2C16.5 5.5 18 9 16 12.5 13.5 16.5 12 21 12 21z"/></svg> Made with care in the UK</span>
-    </div>
-  </div>
+<div class="fwrap">
+<div>©<span id="year"></span> DriveVault // <b></b>Part of the Full Access family</b></div>
+<div style="display:flex; gap:14px; flex-wrap:wrap">
+<a href="/privacy.html">Privacy</a>
+<a href="/terms.html">Terms</a>
+<a href="/contact.html">Contact</a>
+</div>
+</div>
 </footer>
-
+</main>
 <script>
-(function () {
-  // Theme toggle
-  var root = document.documentElement;
-  var tBtn = document.getElementById('themeToggle');
-  var tIcon = document.getElementById('themeIcon');
-  var sunPath = '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>';
-  var moonPath = '<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>';
-  if (tBtn) {
-    tBtn.addEventListener('click', function () {
-      var dark = root.getAttribute('data-theme') === 'dark';
-      root.setAttribute('data-theme', dark ? 'light' : 'dark');
-      if (tIcon) tIcon.innerHTML = dark ? sunPath : moonPath;
+// Insert prefersReducedMotion at the very top of the script block
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+document.getElementById('year').textContent = new Date().getFullYear();
+// --- Parallax (subtle, launch-grade) ---
+// --- Section-relative parallax for large drive (How It Works) ---
+const howSection = document.querySelector('.how-it-works');
+const largeDrive = document.querySelector('.parallax-drive-large-img');
+if (!prefersReducedMotion && howSection && largeDrive) {
+function onHowScroll() {
+const rect = howSection.getBoundingClientRect();
+const vh = window.innerHeight;
+// Progress from when section enters to when it leaves
+const progress = Math.min(
+1,
+Math.max(
+0,
+(vh - rect.top) / (rect.height + vh)
+)
+);
+// Subtle upward drift only while section is active
+const translateY = (progress - 0.5) * -140;
+largeDrive.style.transform = `translate3d(0, ${translateY}px, 0)`;
+}
+window.addEventListener('scroll', onHowScroll, { passive: true });
+onHowScroll();
+}
+// Goals:
+// - Only run while the hero visual is in view
+// - Smooth motion via rAF + lerp (no snapping)
+// - Tiny "micro-settle" on scroll stop
+// - Blobs drift with slight X and Y parallax for depth
+if (prefersReducedMotion) {
+// Respect reduced-motion: do nothing
+} else {
+const screen = document.querySelector('.screen');
+const parallaxDrive = document.querySelector('.parallax-drive');
+const parallaxDriveLeft = document.querySelector('.parallax-drive-left');
+const chips = Array.from(document.querySelectorAll('.chip'));
+const blobs = Array.from(document.querySelectorAll('.blob'));
+const hero = document.querySelector('.hero');
+const heroInner = document.querySelector('.hero-inner');
+const heroTitle = document.querySelector('.h1');
+const heroSub = document.querySelector('.sub');
+const visual = document.querySelector('.visual');
+// We keep our own transforms so we don't fight CSS hover transforms
+const chipBase = new Map();
+chips.forEach((c) => {
+chipBase.set(c, { x: 0, y: 0 });
+});
+let enabled = true; // will be toggled by IntersectionObserver
+let targetY = window.scrollY;
+let currentY = window.scrollY;
+let rafId = null;
+let scrollStopTimer = null;
+// IntersectionObserver: only animate when hero/visual is near viewport
+const ioTarget = visual || hero;
+const io = ioTarget
+? new IntersectionObserver(
+(entries) => {
+enabled = entries.some((e) => e.isIntersecting);
+// When re-enabled, sync positions so there's no jump
+if (enabled) {
+targetY = window.scrollY;
+currentY = window.scrollY;
+start();
+}
+},
+{ root: null, threshold: 0, rootMargin: '200px 0px 200px 0px' }
+)
+: null;
+if (io && ioTarget) io.observe(ioTarget);
+// Smooth animation loop
+function start() {
+if (rafId) return;
+rafId = requestAnimationFrame(tick);
+}
+function stop() {
+if (!rafId) return;
+cancelAnimationFrame(rafId);
+rafId = null;
+}
+function clamp(n, min, max) {
+return Math.max(min, Math.min(max, n));
+}
+function tick() {
+rafId = requestAnimationFrame(tick);
+if (!enabled) {
+stop();
+return;
+}
+// Lerp for smoothness
+currentY += (targetY - currentY) * 0.08;
+// Normalize within hero range for text fades
+let heroProgress = 0;
+if (hero) {
+const rect = hero.getBoundingClientRect();
+const heroHeight = hero.offsetHeight || window.innerHeight;
+// 0 at top of hero, 1 when hero is mostly scrolled past
+heroProgress = clamp((window.innerHeight - rect.bottom) / (heroHeight * 0.65), 0, 1);
+}
+// Subtle screen parallax
+if (screen) {
+const y = currentY * 0.035;
+// Keep it perfectly straight (no rotation changes here)
+screen.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0)`;
+}
+// Parallax hard drive image (rises into view early with subtle rotation)
+if (parallaxDrive) {
+const driveY = currentY * 0.14;
+const driveRotate = -8 + currentY * 0.01;
+parallaxDrive.style.transform =
+`translate3d(0, ${-driveY}px, 0) rotate(${driveRotate}deg)`;
+}
+if (parallaxDriveLeft) {
+const driveYLeft = currentY * 0.095;
+const driveXLeft = currentY * 0.015;
+const driveRotateLeft = 6 - currentY * 0.006;
+parallaxDriveLeft.style.transform =
+`translate3d(${driveXLeft}px, ${-driveYLeft}px, 0) rotate(${driveRotateLeft}deg)`;
+}
+// Chips parallax with slight offsets so they keep their layout
+chips.forEach((chip, i) => {
+const base = chipBase.get(chip) || { x: 0, y: 0 };
+const speed = 0.045 + i * 0.004;
+const y = base.y + currentY * speed;
+chip.style.transform = `translate3d(${base.x}px, ${y.toFixed(2)}px, 0)`;
+});
+// Blobs drift very slowly with slight X movement for depth
+blobs.forEach((blob, i) => {
+const y = currentY * (0.012 + i * 0.007);
+const x = currentY * (0.004 + i * 0.002) * (i % 2 === 0 ? 1 : -1);
+blob.style.transform = `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, 0)`;
+});
+// Tiny upward drift for the hero text stack
+// Tiny upward drift for the hero text stack
+if (heroInner) {
+const lift = -heroProgress * 10;
+heroInner.style.transform = `translate3d(0, ${lift.toFixed(2)}px, 0)`;
+}
+}
+// Scroll handler: set target and handle micro-settle
+function onScroll() {
+targetY = window.scrollY;
+start();
+// Micro-settle: tiny scale nudge when user stops scrolling
+if (scrollStopTimer) clearTimeout(scrollStopTimer);
+// While scrolling: ensure normal scale
+if (screen) screen.style.willChange = 'transform';
+chips.forEach((c) => (c.style.willChange = 'transform'));
+scrollStopTimer = setTimeout(() => {
+// settle - tiny, tasteful
+if (screen) {
+const y = currentY * 0.035;
+screen.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0) scale(1.006)`;
+// return to normal after a beat
+setTimeout(() => {
+if (screen) screen.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0)`;
+}, 220);
+}
+chips.forEach((chip, i) => {
+const base = chipBase.get(chip) || { x: 0, y: 0 };
+const speed = 0.045 + i * 0.004;
+const y = base.y + currentY * speed;
+chip.style.transform = `translate3d(${base.x}px, ${y.toFixed(2)}px, 0) scale(1.01)`;
+setTimeout(() => {
+chip.style.transform = `translate3d(${base.x}px, ${y.toFixed(2)}px, 0)`;
+}, 200);
+});
+// Clean will-change
+setTimeout(() => {
+if (screen) screen.style.willChange = 'auto';
+chips.forEach((c) => (c.style.willChange = 'auto'));
+}, 450);
+}, 140);
+}
+window.addEventListener('scroll', onScroll, { passive: true });
+// Kick things off
+start();
+}
+// --- Mobile nav hamburger ---
+const hamburger = document.getElementById('hamburgerBtn');
+const mobileNav = document.getElementById('mobileNav');
+if (hamburger && mobileNav){
+hamburger.addEventListener('click', () => {
+const isOpen = mobileNav.classList.toggle('open');
+hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+});
+// Close menu when a link is clicked
+mobileNav.querySelectorAll('a').forEach(link => {
+link.addEventListener('click', () => {
+mobileNav.classList.remove('open');
+hamburger.setAttribute('aria-expanded','false');
+});
+});
+}
+// --- How It Works scroll reveal ---
+const howCards = document.querySelectorAll('.how-card');
+if ('IntersectionObserver' in window) {
+const howObserver = new IntersectionObserver(
+(entries) => {
+entries.forEach((entry) => {
+if (entry.isIntersecting) {
+entry.target.classList.add('in-view');
+howObserver.unobserve(entry.target);
+}
+});
+},
+{
+threshold: 0.2,
+rootMargin: '0px 0px -80px 0px'
+}
+);
+howCards.forEach(card => howObserver.observe(card));
+} else {
+// Fallback: show immediately
+howCards.forEach(card => card.classList.add('in-view'));
+}
+// --- How It Works NEW staggered steps scroll reveal ---
+const howStepRows = document.querySelectorAll('.how-step-row');
+if ('IntersectionObserver' in window && howStepRows.length > 0) {
+const stepObserver = new IntersectionObserver(
+(entries) => {
+entries.forEach((entry) => {
+if (entry.isIntersecting) {
+entry.target.classList.add('in-view');
+stepObserver.unobserve(entry.target);
+}
+});
+},
+{
+threshold: 0.15,
+rootMargin: '0px 0px -100px 0px'
+}
+);
+howStepRows.forEach(row => stepObserver.observe(row));
+} else {
+// Fallback: show immediately
+howStepRows.forEach(row => row.classList.add('in-view'));
+}
+// --- Mouse tracking for card glow effect ---
+const howStepCards = document.querySelectorAll('.how-step-card');
+howStepCards.forEach(card => {
+card.addEventListener('mousemove', (e) => {
+const rect = card.getBoundingClientRect();
+const x = ((e.clientX - rect.left) / rect.width) * 100;
+const y = ((e.clientY - rect.top) / rect.height) * 100;
+card.style.setProperty('--mouse-x', x + '%');
+card.style.setProperty('--mouse-y', y + '%');
+});
+});
+// --- Vimeo Hero Video fade-in reveal ---
+const vimeoBreakout = document.querySelector('.vimeo-breakout');
+if (vimeoBreakout && 'IntersectionObserver' in window) {
+const vimeoObserver = new IntersectionObserver(
+(entries) => {
+entries.forEach(entry => {
+if (entry.isIntersecting) {
+entry.target.classList.add('in-view');
+entry.target.style.opacity = '1';
+entry.target.style.transform = 'translateX(-50%) translateY(0)';
+vimeoObserver.unobserve(entry.target);
+}
+});
+},
+{
+threshold: 0.15
+}
+);
+vimeoObserver.observe(vimeoBreakout);
+}
+// Mailing List AJAX submit
+const mailingForm = document.getElementById('mailing-list-form');
+const successMsg = document.getElementById('form-success');
+if (mailingForm) {
+mailingForm.addEventListener('submit', async (e) => {
+e.preventDefault();
+const formData = new FormData(mailingForm);
+try {
+const response = await fetch(mailingForm.action, {
+method: 'POST',
+body: formData,
+headers: {
+'Accept': 'application/json'
+}
+});
+if (response.ok) {
+mailingForm.reset();
+successMsg.style.display = 'block';
+successMsg.style.marginLeft = 'auto';
+successMsg.style.marginRight = 'auto';
+}
+} catch (err) {
+// Silently fail to avoid breaking UX
+}
+});
+}
+// --- Signup connector: animated on scroll ---
+const connectorLine = document.getElementById('signup-connector');
+const connectorDot = document.getElementById('signup-dot');
+const connectorLineRight = document.getElementById('signup-connector-right');
+const connectorDotRight = document.getElementById('signup-dot-right');
+const connectorLineUpper = document.getElementById('signup-connector-right-upper');
+const connectorLineLower = document.getElementById('signup-connector-right-lower');
+const energyParticles = document.getElementById('energy-particles');
+const particles = document.querySelectorAll('.particle');
+const signupForm = document.querySelector('.signup-form');
+if (window.innerWidth > 768 && connectorLine && connectorDot && connectorLineRight && connectorDotRight && signupForm) {
+let maxWidth = 0;
+let startX = -140;
+let particlesActivated = false;
+function recalc() {
+const formRect = signupForm.getBoundingClientRect();
+const leftStartX = -140;
+const leftEndX = formRect.left - 14;
+maxWidth = Math.max(0, leftEndX - leftStartX);
+// Left connector (incoming)
+connectorLine.style.left = `${leftStartX}px`;
+connectorLine.style.width = `0px`;
+connectorDot.style.left = `0px`;
+// Right connectors (outgoing) - all start from same point
+const rightStartX = formRect.right + 14;
+connectorLineRight.style.left = `${rightStartX}px`;
+connectorLineRight.style.width = `0px`;
+connectorDotRight.style.left = `0px`;
+if (connectorLineUpper) {
+connectorLineUpper.style.left = `${rightStartX}px`;
+connectorLineUpper.style.width = `0px`;
+const upperDot = connectorLineUpper.querySelector('.connector-dot');
+if (upperDot) upperDot.style.left = `0px`;
+}
+if (connectorLineLower) {
+connectorLineLower.style.left = `${rightStartX}px`;
+connectorLineLower.style.width = `0px`;
+const lowerDot = connectorLineLower.querySelector('.connector-dot');
+if (lowerDot) lowerDot.style.left = `0px`;
+}
+if (energyParticles) {
+energyParticles.style.left = `${rightStartX}px`;
+}
+}
+function onScroll() {
+const rect = signupForm.getBoundingClientRect();
+const vh = window.innerHeight;
+const progress = Math.min(
+1,
+Math.max(
+0,
+(vh - rect.top) / (vh * 0.6)
+)
+);
+// Softer ease-out tail
+const easeInOut = progress * progress * (3 - 2 * progress);
+const tailEase = 1 - Math.pow(1 - easeInOut, 3);
+const eased = tailEase;
+const width = maxWidth * eased;
+connectorLine.style.width = `${width}px`;
+connectorLine.style.transition = 'width 0.18s cubic-bezier(0.2, 0.8, 0.2, 1)';
+connectorDot.style.transition = 'left 0.18s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.35s cubic-bezier(0.2, 0.9, 0.2, 1)';
+// Glow ramps with progress
+const glowStrength = 0.35 + eased * 0.65;
+connectorLine.style.boxShadow = `0 0 ${24 + eased * 36}px rgba(107,92,255,${glowStrength})`;
+connectorDot.style.left = `${width}px`;
+connectorDot.style.boxShadow = `0 0 ${18 + eased * 32}px rgba(107,92,255,${glowStrength})`;
+// Stronger dot arrival scale
+if (eased > 0.9) {
+const arriveProgress = Math.min(1, (eased - 0.9) / 0.1);
+const scale = 0.85 + arriveProgress * 0.45; // up to 1.3
+connectorDot.style.transform = `translate(-50%,-50%) scale(${scale})`;
+} else {
+connectorDot.style.transform = 'translate(-50%,-50%) scale(0.85)';
+}
+// Right side - staggered multi-line animation
+const outDelay = 0.55;
+const outProgress = Math.max(0, (progress - outDelay) / (1 - outDelay));
+const outEase = outProgress * outProgress * (3 - 2 * outProgress);
+// Main line (center)
+const outWidth = maxWidth * outEase;
+connectorLineRight.style.width = `${outWidth}px`;
+connectorLineRight.style.boxShadow = `
+0 0 ${30 + outEase * 50}px rgba(34,197,94,${0.4 + outEase * 0.5}),
+0 0 ${60 + outEase * 80}px rgba(34,197,94,${0.2 + outEase * 0.3})
+`;
+connectorDotRight.style.left = `${outWidth}px`;
+connectorDotRight.style.boxShadow = `
+0 0 ${20 + outEase * 40}px rgba(34,197,94,${0.5 + outEase * 0.5}),
+0 0 ${40 + outEase * 60}px rgba(34,197,94,${0.3 + outEase * 0.4})
+`;
+// Upper line (blue) - slightly delayed, full length
+const upperDelay = 0.62;
+const upperProgress = Math.max(0, (progress - upperDelay) / (1 - upperDelay));
+const upperEase = upperProgress * upperProgress * (3 - 2 * upperProgress);
+const upperWidth = maxWidth * upperEase;
+if (connectorLineUpper) {
+connectorLineUpper.style.width = `${upperWidth}px`;
+connectorLineUpper.style.boxShadow = `
+0 0 ${25 + upperEase * 40}px rgba(59,130,246,${0.3 + upperEase * 0.5}),
+0 0 ${50 + upperEase * 60}px rgba(59,130,246,${0.15 + upperEase * 0.25})
+`;
+const upperDot = connectorLineUpper.querySelector('.connector-dot');
+if (upperDot) {
+upperDot.style.left = `${upperWidth}px`;
+upperDot.style.boxShadow = `0 0 ${15 + upperEase * 25}px rgba(59,130,246,${0.5 + upperEase * 0.5})`;
+}
+}
+// Lower line (purple) - more delayed, full length
+const lowerDelay = 0.68;
+const lowerProgress = Math.max(0, (progress - lowerDelay) / (1 - lowerDelay));
+const lowerEase = lowerProgress * lowerProgress * (3 - 2 * lowerProgress);
+const lowerWidth = maxWidth * lowerEase;
+if (connectorLineLower) {
+connectorLineLower.style.width = `${lowerWidth}px`;
+connectorLineLower.style.boxShadow = `
+0 0 ${25 + lowerEase * 40}px rgba(168,85,247,${0.3 + lowerEase * 0.5}),
+0 0 ${50 + lowerEase * 60}px rgba(168,85,247,${0.15 + lowerEase * 0.25})
+`;
+const lowerDot = connectorLineLower.querySelector('.connector-dot');
+if (lowerDot) {
+lowerDot.style.left = `${lowerWidth}px`;
+lowerDot.style.boxShadow = `0 0 ${15 + lowerEase * 25}px rgba(168,85,247,${0.5 + lowerEase * 0.5})`;
+}
+}
+// Activate energy flow animation when mostly extended
+if (outEase > 0.7) {
+connectorLineRight.classList.add('active');
+if (connectorLineUpper) connectorLineUpper.classList.add('active');
+if (connectorLineLower) connectorLineLower.classList.add('active');
+// Activate particles
+if (!particlesActivated && outEase > 0.85) {
+particlesActivated = true;
+particles.forEach(p => p.classList.add('active'));
+if (energyParticles) {
+energyParticles.style.left = `${signupForm.getBoundingClientRect().right + 14 + outWidth - 20}px`;
+}
+}
+} else {
+connectorLineRight.classList.remove('active');
+if (connectorLineUpper) connectorLineUpper.classList.remove('active');
+if (connectorLineLower) connectorLineLower.classList.remove('active');
+particles.forEach(p => p.classList.remove('active'));
+particlesActivated = false;
+}
+// Update particle position as line extends
+if (energyParticles && outEase > 0) {
+const baseLeft = signupForm.getBoundingClientRect().right + 14;
+energyParticles.style.left = `${baseLeft + outWidth - 10}px`;
+}
+if (outEase > 0.9) {
+const arrive = Math.min(1, (outEase - 0.9) / 0.1);
+const baseScale = 0.85 + arrive * 0.45;
+connectorDotRight.style.setProperty('--dot-scale', baseScale);
+} else {
+connectorDotRight.style.setProperty('--dot-scale', 0.85);
+}
+}
+window.addEventListener('resize', recalc);
+window.addEventListener('scroll', onScroll, { passive: true });
+connectorDotRight.style.setProperty('--dot-scale', 0.85);
+recalc();
+onScroll();
+}
+// --- Accordion for How It Works ---
+const accordionBtn = document.querySelector('.how-accordion-btn');
+const accordion = document.getElementById('howAccordion');
+if (accordionBtn && accordion){
+accordionBtn.addEventListener('click', () => {
+const isOpen = accordion.classList.toggle('open');
+accordionBtn.querySelector('.chevron').style.transform =
+isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
+if (isOpen){
+accordion.style.maxHeight = accordion.scrollHeight + 'px';
+} else {
+accordion.style.maxHeight = '0px';
+}
+});
+}
+
+// Card stack darkening effect on scroll
+function initCardStackDarkening() {
+  const section = document.querySelector('.card-stack-section');
+  const cardStack = document.querySelector('.card-stack');
+  const cards = document.querySelectorAll('.stack-card');
+  if (!section || !cardStack || !cards.length) return;
+  
+  function updateOverlays() {
+    const sectionRect = section.getBoundingClientRect();
+    const sectionTop = sectionRect.top;
+    const sectionBottom = sectionRect.bottom;
+    const windowHeight = window.innerHeight;
+    
+    // Blur in: when section top enters viewport
+    const blurInStart = windowHeight * 0.8; // Start blur-in when section is 80% down viewport
+    const blurInEnd = windowHeight * 0.3; // Fully visible when section is 30% down viewport
+    
+    // Blur out: when section bottom leaves viewport
+    const blurOutStart = windowHeight * 0.5; // Start blur-out when bottom is at 50% of viewport
+    const blurOutEnd = windowHeight * 0.1; // Fully blurred when bottom is at 10% of viewport
+    
+    // Calculate blur-in progress
+    if (sectionTop > blurInStart) {
+      // Section not yet in view - fully blurred
+      cardStack.classList.remove('in-view');
+      cardStack.classList.remove('blur-out');
+    } else if (sectionTop > blurInEnd) {
+      // Blurring in
+      const progress = 1 - (sectionTop - blurInEnd) / (blurInStart - blurInEnd);
+      cardStack.style.filter = `blur(${20 * (1 - progress)}px)`;
+      cardStack.style.opacity = progress;
+      cardStack.classList.remove('in-view');
+      cardStack.classList.remove('blur-out');
+    } else if (sectionBottom > blurOutStart) {
+      // Fully in view
+      cardStack.classList.add('in-view');
+      cardStack.classList.remove('blur-out');
+      cardStack.style.filter = '';
+      cardStack.style.opacity = '';
+    } else if (sectionBottom > blurOutEnd) {
+      // Blurring out
+      const progress = (sectionBottom - blurOutEnd) / (blurOutStart - blurOutEnd);
+      cardStack.style.filter = `blur(${20 * (1 - progress)}px)`;
+      cardStack.style.opacity = progress;
+      cardStack.classList.remove('in-view');
+      cardStack.classList.remove('blur-out');
+    } else {
+      // Section has scrolled past - fully blurred
+      cardStack.classList.remove('in-view');
+      cardStack.classList.add('blur-out');
+      cardStack.style.filter = '';
+      cardStack.style.opacity = '';
+    }
+    
+    // Darkening effect for individual cards
+    cards.forEach((card, index) => {
+      const overlay = card.querySelector('.stack-card-overlay');
+      if (!overlay || index >= cards.length - 1) return;
+      
+      const cardHeight = card.offsetHeight;
+      const gap = 24;
+      const zoneStart = index * (cardHeight + gap);
+      
+      const scrollIntoSection = -sectionTop;
+      const progressThroughZone = (scrollIntoSection - zoneStart) / cardHeight;
+      
+      if (progressThroughZone > 0.3 && progressThroughZone < 2) {
+        const darkenProgress = Math.min((progressThroughZone - 0.3) / 0.7, 1);
+        const maxDarken = 0.55;
+        overlay.style.background = `rgba(0,0,0,${darkenProgress * maxDarken})`;
+      } else if (progressThroughZone >= 2) {
+        overlay.style.background = 'rgba(0,0,0,0.55)';
+      } else {
+        overlay.style.background = 'rgba(0,0,0,0)';
+      }
     });
   }
+  
+  window.addEventListener('scroll', updateOverlays, { passive: true });
+  updateOverlays();
+}
 
-  // Ghost overlay: 5-stage cactus growth stepper
-  var growth = document.getElementById('growth');
-  var stageImgs = document.querySelectorAll('.stage-img');
-  var growthVal = document.getElementById('growthVal');
-  var stageLabel = document.getElementById('stageLabel');
-  var labels = ['Month 1', 'Month 4', 'Month 7', 'Month 10', 'Month 12'];
-  // Overlay chart data
-  var gcClip = document.getElementById('gcClip');
-  var gcDot = document.getElementById('gcDot');
-  var gcValue = document.getElementById('gcValue');
-  var PTS_X = [6, 78, 150, 222, 294];
-  var PTS_Y = [38.8, 31.6, 23.2, 14.8, 6.4];
-  var HEIGHTS = [2, 14, 28, 42, 56];
-  if (growth && stageImgs.length) {
-    var n = stageImgs.length;               // 5 frames
-    var segs = n - 1;                        // 4 transitions
+initCardStackDarkening();
 
-    // Paint the whole demo for a slider value of 0..100
-    var renderGrowth = function (value) {
-      var t = value / 100;                   // 0..1 across the whole timeline
-      var pos = t * segs;                    // 0..4 continuous position
-      var lower = Math.floor(pos);
-      if (lower >= segs) lower = segs - 1;   // clamp at the end
-      var frac = pos - lower;                // 0..1 within the current segment
-      // Fade every frame: the current one fades out as the next fades in.
-      for (var i = 0; i < n; i++) {
-        var o = 0;
-        if (i === lower) o = 1 - frac;
-        else if (i === lower + 1) o = frac;
-        stageImgs[i].style.opacity = o;
-      }
-      // Snap the badge/label to whichever frame is most visible.
-      var nearest = frac < 0.5 ? lower : lower + 1;
-      if (growthVal) growthVal.textContent = labels[nearest];
-      if (stageLabel) stageLabel.textContent = labels[nearest];
-      growth.style.setProperty('--fill', value + '%');
-
-      // Build the overlay chart, snapping to whichever data point is active
-      if (gcClip && gcDot && gcValue) {
-        gcClip.setAttribute('width', Math.max(6, PTS_X[nearest]));
-        // Position the CSS dot by percentage of the 300x44 viewBox (stays a true circle)
-        gcDot.style.left = (PTS_X[nearest] / 300 * 100) + '%';
-        gcDot.style.top = (PTS_Y[nearest] / 44 * 100) + '%';
-        gcValue.innerHTML = HEIGHTS[nearest] + '<span> cm</span>';
-      }
-    };
-
-    growth.addEventListener('input', function () { renderGrowth(+growth.value); });
-    renderGrowth(+growth.value);
-
-    // Autoplay: step through the timeline so the drag affordance is obvious.
-    // Any interaction hands control to the person permanently.
-    var ghostHint = document.getElementById('ghostHint');
-    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var autoOn = !reduceMotion;
-    var autoVisible = true;
-    var rafId = null;
-    var phaseIdx = 0;
-    var phaseStart = null;
-
-    // from/to are stage positions (0..4); a phase with from === to is a hold
-    var phases = [{ from: 0, to: 0, dur: 900 }];
-    for (var s = 0; s < segs; s++) {
-      phases.push({ from: s, to: s + 1, dur: 950 });
-      phases.push({ from: s + 1, to: s + 1, dur: s === segs - 1 ? 1800 : 700 });
+// Parallax CTA section scroll trigger
+function initParallaxCTA() {
+  const ctaSection = document.querySelector('.parallax-cta-section');
+  const scrollIndicator = document.querySelector('.scroll-indicator-parallax');
+  const unplugCable = document.querySelector('.unplug-cable');
+  const unplugDrive = document.querySelector('.unplug-drive');
+  if (!ctaSection) return;
+  
+  function checkCTAVisibility() {
+    const rect = ctaSection.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+    
+    // Trigger when section is 70% into viewport
+    if (rect.top < windowHeight * 0.7 && rect.bottom > 0) {
+      ctaSection.classList.add('in-view');
     }
-    phases.push({ from: segs, to: 0, dur: 900 });  // rewind
-
-    var easeInOut = function (x) {
-      return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
-    };
-
-    var stopAuto = function () {
-      if (!autoOn) return;
-      autoOn = false;
-      if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
-      if (ghostHint) ghostHint.textContent = 'Each frame perfectly aligned by ghost overlay.';
-    };
-
-    var tick = function (now) {
-      if (!autoOn) return;
-      if (phaseStart === null) phaseStart = now;
-      if (document.hidden || !autoVisible) { phaseStart = now; rafId = requestAnimationFrame(tick); return; }
-      var ph = phases[phaseIdx];
-      var k = Math.min(1, (now - phaseStart) / ph.dur);
-      var pos = ph.from + (ph.to - ph.from) * easeInOut(k);
-      growth.value = Math.round(pos / segs * 100);
-      renderGrowth(+growth.value);
-      if (k >= 1) {
-        phaseIdx = (phaseIdx + 1) % phases.length;
-        phaseStart = now;
+    
+    // Parallax effect for scroll indicator
+    if (scrollIndicator && rect.top < windowHeight && rect.bottom > 0) {
+      const scrollProgress = (windowHeight - rect.top) / (windowHeight + rect.height);
+      const parallaxOffset = scrollProgress * 50;
+      scrollIndicator.style.transform = `translateY(${parallaxOffset}px)`;
+    }
+    
+    // Unplugging parallax effect
+    if ((unplugCable || unplugDrive) && rect.top < windowHeight && rect.bottom > 0) {
+      const scrollProgress = (windowHeight - rect.top) / (windowHeight + rect.height);
+      const unplugOffset = scrollProgress * 500; // How far they move apart
+      
+      if (unplugCable) {
+        unplugCable.style.transform = `translateY(-50%) translateX(calc(-100% - ${unplugOffset}px))`;
       }
-      rafId = requestAnimationFrame(tick);
-    };
-
-    var startAuto = function () {
-      if (!autoOn || rafId) return;
-      phaseStart = null;
-      rafId = requestAnimationFrame(tick);
-    };
-
-    var handOver = ['pointerdown', 'mousedown', 'touchstart', 'keydown', 'input', 'focus'];
-    for (var h = 0; h < handOver.length; h++) {
-      growth.addEventListener(handOver[h], stopAuto, { passive: true });
-    }
-
-    // Only burn frames while the demo is actually on screen
-    if ('IntersectionObserver' in window) {
-      var ghostIo = new IntersectionObserver(function (entries) {
-        autoVisible = entries[0].isIntersecting;
-      }, { threshold: 0.15 });
-      ghostIo.observe(growth.closest('.ghost-demo') || growth);
-    }
-    if (reduceMotion) {
-      // Honour reduced-motion: no autoplay, so the hint shouldn't claim it's playing
-      if (ghostHint) ghostHint.textContent = 'Drag the slider to watch the cactus grow, each frame perfectly aligned by ghost overlay.';
-    } else {
-      startAuto();
+      if (unplugDrive) {
+        unplugDrive.style.transform = `translateY(-50%) translateX(calc(100% + ${unplugOffset}px))`;
+      }
     }
   }
+  
+  window.addEventListener('scroll', checkCTAVisibility, { passive: true });
+  checkCTAVisibility();
+}
 
-  // Metric graph: switchable scenarios, drawn on scroll and redrawn on demand
-  var metricSvg = document.getElementById('metricSvg');
-  if (metricSvg) {
-    var PLOT = { x0: 70, x1: 760, yTop: 40, yBot: 360, labelY: 392 };
-
-    // Each scenario shares one y-axis, so both series are chosen to sit on the same scale
-    var SCENARIOS = {
-      skin: {
-        title: 'Skin confidence journey',
-        sub: 'New retinoid routine · 9 months',
-        min: 0, max: 100,
-        x: ['Start','M1','M2','M3','M4','M5','M6','M7','M8','M9'],
-        a: { name: 'Self-consciousness', v: [85,82,74,78,66,58,61,44,33,27] },
-        b: { name: 'Happiness',          v: [30,34,41,38,50,57,55,68,74,81] },
-        foot: "Self-consciousness started high and happiness low. Nine months on, with the real dips and setbacks along the way, the lines have crossed. That's the story the photos alone can't tell you."
-      },
-      weight: {
-        title: 'Body recomposition',
-        sub: 'Strength training and walking · 12 weeks',
-        min: 85, max: 105,
-        x: ['Start','W2','W4','W6','W8','W10','W12'],
-        a: { name: 'Waist (cm)',  v: [104,102,100,99,97,95,93.5] },
-        b: { name: 'Weight (kg)', v: [92.4,91.1,89.6,89.8,88.2,86.9,85.4] },
-        foot: 'Weight barely moved for a fortnight in the middle, and plenty of people quit at exactly that point. The waist measurement kept falling the whole time. Two metrics beside the same photo show you the plateau was never a plateau.'
-      },
-      mood: {
-        title: 'Mood and stress',
-        sub: 'Daily check-in · 8 weeks',
-        min: 0, max: 10,
-        x: ['Start','W1','W2','W3','W4','W5','W6','W7'],
-        a: { name: 'Stress', v: [7.8,8.1,6.9,7.2,5.9,5.2,5.6,4.1] },
-        b: { name: 'Mood',   v: [4.2,4.0,5.1,4.6,5.8,6.4,6.2,7.3] },
-        foot: 'Neither line moves in a straight path, and week three looked like a step backwards at the time. Logged next to a photo each day, the direction of travel shows up long before you would feel it.'
-      },
-      sleep: {
-        title: 'Sleep quality',
-        sub: 'New evening routine · 8 weeks',
-        min: 0, max: 10,
-        x: ['Start','W1','W2','W3','W4','W5','W6','W7'],
-        a: { name: 'Hours slept',   v: [5.4,5.9,5.6,6.4,6.8,6.6,7.2,7.5] },
-        b: { name: 'Felt rested',   v: [3.5,4.2,4.0,5.4,6.1,5.8,7.0,7.8] },
-        foot: 'Hours in bed and how rested you actually felt are two different numbers. Tracking both tells you which one your new routine is really moving, and whether the extra hour is doing anything at all.'
-      },
-      plant: {
-        title: 'Cactus growth',
-        sub: 'Measured monthly · 12 months',
-        min: 0, max: 20,
-        x: ['M1','M2','M3','M4','M5','M6','M7','M8','M9','M10','M11','M12'],
-        a: { name: 'Height (cm)', v: [2,2.6,3.4,4.8,6.2,7.5,8.0,8.2,9.4,12.1,15.0,18] },
-        b: { name: 'Waterings',   v: [1,2,4,5,6,7,8,10,11,12,13,14] },
-        foot: 'Growth flattened over the winter months while the watering carried on as usual. The photos show you that nothing happened; the metrics show you why, and what to do differently next year.'
-      },
-      reno: {
-        title: 'Kitchen renovation',
-        sub: 'Six-week rebuild · logged weekly',
-        min: 0, max: 100,
-        x: ['Start','W1','W2','W3','W4','W5','W6'],
-        a: { name: 'Progress',     v: [0,15,32,44,58,80,100] },
-        b: { name: 'Satisfaction', v: [30,22,18,35,54,76,95] },
-        foot: 'Satisfaction fell through demolition and only caught up with progress right at the end. Worth having on record for the next project, when week two feels like an expensive mistake.'
-      }
-    };
-
-    var fmt = function (n) {
-      return (Math.round(n * 10) / 10).toString();
-    };
-    var yOf = function (v, s) {
-      var r = (v - s.min) / (s.max - s.min);
-      return PLOT.yBot - r * (PLOT.yBot - PLOT.yTop);
-    };
-    var xOf = function (i, n) {
-      return n < 2 ? PLOT.x0 : PLOT.x0 + (PLOT.x1 - PLOT.x0) * (i / (n - 1));
-    };
-
-    // Catmull-Rom through every point, converted to cubic beziers
-    var pathOf = function (vals, s) {
-      var n = vals.length, pts = [], i;
-      for (i = 0; i < n; i++) pts.push([xOf(i, n), yOf(vals[i], s)]);
-      var d = 'M ' + pts[0][0].toFixed(1) + ',' + pts[0][1].toFixed(1);
-      for (i = 0; i < n - 1; i++) {
-        var p0 = pts[i > 0 ? i - 1 : 0], p1 = pts[i], p2 = pts[i + 1];
-        var p3 = pts[i + 2 < n ? i + 2 : n - 1];
-        var c1x = p1[0] + (p2[0] - p0[0]) / 6, c1y = p1[1] + (p2[1] - p0[1]) / 6;
-        var c2x = p2[0] - (p3[0] - p1[0]) / 6, c2y = p2[1] - (p3[1] - p1[1]) / 6;
-        d += ' C ' + c1x.toFixed(1) + ',' + c1y.toFixed(1) + ' ' + c2x.toFixed(1) + ',' + c2y.toFixed(1) +
-             ' ' + p2[0].toFixed(1) + ',' + p2[1].toFixed(1);
-      }
-      return d;
-    };
-
-    var buildSvg = function (s) {
-      var n = s.x.length, i, out = '';
-      out += '<defs>' +
-        '<linearGradient id="scFill" x1="0" y1="0" x2="0" y2="1">' +
-        '<stop offset="0%" stop-color="var(--sc-color)" stop-opacity="0.18"/>' +
-        '<stop offset="100%" stop-color="var(--sc-color)" stop-opacity="0"/></linearGradient>' +
-        '<linearGradient id="hpFill" x1="0" y1="0" x2="0" y2="1">' +
-        '<stop offset="0%" stop-color="var(--hp-color)" stop-opacity="0.22"/>' +
-        '<stop offset="100%" stop-color="var(--hp-color)" stop-opacity="0"/></linearGradient></defs>';
-
-      // grid + axis labels
-      out += '<g class="grid-group">';
-      for (i = 0; i < 5; i++) {
-        var gy = PLOT.yBot - (PLOT.yBot - PLOT.yTop) * (i / 4);
-        var gv = s.min + (s.max - s.min) * (i / 4);
-        out += '<line class="grid" x1="' + PLOT.x0 + '" y1="' + gy.toFixed(1) + '" x2="' + PLOT.x1 + '" y2="' + gy.toFixed(1) + '"/>';
-        out += '<text class="axis-lbl" x="58" y="' + (gy + 4).toFixed(1) + '" text-anchor="end">' + fmt(gv) + '</text>';
-      }
-      for (i = 0; i < n; i++) {
-        out += '<text class="axis-lbl" x="' + xOf(i, n).toFixed(1) + '" y="' + PLOT.labelY + '" text-anchor="middle">' + s.x[i] + '</text>';
-      }
-      out += '</g>';
-
-      var dA = pathOf(s.a.v, s), dB = pathOf(s.b.v, s);
-      var close = ' L ' + PLOT.x1.toFixed(1) + ',' + PLOT.yBot + ' L ' + PLOT.x0.toFixed(1) + ',' + PLOT.yBot + ' Z';
-      out += '<path class="area area-sc" d="' + dA + close + '" fill="url(#scFill)"/>';
-      out += '<path class="area area-hp" d="' + dB + close + '" fill="url(#hpFill)"/>';
-      out += '<path class="line line-sc" d="' + dA + '" fill="none"/>';
-      out += '<path class="line line-hp" d="' + dB + '" fill="none"/>';
-
-      out += '<g class="pts-group">';
-      for (i = 0; i < n; i++) {
-        out += '<circle class="pt pt-hp" cx="' + xOf(i, n).toFixed(1) + '" cy="' + yOf(s.b.v[i], s).toFixed(1) + '" r="5" style="--i:' + i + '"/>';
-      }
-      for (i = 0; i < n; i++) {
-        out += '<circle class="pt pt-sc" cx="' + xOf(i, n).toFixed(1) + '" cy="' + yOf(s.a.v[i], s).toFixed(1) + '" r="5" style="--i:' + i + '"/>';
-      }
-      out += '</g>';
-      return out;
-    };
-
-    var setLengths = function () {
-      var lines = metricSvg.querySelectorAll('.line');
-      for (var li = 0; li < lines.length; li++) {
-        var len = 1200;
-        try { len = Math.ceil(lines[li].getTotalLength()); } catch (e) {}
-        lines[li].style.setProperty('--len', len);
-      }
-    };
-
-    var mTitle = document.getElementById('metricTitle');
-    var mSub = document.getElementById('metricSub');
-    var mFoot = document.getElementById('metricFoot');
-    var legSc = document.getElementById('legSc');
-    var legHp = document.getElementById('legHp');
-    var tagBtns = document.querySelectorAll('#metricTags button.mtag');
-
-    var showScenario = function (key) {
-      var s = SCENARIOS[key];
-      if (!s) return;
-      if (mTitle) mTitle.textContent = s.title;
-      if (mSub) mSub.textContent = s.sub;
-      if (mFoot) mFoot.textContent = s.foot;
-      if (legSc) legSc.innerHTML = '<i></i> ' + s.a.name;
-      if (legHp) legHp.innerHTML = '<i></i> ' + s.b.name;
-      metricSvg.setAttribute('aria-label',
-        'Line graph of ' + s.a.name + ' and ' + s.b.name + ' over ' + s.x.length + ' points: ' + s.title);
-      // Rebuilding the nodes resets the draw animation cleanly, with no reverse tween
-      metricSvg.classList.remove('drawn');
-      metricSvg.innerHTML = buildSvg(s);
-      setLengths();
-      var play = function () { metricSvg.classList.add('drawn'); };
-      if (window.requestAnimationFrame) { window.requestAnimationFrame(play); } else { setTimeout(play, 30); }
-      for (var b = 0; b < tagBtns.length; b++) {
-        var on = tagBtns[b].getAttribute('data-scn') === key;
-        tagBtns[b].classList.toggle('active', on);
-        tagBtns[b].setAttribute('aria-pressed', on ? 'true' : 'false');
-      }
-    };
-
-    for (var b2 = 0; b2 < tagBtns.length; b2++) {
-      tagBtns[b2].addEventListener('click', function () {
-        showScenario(this.getAttribute('data-scn'));
-      });
-    }
-
-    // First draw uses the markup already in the page, so it works without JS too
-    setLengths();
-    var drawObserver = null;
-    if ('IntersectionObserver' in window) {
-      drawObserver = new IntersectionObserver(function (entries) {
-        entries.forEach(function (en) {
-          if (en.isIntersecting) {
-            metricSvg.classList.add('drawn');
-            drawObserver.unobserve(en.target);
-          }
-        });
-      }, { threshold: 0.35 });
-      drawObserver.observe(metricSvg);
-    } else {
-      metricSvg.classList.add('drawn');
-    }
-  }
-
-  // Expandable journey examples: tiles that open a full sequence below
-  var jx = document.getElementById('jx');
-  if (jx) {
-    jx.classList.add('jx-init');
-    jx.classList.add('jx-on');
-    var jxUnlock = function () { jx.classList.remove('jx-init'); };
-    if (window.requestAnimationFrame) { window.requestAnimationFrame(jxUnlock); } else { setTimeout(jxUnlock, 30); }
-    var jxTabs = jx.querySelectorAll('.jx-tab');
-    var jxPanelOf = function (tab) {
-      return document.getElementById(tab.getAttribute('aria-controls'));
-    };
-    var jxClose = function (tab, instant) {
-      var panel = jxPanelOf(tab);
-      tab.classList.remove('active');
-      tab.setAttribute('aria-expanded', 'false');
-      if (!panel) return;
-      if (instant) {
-        panel.classList.add('instant');
-        panel.classList.remove('open');
-        void panel.offsetHeight;
-        panel.classList.remove('instant');
-      } else {
-        panel.classList.remove('open');
-      }
-    };
-    var jxHandler = function () {
-      var wasOpen = this.classList.contains('active');
-      for (var k = 0; k < jxTabs.length; k++) {
-        if (jxTabs[k] !== this) jxClose(jxTabs[k], true);
-      }
-      if (wasOpen) { jxClose(this, false); return; }
-      var panel = jxPanelOf(this);
-      this.classList.add('active');
-      this.setAttribute('aria-expanded', 'true');
-      if (panel) panel.classList.add('open');
-    };
-    for (var t2 = 0; t2 < jxTabs.length; t2++) {
-      jxTabs[t2].addEventListener('click', jxHandler);
-    }
-  }
-
-  // Pricing: yearly / monthly billing toggle
-  var billOpts = document.querySelectorAll('.bill-opt');
-  var planAmt = document.getElementById('planAmt');
-  var planPer = document.getElementById('planPer');
-  var planNote = document.getElementById('planNote');
-  if (billOpts.length && planAmt) {
-    var billing = {
-      year: { amt: '$19.99', per: 'per year', note: "That's $1.67 a month, a 58% saving against paying monthly." },
-      month: { amt: '$3.99', per: 'per month', note: 'Billed monthly. Switch to yearly whenever you like and save 58%.' }
-    };
-    var setBilling = function (key) {
-      var b = billing[key];
-      if (!b) return;
-      planAmt.textContent = b.amt;
-      planPer.textContent = b.per;
-      planNote.textContent = b.note;
-      for (var m = 0; m < billOpts.length; m++) {
-        var on = billOpts[m].getAttribute('data-bill') === key;
-        billOpts[m].classList.toggle('active', on);
-        billOpts[m].setAttribute('aria-pressed', on ? 'true' : 'false');
-      }
-    };
-    for (var b2 = 0; b2 < billOpts.length; b2++) {
-      billOpts[b2].addEventListener('click', function () {
-        setBilling(this.getAttribute('data-bill'));
-      });
-    }
-  }
-
-  // Scroll reveal: enable hide-then-reveal ONLY if IntersectionObserver is supported.
-  // If anything here fails, content stays fully visible (no blank page).
-  if ('IntersectionObserver' in window) {
-    document.body.classList.add('js-anim');
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
-      });
-    }, { threshold: 0.12 });
-    var reveals = document.querySelectorAll('.reveal');
-    for (var i = 0; i < reveals.length; i++) io.observe(reveals[i]);
-    // Safety net: if any reveal hasn't fired within 2.5s, show everything.
-    setTimeout(function () {
-      var r = document.querySelectorAll('.reveal:not(.in)');
-      for (var j = 0; j < r.length; j++) r[j].classList.add('in');
-    }, 2500);
-  }
-})();
+initParallaxCTA();
 </script>
 </body>
 </html>
