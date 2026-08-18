@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -156,6 +157,13 @@ figure.shot figcaption{font-size:13px;color:var(--muted);text-align:center;margi
 @media(max-width:640px){.float-cta{left:16px;right:16px;justify-content:center}}
 
 @media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}html{scroll-behavior:auto}}
+
+/* Hero CTA - high on the page */
+.hero-cta{background:linear-gradient(135deg,rgba(47,107,255,.10),rgba(106,162,255,.06));border:1px solid rgba(47,107,255,.20);border-radius:20px;padding:28px 32px;margin:36px 0;text-align:center}
+.hero-cta strong{display:block;font-size:19px;font-weight:800;color:var(--text);margin-bottom:6px;line-height:1.35}
+.hero-cta p{margin:0 0 18px;font-size:15px;color:var(--muted)}
+.hero-cta .cta-button{font-size:16px;padding:15px 32px}
+@media(max-width:560px){.hero-cta{padding:24px 20px}.hero-cta strong{font-size:17px}.hero-cta .cta-button{width:100%;text-align:center}}
 </style>
 
 <script type="application/ld+json">
@@ -242,59 +250,30 @@ figure.shot figcaption{font-size:13px;color:var(--muted);text-align:center;margi
   </header>
 
   <article class="article-content">
-
-    <p class="intro-text">A lecturer we spoke to put the problem better than we could. She had a student from four years ago apply for a research post, and she wanted to reread the dissertation before writing the reference. She knew she had it. It was on one of the six drives stacked on the shelf behind her desk. What she did not know was which drive, which folder, or what the file was called - because the student had named it <em>Final_Draft_2.pdf</em>, like everyone else.</p>
+    <p class="intro-text">A lecturer described this problem to us better than we could. A student from four years ago applied for a research post, and she wanted to reread the dissertation before writing the reference. She knew she had it. It was on one of the six drives stacked on the shelf behind her desk. What she did not know was which drive, which folder, or what the file was called - because the student had named it <em>Final_Draft_2.pdf</em>, like everyone else.</p>
 
     <p>She found it eventually. It took most of an afternoon and involved plugging in every drive in turn.</p>
 
-    <p>That afternoon is what <strong>Context Scan</strong> is designed to give back. It is a new scan type in DriveVault, available now in beta to every user at no extra cost, and it does something the app could not do before: it reads the words inside your PDF documents and makes them searchable - permanently, and without the drive being connected.</p>
+    <p><strong>That afternoon is what Context Scan gives back.</strong> It is a new scan type in DriveVault, available now in beta to every user at no extra cost, and it does something the app could not do before: it reads the words inside your PDF documents and makes them permanently searchable - with the drive unplugged, sitting on a shelf.</p>
 
     <p>Search a student's name. Search a case reference. Search a phrase you half-remember from a report you wrote in 2021. DriveVault tells you which drive it is on, which folder it is in, and what the file is actually called.</p>
 
-    <div class="tldr-box">
-      <h2>What This Article Covers</h2>
-      <ul>
-        <li>Why filename-based search fails completely for document archives</li>
-        <li>What Context Scan does, and how it differs from Quick Scan and Full Scan</li>
-        <li>How to run your first Context Scan, step by step</li>
-        <li>The honest limitations of the beta - including the one restriction you need to plan around</li>
-        <li>Who this is built for: academia, law, medicine, research and beyond</li>
-      </ul>
+    <div class="hero-cta">
+      <strong>Need to search the PDF documents on your offline hard drives?</strong>
+      <p>Context Scan is free for all DriveVault users during the beta.</p>
+      <a class="cta-button" href="https://apps.apple.com/us/app/drivevault-offline-catalog/id6751731655?mt=12" target="_blank" rel="noopener">Download DriveVault Free</a>
     </div>
 
-    <h2>The Arithmetic Nobody Plans For</h2>
-
-    <p>Consider a single module leader at a mid-sized university. Two hundred students. Three assessed submissions a year. Say eight thousand words each. That is six hundred documents and roughly five million words - from one module, in one year.</p>
-
-    <p>Now run that forward a decade, across every module taught, with the dissertations, the resits, the ethics forms, the marking rubrics and the external examiner reports layered on top. The archive reaches into the tens of thousands of documents without anyone ever making a decision to build one. It simply accumulates, one submission window at a time.</p>
-
-    <p>And none of it can be deleted. A degree classification can be challenged years after the fact. A plagiarism query can surface long after the student has graduated. References get requested a decade later. Research data underpinning a published paper has to be retained, often for ten years or more under institutional policy. So the drives fill up, get replaced with bigger drives, and the old ones go in a drawer rather than in a bin.</p>
-
-    <p>The same shape of problem turns up everywhere that documents are the work product. A solicitor's closed matters. A consultant's archived engagements. A clinician's research files. An architect's completed projects. Nobody throws it away, because the cost of not having it once is far higher than the cost of keeping all of it forever.</p>
-
-    <h2>Why Searching That Archive Is So Painful</h2>
-
-    <p>The reason a large document archive is so hard to search is that <strong>the filename almost never tells you what is in the file</strong>. You did not name most of these documents. Students did, clients did, colleagues did, or a scanner did. What you are left with is a folder of <em>Assignment2_FINAL.pdf</em>, <em>submission (1).pdf</em> and <em>Scan_2019_04_11.pdf</em>.</p>
-
-    <p>Spotlight can look inside files, but only while the drive is plugged into your Mac. With six drives on a shelf, that means connecting each one in turn and waiting - which is exactly the afternoon our lecturer lost. And if a drive has failed, or is at another site, or is in a colleague's office, Spotlight cannot help you at all.</p>
-
-    <p>Folder structures help, right up until they do not. A hierarchy organised by year and module works beautifully for finding things by year and module. It is no use whatsoever when the thing you remember is a student's surname, a case number, or a single distinctive phrase.</p>
-
-    <div class="inline-cta">
-      <div class="inline-cta-text">
-        <strong>Have drives full of PDFs you cannot search?</strong>
-        Context Scan is free for all DriveVault users during the beta.
-      </div>
-      <a class="inline-cta-btn" href="https://apps.apple.com/us/app/drivevault-offline-catalog/id6751731655?mt=12" target="_blank" rel="noopener">Try DriveVault Free</a>
-    </div>
+    <figure class="shot">
+      <img src="/contextscanbeta.webp" alt="DriveVault scan options showing Context Scan alongside Quick Scan and Full Scan" loading="eager">
+      <figcaption>Context Scan appears alongside Quick Scan and Full Scan when you add a drive.</figcaption>
+    </figure>
 
     <h2>What Context Scan Actually Does</h2>
 
     <p>DriveVault has always cataloged the <em>structure</em> of your drives - every folder, file name, size and date - so you could browse and search a drive that was sitting unplugged in a drawer. Context Scan extends that to the <em>contents</em> of your PDFs.</p>
 
-    <p>When you run a Context Scan, DriveVault opens each PDF on the drive and reads the text inside it. That text is stored in your catalog on your Mac. From then on, searching in DriveVault searches the words in your documents as well as their names.</p>
-
-    <p>Practically, that means you can now find:</p>
+    <p>When you run a Context Scan, DriveVault opens each PDF on the drive and reads the text inside it. That text is stored in your catalog on your Mac. From then on, searching in DriveVault searches the words in your documents as well as their names. Practically, that means you can now find:</p>
 
     <ul>
       <li><strong>A person by name</strong> - a student, a client, a claimant, a co-author - even when their name appears nowhere in the filename or folder path</li>
@@ -303,32 +282,13 @@ figure.shot figcaption{font-size:13px;color:var(--muted);text-align:center;margi
       <li><strong>A topic across your whole archive</strong> - every dissertation that discusses a particular method, every report that mentions a particular site</li>
     </ul>
 
-    <p>And, as with everything else in DriveVault, this works with the drive unplugged. The catalog lives on your Mac. The drive can be on a shelf, in a safe, at another campus, or in a box in the loft.</p>
-
     <figure class="shot">
-      <img src="/contextscanbeta.webp" alt="DriveVault scan options showing Context Scan alongside Quick Scan and Full Scan" loading="lazy">
-      <figcaption>Context Scan appears alongside Quick Scan and Full Scan when you add a drive.</figcaption>
+      <img src="/contextscan-results.webp" alt="DriveVault search results showing matches found inside PDF documents on an external drive" loading="lazy">
+      <figcaption>Search results show which documents contain your term, and which drive they are stored on.</figcaption>
     </figure>
 
-    <h2>Quick Scan, Full Scan, Context Scan: Which to Use</h2>
-
-    <p>You now have three ways to scan a drive, and they answer different questions.</p>
-
-    <p><strong>Quick Scan</strong> is the fastest way to get a drive into your library. It captures the file and folder structure so you can browse and search by name.</p>
-
-    <p><strong>Full Scan</strong> captures that structure in more depth, and is what you want for a drive you intend to compare against another - verifying a backup, for instance, or working out what is safe to delete.</p>
-
-    <p><strong>Context Scan</strong> is for drives where the value is in the documents themselves rather than in how they are arranged. Archives of papers, reports, contracts, submissions, correspondence. If you find yourself opening files one by one to work out what they are, that drive wants a Context Scan.</p>
-
-    <div class="beta-box">
-      <h3>One beta limitation to plan around</h3>
-      <p>While Context Scan is in beta, <strong>a single scan is either a Context Scan or a Quick/Full Scan - not both</strong>. You choose one when you start the scan.</p>
-      <p>You can still have both for the same drive. Simply scan the drive twice, once with each method. The drive then appears twice in your library, with the second entry labelled <strong>"Context Scan"</strong> after the drive name, so the two are easy to tell apart.</p>
-      <p>It is a small amount of extra work, and it is temporary. Unifying the two into a single pass is what we are working on next.</p>
-    </div>
-
     <div class="workflow-scenario">
-      <h2>Running Your First Context Scan</h2>
+      <h2>How to Run a Context Scan</h2>
       <p>If you have never scanned a document drive before, this is the whole process.</p>
       <ul class="workflow-steps">
         <li class="workflow-step">
@@ -354,16 +314,34 @@ figure.shot figcaption{font-size:13px;color:var(--muted);text-align:center;margi
       </ul>
     </div>
 
-    <figure class="shot">
-      <img src="/contextscan-results.webp" alt="DriveVault search results showing matches found inside PDF documents on an external drive" loading="lazy">
-      <figcaption>Search results show which documents contain your term, and which drive they are stored on.</figcaption>
-    </figure>
+    <div class="beta-box">
+      <h3>One beta limitation to plan around</h3>
+      <p>While Context Scan is in beta, <strong>a single scan is either a Context Scan or a Quick/Full Scan - not both</strong>. You choose one when you start the scan.</p>
+      <p>You can still have both for the same drive. Simply scan the drive twice, once with each method. The drive then appears twice in your library, with the second entry labelled <strong>"Context Scan"</strong> after the drive name, so the two are easy to tell apart.</p>
+      <p>It is a small amount of extra work, and it is temporary. Unifying the two into a single pass is what we are working on next.</p>
+    </div>
 
-    <h2>Who Asked for This</h2>
+    <h2>Quick Scan, Full Scan, Context Scan: Which to Use</h2>
 
-    <p>Context Scan exists because university lecturers and professors kept describing the same problem to us. They are, as far as we can tell, one of the most under-served groups in file management: enormous volumes of documents they did not create, cannot rename, must not delete, and periodically have to find again.</p>
+    <p><strong>Quick Scan</strong> is the fastest way to get a drive into your library. It captures the file and folder structure so you can browse and search by name.</p>
 
-    <p>But the pattern generalises well beyond academia.</p>
+    <p><strong>Full Scan</strong> captures that structure in more depth, and is what you want for a drive you intend to compare against another - verifying a backup, for instance, or working out what is safe to delete.</p>
+
+    <p><strong>Context Scan</strong> is for drives where the value is in the documents themselves rather than in how they are arranged. Archives of papers, reports, contracts, submissions, correspondence. If you find yourself opening files one by one to work out what they are, that drive wants a Context Scan.</p>
+
+    <h2>Why Filenames Stop Working</h2>
+
+    <p>The reason a large document archive is so hard to search is that <strong>the filename almost never tells you what is in the file</strong>. You did not name most of these documents. Students did, clients did, colleagues did, or a scanner did. What you are left with is a folder of <em>Assignment2_FINAL.pdf</em>, <em>submission (1).pdf</em> and <em>Scan_2019_04_11.pdf</em>.</p>
+
+    <p>Spotlight can look inside files, but only while the drive is plugged into your Mac. With six drives on a shelf, that means connecting each one in turn and waiting - which is exactly the afternoon our lecturer lost. And if a drive is at another site, or in a colleague's office, Spotlight cannot help you at all.</p>
+
+    <p>Folder structures help, right up until they do not. A hierarchy organised by year and module works beautifully for finding things by year and module. It is no use whatsoever when the thing you remember is a student's surname, a case number, or a single distinctive phrase.</p>
+
+    <h2>Who This Is For</h2>
+
+    <p>Context Scan exists because university lecturers and professors kept describing the same problem to us. Hundreds of students a year, several submissions each, none of which can be deleted - a degree classification can be challenged years later, a plagiarism query can surface long after graduation, references get requested a decade on. The archive reaches tens of thousands of documents without anyone ever deciding to build one.</p>
+
+    <p>The pattern generalises well beyond academia.</p>
 
     <div class="use-grid">
       <div class="use-card">
@@ -384,7 +362,15 @@ figure.shot figcaption{font-size:13px;color:var(--muted);text-align:center;margi
       </div>
     </div>
 
-    <p>The common thread is documents you keep for reasons of obligation rather than convenience, on drives you touch once a year. Those are precisely the drives where the filename has stopped meaning anything and where a full text index earns its keep.</p>
+    <p>The common thread is documents you keep out of obligation rather than convenience, on drives you touch once a year. Those are precisely the drives where the filename has stopped meaning anything.</p>
+
+    <div class="inline-cta">
+      <div class="inline-cta-text">
+        <strong>Have drives full of PDFs you cannot search?</strong>
+        Scan one with Context Scan and find any document in seconds - drive unplugged.
+      </div>
+      <a class="inline-cta-btn" href="https://apps.apple.com/us/app/drivevault-offline-catalog/id6751731655?mt=12" target="_blank" rel="noopener">Try DriveVault Free</a>
+    </div>
 
     <h2>What Is and Is Not in the Beta</h2>
 
@@ -432,7 +418,7 @@ figure.shot figcaption{font-size:13px;color:var(--muted);text-align:center;margi
 
     <p>There is not much use in retaining ten years of documents if finding one of them costs you an afternoon. An archive you cannot search is closer to a storage obligation than an asset - you carry the cost of the drives and the shelf space, and get the benefit only on the rare occasions you are willing to spend half a day hunting.</p>
 
-    <p>Context Scan is an attempt to flip that. Scan the drive once, put it back on the shelf, and the entire text of everything on it stays available to you from your laptop, at a coffee shop, with the drive two hundred miles away.</p>
+    <p>Context Scan is an attempt to flip that. Scan the drive once, put it back on the shelf, and the entire text of everything on it stays available to you from your laptop, with the drive two hundred miles away.</p>
 
     <p>The student paper from four years ago should take four seconds to find. Now it does.</p>
 
