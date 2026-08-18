@@ -6,7 +6,15 @@
     <atom:link href="https://www.drivevault.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>Honest SSD reviews, gear guides and tips for managing external drives on macOS.</description>
     <language>en</language>
-    <lastBuildDate>Tue, 18 Aug 2026 14:03:14 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 18 Aug 2026 14:20:14 GMT</lastBuildDate>
+    <item>
+      <title>How to Check Whether Your Backup Drive Is Actually Complete</title>
+      <link>https://www.drivevault.io/blog/verify-backup-drive-complete-compare-two-drives.html</link>
+      <guid isPermaLink="true">https://www.drivevault.io/blog/verify-backup-drive-complete-compare-two-drives.html</guid>
+      <category>How-To</category>
+      <pubDate>Tue, 18 Aug 2026 09:00:00 GMT</pubDate>
+      <description>DriveVault's Drive Comparison checks a drive against its backup, scores how closely they match, and lists every single file that never made it across - with both drives unplugged.</description>
+    </item>
     <item>
       <title>The 5 Best 4TB External Hard Drives for Filmmakers, Photographers and Creatives (2026)</title>
       <link>https://www.drivevault.io/blog/5-Best-4TB-External-Hard-Drives-for-creatives-2026.html</link>
