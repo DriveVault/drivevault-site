@@ -1,0 +1,502 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>How to Check Whether Your Backup Drive Is Actually Complete (Mac) | DriveVault</title>
+<meta name="description" content="DriveVault's Drive Comparison checks a drive against its backup, scores how closely they match, and lists every single file that never made it across - with both drives unplugged." />
+<meta name="keywords" content="compare two hard drives mac, verify backup drive complete, find missing files backup drive, check backup hard drive mac, compare external drives, duplicate backup verification mac, DriveVault drive comparison, backup verification external hard drive" />
+<meta name="author" content="DriveVault" />
+
+<meta name="dv:tag" content="How-To" />
+<meta name="dv:date" content="2026-08-18" />
+<meta name="dv:featured" content="true" />
+
+<link rel="icon" href="/favicon.png" type="image/png" />
+<link rel="apple-touch-icon" href="/favicon.png" />
+<link rel="canonical" href="https://www.drivevault.io/blog/verify-backup-drive-complete-compare-two-drives.html" />
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to Check Whether Your Backup Drive Is Actually Complete">
+<meta property="og:description" content="Most people never find out a backup is incomplete until they need the file that is missing. Drive Comparison tells you today, in about a minute.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1652105425087-08343fe051f4?q=80&amp;w=1600&amp;auto=format&amp;fit=crop">
+<meta property="og:url" content="https://www.drivevault.io/blog/verify-backup-drive-complete-compare-two-drives.html">
+<meta property="og:site_name" content="DriveVault">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Is Your Backup Drive Actually Complete?">
+<meta name="twitter:description" content="Compare two drives in DriveVault, get a similarity score, and see every file that never made it across.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+html{scroll-behavior:smooth}
+:root{--bg:#ffffff;--bg-secondary:#f8fafc;--text:#0b0d12;--muted:#5f6775;--line:rgba(10,12,18,.08);--shadow:0 20px 60px rgba(10,12,18,.08);--blue:#2f6bff;--blue2:#6aa2ff;--green:#22c55e;--gold:#f59e0b;--red:#ef4444;--purple:#8b5cf6}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6}
+img{max-width:100%}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:6px}
+.topbar{position:fixed;inset:0 0 auto 0;height:68px;z-index:50;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.72);backdrop-filter:saturate(160%) blur(12px);-webkit-backdrop-filter:saturate(160%) blur(12px);border-bottom:1px solid var(--line)}
+.topbar .wrap{width:min(1200px,94vw);display:flex;align-items:center;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);font-weight:800}
+.brand img{width:22px;height:22px}
+.brand span{font-size:14px;letter-spacing:.2px}
+.nav{margin-left:auto;display:flex;align-items:center;gap:18px}
+.nav a{color:#2b3140;text-decoration:none;font-size:13px;padding:8px 10px;border-radius:10px;transition:background .25s ease,color .25s ease}
+.nav a:hover{background:rgba(10,12,18,.05);color:#0b0d12}
+.cta-top{margin-left:4px;padding:10px 14px;border-radius:12px;font-weight:800;font-size:13px;color:#fff;text-decoration:none;background:linear-gradient(135deg,var(--blue),var(--blue2));box-shadow:0 10px 22px rgba(47,107,255,.22);transition:transform .2s ease,box-shadow .35s ease;position:relative;overflow:hidden;isolation:isolate}
+.cta-top::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#22c55e,#4ade80);transition:opacity .35s ease;z-index:-1}
+.cta-top:hover{transform:translateY(-1px);box-shadow:0 16px 30px rgba(47,107,255,.26)}
+.cta-top:hover::before{opacity:0}
+.hamburger{display:none;margin-left:auto;width:36px;height:36px;border-radius:10px;border:1px solid rgba(10,12,18,.12);background:#fff;box-shadow:0 6px 16px rgba(10,12,18,.08);align-items:center;justify-content:center;cursor:pointer}
+.hamburger span{width:18px;height:2px;background:#0b0d12;position:relative;display:block}
+.hamburger span::before,.hamburger span::after{content:"";position:absolute;left:0;width:18px;height:2px;background:#0b0d12}
+.hamburger span::before{top:-6px}
+.hamburger span::after{top:6px}
+@media(max-width:900px){.nav{position:fixed;top:68px;left:0;right:0;background:#fff;border-bottom:1px solid var(--line);flex-direction:column;gap:6px;padding:12px 16px 16px;display:none;box-shadow:0 20px 40px rgba(10,12,18,.1)}.nav.open{display:flex}.nav a{width:100%;text-align:left;padding:12px 14px;font-size:15px}.cta-top{width:100%;text-align:center;margin-top:6px}.hamburger{display:flex}}
+
+main{padding:calc(68px + 48px) 16px 80px}
+.article-container{width:min(780px,94vw);margin:0 auto}
+.article-hero{text-align:center;margin-bottom:40px}
+.eyebrow{display:inline-block;background:linear-gradient(135deg,rgba(47,107,255,.12),rgba(106,162,255,.10));color:#1d4ed8;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;border-radius:20px;margin-bottom:16px}
+.article-hero h1{font-size:clamp(28px,5vw,44px);font-weight:900;line-height:1.1;letter-spacing:-0.02em;margin-bottom:16px;color:var(--text)}
+.post-meta{color:var(--muted);font-size:14px;margin-bottom:32px}
+.cover-image{border-radius:20px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line)}
+.cover-image img{width:100%;height:auto;display:block;aspect-ratio:16/9;object-fit:cover;background:var(--bg-secondary)}
+.cover-credit{display:block;font-size:12px;color:var(--muted);margin-top:10px;text-align:center}
+.cover-credit a{color:var(--muted)}
+
+.article-content{background:var(--bg);line-height:1.75}
+.article-content p{margin:20px 0;color:#374151;font-size:17px}
+.article-content h2{font-size:26px;font-weight:800;margin:48px 0 16px;color:var(--text);letter-spacing:-0.01em}
+.article-content h3{font-size:20px;font-weight:700;margin:32px 0 12px;color:var(--text)}
+.article-content a{color:var(--blue);text-decoration:underline;text-decoration-color:rgba(47,107,255,.3);text-underline-offset:2px;transition:text-decoration-color .2s ease}
+.article-content a:hover{text-decoration-color:var(--blue)}
+.article-content ul,.article-content ol{margin:20px 0 20px 24px}
+.article-content li{margin:12px 0;color:#374151;font-size:17px}
+.article-content li strong{color:var(--text)}
+.intro-text{font-size:19px;font-weight:500;color:#1f2937;line-height:1.7}
+
+.tldr-box{background:linear-gradient(135deg,rgba(47,107,255,.06),rgba(106,162,255,.04));border:1px solid rgba(47,107,255,.15);border-radius:16px;padding:24px 28px;margin:32px 0}
+.tldr-box h2{font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);margin:0 0 12px 0}
+.tldr-box ul{margin:0;padding-left:20px}
+.tldr-box li{margin:8px 0;font-size:15px}
+
+.tip-box{background:var(--bg-secondary);border-left:4px solid var(--blue);border-radius:0 12px 12px 0;padding:16px 20px;margin:24px 0}
+.tip-box strong{color:var(--blue)}
+.tip-box p{margin:0;font-size:15px;color:#4b5563}
+
+/* Screenshots */
+figure.shot{margin:36px 0}
+figure.shot img{width:100%;height:auto;display:block;border-radius:16px;border:1px solid var(--line);box-shadow:0 10px 40px rgba(10,12,18,.10);background:var(--bg-secondary)}
+figure.shot figcaption{font-size:13px;color:var(--muted);text-align:center;margin-top:12px;line-height:1.5}
+
+/* Workflow scenario */
+.workflow-scenario{background:linear-gradient(135deg,rgba(139,92,246,.06),rgba(139,92,246,.02));border:1px solid rgba(139,92,246,.15);border-radius:20px;padding:32px;margin:40px 0}
+.workflow-scenario h2{margin-top:0;color:var(--text)}
+.workflow-scenario p{color:#374151;font-size:16px}
+.workflow-steps{list-style:none;padding:0;margin:20px 0;display:flex;flex-direction:column;gap:0}
+.workflow-step{display:flex;align-items:flex-start;gap:16px;padding:16px 0;border-bottom:1px solid rgba(139,92,246,.1)}
+.workflow-step:last-child{border-bottom:none;padding-bottom:0}
+.step-num{width:28px;height:28px;background:linear-gradient(135deg,var(--purple),#a78bfa);color:#fff;font-weight:800;font-size:13px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-text{font-size:15px;color:#374151;line-height:1.6}
+.step-text strong{color:var(--text);display:block;margin-bottom:2px}
+
+/* Score bands */
+.score-list{list-style:none;margin:28px 0;padding:0;display:flex;flex-direction:column;gap:10px}
+.score-row{display:flex;align-items:flex-start;gap:14px;border:1px solid var(--line);border-radius:14px;padding:16px 18px;background:var(--bg-secondary)}
+.score-chip{flex-shrink:0;min-width:78px;text-align:center;font-size:12px;font-weight:800;letter-spacing:.02em;padding:6px 10px;border-radius:8px;color:#fff}
+.chip-green{background:linear-gradient(135deg,#22c55e,#4ade80)}
+.chip-yellow{background:linear-gradient(135deg,#eab308,#facc15)}
+.chip-orange{background:linear-gradient(135deg,#f59e0b,#fbbf24)}
+.chip-red{background:linear-gradient(135deg,#ef4444,#f87171)}
+.score-body{font-size:15px;color:#4b5563;line-height:1.6}
+.score-body strong{display:block;color:var(--text);font-size:15px;margin-bottom:2px}
+@media(max-width:560px){.score-row{flex-direction:column;gap:10px}}
+
+/* Use cases */
+.use-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:28px 0}
+.use-card{border:1px solid var(--line);border-radius:16px;padding:20px 22px;background:var(--bg-secondary)}
+.use-card h3{margin:0 0 6px;font-size:16px;font-weight:800}
+.use-card p{margin:0;font-size:14px;color:var(--muted);line-height:1.6}
+@media(max-width:600px){.use-grid{grid-template-columns:1fr}}
+
+/* FAQ */
+.faq{margin:40px 0}
+.faq details{border:1px solid var(--line);border-radius:14px;padding:0;margin:12px 0;background:var(--bg);overflow:hidden}
+.faq summary{cursor:pointer;list-style:none;padding:18px 22px;font-weight:700;font-size:16px;color:var(--text);display:flex;justify-content:space-between;align-items:center;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-weight:700;font-size:20px;color:var(--blue);flex-shrink:0}
+.faq details[open] summary::after{content:"\2013"}
+.faq details p{margin:0;padding:0 22px 20px;font-size:15px;color:#4b5563;line-height:1.7}
+
+/* Inline CTA */
+.inline-cta{display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--bg-secondary);border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin:28px 0}
+.inline-cta-text{font-size:14px;color:var(--muted);line-height:1.5}
+.inline-cta-text strong{color:var(--text);display:block;margin-bottom:2px;font-size:15px}
+.inline-cta-btn{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;padding:10px 18px;border-radius:10px;font-weight:700;font-size:13px;color:#fff !important;text-decoration:none !important;background:linear-gradient(135deg,var(--blue),var(--blue2));box-shadow:0 6px 18px rgba(47,107,255,.22);transition:transform .2s ease,box-shadow .3s ease;flex-shrink:0}
+.inline-cta-btn:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(47,107,255,.3)}
+@media(max-width:560px){.inline-cta{flex-direction:column;align-items:flex-start}.inline-cta-btn{width:100%;justify-content:center}}
+
+.cta-box{background:linear-gradient(135deg,rgba(47,107,255,.08),rgba(106,162,255,.05));border:1px solid rgba(47,107,255,.15);border-radius:20px;padding:32px;text-align:center;margin:48px 0}
+.cta-box strong{display:block;font-size:20px;font-weight:800;margin-bottom:8px;color:var(--text)}
+.cta-box p{margin:0 0 20px 0;color:var(--muted);font-size:16px}
+.cta-button{display:inline-block;padding:14px 28px;border-radius:14px;font-weight:800;font-size:15px;color:#fff !important;text-decoration:none !important;background:linear-gradient(135deg,var(--blue),var(--blue2));box-shadow:0 10px 30px rgba(47,107,255,.25);transition:transform .2s ease,box-shadow .3s ease}
+.cta-button:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(47,107,255,.3)}
+
+.post-nav{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:48px}
+.post-nav a{display:flex;flex-direction:column;padding:20px;border-radius:16px;border:1px solid var(--line);background:var(--bg);text-decoration:none;transition:border-color .25s ease,box-shadow .25s ease}
+.post-nav a:hover{border-color:rgba(47,107,255,.3);box-shadow:0 10px 30px rgba(10,12,18,.06)}
+.post-nav-label{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.post-nav-title{font-size:15px;font-weight:700;color:var(--text);line-height:1.4}
+@media(max-width:600px){.post-nav{grid-template-columns:1fr}}
+
+.site-footer{background:var(--bg-secondary);border-top:1px solid var(--line);padding:40px 16px;text-align:center}
+.footer-content{max-width:1200px;margin:0 auto}
+.footer-brand{display:inline-flex;align-items:center;gap:10px;margin-bottom:16px;font-weight:800;color:var(--text)}
+.footer-brand img{width:24px;height:24px}
+.footer-text{color:var(--muted);font-size:14px}
+
+.float-cta{position:fixed;right:20px;bottom:20px;z-index:40;display:inline-flex;align-items:center;gap:8px;padding:14px 20px;border-radius:14px;font-weight:800;font-size:14px;color:#fff;text-decoration:none;background:linear-gradient(135deg,var(--blue),var(--blue2));box-shadow:0 10px 40px rgba(47,107,255,.35);transition:transform .2s ease,box-shadow .3s ease}
+.float-cta:hover{transform:translateY(-2px);box-shadow:0 14px 50px rgba(47,107,255,.4)}
+@media(max-width:640px){.float-cta{left:16px;right:16px;justify-content:center}}
+
+@media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}html{scroll-behavior:auto}}
+
+/* Hero CTA - high on the page */
+.hero-cta{background:linear-gradient(135deg,rgba(47,107,255,.10),rgba(106,162,255,.06));border:1px solid rgba(47,107,255,.20);border-radius:20px;padding:28px 32px;margin:36px 0;text-align:center}
+.hero-cta strong{display:block;font-size:19px;font-weight:800;color:var(--text);margin-bottom:6px;line-height:1.35}
+.hero-cta p{margin:0 0 18px;font-size:15px;color:var(--muted)}
+.hero-cta .cta-button{font-size:16px;padding:15px 32px}
+@media(max-width:560px){.hero-cta{padding:24px 20px}.hero-cta strong{font-size:17px}.hero-cta .cta-button{width:100%;text-align:center}}
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "How to Check Whether Your Backup Drive Is Actually Complete",
+  "description": "DriveVault's Drive Comparison compares a source drive against its backup, scores how closely they match, and lists every file that is missing - with both drives unplugged.",
+  "datePublished": "2026-08-18",
+  "dateModified": "2026-08-18",
+  "image": "https://images.unsplash.com/photo-1652105425087-08343fe051f4?q=80&w=1600&auto=format&fit=crop",
+  "author": { "@type": "Organization", "name": "DriveVault" },
+  "publisher": { "@type": "Organization", "name": "DriveVault", "logo": { "@type": "ImageObject", "url": "/favicon.png" } },
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://www.drivevault.io/blog/verify-backup-drive-complete-compare-two-drives.html" }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I check whether my backup hard drive is complete?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Scan both the original drive and the backup drive in DriveVault, then open Compare and select the original as the first drive and the backup as the second. DriveVault compares the two catalogs by relative path and lists every file that exists on the original but not on the backup, along with a similarity score." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I compare two hard drives on a Mac without plugging them in?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. The comparison runs against the catalogs DriveVault stored when each drive was scanned, so both drives can be sitting on a shelf. You only need to reconnect a drive when you want to copy the missing files across." }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does DriveVault warn me that two drives are less than 80 percent similar?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The 80 percent threshold is a sanity check that the two drives are genuinely intended as copies of one another. If similarity falls below it, the most likely explanation is that the wrong pair of drives was selected. You can still view the comparison after the warning." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the order in which I select the drives matter?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. The first drive you select is the source and the second is the target. DriveVault reports files that are on the source but missing from the target, so selecting them the wrong way round tells you what the original is missing rather than what the backup is missing." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can DriveVault copy the missing files to my backup drive for me?",
+      "acceptedAnswer": { "@type": "Answer", "text": "DriveVault does not move your files. It exports the missing file list as a readable set of copy instructions, a CSV of source and destination paths, or a Terminal script you can inspect and run yourself, so the copying stays under your control." }
+    },
+    {
+      "@type": "Question",
+      "name": "What formats can I export a drive comparison report in?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Comparison reports can be exported as PDF, CSV, JSON or an interactive HTML page. Each report contains the summary statistics, a breakdown by file category, size and date distributions, and lists of the largest, newest and oldest missing files." }
+    }
+  ]
+}
+</script>
+</head>
+
+<body>
+<header class="topbar" role="banner">
+  <div class="wrap">
+    <a class="brand" href="/"><img src="/favicon.png" alt="DriveVault logo"><span>DriveVault</span></a>
+    <nav class="nav" id="mobileNav" role="navigation" aria-label="Primary">
+      <a href="/#features">Features</a>
+      <a href="/#pricing">Pricing</a>
+      <a href="/changelog.html">Changelog</a>
+      <a href="/blog.html">Blog</a>
+      <a href="/faq.html">FAQ</a>
+      <a class="cta-top" href="https://apps.apple.com/us/app/drivevault-offline-catalog/id6751731655?mt=12" target="_blank" rel="noopener">Download on the App Store</a>
+    </nav>
+    <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false" id="hamburgerBtn"><span></span></button>
+  </div>
+</header>
+
+<main>
+<div class="article-container">
+
+  <header class="article-hero">
+    <span class="eyebrow">Feature Guide &bull; Backups</span>
+    <h1>How to Check Whether Your Backup Drive Is Actually Complete</h1>
+    <p class="post-meta">Published August 18, 2026 &bull; 9 min read &bull; Drive Comparison in DriveVault</p>
+    <div class="cover-image">
+      <img src="https://images.unsplash.com/photo-1652105425087-08343fe051f4?q=80&amp;w=1600&amp;auto=format&amp;fit=crop" alt="A graphical user interface on a computer display showing data" loading="eager">
+    </div>
+    <span class="cover-credit">Photo: <a href="https://unsplash.com/photos/graphical-user-interface-w777KHipU2k" target="_blank" rel="noopener">Unsplash</a></span>
+  </header>
+
+  <article class="article-content">
+    <p class="intro-text">Almost nobody finds out that a backup is incomplete at a convenient moment. You find out at the worst possible one - when the original drive has failed, the client wants the master files, and the copy you have been quietly relying on for three years turns out to be missing the entire second half of a shoot.</p>
+
+    <p>The uncomfortable thing about copying files by hand is that it mostly works. Drag a folder across, walk away, come back to a finished progress bar. What you cannot see afterwards is the handful of files that stalled, the transfer that was interrupted when the cable was knocked, or the folder you added to the original last spring and never mirrored. The backup still looks right. It has roughly the correct number of folders and roughly the correct size. It is simply not the same as the original, and nothing on your Mac is going to volunteer that information.</p>
+
+    <p><strong>Drive Comparison in DriveVault exists to answer one question precisely: what is on this drive that is not on that one?</strong> It compares two catalogued drives, scores how closely they match, and gives you a complete, itemised list of every file that never made it across - which drive it lives on, where it sits in the folder structure, how big it is and when it was last touched.</p>
+
+    <p>And because DriveVault works from catalogs rather than the drives themselves, you can run the whole comparison with both drives unplugged and in a cupboard.</p>
+
+    <div class="hero-cta">
+      <strong>Not sure your backup drive is a real backup?</strong>
+      <p>Scan both drives once and DriveVault will tell you exactly what is missing.</p>
+      <a class="cta-button" href="https://apps.apple.com/us/app/drivevault-offline-catalog/id6751731655?mt=12" target="_blank" rel="noopener">Download DriveVault Free</a>
+    </div>
+
+    <figure class="shot">
+      <img src="/DriveVault-Hard-Drive-Comparison.webp" alt="DriveVault drive comparison screen showing catalogued drives available to select as source and target" loading="eager">
+      <figcaption>Every catalogued drive is shown with its file count, capacity and scan date. Pick two, in order.</figcaption>
+    </figure>
+
+    <h2>Why "I Have a Backup" Is Not the Same as "I Have a Complete Backup"</h2>
+
+    <p>Storage in 2026 is expensive enough that most creatives are not running a tidy, automated, three-copy backup system. They are running something more improvised: a working drive, an archive drive, and a copy of the archive drive made at some point when there was time. That is a perfectly reasonable setup. The weak point is not the drives - it is the absence of any way to confirm that the copy is still a copy.</p>
+
+    <p>Divergence creeps in through very ordinary routes:</p>
+
+    <ul>
+      <li><strong>Interrupted transfers.</strong> A copy that reports an error at file 4,812 of 60,000 and then gets dismissed, because the remaining files finished fine.</li>
+      <li><strong>Additions after the fact.</strong> New work lands on the original after the backup was made, and the mirror never happens.</li>
+      <li><strong>Selective copying.</strong> Someone drags the folders they think matter rather than the whole volume.</li>
+      <li><strong>Files that were tidied on one side only.</strong> A reorganisation on the working drive that leaves the archive in the old shape.</li>
+    </ul>
+
+    <p>None of this is visible from Finder. Two windows side by side will tell you that both drives contain a folder called <em>2024 Weddings</em>. They will not tell you that one contains 11,400 files and the other 11,006.</p>
+
+    <h2>What Drive Comparison Actually Does</h2>
+
+    <p>When you compare two drives, DriveVault flattens both file trees into a complete inventory, builds an index of each drive keyed on relative paths, and then works out which entries exist on the first drive but not the second. It also verifies that the files it is about to report still exist, rather than trusting a catalog that might be out of date, and calculates the percentage of files the two drives have in common.</p>
+
+    <p>The result is not an approximation or a size comparison. It is a named list of individual files, with the path you would need to follow to find each one.</p>
+
+    <div class="tip-box">
+      <p><strong>Before you start:</strong> use a Full Scan on both drives. A Quick Scan is ideal for getting a drive into your library quickly, but a comparison is only as detailed as the catalog behind it, so the deeper scan is the one you want for any drive you intend to check against another.</p>
+    </div>
+
+    <div class="workflow-scenario">
+      <h2>How to Compare Two Drives</h2>
+      <p>Start to finish, this is the whole process.</p>
+      <ul class="workflow-steps">
+        <li class="workflow-step">
+          <div class="step-num">1</div>
+          <div class="step-text"><strong>Scan both drives</strong>Connect each drive in turn and run a Full Scan. Once it is done, the drive can go straight back on the shelf - the catalog stays on your Mac.</div>
+        </li>
+        <li class="workflow-step">
+          <div class="step-num">2</div>
+          <div class="step-text"><strong>Open Compare and choose your source</strong>Your catalogued drives appear in a grid with file count, capacity and scan date. Click the original - the drive whose contents should be protected. It is marked with a blue badge as drive number one.</div>
+        </li>
+        <li class="workflow-step">
+          <div class="step-num">3</div>
+          <div class="step-text"><strong>Choose the backup as your target</strong>Click the drive that is supposed to be the copy. It gets a green badge as drive number two. The order matters: DriveVault reports what the source has and the target lacks, not the other way round.</div>
+        </li>
+        <li class="workflow-step">
+          <div class="step-num">4</div>
+          <div class="step-text"><strong>Read the similarity score</strong>A meter shows what percentage of files the two drives share, colour-coded from Perfect down to Poor, next to a side-by-side view of both drives and the total number of missing files.</div>
+        </li>
+        <li class="workflow-step">
+          <div class="step-num">5</div>
+          <div class="step-text"><strong>Work through what is missing</strong>Filter the list by category, search it, sort it by size or date, and export either a report or a set of copy instructions. Then plug in one drive - the one you now know needs the files.</div>
+        </li>
+      </ul>
+    </div>
+
+    <p>DriveVault will not let you compare a drive with itself, and it checks that the two drives are at least 80% similar before treating the comparison as a backup check. That threshold is deliberately a sanity check rather than a rule: if two drives share less than four fifths of their contents, the overwhelmingly likely explanation is that they were never copies of each other and the wrong pair got selected. You will be warned, and you can still look at the results if you meant it.</p>
+
+    <div class="inline-cta">
+      <div class="inline-cta-text"><strong>Check a backup in about a minute</strong>Free for your first drive up to 4TB.</div>
+      <a class="inline-cta-btn" href="https://apps.apple.com/us/app/drivevault-offline-catalog/id6751731655?mt=12" target="_blank" rel="noopener">Get DriveVault</a>
+    </div>
+
+    <h2>Reading the Similarity Score</h2>
+
+    <p>The headline number is the proportion of files from the source drive that were found on the target. It is deliberately blunt, because the useful question is rarely "how close is close" - it is "do I need to do something about this today".</p>
+
+    <ul class="score-list">
+      <li class="score-row">
+        <span class="score-chip chip-green">95 - 100%</span>
+        <span class="score-body"><strong>Perfect backup</strong>The copy is doing its job. Anything outstanding is likely to be a handful of recent additions rather than a structural problem.</span>
+      </li>
+      <li class="score-row">
+        <span class="score-chip chip-yellow">85 - 94%</span>
+        <span class="score-body"><strong>Good backup</strong>Broadly sound, but a meaningful chunk has drifted. Worth reviewing the missing list to see whether it is old material or a recent project.</span>
+      </li>
+      <li class="score-row">
+        <span class="score-chip chip-orange">70 - 84%</span>
+        <span class="score-body"><strong>Fair backup</strong>Enough is missing that you should not treat this drive as a safety net until you have brought it back into line.</span>
+      </li>
+      <li class="score-row">
+        <span class="score-chip chip-red">Below 70%</span>
+        <span class="score-body"><strong>Poor backup</strong>Either the copy has been abandoned for a long time, or these two drives were never a matched pair. Check which before you copy anything.</span>
+      </li>
+    </ul>
+
+    <p>Alongside the meter you get the numbers that make the score actionable: how many files are missing in total, how much data that adds up to, and when the comparison was run.</p>
+
+    <h2>The Missing Files List</h2>
+
+    <p>The score tells you whether to worry. The list tells you what to do. Every missing file is shown with its name, its relative path on the source drive, its size, when it was last modified, and the category it falls into - Photos, Videos, Documents, Audio, Archives, Code or Other, each with its own icon and colour.</p>
+
+    <p>That categorisation is more useful than it first sounds, because missing files are rarely equally important. Two thousand missing cache files and thirty missing RAW files produce a similar dent in the similarity score and a wildly different level of panic. Filtering to Photos and Videos immediately separates the material you cannot regenerate from the material you would not miss.</p>
+
+    <p>From there you can search the list by name or path, and sort by size, date, name or category. Sorting by size is the fastest route to "what is the largest thing I am missing"; sorting by date usually reveals the exact week a backup routine quietly stopped happening.</p>
+
+    <h3>Advanced Filters</h3>
+
+    <p>For larger comparisons there is a more precise set of controls. You can build a filter from file size ranges, date ranges, file type patterns to include or exclude, and filename patterns including regular expressions. There are also presets for the three questions people ask most often - Large Files, Recent Files and Old Files.</p>
+
+    <p>In practice this is how you turn an intimidating list of 40,000 missing items into a decision. Filter to video files over 100MB modified in the last two years, and you have the list that actually needs copying tonight.</p>
+
+    <h2>Getting the Files Where They Belong</h2>
+
+    <p>Once you know what is missing, there are two separate things you might want: a record, and a route to fixing it.</p>
+
+    <p><strong>Reports</strong> export as PDF, CSV, JSON or an interactive HTML page. Each one contains the full comparison summary, a breakdown by category with statistics, size and date distributions, and lists of the largest, newest and oldest missing files - plus a note of any filters that were applied, so the report cannot quietly misrepresent itself as a complete picture. The PDF is what you send a client or an insurer. The CSV is what you open in Numbers or Excel when you want to sort it your own way. The JSON is for anyone wiring this into something else.</p>
+
+    <p><strong>File export options</strong> are for the copying itself. You can export a human-readable list of step-by-step copy instructions, a CSV pairing every source path with its destination, or a Terminal script containing the copy commands. DriveVault does not move your files for you, and that is intentional - a bulk copy across two archive drives is the kind of operation you want to read before you run. The script gives you something you can inspect, edit and execute yourself.</p>
+
+    <h2>Two Things That Stop It Lying to You</h2>
+
+    <p>A comparison tool that is confidently wrong is worse than no comparison tool, so two behaviours are worth knowing about.</p>
+
+    <p><strong>Stale data detection.</strong> Catalogs describe a drive as it was when you scanned it. If you deleted a large amount from the source drive afterwards, a naive comparison would report all of it as "missing from the backup" - technically true, entirely useless. DriveVault checks whether the source files still exist and warns you if more than 30% of the missing files are no longer on the source drive at all, with a suggestion to run a fresh scan. If the drives are disconnected, that warning is the signal that your catalog has aged.</p>
+
+    <p><strong>Bundle handling.</strong> macOS bundles such as <em>.app</em> packages are directories wearing a trench coat - a single icon in Finder, hundreds of files underneath. DriveVault treats them as single files in comparisons, exactly as it does when scanning, so a missing application shows up as one missing item rather than four hundred, and your similarity score is not distorted by internal package contents.</p>
+
+    <h2>When to Reach For This</h2>
+
+    <div class="use-grid">
+      <div class="use-card">
+        <h3>Before you wipe a drive</h3>
+        <p>The highest-stakes moment there is. Confirm the copy is complete before you reformat the original, not after.</p>
+      </div>
+      <div class="use-card">
+        <h3>After a big transfer</h3>
+        <p>Migrating an archive to a larger drive is exactly when files go astray. Compare old against new before the old one goes back in the drawer.</p>
+      </div>
+      <div class="use-card">
+        <h3>On a schedule</h3>
+        <p>Rescan and recompare your archive pair once or twice a year. Drift is easier to fix in small amounts.</p>
+      </div>
+      <div class="use-card">
+        <h3>When handing work over</h3>
+        <p>Delivering a project drive to a client or a collaborator? A PDF comparison report is a receipt showing the copy matched.</p>
+      </div>
+    </div>
+
+    <h2>Frequently Asked Questions</h2>
+
+    <div class="faq">
+      <details>
+        <summary>How do I check whether my backup hard drive is complete?</summary>
+        <p>Scan both the original and the backup in DriveVault, then open Compare and select the original first and the backup second. DriveVault matches the two catalogs by relative path and lists every file the backup is missing, along with a similarity score.</p>
+      </details>
+      <details>
+        <summary>Can I compare two hard drives without plugging them in?</summary>
+        <p>Yes. The comparison runs against the catalogs stored on your Mac when each drive was scanned, so both drives can stay unplugged. You only need to reconnect a drive when you are ready to copy the missing files across.</p>
+      </details>
+      <details>
+        <summary>Why am I warned that two drives are less than 80% similar?</summary>
+        <p>It is a sanity check that the two drives are genuinely meant to be copies of one another. Below that threshold, the most likely explanation is that the wrong pair was selected. You can still view the comparison after acknowledging the warning.</p>
+      </details>
+      <details>
+        <summary>Does the order I select the drives in matter?</summary>
+        <p>Yes. The first drive is the source and the second is the target, and DriveVault reports what the source has that the target lacks. Selecting them the wrong way round tells you what the original is missing rather than what the backup is missing - occasionally useful, but rarely what you meant.</p>
+      </details>
+      <details>
+        <summary>Will DriveVault copy the missing files to my backup drive?</summary>
+        <p>No. It gives you the missing list as readable copy instructions, a CSV of source and destination paths, or a Terminal script you can inspect and run yourself. The copying stays under your control.</p>
+      </details>
+      <details>
+        <summary>What formats can I export a comparison report in?</summary>
+        <p>PDF, CSV, JSON or an interactive HTML page. Each includes the summary, a category breakdown, size and date distributions, and lists of the largest, newest and oldest missing files.</p>
+      </details>
+      <details>
+        <summary>Does it find duplicate files as well as missing ones?</summary>
+        <p>The comparison is built around what is missing from a backup. It reports the files present on the source drive that cannot be found on the target, together with the similarity score between the two.</p>
+      </details>
+    </div>
+
+    <h2>Certainty Is the Point</h2>
+
+    <p>A backup drive you have never verified is not really a backup. It is a reasonable assumption stored on a spinning disk, and the moment you need it is the moment you discover which of those two things it was.</p>
+
+    <p>Checking takes a scan of each drive and about a minute of clicking. The result is either a number in the mid-nineties and the freedom to stop thinking about it, or a specific, finite list of files to copy tonight. Both of those are considerably better than not knowing.</p>
+
+    <div class="cta-box">
+      <strong>Find out what your backup is missing.</strong>
+      <p>Scan two drives, compare them, and get the list. Free for your first drive up to 4TB.</p>
+      <a class="cta-button" href="https://apps.apple.com/us/app/drivevault-offline-catalog/id6751731655?mt=12" target="_blank" rel="noopener">Download DriveVault Free</a>
+    </div>
+
+  </article>
+
+  <nav class="post-nav" aria-label="Post navigation">
+    <a href="/blog/compare-two-drives.html">
+      <span class="post-nav-label">Related</span>
+      <span class="post-nav-title">How to Compare Two Hard Drives and Detect Missing or Duplicate Files (Mac)</span>
+    </a>
+    <a href="/blog/organize-multiple-drives.html">
+      <span class="post-nav-label">Related</span>
+      <span class="post-nav-title">The Best Way to Organize Multiple External Hard Drives for Creatives</span>
+    </a>
+  </nav>
+
+</div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-content">
+    <div class="footer-brand"><img src="/favicon.png" alt="DriveVault"><span>DriveVault</span></div>
+    <p class="footer-text">© 2026 DriveVault. All rights reserved.</p>
+  </div>
+</footer>
+
+<a class="float-cta" href="https://apps.apple.com/us/app/drivevault-offline-catalog/id6751731655?mt=12" target="_blank" rel="noopener" aria-label="Download DriveVault on the App Store">Download Free →</a>
+
+<script>
+const hamburger = document.getElementById('hamburgerBtn');
+const mobileNav = document.getElementById('mobileNav');
+if (hamburger && mobileNav) {
+  hamburger.addEventListener('click', () => {
+    const isOpen = mobileNav.classList.toggle('open');
+    hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  mobileNav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileNav.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    });
+  });
+}
+</script>
+</body>
+</html>
