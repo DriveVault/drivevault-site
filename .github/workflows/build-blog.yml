@@ -1,5 +1,8 @@
 name: Build blog index
 
+# Rebuilds blog.html, feed.xml and the blog section of sitemap.xml whenever an
+# article is added, edited or removed in /blog.
+
 on:
   push:
     branches: [main]
@@ -32,11 +35,11 @@ jobs:
       - name: Build blog index
         run: node scripts/build-blog.mjs
 
-      - name: Commit updated blog.html
+      - name: Commit generated files
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add blog.html feed.xml
+          git add blog.html feed.xml sitemap.xml
           if git diff --staged --quiet; then
             echo "No changes to commit."
           else
