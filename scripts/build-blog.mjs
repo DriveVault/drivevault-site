@@ -11,7 +11,7 @@
  * No dependencies. Node 18+.
  */
 
-import { readFileSync, writeFileSync, readdirSync, statSync } from 'node:fs';
+import { readFileSync, writeFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { join, dirname, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -20,6 +20,14 @@ const BLOG_DIR = join(ROOT, 'blog');
 const TEMPLATE = join(ROOT, 'scripts', 'blog.template.html');
 const OUT_HTML = join(ROOT, 'blog.html');
 const OUT_FEED = join(ROOT, 'feed.xml');
+const OUT_SITEMAP = join(ROOT, 'sitemap.xml');
+
+/* Used only if sitemap.xml does not exist yet. Once it exists, whatever
+   non-blog URLs it contains are preserved untouched on every rebuild. */
+const DEFAULT_PAGES = [
+  '/', '/blog.html', '/pricing.html', '/faq.html',
+  '/changelog.html', '/contact.html', '/privacy.html', '/terms.html',
+];
 
 const SITE = 'https://www.drivevault.io';
 const SITE_NAME = 'DriveVault';
@@ -278,6 +286,59 @@ ${items}
 `;
 }
 
+/**
+ * Rebuilds the blog section of sitemap.xml.
+ *
+ * Any URL that is not under /blog/ is preserved exactly as written - including
+ * its priority and changefreq - so hand-tuned entries for your marketing pages
+ * survive every rebuild. Only /blog/ entries are regenerated.
+ */
+function renderSitemap(posts) {
+  const newest = posts[0]?.date || new Date().toISOString().slice(0, 10);
+  let kept = [];
+
+  if (existsSync(OUT_SITEMAP)) {
+    const existing = readFileSync(OUT_SITEMAP, 'utf8');
+    for (const block of existing.match(/<url>[\s\S]*?<\/url>/gi) || []) {
+      const loc = (block.match(/<loc>\s*([^<]+?)\s*<\/loc>/i) || [])[1] || '';
+      if (/\/blog\//i.test(loc)) continue;               // regenerated below
+      if (/\/blog\.html$/i.test(loc)) {                  // index: refresh lastmod
+        kept.push(
+          /<lastmod>/i.test(block)
+            ? block.replace(/<lastmod>[^<]*<\/lastmod>/i, `<lastmod>${newest}</lastmod>`)
+            : block.replace(/<\/loc>/i, `</loc>\n    <lastmod>${newest}</lastmod>`)
+        );
+        continue;
+      }
+      kept.push(block);
+    }
+  }
+
+  if (!kept.length) {
+    kept = DEFAULT_PAGES.map((path) => {
+      const isIndex = path === '/' || path === '/blog.html';
+      return `  <url>
+    <loc>${SITE}${path === '/' ? '/' : path}</loc>${path === '/blog.html' ? `\n    <lastmod>${newest}</lastmod>` : ''}
+    <changefreq>${isIndex ? 'weekly' : 'monthly'}</changefreq>
+    <priority>${path === '/' ? '1.0' : path === '/blog.html' ? '0.9' : '0.6'}</priority>
+  </url>`;
+    });
+  }
+
+  const blogUrls = posts.map((p) => `  <url>
+    <loc>${esc(p.absUrl)}</loc>
+    <lastmod>${p.updated}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>`);
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${[...kept.map((b) => (b.startsWith('  ') ? b : `  ${b}`)), ...blogUrls].join('\n')}
+</urlset>
+`;
+}
+
 function renderItemListLd(posts) {
   return JSON.stringify({
     '@context': 'https://schema.org',
@@ -341,6 +402,7 @@ function main() {
 
   writeFileSync(OUT_HTML, html);
   writeFileSync(OUT_FEED, renderFeed(posts));
+  writeFileSync(OUT_SITEMAP, renderSitemap(posts));
 
   console.log(`Built blog.html with ${posts.length} post${posts.length === 1 ? '' : 's'}.`);
   console.log(`  featured: ${featured.title} (${featured.dateLabel})`);
