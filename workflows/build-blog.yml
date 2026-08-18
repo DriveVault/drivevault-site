@@ -1,1 +1,48 @@
+name: Build blog index
 
+# Rebuilds blog.html and feed.xml whenever an article is added, edited or
+# removed in /blog — or when the template or build script changes.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'blog/**'
+      - 'scripts/build-blog.mjs'
+      - 'scripts/blog.template.html'
+      - '.github/workflows/build-blog.yml'
+  workflow_dispatch:        # lets you rebuild manually from the Actions tab
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-blog
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Build blog index
+        run: node scripts/build-blog.mjs
+
+      - name: Commit updated blog.html
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add blog.html feed.xml
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Rebuild blog index [skip ci]"
+            git push
+          fi
