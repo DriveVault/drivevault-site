@@ -41,5 +41,6 @@ jobs:
             echo "No changes to commit."
           else
             git commit -m "Rebuild blog index [skip ci]"
+            git pull --rebase origin main
             git push
           fi
