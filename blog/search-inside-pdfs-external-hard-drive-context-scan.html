@@ -1,0 +1,487 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Context Scan: Search Inside Every PDF on Your Hard Drives - Even Unplugged | DriveVault</title>
+<meta name="description" content="DriveVault's new Context Scan (beta) reads the text inside every PDF on your external drives, so you can search a student name, case reference or phrase and find the exact document - without plugging the drive in." />
+<meta name="keywords" content="search inside PDF external hard drive, find student papers on hard drive, full text search external drive mac, search PDF contents offline, academic document management mac, legal document search external drive, search archived PDFs by name, DriveVault context scan, search unplugged hard drive" />
+<meta name="author" content="DriveVault" />
+
+<meta name="dv:tag" content="Updates" />
+<meta name="dv:date" content="2026-08-18" />
+
+<link rel="icon" href="/favicon.png" type="image/png" />
+<link rel="apple-touch-icon" href="/favicon.png" />
+<link rel="canonical" href="https://www.drivevault.io/blog/search-inside-pdfs-external-hard-drive-context-scan.html" />
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Context Scan: Search Inside Every PDF on Your Hard Drives - Even Unplugged">
+<meta property="og:description" content="Ten years of student papers. Thousands of PDFs. Filenames that tell you nothing. Context Scan makes every word inside them searchable.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1533854775446-95c4609da544?q=80&w=1600&auto=format&fit=crop">
+<meta property="og:url" content="https://www.drivevault.io/blog/search-inside-pdfs-external-hard-drive-context-scan.html">
+<meta property="og:site_name" content="DriveVault">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Context Scan: Search Inside Every PDF on Your Hard Drives">
+<meta name="twitter:description" content="Search the words inside your archived PDFs - not just the filenames. New in DriveVault, free in beta.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+html{scroll-behavior:smooth}
+:root{--bg:#ffffff;--bg-secondary:#f8fafc;--text:#0b0d12;--muted:#5f6775;--line:rgba(10,12,18,.08);--shadow:0 20px 60px rgba(10,12,18,.08);--blue:#2f6bff;--blue2:#6aa2ff;--green:#22c55e;--gold:#f59e0b;--red:#ef4444;--purple:#8b5cf6}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6}
+img{max-width:100%}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:6px}
+.topbar{position:fixed;inset:0 0 auto 0;height:68px;z-index:50;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.72);backdrop-filter:saturate(160%) blur(12px);-webkit-backdrop-filter:saturate(160%) blur(12px);border-bottom:1px solid var(--line)}
+.topbar .wrap{width:min(1200px,94vw);display:flex;align-items:center;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);font-weight:800}
+.brand img{width:22px;height:22px}
+.brand span{font-size:14px;letter-spacing:.2px}
+.nav{margin-left:auto;display:flex;align-items:center;gap:18px}
+.nav a{color:#2b3140;text-decoration:none;font-size:13px;padding:8px 10px;border-radius:10px;transition:background .25s ease,color .25s ease}
+.nav a:hover{background:rgba(10,12,18,.05);color:#0b0d12}
+.cta-top{margin-left:4px;padding:10px 14px;border-radius:12px;font-weight:800;font-size:13px;color:#fff;text-decoration:none;background:linear-gradient(135deg,var(--blue),var(--blue2));box-shadow:0 10px 22px rgba(47,107,255,.22);transition:transform .2s ease,box-shadow .35s ease;position:relative;overflow:hidden;isolation:isolate}
+.cta-top::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#22c55e,#4ade80);transition:opacity .35s ease;z-index:-1}
+.cta-top:hover{transform:translateY(-1px);box-shadow:0 16px 30px rgba(47,107,255,.26)}
+.cta-top:hover::before{opacity:0}
+.hamburger{display:none;margin-left:auto;width:36px;height:36px;border-radius:10px;border:1px solid rgba(10,12,18,.12);background:#fff;box-shadow:0 6px 16px rgba(10,12,18,.08);align-items:center;justify-content:center;cursor:pointer}
+.hamburger span{width:18px;height:2px;background:#0b0d12;position:relative;display:block}
+.hamburger span::before,.hamburger span::after{content:"";position:absolute;left:0;width:18px;height:2px;background:#0b0d12}
+.hamburger span::before{top:-6px}
+.hamburger span::after{top:6px}
+@media(max-width:900px){.nav{position:fixed;top:68px;left:0;right:0;background:#fff;border-bottom:1px solid var(--line);flex-direction:column;gap:6px;padding:12px 16px 16px;display:none;box-shadow:0 20px 40px rgba(10,12,18,.1)}.nav.open{display:flex}.nav a{width:100%;text-align:left;padding:12px 14px;font-size:15px}.cta-top{width:100%;text-align:center;margin-top:6px}.hamburger{display:flex}}
+
+main{padding:calc(68px + 48px) 16px 80px}
+.article-container{width:min(780px,94vw);margin:0 auto}
+.article-hero{text-align:center;margin-bottom:40px}
+.eyebrow{display:inline-block;background:linear-gradient(135deg,rgba(34,197,94,.12),rgba(74,222,128,.10));color:#15803d;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;border-radius:20px;margin-bottom:16px}
+.article-hero h1{font-size:clamp(28px,5vw,44px);font-weight:900;line-height:1.1;letter-spacing:-0.02em;margin-bottom:16px;color:var(--text)}
+.post-meta{color:var(--muted);font-size:14px;margin-bottom:32px}
+.cover-image{border-radius:20px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line)}
+.cover-image img{width:100%;height:auto;display:block;aspect-ratio:16/9;object-fit:cover;background:var(--bg-secondary)}
+.cover-credit{display:block;font-size:12px;color:var(--muted);margin-top:10px;text-align:center}
+.cover-credit a{color:var(--muted)}
+
+.article-content{background:var(--bg);line-height:1.75}
+.article-content p{margin:20px 0;color:#374151;font-size:17px}
+.article-content h2{font-size:26px;font-weight:800;margin:48px 0 16px;color:var(--text);letter-spacing:-0.01em}
+.article-content h3{font-size:20px;font-weight:700;margin:32px 0 12px;color:var(--text)}
+.article-content a{color:var(--blue);text-decoration:underline;text-decoration-color:rgba(47,107,255,.3);text-underline-offset:2px;transition:text-decoration-color .2s ease}
+.article-content a:hover{text-decoration-color:var(--blue)}
+.article-content ul,.article-content ol{margin:20px 0 20px 24px}
+.article-content li{margin:12px 0;color:#374151;font-size:17px}
+.article-content li strong{color:var(--text)}
+.intro-text{font-size:19px;font-weight:500;color:#1f2937;line-height:1.7}
+
+.tldr-box{background:linear-gradient(135deg,rgba(47,107,255,.06),rgba(106,162,255,.04));border:1px solid rgba(47,107,255,.15);border-radius:16px;padding:24px 28px;margin:32px 0}
+.tldr-box h2{font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);margin:0 0 12px 0}
+.tldr-box ul{margin:0;padding-left:20px}
+.tldr-box li{margin:8px 0;font-size:15px}
+
+.tip-box{background:var(--bg-secondary);border-left:4px solid var(--blue);border-radius:0 12px 12px 0;padding:16px 20px;margin:24px 0}
+.tip-box strong{color:var(--blue)}
+.tip-box p{margin:0;font-size:15px;color:#4b5563}
+.beta-box{background:linear-gradient(135deg,rgba(245,158,11,.07),rgba(245,158,11,.03));border:1px solid rgba(245,158,11,.2);border-radius:16px;padding:24px 28px;margin:36px 0}
+.beta-box h3{margin:0 0 10px;font-size:18px;color:#92400e}
+.beta-box p{margin:10px 0 0;font-size:15px;color:#4b5563}
+.beta-box ul{margin:12px 0 0 20px}
+.beta-box li{font-size:15px;color:#4b5563;margin:8px 0}
+
+/* Screenshots */
+figure.shot{margin:36px 0}
+figure.shot img{width:100%;height:auto;display:block;border-radius:16px;border:1px solid var(--line);box-shadow:0 10px 40px rgba(10,12,18,.10);background:var(--bg-secondary)}
+figure.shot figcaption{font-size:13px;color:var(--muted);text-align:center;margin-top:12px;line-height:1.5}
+
+/* Workflow scenario */
+.workflow-scenario{background:linear-gradient(135deg,rgba(139,92,246,.06),rgba(139,92,246,.02));border:1px solid rgba(139,92,246,.15);border-radius:20px;padding:32px;margin:40px 0}
+.workflow-scenario h2{margin-top:0;color:var(--text)}
+.workflow-scenario p{color:#374151;font-size:16px}
+.workflow-steps{list-style:none;padding:0;margin:20px 0;display:flex;flex-direction:column;gap:0}
+.workflow-step{display:flex;align-items:flex-start;gap:16px;padding:16px 0;border-bottom:1px solid rgba(139,92,246,.1)}
+.workflow-step:last-child{border-bottom:none;padding-bottom:0}
+.step-num{width:28px;height:28px;background:linear-gradient(135deg,var(--purple),#a78bfa);color:#fff;font-weight:800;font-size:13px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-text{font-size:15px;color:#374151;line-height:1.6}
+.step-text strong{color:var(--text);display:block;margin-bottom:2px}
+
+/* Use cases */
+.use-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:28px 0}
+.use-card{border:1px solid var(--line);border-radius:16px;padding:20px 22px;background:var(--bg-secondary)}
+.use-card h3{margin:0 0 6px;font-size:16px;font-weight:800}
+.use-card p{margin:0;font-size:14px;color:var(--muted);line-height:1.6}
+@media(max-width:600px){.use-grid{grid-template-columns:1fr}}
+
+/* FAQ */
+.faq{margin:40px 0}
+.faq details{border:1px solid var(--line);border-radius:14px;padding:0;margin:12px 0;background:var(--bg);overflow:hidden}
+.faq summary{cursor:pointer;list-style:none;padding:18px 22px;font-weight:700;font-size:16px;color:var(--text);display:flex;justify-content:space-between;align-items:center;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-weight:700;font-size:20px;color:var(--blue);flex-shrink:0}
+.faq details[open] summary::after{content:"\2013"}
+.faq details p{margin:0;padding:0 22px 20px;font-size:15px;color:#4b5563;line-height:1.7}
+
+/* Inline CTA */
+.inline-cta{display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--bg-secondary);border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin:28px 0}
+.inline-cta-text{font-size:14px;color:var(--muted);line-height:1.5}
+.inline-cta-text strong{color:var(--text);display:block;margin-bottom:2px;font-size:15px}
+.inline-cta-btn{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;padding:10px 18px;border-radius:10px;font-weight:700;font-size:13px;color:#fff !important;text-decoration:none !important;background:linear-gradient(135deg,var(--blue),var(--blue2));box-shadow:0 6px 18px rgba(47,107,255,.22);transition:transform .2s ease,box-shadow .3s ease;flex-shrink:0}
+.inline-cta-btn:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(47,107,255,.3)}
+@media(max-width:560px){.inline-cta{flex-direction:column;align-items:flex-start}.inline-cta-btn{width:100%;justify-content:center}}
+
+.cta-box{background:linear-gradient(135deg,rgba(47,107,255,.08),rgba(106,162,255,.05));border:1px solid rgba(47,107,255,.15);border-radius:20px;padding:32px;text-align:center;margin:48px 0}
+.cta-box strong{display:block;font-size:20px;font-weight:800;margin-bottom:8px;color:var(--text)}
+.cta-box p{margin:0 0 20px 0;color:var(--muted);font-size:16px}
+.cta-button{display:inline-block;padding:14px 28px;border-radius:14px;font-weight:800;font-size:15px;color:#fff !important;text-decoration:none !important;background:linear-gradient(135deg,var(--blue),var(--blue2));box-shadow:0 10px 30px rgba(47,107,255,.25);transition:transform .2s ease,box-shadow .3s ease}
+.cta-button:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(47,107,255,.3)}
+
+.post-nav{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:48px}
+.post-nav a{display:flex;flex-direction:column;padding:20px;border-radius:16px;border:1px solid var(--line);background:var(--bg);text-decoration:none;transition:border-color .25s ease,box-shadow .25s ease}
+.post-nav a:hover{border-color:rgba(47,107,255,.3);box-shadow:0 10px 30px rgba(10,12,18,.06)}
+.post-nav-label{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.post-nav-title{font-size:15px;font-weight:700;color:var(--text);line-height:1.4}
+@media(max-width:600px){.post-nav{grid-template-columns:1fr}}
+
+.site-footer{background:var(--bg-secondary);border-top:1px solid var(--line);padding:40px 16px;text-align:center}
+.footer-content{max-width:1200px;margin:0 auto}
+.footer-brand{display:inline-flex;align-items:center;gap:10px;margin-bottom:16px;font-weight:800;color:var(--text)}
+.footer-brand img{width:24px;height:24px}
+.footer-text{color:var(--muted);font-size:14px}
+
+.float-cta{position:fixed;right:20px;bottom:20px;z-index:40;display:inline-flex;align-items:center;gap:8px;padding:14px 20px;border-radius:14px;font-weight:800;font-size:14px;color:#fff;text-decoration:none;background:linear-gradient(135deg,var(--blue),var(--blue2));box-shadow:0 10px 40px rgba(47,107,255,.35);transition:transform .2s ease,box-shadow .3s ease}
+.float-cta:hover{transform:translateY(-2px);box-shadow:0 14px 50px rgba(47,107,255,.4)}
+@media(max-width:640px){.float-cta{left:16px;right:16px;justify-content:center}}
+
+@media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}html{scroll-behavior:auto}}
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Context Scan: Search Inside Every PDF on Your Hard Drives - Even Unplugged",
+  "description": "DriveVault's Context Scan beta indexes the text inside every PDF on an external drive, making archived documents searchable by their contents rather than their filenames.",
+  "datePublished": "2026-08-18",
+  "dateModified": "2026-08-18",
+  "image": "https://images.unsplash.com/photo-1533854775446-95c4609da544?q=80&w=1600&auto=format&fit=crop",
+  "author": { "@type": "Organization", "name": "DriveVault" },
+  "publisher": { "@type": "Organization", "name": "DriveVault", "logo": { "@type": "ImageObject", "url": "/favicon.png" } },
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://www.drivevault.io/blog/search-inside-pdfs-external-hard-drive-context-scan.html" }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Can I search inside PDFs on an external hard drive that is not plugged in?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. Once you have run a Context Scan on the drive, DriveVault stores the text it found on your Mac. You can search the contents of every PDF on that drive at any time, whether or not the drive is connected." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between a Context Scan and a Quick or Full Scan in DriveVault?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Quick Scan and Full Scan catalog the structure of a drive: folder names, file names, sizes and dates. Context Scan goes further and reads the words inside each PDF, so you can search for a name, phrase or reference that appears in the body of a document." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I run a Context Scan and a Full Scan on the same drive?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Not in a single pass while the feature is in beta. You choose one scan type per scan. You can, however, scan the same drive twice, once with each method. The drive then appears twice in your library, with the second entry labelled Context Scan after the drive name." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does Context Scan work with file types other than PDF?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Not yet. The beta covers PDF documents only. Support for further document formats is planned." }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does Context Scan cost?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Context Scan is included for all DriveVault users during the beta at no extra cost." }
+    }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"DriveVault","operatingSystem":"macOS","applicationCategory":"UtilitiesApplication","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Search and browse external hard drives without plugging them in - including the text inside your PDF documents."}
+</script>
+</head>
+
+<body>
+<header class="topbar" role="banner">
+  <div class="wrap">
+    <a class="brand" href="/"><img src="/favicon.png" alt="DriveVault logo"><span>DriveVault</span></a>
+    <nav class="nav" id="mobileNav" role="navigation" aria-label="Primary">
+      <a href="/#features">Features</a>
+      <a href="/#pricing">Pricing</a>
+      <a href="/changelog.html">Changelog</a>
+      <a href="/blog.html">Blog</a>
+      <a href="/faq.html">FAQ</a>
+      <a class="cta-top" href="https://apps.apple.com/us/app/drivevault-offline-catalog/id6751731655?mt=12" target="_blank" rel="noopener">Download on the App Store</a>
+    </nav>
+    <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false" id="hamburgerBtn"><span></span></button>
+  </div>
+</header>
+
+<main>
+<div class="article-container">
+
+  <header class="article-hero">
+    <span class="eyebrow">New Feature &bull; Beta</span>
+    <h1>Context Scan: Search Inside Every PDF on Your Hard Drives - Even When They Are Unplugged</h1>
+    <p class="post-meta">Published August 18, 2026 &bull; 8 min read &bull; Free for all users during beta</p>
+    <div class="cover-image">
+      <img src="https://images.unsplash.com/photo-1533854775446-95c4609da544?q=80&amp;w=1600&amp;auto=format&amp;fit=crop" alt="Aerial view of university graduates in caps at a graduation ceremony" loading="eager">
+    </div>
+    <span class="cover-credit">Photo: <a href="https://unsplash.com/photos/aerial-view-of-graduates-wearing-hats-YZsvNs2GCPU" target="_blank" rel="noopener">Unsplash</a></span>
+  </header>
+
+  <article class="article-content">
+
+    <p class="intro-text">A lecturer we spoke to put the problem better than we could. She had a student from four years ago apply for a research post, and she wanted to reread the dissertation before writing the reference. She knew she had it. It was on one of the six drives stacked on the shelf behind her desk. What she did not know was which drive, which folder, or what the file was called - because the student had named it <em>Final_Draft_2.pdf</em>, like everyone else.</p>
+
+    <p>She found it eventually. It took most of an afternoon and involved plugging in every drive in turn.</p>
+
+    <p>That afternoon is what <strong>Context Scan</strong> is designed to give back. It is a new scan type in DriveVault, available now in beta to every user at no extra cost, and it does something the app could not do before: it reads the words inside your PDF documents and makes them searchable - permanently, and without the drive being connected.</p>
+
+    <p>Search a student's name. Search a case reference. Search a phrase you half-remember from a report you wrote in 2021. DriveVault tells you which drive it is on, which folder it is in, and what the file is actually called.</p>
+
+    <div class="tldr-box">
+      <h2>What This Article Covers</h2>
+      <ul>
+        <li>Why filename-based search fails completely for document archives</li>
+        <li>What Context Scan does, and how it differs from Quick Scan and Full Scan</li>
+        <li>How to run your first Context Scan, step by step</li>
+        <li>The honest limitations of the beta - including the one restriction you need to plan around</li>
+        <li>Who this is built for: academia, law, medicine, research and beyond</li>
+      </ul>
+    </div>
+
+    <h2>The Arithmetic Nobody Plans For</h2>
+
+    <p>Consider a single module leader at a mid-sized university. Two hundred students. Three assessed submissions a year. Say eight thousand words each. That is six hundred documents and roughly five million words - from one module, in one year.</p>
+
+    <p>Now run that forward a decade, across every module taught, with the dissertations, the resits, the ethics forms, the marking rubrics and the external examiner reports layered on top. The archive reaches into the tens of thousands of documents without anyone ever making a decision to build one. It simply accumulates, one submission window at a time.</p>
+
+    <p>And none of it can be deleted. A degree classification can be challenged years after the fact. A plagiarism query can surface long after the student has graduated. References get requested a decade later. Research data underpinning a published paper has to be retained, often for ten years or more under institutional policy. So the drives fill up, get replaced with bigger drives, and the old ones go in a drawer rather than in a bin.</p>
+
+    <p>The same shape of problem turns up everywhere that documents are the work product. A solicitor's closed matters. A consultant's archived engagements. A clinician's research files. An architect's completed projects. Nobody throws it away, because the cost of not having it once is far higher than the cost of keeping all of it forever.</p>
+
+    <h2>Why Searching That Archive Is So Painful</h2>
+
+    <p>The reason a large document archive is so hard to search is that <strong>the filename almost never tells you what is in the file</strong>. You did not name most of these documents. Students did, clients did, colleagues did, or a scanner did. What you are left with is a folder of <em>Assignment2_FINAL.pdf</em>, <em>submission (1).pdf</em> and <em>Scan_2019_04_11.pdf</em>.</p>
+
+    <p>Spotlight can look inside files, but only while the drive is plugged into your Mac. With six drives on a shelf, that means connecting each one in turn and waiting - which is exactly the afternoon our lecturer lost. And if a drive has failed, or is at another site, or is in a colleague's office, Spotlight cannot help you at all.</p>
+
+    <p>Folder structures help, right up until they do not. A hierarchy organised by year and module works beautifully for finding things by year and module. It is no use whatsoever when the thing you remember is a student's surname, a case number, or a single distinctive phrase.</p>
+
+    <div class="inline-cta">
+      <div class="inline-cta-text">
+        <strong>Have drives full of PDFs you cannot search?</strong>
+        Context Scan is free for all DriveVault users during the beta.
+      </div>
+      <a class="inline-cta-btn" href="https://apps.apple.com/us/app/drivevault-offline-catalog/id6751731655?mt=12" target="_blank" rel="noopener">Try DriveVault Free</a>
+    </div>
+
+    <h2>What Context Scan Actually Does</h2>
+
+    <p>DriveVault has always cataloged the <em>structure</em> of your drives - every folder, file name, size and date - so you could browse and search a drive that was sitting unplugged in a drawer. Context Scan extends that to the <em>contents</em> of your PDFs.</p>
+
+    <p>When you run a Context Scan, DriveVault opens each PDF on the drive and reads the text inside it. That text is stored in your catalog on your Mac. From then on, searching in DriveVault searches the words in your documents as well as their names.</p>
+
+    <p>Practically, that means you can now find:</p>
+
+    <ul>
+      <li><strong>A person by name</strong> - a student, a client, a claimant, a co-author - even when their name appears nowhere in the filename or folder path</li>
+      <li><strong>A reference number</strong> - case IDs, matter numbers, student numbers, grant codes, invoice references</li>
+      <li><strong>A phrase you remember</strong> - a title, a heading, a distinctive sentence from a document you know exists but cannot place</li>
+      <li><strong>A topic across your whole archive</strong> - every dissertation that discusses a particular method, every report that mentions a particular site</li>
+    </ul>
+
+    <p>And, as with everything else in DriveVault, this works with the drive unplugged. The catalog lives on your Mac. The drive can be on a shelf, in a safe, at another campus, or in a box in the loft.</p>
+
+    <figure class="shot">
+      <img src="/contextscanbeta.webp" alt="DriveVault scan options showing Context Scan alongside Quick Scan and Full Scan" loading="lazy">
+      <figcaption>Context Scan appears alongside Quick Scan and Full Scan when you add a drive.</figcaption>
+    </figure>
+
+    <h2>Quick Scan, Full Scan, Context Scan: Which to Use</h2>
+
+    <p>You now have three ways to scan a drive, and they answer different questions.</p>
+
+    <p><strong>Quick Scan</strong> is the fastest way to get a drive into your library. It captures the file and folder structure so you can browse and search by name.</p>
+
+    <p><strong>Full Scan</strong> captures that structure in more depth, and is what you want for a drive you intend to compare against another - verifying a backup, for instance, or working out what is safe to delete.</p>
+
+    <p><strong>Context Scan</strong> is for drives where the value is in the documents themselves rather than in how they are arranged. Archives of papers, reports, contracts, submissions, correspondence. If you find yourself opening files one by one to work out what they are, that drive wants a Context Scan.</p>
+
+    <div class="beta-box">
+      <h3>One beta limitation to plan around</h3>
+      <p>While Context Scan is in beta, <strong>a single scan is either a Context Scan or a Quick/Full Scan - not both</strong>. You choose one when you start the scan.</p>
+      <p>You can still have both for the same drive. Simply scan the drive twice, once with each method. The drive then appears twice in your library, with the second entry labelled <strong>"Context Scan"</strong> after the drive name, so the two are easy to tell apart.</p>
+      <p>It is a small amount of extra work, and it is temporary. Unifying the two into a single pass is what we are working on next.</p>
+    </div>
+
+    <div class="workflow-scenario">
+      <h2>Running Your First Context Scan</h2>
+      <p>If you have never scanned a document drive before, this is the whole process.</p>
+      <ul class="workflow-steps">
+        <li class="workflow-step">
+          <div class="step-num">1</div>
+          <div class="step-text"><strong>Connect the drive and add it in DriveVault</strong>Start a new scan as you normally would. You will see Context Scan offered alongside Quick Scan and Full Scan.</div>
+        </li>
+        <li class="workflow-step">
+          <div class="step-num">2</div>
+          <div class="step-text"><strong>Choose Context Scan</strong>DriveVault works through the drive and reads the text inside every PDF it finds. A drive holding thousands of documents will take longer than a structure-only scan, so this is a good one to start and leave running.</div>
+        </li>
+        <li class="workflow-step">
+          <div class="step-num">3</div>
+          <div class="step-text"><strong>Unplug the drive</strong>The catalog, including all the text, now lives on your Mac. The drive goes back on the shelf.</div>
+        </li>
+        <li class="workflow-step">
+          <div class="step-num">4</div>
+          <div class="step-text"><strong>Search for anything you remember</strong>A surname, a case reference, a phrase from a title. Results show you the matching documents, which drive they live on and where in the folder structure to find them.</div>
+        </li>
+        <li class="workflow-step">
+          <div class="step-num">5</div>
+          <div class="step-text"><strong>Plug in only the drive you actually need</strong>One drive, once, because you already know it is the right one.</div>
+        </li>
+      </ul>
+    </div>
+
+    <figure class="shot">
+      <img src="/contextscan%20results.webp" alt="DriveVault search results showing matches found inside PDF documents on an external drive" loading="lazy">
+      <figcaption>Search results show which documents contain your term, and which drive they are stored on.</figcaption>
+    </figure>
+
+    <h2>Who Asked for This</h2>
+
+    <p>Context Scan exists because university lecturers and professors kept describing the same problem to us. They are, as far as we can tell, one of the most under-served groups in file management: enormous volumes of documents they did not create, cannot rename, must not delete, and periodically have to find again.</p>
+
+    <p>But the pattern generalises well beyond academia.</p>
+
+    <div class="use-grid">
+      <div class="use-card">
+        <h3>Academia</h3>
+        <p>Student submissions, dissertations, marking records, ethics approvals and research data - searchable by student name, cohort, module code or topic, years after the fact.</p>
+      </div>
+      <div class="use-card">
+        <h3>Legal</h3>
+        <p>Archived matters, disclosure bundles, contracts and correspondence - findable by case reference, party name or clause wording without restoring a whole archive.</p>
+      </div>
+      <div class="use-card">
+        <h3>Medical &amp; research</h3>
+        <p>Study documentation, trial paperwork and retained records, searchable by protocol number or participant identifier across drives held for long retention periods.</p>
+      </div>
+      <div class="use-card">
+        <h3>Consultancy &amp; practice</h3>
+        <p>Completed engagements, project reports and drawings register - locate the one deliverable from the one project without opening twenty files to check.</p>
+      </div>
+    </div>
+
+    <p>The common thread is documents you keep for reasons of obligation rather than convenience, on drives you touch once a year. Those are precisely the drives where the filename has stopped meaning anything and where a full text index earns its keep.</p>
+
+    <h2>What Is and Is Not in the Beta</h2>
+
+    <p>We would rather be straight about where this feature currently stands.</p>
+
+    <ul>
+      <li><strong>PDF only, for now.</strong> Context Scan reads PDF documents. Other document formats are on the roadmap, and PDF was the obvious starting point because it is what archives are overwhelmingly made of.</li>
+      <li><strong>One scan type per scan.</strong> As described above - scan twice if you want both, and the second entry is labelled for you.</li>
+      <li><strong>Free during beta, for everyone.</strong> No separate tier, no add-on.</li>
+      <li><strong>Your files stay yours.</strong> DriveVault is an offline catalog. Scanning happens on your Mac and the catalog stays on your Mac - which matters rather a lot when the documents in question are student work, client files or patient-related records.</li>
+    </ul>
+
+    <p>Because it is a beta, feedback genuinely shapes what happens next. If you scan a drive and something is missing, slow or confusing, tell us on <a href="https://drivevault.canny.io/feature-requests" target="_blank" rel="noopener">our feature request board</a>.</p>
+
+    <h2>Frequently Asked Questions</h2>
+
+    <div class="faq">
+      <details>
+        <summary>Can I search inside PDFs on a hard drive that is not plugged in?</summary>
+        <p>Yes - that is the point of it. Once you have run a Context Scan on a drive, the text DriveVault found is stored on your Mac. You can search the contents of every PDF on that drive whenever you like, connected or not.</p>
+      </details>
+      <details>
+        <summary>What is the difference between Context Scan and a Quick or Full Scan?</summary>
+        <p>Quick Scan and Full Scan catalog the structure of a drive: folders, file names, sizes and dates. Context Scan reads the words inside each PDF, so you can search for something that appears in the body of a document rather than in its name.</p>
+      </details>
+      <details>
+        <summary>Can I run a Context Scan and a Full Scan on the same drive?</summary>
+        <p>Not in one pass during the beta - you pick one scan type per scan. You can scan the same drive twice, once with each method. It then appears twice in your library, with the second entry labelled "Context Scan" after the drive name.</p>
+      </details>
+      <details>
+        <summary>Does Context Scan work with Word documents, text files or emails?</summary>
+        <p>Not yet. The beta covers PDFs only. Further document formats are planned, and beta feedback will influence which ones come first.</p>
+      </details>
+      <details>
+        <summary>Does it cost anything?</summary>
+        <p>No. Context Scan is available to all DriveVault users at no extra cost while it is in beta.</p>
+      </details>
+      <details>
+        <summary>Do my documents get uploaded anywhere?</summary>
+        <p>No. DriveVault is an offline catalog. Scanning runs on your Mac and the resulting catalog stays there.</p>
+      </details>
+    </div>
+
+    <h2>The Point of Keeping It All</h2>
+
+    <p>There is not much use in retaining ten years of documents if finding one of them costs you an afternoon. An archive you cannot search is closer to a storage obligation than an asset - you carry the cost of the drives and the shelf space, and get the benefit only on the rare occasions you are willing to spend half a day hunting.</p>
+
+    <p>Context Scan is an attempt to flip that. Scan the drive once, put it back on the shelf, and the entire text of everything on it stays available to you from your laptop, at a coffee shop, with the drive two hundred miles away.</p>
+
+    <p>The student paper from four years ago should take four seconds to find. Now it does.</p>
+
+    <div class="cta-box">
+      <strong>Make your document archive searchable.</strong>
+      <p>Context Scan is available now in beta for all DriveVault users. Free for your first drive up to 4TB.</p>
+      <a class="cta-button" href="https://apps.apple.com/us/app/drivevault-offline-catalog/id6751731655?mt=12" target="_blank" rel="noopener">Download DriveVault Free</a>
+    </div>
+
+  </article>
+
+  <nav class="post-nav" aria-label="Post navigation">
+    <a href="/blog/find-files-without-plugging.html">
+      <span class="post-nav-label">Related</span>
+      <span class="post-nav-title">How to Find Files on External Hard Drives Without Plugging Them In</span>
+    </a>
+    <a href="/blog/organize-multiple-drives.html">
+      <span class="post-nav-label">Related</span>
+      <span class="post-nav-title">The Best Way to Organize Multiple External Hard Drives for Creatives</span>
+    </a>
+  </nav>
+
+</div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-content">
+    <div class="footer-brand"><img src="/favicon.png" alt="DriveVault"><span>DriveVault</span></div>
+    <p class="footer-text">© 2026 DriveVault. All rights reserved.</p>
+  </div>
+</footer>
+
+<a class="float-cta" href="https://apps.apple.com/us/app/drivevault-offline-catalog/id6751731655?mt=12" target="_blank" rel="noopener" aria-label="Download DriveVault on the App Store">Download Free →</a>
+
+<script>
+const hamburger = document.getElementById('hamburgerBtn');
+const mobileNav = document.getElementById('mobileNav');
+if (hamburger && mobileNav) {
+  hamburger.addEventListener('click', () => {
+    const isOpen = mobileNav.classList.toggle('open');
+    hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  mobileNav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileNav.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    });
+  });
+}
+</script>
+</body>
+</html>
