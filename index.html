@@ -658,7 +658,19 @@ kbd.pressed,
   .sub span{text-wrap:balance}
   .stage{margin-top:38px;border-radius:20px}
   .stage img{aspect-ratio:1/1;object-position:56% 60%}
-  .searchbox{width:90%;top:43%}
+  /* The photo is clipped to round its corners, so the glow has to finish
+     fading before it reaches that edge or it gets sliced off. On desktop
+     there is 238px of clearance; on a phone the bar is nearly as wide as
+     the photo, so it is narrowed and the falloff tightened to match. */
+  .searchbox{width:78%;top:43%}
+  .orbit{
+    inset:-14px;
+    filter:saturate(225%) brightness(1.8) blur(15px);
+  }
+  .shell::before{
+    inset:-11px;
+    filter:blur(17px);
+  }
   .h1{max-width:13ch}
   .cta{font-size:14.5px;padding:14px 22px 15px;gap:9px}
   .bar{padding:13px 16px;gap:10px}
@@ -676,7 +688,9 @@ kbd.pressed,
   .thumb{border-radius:11px}
   .tname{font-size:9px;left:6px;right:6px;bottom:5px}
   .kind{font-size:8px;padding:2px 6px;top:6px;left:6px}
-  .pfoot{font-size:10px;padding:8px 9px 7px}
+  .pfoot{font-size:9.5px;padding:8px 9px 7px;gap:6px}
+  .pfoot > span:first-child{white-space:nowrap}
+  .pfoot .drive{font-size:9.5px;padding:4px 8px}
   .pfoot-tail{display:none}
 }
 @media (max-width:520px){
