@@ -382,22 +382,6 @@ kbd.pressed,
   filter:saturate(225%) brightness(1.8) blur(24px);
   mix-blend-mode:screen;
 }
-/* Mobile fallback.
-   On iOS the masked+filtered+blended layer above gets clipped to a hard
-   rectangle. Rather than keep guessing which of those three ingredients
-   Safari is choking on, small screens use a light built only from things
-   that demonstrably render correctly on the device: a radial-gradient
-   background (its own softness, so nothing can clip it), a transform to
-   move it, and a screen blend. No mask, no filter. */
-.orbit-light{
-  display:none;
-  position:absolute;left:0;top:0;
-  border-radius:50%;
-  pointer-events:none;
-  z-index:0;
-  mix-blend-mode:screen;
-  will-change:transform;
-}
 .orbit-fill{
   position:absolute;inset:68px;
   border-radius:999px;
@@ -687,12 +671,23 @@ kbd.pressed,
      fading before it reaches that edge or it gets sliced off. On desktop
      there is 238px of clearance; on a phone the bar is nearly as wide as
      the photo, so it is narrowed and the falloff tightened to match. */
-  .searchbox{width:66%;top:43%}
-  /* swap to the fallback light */
+  .searchbox{width:82%;top:43%}
+  /* No animated glow on phones.
+     The orbiting light relies on a masked, filtered, blend-mode layer, and
+     iOS clips that combination to a hard rectangle. Rather than keep fighting
+     it, small screens get a static glow built from box-shadow instead: no
+     mask, no filter, no blend mode, so there is nothing that can be clipped.
+     Both blurred layers are switched off here so none of them can render. */
   .orbit{display:none}
-  .orbit-light{display:block}
-  /* the light is kept small enough that its own falloff reaches zero before
-     the photo's edge, so there is nothing for the clip to cut */
+  .shell::before{display:none}
+  .bar{
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.30),
+      inset 0 -1px 0 rgba(255,255,255,.06),
+      0 14px 34px rgba(4,6,12,.42),
+      0 0 16px rgba(255,110,150,.34),
+      0 0 30px rgba(120,130,255,.30);
+  }
   .shell::before{
     inset:-11px;
     filter:blur(17px);
@@ -2212,7 +2207,6 @@ margin-bottom: 48px;
     <div class="searchbox" aria-hidden="true">
       <div class="shell">
         <div class="orbit"><span class="orbit-fill"></span></div>
-        <span class="orbit-light"></span>
         <div class="bar">
           <svg width="19" height="19" viewBox="0 0 24 24" fill="none">
             <circle cx="11" cy="11" r="6.6" stroke="currentColor" stroke-width="2"/>
@@ -3026,28 +3020,13 @@ Download on the App Store
      Driven in JS because CSS keyframes interpolate in straight lines,
      which cut the rounded ends into hard 90-degree corners.
   --------------------------------------------------------------- */
-  const orbitEl   = document.querySelector('.orbit-fill');
-  const lightEl   = document.querySelector('.orbit-light');
-  const shellEl   = document.querySelector('.shell');
+  const orbitEl = document.querySelector('.orbit-fill');
   const smallScreen = window.matchMedia('(max-width: 820px)');
   const ORBIT_MS = 9000;    // one full lap
-  const BLOB_W   = 0.44;    // masked window width  as a fraction of the layer
-  const BLOB_H   = 0.95;    // masked window height as a fraction of the layer
+  const BLOB_W   = 0.44;    // window width  as a fraction of the layer
+  const BLOB_H   = 0.95;    // window height as a fraction of the layer
 
-  // the same six stops as the CSS conic-gradient, so the fallback light
-  // picks up the colour the bar is showing at that point on its edge
-  const STOPS = [[255,77,109],[255,138,61],[255,209,102],
-                 [52,211,153],[77,139,255],[177,77,255],[255,77,109]];
-
-  function hueAt(deg){
-    const t = ((deg % 360) + 360) % 360 / 60;
-    const i = Math.floor(t), f = t - i;
-    const a = STOPS[i], b = STOPS[i + 1];
-    // nudged brighter so it reads as light rather than paint
-    return [0,1,2].map(k => Math.min(255, Math.round((a[k] + (b[k] - a[k]) * f) * 1.12)));
-  }
-
-  // walk a stadium outline of the given size, returning a point on it
+  // walk the bar's stadium outline: straight edge, cap, straight edge, cap
   function pointOn(w, h, d){
     const r = h / 2;
     const straight = Math.max(0, w - 2 * r);
@@ -3064,36 +3043,9 @@ Download on the App Store
   const perimeter = (w, h) => 2 * Math.max(0, w - h) + Math.PI * h;
 
   function placeOrbit(t){
-    const frac = (t % ORBIT_MS) / ORBIT_MS;
-
-    if(smallScreen.matches){
-      if(!lightEl || !shellEl) return;
-      const sw = shellEl.offsetWidth, sh = shellEl.offsetHeight;
-      if(!sw || !sh) return;
-
-      const RIM = 12;                                   // how far outside the glass
-      const ow = sw + RIM * 2, oh = sh + RIM * 2;
-      let [x, y] = pointOn(ow, oh, frac * perimeter(ow, oh));
-      x -= RIM; y -= RIM;                               // into the bar's own space
-
-      const LW = Math.round(sw * 0.42), LH = Math.round(sh * 2.6);
-      // hue of the point, measured the way a conic-gradient measures it
-      const ang = Math.atan2(x - sw / 2, -(y - sh / 2)) * 180 / Math.PI;
-      const spin = (t / 22000) * 360;                   // matches the 22s drift
-      const [r, g, bl] = hueAt(ang - spin);
-      const c = (al) => `rgba(${r},${g},${bl},${al})`;
-
-      lightEl.style.width  = LW + 'px';
-      lightEl.style.height = LH + 'px';
-      lightEl.style.background = `radial-gradient(closest-side, ${c(.92)} 0%, ${c(.5)} 42%, ${c(.16)} 70%, ${c(0)} 100%)`;
-      lightEl.style.transform = `translate3d(${(x - LW / 2).toFixed(1)}px, ${(y - LH / 2).toFixed(1)}px, 0)`;
-      return;
-    }
-
-    if(!orbitEl) return;
     const w = orbitEl.offsetWidth, h = orbitEl.offsetHeight;
     if(!w || !h) return;
-    const [x, y] = pointOn(w, h, frac * perimeter(w, h));
+    const [x, y] = pointOn(w, h, ((t % ORBIT_MS) / ORBIT_MS) * perimeter(w, h));
     const bw = w * BLOB_W, bh = h * BLOB_H;
     const pos  = `${(x - bw / 2).toFixed(1)}px ${(y - bh / 2).toFixed(1)}px`;
     const size = `${bw.toFixed(1)}px ${bh.toFixed(1)}px`;
@@ -3103,12 +3055,12 @@ Download on the App Store
     orbitEl.style.maskSize           = size;
   }
 
-  if(orbitEl || lightEl){
+  if(orbitEl){
     if(reduce){
       placeOrbit(ORBIT_MS * 0.75);                // park it, no motion
     } else {
       const startOrbit = ts => {
-        if(visible) placeOrbit(ts);
+        if(visible && !smallScreen.matches) placeOrbit(ts);
         requestAnimationFrame(startOrbit);
       };
       requestAnimationFrame(startOrbit);
