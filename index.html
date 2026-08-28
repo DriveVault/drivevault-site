@@ -368,13 +368,20 @@ kbd.pressed,
    also run left to right, so blur goes last or brightness() clips the ramp
    back into a hard edge.                                                  */
 .orbit{
-  position:absolute;inset:-22px;
+  /* Safari clips a filtered layer to its own border box when that layer also
+     carries a mix-blend-mode, which chopped the blur off in a hard rectangle.
+     Chrome lets the blur spill outside the box, so it only showed on iOS.
+     The layer is therefore given a wide empty margin and the gradient is
+     inset within it, so the glow fades out well before it reaches any edge
+     and there is nothing left to clip. .orbit-fill keeps its old dimensions
+     (bar + 22px), so the animation maths is unchanged. */
+  position:absolute;inset:-90px;
   pointer-events:none;z-index:0;
   filter:saturate(225%) brightness(1.8) blur(24px);
   mix-blend-mode:screen;
 }
 .orbit-fill{
-  position:absolute;inset:0;
+  position:absolute;inset:68px;
   border-radius:999px;
   background:conic-gradient(from var(--a),
     #ff4d6d,#ff8a3d,#ffd166,#34d399,#4d8bff,#b14dff,#ff4d6d);
@@ -664,9 +671,10 @@ kbd.pressed,
      the photo, so it is narrowed and the falloff tightened to match. */
   .searchbox{width:78%;top:43%}
   .orbit{
-    inset:-14px;
+    inset:-60px;
     filter:saturate(225%) brightness(1.8) blur(15px);
   }
+  .orbit-fill{inset:46px}
   .shell::before{
     inset:-11px;
     filter:blur(17px);
