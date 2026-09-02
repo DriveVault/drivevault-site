@@ -6,7 +6,7 @@
     <atom:link href="https://www.drivevault.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>Honest SSD reviews, gear guides and tips for managing external drives on macOS.</description>
     <language>en</language>
-    <lastBuildDate>Wed, 02 Sep 2026 16:29:59 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 02 Sep 2026 16:43:32 GMT</lastBuildDate>
     <item>
       <title>How to Check Whether Your Backup Drive Is Actually Complete</title>
       <link>https://www.drivevault.io/blog/verify-backup-drive-complete-compare-two-drives.html</link>
@@ -14,22 +14,6 @@
       <category>How-To</category>
       <pubDate>Tue, 18 Aug 2026 09:00:00 GMT</pubDate>
       <description>DriveVault's Drive Comparison checks a drive against its backup, scores how closely they match, and lists every single file that never made it across - with both drives unplugged.</description>
-    </item>
-    <item>
-      <title>The 5 Best 4TB External Hard Drives for Filmmakers, Photographers and Creatives (2026)</title>
-      <link>https://www.drivevault.io/blog/5-Best-4TB-External-Hard-Drives-for-creatives-2026.html</link>
-      <guid isPermaLink="true">https://www.drivevault.io/blog/5-Best-4TB-External-Hard-Drives-for-creatives-2026.html</guid>
-      <category>Gear Guide</category>
-      <pubDate>Wed, 02 Sep 2026 09:00:00 GMT</pubDate>
-      <description>We tested and scored the best 4TB external hard drives for creative professionals. Compare Samsung T7 Shield, SanDisk Extreme Pro, LaCie Rugged, WD My Passport and more for filmmaking, photography and video editing.</description>
-    </item>
-    <item>
-      <title>Lexar SL500 Portable SSD Review: The Best Portable Drive You Can Buy Right Now?</title>
-      <link>https://www.drivevault.io/blog/lexar-sl500-review.html</link>
-      <guid isPermaLink="true">https://www.drivevault.io/blog/lexar-sl500-review.html</guid>
-      <category>SSD Review</category>
-      <pubDate>Wed, 02 Sep 2026 09:00:00 GMT</pubDate>
-      <description>An honest, in-depth review of the Lexar SL500 Portable SSD - covering real-world speeds, build quality, compatibility caveats, and why fast drives deserve better organisation.</description>
     </item>
     <item>
       <title>Mac Studio M5 Max and M5 Ultra: The Honest Buyer's Guide</title>
@@ -104,12 +88,28 @@
       <description>Hard drive and SSD prices have surged up to 50% since late 2025, driven by AI data centre demand. Here's what's happening, what it means for creatives, and how to get the most out of the storage you already own.</description>
     </item>
     <item>
+      <title>Lexar SL500 Portable SSD Review: The Best Portable Drive You Can Buy Right Now?</title>
+      <link>https://www.drivevault.io/blog/lexar-sl500-review.html</link>
+      <guid isPermaLink="true">https://www.drivevault.io/blog/lexar-sl500-review.html</guid>
+      <category>SSD Review</category>
+      <pubDate>Thu, 26 Mar 2026 09:00:00 GMT</pubDate>
+      <description>An honest, in-depth review of the Lexar SL500 Portable SSD - covering real-world speeds, build quality, compatibility caveats, and why fast drives deserve better organisation.</description>
+    </item>
+    <item>
       <title>The Best High-Capacity External Hard Drives (16TB–44TB) for Long-Term Creative Storage</title>
       <link>https://www.drivevault.io/blog/best-high-capacity-external-hard-drives-for-creative-storage-2026.html</link>
       <guid isPermaLink="true">https://www.drivevault.io/blog/best-high-capacity-external-hard-drives-for-creative-storage-2026.html</guid>
       <category>Archive Guide</category>
       <pubDate>Tue, 20 Jan 2026 09:00:00 GMT</pubDate>
       <description>We tested and scored the best high-capacity external hard drives from 16TB to 44TB for filmmakers, photographers, and studios. Compare OWC ThunderBay, LaCie d2, Synology NAS, WD My Book Duo, and G-RAID for long-term archive storage.</description>
+    </item>
+    <item>
+      <title>The 5 Best 4TB External Hard Drives for Filmmakers, Photographers and Creatives (2026)</title>
+      <link>https://www.drivevault.io/blog/5-Best-4TB-External-Hard-Drives-for-creatives-2026.html</link>
+      <guid isPermaLink="true">https://www.drivevault.io/blog/5-Best-4TB-External-Hard-Drives-for-creatives-2026.html</guid>
+      <category>Gear Guide</category>
+      <pubDate>Thu, 15 Jan 2026 09:00:00 GMT</pubDate>
+      <description>We tested and scored the best 4TB external hard drives for creative professionals. Compare Samsung T7 Shield, SanDisk Extreme Pro, LaCie Rugged, WD My Passport and more for filmmaking, photography and video editing.</description>
     </item>
     <item>
       <title>Introducing DriveVault: Search External Hard Drives Without Plugging Them In</title>
