@@ -6,7 +6,7 @@
     <atom:link href="https://www.drivevault.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>Honest SSD reviews, gear guides and tips for managing external drives on macOS.</description>
     <language>en</language>
-    <lastBuildDate>Tue, 18 Aug 2026 14:20:14 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 02 Sep 2026 16:29:59 GMT</lastBuildDate>
     <item>
       <title>How to Check Whether Your Backup Drive Is Actually Complete</title>
       <link>https://www.drivevault.io/blog/verify-backup-drive-complete-compare-two-drives.html</link>
@@ -20,7 +20,7 @@
       <link>https://www.drivevault.io/blog/5-Best-4TB-External-Hard-Drives-for-creatives-2026.html</link>
       <guid isPermaLink="true">https://www.drivevault.io/blog/5-Best-4TB-External-Hard-Drives-for-creatives-2026.html</guid>
       <category>Gear Guide</category>
-      <pubDate>Tue, 18 Aug 2026 09:00:00 GMT</pubDate>
+      <pubDate>Wed, 02 Sep 2026 09:00:00 GMT</pubDate>
       <description>We tested and scored the best 4TB external hard drives for creative professionals. Compare Samsung T7 Shield, SanDisk Extreme Pro, LaCie Rugged, WD My Passport and more for filmmaking, photography and video editing.</description>
     </item>
     <item>
@@ -28,8 +28,16 @@
       <link>https://www.drivevault.io/blog/lexar-sl500-review.html</link>
       <guid isPermaLink="true">https://www.drivevault.io/blog/lexar-sl500-review.html</guid>
       <category>SSD Review</category>
-      <pubDate>Tue, 18 Aug 2026 09:00:00 GMT</pubDate>
+      <pubDate>Wed, 02 Sep 2026 09:00:00 GMT</pubDate>
       <description>An honest, in-depth review of the Lexar SL500 Portable SSD - covering real-world speeds, build quality, compatibility caveats, and why fast drives deserve better organisation.</description>
+    </item>
+    <item>
+      <title>Mac Studio M5 Max and M5 Ultra: The Honest Buyer's Guide</title>
+      <link>https://www.drivevault.io/blog/mac-studio-m5-buyers-guide-worth-upgrading.html</link>
+      <guid isPermaLink="true">https://www.drivevault.io/blog/mac-studio-m5-buyers-guide-worth-upgrading.html</guid>
+      <category>Gear Guide</category>
+      <pubDate>Wed, 02 Sep 2026 09:00:00 GMT</pubDate>
+      <description>The new Mac Studio starts at $2,499 and climbs to $5,499. Here is what it actually costs, why it costs that, and exactly when to upgrade based on the Mac you own today.</description>
     </item>
     <item>
       <title>Context Scan: Search Inside Every PDF on Your Hard Drives - Even Unplugged</title>
