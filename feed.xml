@@ -6,7 +6,7 @@
     <atom:link href="https://www.drivevault.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>Honest SSD reviews, gear guides and tips for managing external drives on macOS.</description>
     <language>en</language>
-    <lastBuildDate>Wed, 02 Sep 2026 16:47:32 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 02 Sep 2026 16:59:08 GMT</lastBuildDate>
     <item>
       <title>Mac Studio M5 Max and M5 Ultra: The Honest Buyer's Guide</title>
       <link>https://www.drivevault.io/blog/mac-studio-m5-buyers-guide-worth-upgrading.html</link>
@@ -14,6 +14,14 @@
       <category>Gear Guide</category>
       <pubDate>Wed, 02 Sep 2026 09:00:00 GMT</pubDate>
       <description>The new Mac Studio starts at $2,499 and climbs to $5,499. Here is what it actually costs, why it costs that, and exactly when to upgrade based on the Mac you own today.</description>
+    </item>
+    <item>
+      <title>Samsung P9 and P7: The First 8TB USB4 SSDs, and Cheaper Ways to Get There</title>
+      <link>https://www.drivevault.io/blog/samsung-p9-p7-8tb-portable-ssd-price.html</link>
+      <guid isPermaLink="true">https://www.drivevault.io/blog/samsung-p9-p7-8tb-portable-ssd-price.html</guid>
+      <category>Gear Guide</category>
+      <pubDate>Wed, 02 Sep 2026 09:00:00 GMT</pubDate>
+      <description>Samsung's new P Series puts 8TB in a portable SSD for the first time, at $2,699.99. We break down the price per terabyte, what changed in storage pricing, and six cheaper routes to 8TB.</description>
     </item>
     <item>
       <title>Context Scan: Search Inside Every PDF on Your Hard Drives - Even Unplugged</title>
