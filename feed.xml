@@ -6,15 +6,7 @@
     <atom:link href="https://www.drivevault.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>Honest SSD reviews, gear guides and tips for managing external drives on macOS.</description>
     <language>en</language>
-    <lastBuildDate>Wed, 02 Sep 2026 16:45:00 GMT</lastBuildDate>
-    <item>
-      <title>How to Check Whether Your Backup Drive Is Actually Complete</title>
-      <link>https://www.drivevault.io/blog/verify-backup-drive-complete-compare-two-drives.html</link>
-      <guid isPermaLink="true">https://www.drivevault.io/blog/verify-backup-drive-complete-compare-two-drives.html</guid>
-      <category>How-To</category>
-      <pubDate>Tue, 18 Aug 2026 09:00:00 GMT</pubDate>
-      <description>DriveVault's Drive Comparison checks a drive against its backup, scores how closely they match, and lists every single file that never made it across - with both drives unplugged.</description>
-    </item>
+    <lastBuildDate>Wed, 02 Sep 2026 16:47:32 GMT</lastBuildDate>
     <item>
       <title>Mac Studio M5 Max and M5 Ultra: The Honest Buyer's Guide</title>
       <link>https://www.drivevault.io/blog/mac-studio-m5-buyers-guide-worth-upgrading.html</link>
@@ -30,6 +22,14 @@
       <category>Updates</category>
       <pubDate>Tue, 18 Aug 2026 09:00:00 GMT</pubDate>
       <description>DriveVault's new Context Scan (beta) reads the text inside every PDF on your external drives, so you can search a student name, case reference or phrase and find the exact document - without plugging the drive in.</description>
+    </item>
+    <item>
+      <title>How to Check Whether Your Backup Drive Is Actually Complete</title>
+      <link>https://www.drivevault.io/blog/verify-backup-drive-complete-compare-two-drives.html</link>
+      <guid isPermaLink="true">https://www.drivevault.io/blog/verify-backup-drive-complete-compare-two-drives.html</guid>
+      <category>How-To</category>
+      <pubDate>Tue, 18 Aug 2026 09:00:00 GMT</pubDate>
+      <description>DriveVault's Drive Comparison checks a drive against its backup, scores how closely they match, and lists every single file that never made it across - with both drives unplugged.</description>
     </item>
     <item>
       <title>1TB CFexpress Cards Are Here - and They Should Change How You Work</title>
