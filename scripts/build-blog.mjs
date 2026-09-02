@@ -110,10 +110,17 @@ function readJsonLd(html) {
     const nodes = Array.isArray(data) ? data : (data['@graph'] || [data]);
     for (const node of nodes) {
       const type = String(node?.['@type'] || '');
-      if (/Article|BlogPosting|NewsArticle/i.test(type)) return node;
+      if (/Article|BlogPosting|NewsArticle|Review|TechArticle/i.test(type)) return node;
     }
   }
   return null;
+}
+
+/* Last resort: scrape datePublished straight out of the source text.
+   This still works when a JSON-LD block is malformed (for example a raw
+   newline inside a string value), which would otherwise be invisible. */
+function scrapeDate(html) {
+  return firstMatch(html, /"datePublished"\s*:\s*"([^"]+)"/i);
 }
 
 function firstMatch(html, re) {
@@ -151,6 +158,7 @@ function parseArticle(file) {
   const meta = readMeta(html);
   const ld = readJsonLd(html) || {};
   const warn = [];
+  const fail = [];
 
   if (meta['dv:draft'] === 'true' || meta['dv:hidden'] === 'true') return null;
 
@@ -191,11 +199,15 @@ function parseArticle(file) {
     'Article';
 
   /* Date */
-  const date = toISODate(meta['dv:date'] || ld.datePublished || meta['article:published_time'], path);
+  const rawDate = meta['dv:date'] || ld.datePublished || meta['article:published_time'] || scrapeDate(html);
+  const date = toISODate(rawDate, path);
   const updated = toISODate(ld.dateModified || meta['article:modified_time'] || date, null);
 
-  if (!meta['dv:date'] && !ld.datePublished && !meta['article:published_time']) {
-    warn.push('no publish date found (used file modified time) — add <meta name="dv:date" content="YYYY-MM-DD">');
+  if (!rawDate) {
+    fail.push('no publish date found. In CI the file mtime is the checkout time, so this would silently stamp today\'s date. Add <meta name="dv:date" content="YYYY-MM-DD">');
+  }
+  if (!meta['dv:date']) {
+    warn.push('no dv:date tag (date was recovered from JSON-LD). Add <meta name="dv:date" content="YYYY-MM-DD"> so the date cannot drift.');
   }
   if (!image) warn.push('no cover image found — add <meta property="og:image" content="...">');
   if (!excerpt) warn.push('no excerpt found — add <meta name="description" content="...">');
@@ -210,6 +222,7 @@ function parseArticle(file) {
     alt,
     tag,
     color: TAG_COLORS[tag.toLowerCase()] || 'slate',
+    fail,
     date,
     updated,
     dateLabel: prettyDate(date),
@@ -381,6 +394,7 @@ function main() {
 
   for (const p of posts) {
     for (const w of p.warn) console.warn(`  warning  ${p.file}: ${w}`);
+    for (const e of p.fail) console.error(`  ERROR    ${p.file}: ${e}`);
   }
 
   /* Newest first. A post with dv:featured="true" is pinned to the top. */
@@ -389,6 +403,13 @@ function main() {
     if (a.date !== b.date) return a.date < b.date ? 1 : -1;
     return a.file.localeCompare(b.file);
   });
+
+  const broken = posts.filter((p) => p.fail.length);
+  if (broken.length) {
+    console.error(`\nRefusing to build: ${broken.length} article(s) have no usable publish date.`);
+    console.error('Fix the dates above, or the blog index, RSS feed and sitemap will all be wrong.');
+    process.exit(1);
+  }
 
   const [featured, ...rest] = posts;
 
