@@ -175,6 +175,7 @@ figure.shot figcaption{font-size:13px;color:var(--muted);text-align:center;margi
 pre.cmd{background:#0f1420;border:1px solid rgba(10,12,18,.2);border-radius:14px;padding:18px 20px;margin:24px 0;overflow-x:auto;box-shadow:0 10px 30px rgba(10,12,18,.14)}
 pre.cmd code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,"Cascadia Mono",monospace;font-size:14px;line-height:1.7;color:#e2e8f0;background:none;border:0;padding:0;white-space:pre;display:block}
 .tldr-box code{background:rgba(255,255,255,.6)}
+@media(max-width:560px){pre.cmd{padding:14px 14px}pre.cmd code{font-size:12px}}
 </style>
 
 <script type="application/ld+json">
@@ -418,6 +419,22 @@ pre.cmd code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,"Cascadia Mono
       <p><strong>3. Do not open it.</strong> On a spinning hard drive the read and write heads fly a few nanometres above the platter surface, while ordinary household dust particles are thousands of times larger than that gap. A single speck landing on the platter can turn a recoverable drive into a shredded one.</p>
     </div>
 
+    <h2>While you are here, protect the drives that still work</h2>
+
+    <p>If you are reading this, the odds are that one of your drives is already in trouble. So it is worth saying the unwelcome part now rather than at the end: every drive you own is going to fail eventually. Spinning drives fail mechanically, SSDs wear out their cells, and both of them occasionally just stop being recognised one morning for no reason you will ever establish.</p>
+
+    <p>You cannot prevent that. What you can control is how much it costs you when it happens, and almost all of that cost comes down to a single question. <strong>Do you know what was on the drive?</strong></p>
+
+    <p>If the answer is no, a failure turns into a week of guesswork: trying to remember which projects lived where, whether the shoot from last spring was ever copied across, whether the thing you have just lost exists somewhere else on the shelf. If the answer is yes, it becomes a short and manageable job. You know exactly what was on it, exactly which files you need back, and which of them are already safe on another drive.</p>
+
+    <p>Getting to yes takes about ten minutes per drive, and it has to be done <em>before</em> the failure. Scanning a drive once with DriveVault keeps a complete searchable record of everything on it on your Mac. The drive can then die, vanish, or sit in a recovery lab for three weeks, and you still have the list.</p>
+
+    <div class="hero-cta">
+      <strong>Use this as the prompt to catalogue the drives that are still healthy.</strong>
+      <p>Scan each drive once and keep a searchable record of what is on it, so the next failure is an inconvenience rather than a mystery. Free for your first drive up to 4TB.</p>
+      <a class="cta-button" href="https://apps.apple.com/us/app/drivevault-offline-catalog/id6751731655?mt=12" target="_blank" rel="noopener">Download DriveVault Free</a>
+    </div>
+
     <h2>Step 1: Rule out the boring causes first</h2>
 
     <p>A surprising share of "corrupted" drives are perfectly healthy drives with a bad connection. Before you open any repair tool, work through these:</p>
@@ -471,16 +488,11 @@ pre.cmd code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,"Cascadia Mono
     <p><strong>If the volume will not mount,</strong> try mounting it read-only. macOS often suggests this itself in the error dialog, and it lets you read the drive without allowing anything to write to it:</p>
 
     <pre class="cmd"><code>diskutil list
-diskutil mount readOnly disk4s1</code></pre>
+diskutil mount readOnly disk5s1</code></pre>
 
-    <p>Run <code>diskutil list</code> first and find your drive in the output by its size and name, then substitute the correct identifier. External drives usually appear as <code>disk4</code> or higher.</p>
+    <p>Run <code>diskutil list</code> first and substitute the identifier for your own volume. Step 6 below explains how to read that output and pick the right one, which is less obvious than it looks on an APFS drive.</p>
 
     <p><strong>If the drive mounts but keeps dropping out,</strong> make a full disk image of it and do your work on the copy. In Disk Utility, select the drive and choose <strong>File &gt; New Image &gt; Image from [device name]</strong>. Save the image to a healthy drive with enough free space. One limitation to plan around: Disk Utility cannot image individual APFS volumes or containers, only whole devices, so you need the space for the entire drive rather than just the used portion.</p>
-
-    <div class="inline-cta">
-      <div class="inline-cta-text"><strong>Do you know what was actually on the drive?</strong>If you cannot answer that with confidence, that is the more expensive problem. DriveVault catalogues every drive you own so the list is on your Mac whatever happens to the hardware.</div>
-      <a class="inline-cta-btn" href="https://apps.apple.com/us/app/drivevault-offline-catalog/id6751731655?mt=12" target="_blank" rel="noopener">Download Free</a>
-    </div>
 
     <h2>Step 5: Run First Aid, in the right order</h2>
 
@@ -532,22 +544,41 @@ diskutil mount readOnly disk4s1</code></pre>
 
     <pre class="cmd"><code>diskutil list</code></pre>
 
-    <p>Find your drive by size and volume name, and note both the device identifier (such as <code>disk4</code>) and the volume identifier (such as <code>disk4s1</code>). Then verify, and repair:</p>
+    <p>This is the part that trips people up, so it is worth reading the output carefully. On an APFS drive it looks roughly like this:</p>
 
-    <pre class="cmd"><code>diskutil verifyVolume /dev/disk4s1
-diskutil repairVolume /dev/disk4s1</code></pre>
+    <pre class="cmd"><code>/dev/disk4 (external, physical):
+   #:              TYPE NAME              SIZE       IDENTIFIER
+   0:  GUID_partition_scheme             *4.0 TB     disk4
+   1:                EFI EFI              209.7 MB   disk4s1
+   2:         Apple_APFS Container disk5  4.0 TB     disk4s2
 
-    <p>These are worth trying first because <code>diskutil</code> handles unmounting for you and automatically selects the right repair tool for the format. If you want to run that tool directly, unmount the drive and call it yourself:</p>
+/dev/disk5 (synthesized):
+   #:              TYPE NAME              SIZE       IDENTIFIER
+   0:  APFS Container Scheme -            +4.0 TB    disk5
+                            Physical Store disk4s2
+   1:        APFS Volume Archive 2024     3.1 TB     disk5s1</code></pre>
+
+    <p>Find the block labelled <strong>(external, physical)</strong> and confirm it is yours by the size. That gives you the device, <code>disk4</code> in this example. But the volume you actually care about is not on <code>disk4</code> at all. It lives on the <strong>synthesized</strong> disk below, which macOS creates to represent the APFS container. Here it is <code>disk5s1</code>, the one carrying the name you would see in Finder.</p>
+
+    <p>The three identifiers you need, then, are the physical device (<code>disk4</code>), the container's physical store partition (<code>disk4s2</code>) and the volume (<code>disk5s1</code>). On an older Mac OS Extended drive there is no synthesized disk and the volume is simply <code>disk4s2</code>, which is why so many older guides give confusingly different numbers.</p>
+
+    <p>With the volume identified, verify and then repair it:</p>
+
+    <pre class="cmd"><code>diskutil verifyVolume /dev/disk5s1
+diskutil repairVolume /dev/disk5s1</code></pre>
+
+    <p>These are worth trying first because <code>diskutil</code> handles unmounting for you and automatically selects the right repair tool for the format. A healthy result ends with a line telling you the file system check exited with a success code. Anything else, and the lines above it will name the specific structure that failed, which is exactly the detail Disk Utility hides behind a single red error message.</p>
+
+    <p>If <code>repairVolume</code> cannot fix it, drop a level and repair the whole container. Unmount the device first, then point the file system checker at the container's physical store:</p>
 
     <pre class="cmd"><code>diskutil unmountDisk /dev/disk4
-sudo fsck_apfs -y /dev/disk4s1</code></pre>
+sudo fsck_apfs -y /dev/disk4s2</code></pre>
 
-    <p>Use <code>fsck_apfs</code> for APFS, <code>fsck_hfs</code> for Mac OS Extended, and <code>fsck_exfat</code> for ExFAT drives shared with Windows. The <code>-y</code> flag answers yes to every repair prompt. If the output ends with a message telling you the file system was modified, run the same command again. Keep going until it reports that the volume appears to be OK, or until two consecutive runs produce the same errors, which means it has done all it can.</p>
+    <p>Use <code>fsck_apfs</code> for APFS, <code>fsck_hfs</code> for Mac OS Extended, and <code>fsck_exfat</code> for ExFAT drives shared with Windows. The <code>-y</code> flag answers yes to every repair prompt. If the output ends with a message telling you the file system was modified, run the same command again. Keep going until it reports that the volume appears to be OK, or until two consecutive runs produce the same errors, which means it has done all it can and you should move on to the last two sections of this guide.</p>
 
-    <figure class="shot">
-      <img src="/terminal-diskutil-repairvolume.webp" alt="Terminal showing diskutil list output followed by a diskutil repairVolume run on an external drive" loading="lazy">
-      <figcaption>Terminal gives you the specific errors that Disk Utility summarises as a single failure. Screenshot: DriveVault.</figcaption>
-    </figure>
+    <div class="tip-box">
+      <p><strong>If you would rather not use Terminal at all,</strong> that is a reasonable position, and you are not missing a magic fix by skipping it. These commands are the same repair engine Disk Utility calls, just with better error messages and the ability to repeat a pass. If First Aid has already failed twice on a drive holding data you cannot lose, going straight to a recovery lab is a perfectly sensible decision.</p>
+    </div>
 
     <h2>Step 7: Check Time Machine, carefully</h2>
 
