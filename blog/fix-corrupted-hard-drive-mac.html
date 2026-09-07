@@ -1,0 +1,691 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>How to Fix a Corrupted Hard Drive on Mac (Using Only Built-In Tools) | DriveVault</title>
+<meta name="description" content="A step by step guide to repairing a corrupted external hard drive on macOS using Disk Utility, Terminal and Time Machine. No third-party software, and how to know when to stop and call a specialist." />
+<meta name="keywords" content="fix corrupted hard drive mac, repair external hard drive mac, disk utility first aid, mac drive not mounting, fsck_apfs mac, diskutil repairVolume, recover files corrupted drive mac, external drive corrupted macOS, disk utility failed to repair" />
+<meta name="author" content="DriveVault" />
+
+<meta name="dv:tag" content="How-To" />
+<meta name="dv:date" content="2026-09-07" />
+
+<link rel="icon" href="/favicon.png" type="image/png" />
+<link rel="apple-touch-icon" href="/favicon.png" />
+<link rel="canonical" href="https://www.drivevault.io/blog/fix-corrupted-hard-drive-mac.html" />
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to Fix a Corrupted Hard Drive on Mac (Using Only Built-In Tools)">
+<meta property="og:description" content="Disk Utility, Terminal and Time Machine can repair most corrupted external drives on a Mac. Here is the order to do it in, and the point at which you should stop.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1597852074816-d933c7d2b988?auto=format&amp;fit=crop&amp;w=1600&amp;q=80">
+<meta property="og:url" content="https://www.drivevault.io/blog/fix-corrupted-hard-drive-mac.html">
+<meta property="og:site_name" content="DriveVault">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How to Fix a Corrupted Hard Drive on Mac">
+<meta name="twitter:description" content="Repair a corrupted external drive on macOS with Disk Utility and Terminal. No third-party software required.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+html{scroll-behavior:smooth}
+:root{--bg:#ffffff;--bg-secondary:#f8fafc;--text:#0b0d12;--muted:#5f6775;--line:rgba(10,12,18,.08);--shadow:0 20px 60px rgba(10,12,18,.08);--blue:#2f6bff;--blue2:#6aa2ff;--green:#22c55e;--gold:#f59e0b;--red:#ef4444;--purple:#8b5cf6}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6}
+img{max-width:100%}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:6px}
+.topbar{position:fixed;inset:0 0 auto 0;height:68px;z-index:50;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.72);backdrop-filter:saturate(160%) blur(12px);-webkit-backdrop-filter:saturate(160%) blur(12px);border-bottom:1px solid var(--line)}
+.topbar .wrap{width:min(1200px,94vw);display:flex;align-items:center;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);font-weight:800}
+.brand img{width:22px;height:22px}
+.brand span{font-size:14px;letter-spacing:.2px}
+.nav{margin-left:auto;display:flex;align-items:center;gap:18px}
+.nav a{color:#2b3140;text-decoration:none;font-size:13px;padding:8px 10px;border-radius:10px;transition:background .25s ease,color .25s ease}
+.nav a:hover{background:rgba(10,12,18,.05);color:#0b0d12}
+.cta-top{margin-left:4px;padding:10px 14px;border-radius:12px;font-weight:800;font-size:13px;color:#fff;text-decoration:none;background:linear-gradient(135deg,var(--blue),var(--blue2));box-shadow:0 10px 22px rgba(47,107,255,.22);transition:transform .2s ease,box-shadow .35s ease;position:relative;overflow:hidden;isolation:isolate}
+.cta-top::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#22c55e,#4ade80);transition:opacity .35s ease;z-index:-1}
+.cta-top:hover{transform:translateY(-1px);box-shadow:0 16px 30px rgba(47,107,255,.26)}
+.cta-top:hover::before{opacity:0}
+.hamburger{display:none;margin-left:auto;width:36px;height:36px;border-radius:10px;border:1px solid rgba(10,12,18,.12);background:#fff;box-shadow:0 6px 16px rgba(10,12,18,.08);align-items:center;justify-content:center;cursor:pointer}
+.hamburger span{width:18px;height:2px;background:#0b0d12;position:relative;display:block}
+.hamburger span::before,.hamburger span::after{content:"";position:absolute;left:0;width:18px;height:2px;background:#0b0d12}
+.hamburger span::before{top:-6px}
+.hamburger span::after{top:6px}
+@media(max-width:900px){.nav{position:fixed;top:68px;left:0;right:0;background:#fff;border-bottom:1px solid var(--line);flex-direction:column;gap:6px;padding:12px 16px 16px;display:none;box-shadow:0 20px 40px rgba(10,12,18,.1)}.nav.open{display:flex}.nav a{width:100%;text-align:left;padding:12px 14px;font-size:15px}.cta-top{width:100%;text-align:center;margin-top:6px}.hamburger{display:flex}}
+
+main{padding:calc(68px + 48px) 16px 80px}
+.article-container{width:min(780px,94vw);margin:0 auto}
+.article-hero{text-align:center;margin-bottom:40px}
+.eyebrow{display:inline-block;background:linear-gradient(135deg,rgba(34,197,94,.12),rgba(74,222,128,.10));color:#15803d;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;border-radius:20px;margin-bottom:16px}
+.article-hero h1{font-size:clamp(28px,5vw,44px);font-weight:900;line-height:1.1;letter-spacing:-0.02em;margin-bottom:16px;color:var(--text)}
+.post-meta{color:var(--muted);font-size:14px;margin-bottom:32px}
+.cover-image{border-radius:20px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line)}
+.cover-image img{width:100%;height:auto;display:block;aspect-ratio:16/9;object-fit:cover;background:var(--bg-secondary)}
+.cover-credit{display:block;font-size:12px;color:var(--muted);margin-top:10px;text-align:center}
+.cover-credit a{color:var(--muted)}
+
+.article-content{background:var(--bg);line-height:1.75}
+.article-content p{margin:20px 0;color:#374151;font-size:17px}
+.article-content h2{font-size:26px;font-weight:800;margin:48px 0 16px;color:var(--text);letter-spacing:-0.01em}
+.article-content h3{font-size:20px;font-weight:700;margin:32px 0 12px;color:var(--text)}
+.article-content a{color:var(--blue);text-decoration:underline;text-decoration-color:rgba(47,107,255,.3);text-underline-offset:2px;transition:text-decoration-color .2s ease}
+.article-content a:hover{text-decoration-color:var(--blue)}
+.article-content ul,.article-content ol{margin:20px 0 20px 24px}
+.article-content li{margin:12px 0;color:#374151;font-size:17px}
+.article-content li strong{color:var(--text)}
+.intro-text{font-size:19px;font-weight:500;color:#1f2937;line-height:1.7}
+
+.tldr-box{background:linear-gradient(135deg,rgba(47,107,255,.06),rgba(106,162,255,.04));border:1px solid rgba(47,107,255,.15);border-radius:16px;padding:24px 28px;margin:32px 0}
+.tldr-box h2{font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);margin:0 0 12px 0}
+.tldr-box ul{margin:0;padding-left:20px}
+.tldr-box li{margin:8px 0;font-size:15px}
+
+.tip-box{background:var(--bg-secondary);border-left:4px solid var(--blue);border-radius:0 12px 12px 0;padding:16px 20px;margin:24px 0}
+.tip-box strong{color:var(--blue)}
+.tip-box p{margin:0;font-size:15px;color:#4b5563}
+.beta-box{background:linear-gradient(135deg,rgba(245,158,11,.07),rgba(245,158,11,.03));border:1px solid rgba(245,158,11,.2);border-radius:16px;padding:24px 28px;margin:36px 0}
+.beta-box h3{margin:0 0 10px;font-size:18px;color:#92400e}
+.beta-box p{margin:10px 0 0;font-size:15px;color:#4b5563}
+.beta-box ul{margin:12px 0 0 20px}
+.beta-box li{font-size:15px;color:#4b5563;margin:8px 0}
+
+/* Screenshots */
+figure.shot{margin:36px 0}
+figure.shot img{width:100%;height:auto;display:block;border-radius:16px;border:1px solid var(--line);box-shadow:0 10px 40px rgba(10,12,18,.10);background:var(--bg-secondary)}
+figure.shot figcaption{font-size:13px;color:var(--muted);text-align:center;margin-top:12px;line-height:1.5}
+
+/* Workflow scenario */
+.workflow-scenario{background:linear-gradient(135deg,rgba(139,92,246,.06),rgba(139,92,246,.02));border:1px solid rgba(139,92,246,.15);border-radius:20px;padding:32px;margin:40px 0}
+.workflow-scenario h2{margin-top:0;color:var(--text)}
+.workflow-scenario p{color:#374151;font-size:16px}
+.workflow-steps{list-style:none;padding:0;margin:20px 0;display:flex;flex-direction:column;gap:0}
+.workflow-step{display:flex;align-items:flex-start;gap:16px;padding:16px 0;border-bottom:1px solid rgba(139,92,246,.1)}
+.workflow-step:last-child{border-bottom:none;padding-bottom:0}
+.step-num{width:28px;height:28px;background:linear-gradient(135deg,var(--purple),#a78bfa);color:#fff;font-weight:800;font-size:13px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-text{font-size:15px;color:#374151;line-height:1.6}
+.step-text strong{color:var(--text);display:block;margin-bottom:2px}
+
+/* Use cases */
+.use-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:28px 0}
+.use-card{border:1px solid var(--line);border-radius:16px;padding:20px 22px;background:var(--bg-secondary)}
+.use-card h3{margin:0 0 6px;font-size:16px;font-weight:800}
+.use-card p{margin:0;font-size:14px;color:var(--muted);line-height:1.6}
+@media(max-width:600px){.use-grid{grid-template-columns:1fr}}
+
+/* FAQ */
+.faq{margin:40px 0}
+.faq details{border:1px solid var(--line);border-radius:14px;padding:0;margin:12px 0;background:var(--bg);overflow:hidden}
+.faq summary{cursor:pointer;list-style:none;padding:18px 22px;font-weight:700;font-size:16px;color:var(--text);display:flex;justify-content:space-between;align-items:center;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-weight:700;font-size:20px;color:var(--blue);flex-shrink:0}
+.faq details[open] summary::after{content:"\2013"}
+.faq details p{margin:0;padding:0 22px 20px;font-size:15px;color:#4b5563;line-height:1.7}
+
+/* Inline CTA */
+.inline-cta{display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--bg-secondary);border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin:28px 0}
+.inline-cta-text{font-size:14px;color:var(--muted);line-height:1.5}
+.inline-cta-text strong{color:var(--text);display:block;margin-bottom:2px;font-size:15px}
+.inline-cta-btn{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;padding:10px 18px;border-radius:10px;font-weight:700;font-size:13px;color:#fff !important;text-decoration:none !important;background:linear-gradient(135deg,var(--blue),var(--blue2));box-shadow:0 6px 18px rgba(47,107,255,.22);transition:transform .2s ease,box-shadow .3s ease;flex-shrink:0}
+.inline-cta-btn:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(47,107,255,.3)}
+@media(max-width:560px){.inline-cta{flex-direction:column;align-items:flex-start}.inline-cta-btn{width:100%;justify-content:center}}
+
+.cta-box{background:linear-gradient(135deg,rgba(47,107,255,.08),rgba(106,162,255,.05));border:1px solid rgba(47,107,255,.15);border-radius:20px;padding:32px;text-align:center;margin:48px 0}
+.cta-box strong{display:block;font-size:20px;font-weight:800;margin-bottom:8px;color:var(--text)}
+.cta-box p{margin:0 0 20px 0;color:var(--muted);font-size:16px}
+.cta-button{display:inline-block;padding:14px 28px;border-radius:14px;font-weight:800;font-size:15px;color:#fff !important;text-decoration:none !important;background:linear-gradient(135deg,var(--blue),var(--blue2));box-shadow:0 10px 30px rgba(47,107,255,.25);transition:transform .2s ease,box-shadow .3s ease}
+.cta-button:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(47,107,255,.3)}
+
+.post-nav{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:48px}
+.post-nav a{display:flex;flex-direction:column;padding:20px;border-radius:16px;border:1px solid var(--line);background:var(--bg);text-decoration:none;transition:border-color .25s ease,box-shadow .25s ease}
+.post-nav a:hover{border-color:rgba(47,107,255,.3);box-shadow:0 10px 30px rgba(10,12,18,.06)}
+.post-nav-label{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.post-nav-title{font-size:15px;font-weight:700;color:var(--text);line-height:1.4}
+@media(max-width:600px){.post-nav{grid-template-columns:1fr}}
+
+.site-footer{background:var(--bg-secondary);border-top:1px solid var(--line);padding:40px 16px;text-align:center}
+.footer-content{max-width:1200px;margin:0 auto}
+.footer-brand{display:inline-flex;align-items:center;gap:10px;margin-bottom:16px;font-weight:800;color:var(--text)}
+.footer-brand img{width:24px;height:24px}
+.footer-text{color:var(--muted);font-size:14px}
+
+.float-cta{position:fixed;right:20px;bottom:20px;z-index:40;display:inline-flex;align-items:center;gap:8px;padding:14px 20px;border-radius:14px;font-weight:800;font-size:14px;color:#fff;text-decoration:none;background:linear-gradient(135deg,var(--blue),var(--blue2));box-shadow:0 10px 40px rgba(47,107,255,.35);transition:transform .2s ease,box-shadow .3s ease}
+.float-cta:hover{transform:translateY(-2px);box-shadow:0 14px 50px rgba(47,107,255,.4)}
+@media(max-width:640px){.float-cta{left:16px;right:16px;justify-content:center}}
+
+@media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}html{scroll-behavior:auto}}
+
+/* Hero CTA - high on the page */
+.hero-cta{background:linear-gradient(135deg,rgba(47,107,255,.10),rgba(106,162,255,.06));border:1px solid rgba(47,107,255,.20);border-radius:20px;padding:28px 32px;margin:36px 0;text-align:center}
+.hero-cta strong{display:block;font-size:19px;font-weight:800;color:var(--text);margin-bottom:6px;line-height:1.35}
+.hero-cta p{margin:0 0 18px;font-size:15px;color:var(--muted)}
+.hero-cta .cta-button{font-size:16px;padding:15px 32px}
+@media(max-width:560px){.hero-cta{padding:24px 20px}.hero-cta strong{font-size:17px}.hero-cta .cta-button{width:100%;text-align:center}}
+
+/* --- How-to guide additions --- */
+.eyebrow{background:linear-gradient(135deg,rgba(47,107,255,.12),rgba(106,162,255,.10));color:#1d4ed8}
+.warn-box{background:linear-gradient(135deg,rgba(239,68,68,.07),rgba(239,68,68,.03));border:1px solid rgba(239,68,68,.22);border-radius:16px;padding:24px 28px;margin:36px 0}
+.warn-box h3{margin:0 0 10px;font-size:18px;color:#b91c1c}
+.warn-box p{margin:12px 0 0;font-size:15px;color:#4b5563}
+.warn-box p:first-of-type{margin-top:0}
+.warn-box strong{color:var(--text)}
+.article-content code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,"Cascadia Mono",monospace;font-size:.88em;background:var(--bg-secondary);border:1px solid var(--line);border-radius:6px;padding:2px 6px;color:#1f2937;white-space:nowrap}
+pre.cmd{background:#0f1420;border:1px solid rgba(10,12,18,.2);border-radius:14px;padding:18px 20px;margin:24px 0;overflow-x:auto;box-shadow:0 10px 30px rgba(10,12,18,.14)}
+pre.cmd code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,"Cascadia Mono",monospace;font-size:14px;line-height:1.7;color:#e2e8f0;background:none;border:0;padding:0;white-space:pre;display:block}
+.tldr-box code{background:rgba(255,255,255,.6)}
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "How to Fix a Corrupted Hard Drive on Mac (Using Only Built-In Tools)",
+  "description": "A step by step guide to repairing a corrupted external hard drive on macOS using Disk Utility, Terminal and Time Machine, and knowing when to stop and call a data recovery specialist.",
+  "datePublished": "2026-09-07",
+  "dateModified": "2026-09-07",
+  "image": "https://images.unsplash.com/photo-1597852074816-d933c7d2b988?auto=format&fit=crop&w=1600&q=80",
+  "author": {
+    "@type": "Organization",
+    "name": "DriveVault"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "DriveVault",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.png"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.drivevault.io/blog/fix-corrupted-hard-drive-mac.html"
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to fix a corrupted hard drive on Mac",
+  "description": "Repair a corrupted external hard drive on macOS using Disk Utility, Terminal and Time Machine, without third-party software.",
+  "image": "https://images.unsplash.com/photo-1597852074816-d933c7d2b988?auto=format&fit=crop&w=1600&q=80",
+  "totalTime": "PT1H",
+  "tool": [
+    {
+      "@type": "HowToTool",
+      "name": "Disk Utility (built in to macOS)"
+    },
+    {
+      "@type": "HowToTool",
+      "name": "Terminal (built in to macOS)"
+    },
+    {
+      "@type": "HowToTool",
+      "name": "A second healthy drive with enough free space"
+    }
+  ],
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "Rule out cable, port and power",
+      "text": "Swap the cable, remove any hub or dock, try a different port, check the power supply and restart the Mac before assuming the drive is at fault.",
+      "url": "https://www.drivevault.io/blog/fix-corrupted-hard-drive-mac.html#step1"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "Find the drive in Disk Utility",
+      "text": "Open Disk Utility and choose View then Show All Devices to reveal the physical device, the APFS container and the volumes inside it.",
+      "url": "https://www.drivevault.io/blog/fix-corrupted-hard-drive-mac.html#step2"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "Check S.M.A.R.T. status",
+      "text": "Select the physical device and read its S.M.A.R.T. status. Verified means file system damage that can be repaired. Failing means you should copy files off and replace the drive rather than repair it.",
+      "url": "https://www.drivevault.io/blog/fix-corrupted-hard-drive-mac.html#step3"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 4,
+      "name": "Copy files off before repairing",
+      "text": "Copy the most important files first in Finder. If the volume will not mount, use diskutil mount readOnly to read it without writing to it. If it drops out repeatedly, create a disk image with File, New Image, Image from device.",
+      "url": "https://www.drivevault.io/blog/fix-corrupted-hard-drive-mac.html#step4"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 5,
+      "name": "Run First Aid bottom up",
+      "text": "Run First Aid on each volume in turn, then on each container, then on the physical device itself. Eject and reconnect the drive afterwards.",
+      "url": "https://www.drivevault.io/blog/fix-corrupted-hard-drive-mac.html#step5"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 6,
+      "name": "Repair from Terminal if First Aid fails",
+      "text": "Run diskutil list to identify the drive, then diskutil verifyVolume and diskutil repairVolume on the volume identifier. For direct control, unmount the disk and run fsck_apfs, fsck_hfs or fsck_exfat with the -y flag, repeating until the volume reports as OK.",
+      "url": "https://www.drivevault.io/blog/fix-corrupted-hard-drive-mac.html#step6"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 7,
+      "name": "Restore from Time Machine",
+      "text": "Time Machine excludes external drives by default, so check whether the drive was removed from the exclusion list under System Settings, General, Time Machine, Options before relying on a backup.",
+      "url": "https://www.drivevault.io/blog/fix-corrupted-hard-drive-mac.html#step7"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 8,
+      "name": "Stop and call a specialist",
+      "text": "Stop attempting repairs if S.M.A.R.T. reports Failing, the drive clicks or grinds, it disappears mid-copy, or it never appears in Disk Utility at all.",
+      "url": "https://www.drivevault.io/blog/fix-corrupted-hard-drive-mac.html#step8"
+    }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Will running First Aid delete my files?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "First Aid is designed to repair the file system rather than erase data, and in normal use it does not delete files. It does write to the drive, however, which is why you should copy off anything irreplaceable before running it, particularly if S.M.A.R.T. status is not Verified."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Disk Utility says my drive cannot be repaired. Is the data gone?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not necessarily. A failed repair means macOS cannot rebuild the file system to a state it trusts, but the underlying data is often still present. Try mounting the volume read-only from Terminal to copy files off. If that fails and the data matters, a professional recovery lab can usually read far more than macOS can."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need to boot into Recovery mode to repair an external drive on a Mac?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Recovery mode exists so you can repair the disk your Mac is running from, which cannot be unmounted while macOS is using it. An external drive can be unmounted normally, so Disk Utility and Terminal both work from your regular desktop session."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between erasing a drive and repairing it?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Repairing attempts to fix the existing file system and keep your files. Erasing writes a fresh empty file system over the top, which reliably makes the drive usable again and reliably loses everything on it. Erasing is the last step, never the first one, and only after you have copied off everything you can."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I recover files from a drive that macOS will not mount at all?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sometimes. Try diskutil mount readOnly from Terminal first, since a read-only mount bypasses some of the checks that block a normal mount. If the drive appears in diskutil list but no mount succeeds, the file system structures are badly damaged and recovery becomes a specialist job."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I stop a hard drive becoming corrupted again?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Eject drives properly before unplugging them, keep two copies of anything irreplaceable, replace spinning hard drives after roughly four or five years of regular use, and keep a catalogue of what is on each drive so that a failure is an inconvenience rather than a mystery."
+      }
+    }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "DriveVault",
+  "operatingSystem": "macOS",
+  "applicationCategory": "UtilitiesApplication",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "description": "Catalogue and search external hard drives without plugging them in, so you always know what is stored on every drive you own."
+}
+</script>
+</head>
+
+<body>
+<header class="topbar" role="banner">
+  <div class="wrap">
+    <a class="brand" href="/"><img src="/favicon.png" alt="DriveVault logo"><span>DriveVault</span></a>
+    <nav class="nav" id="mobileNav" role="navigation" aria-label="Primary">
+      <a href="/#features">Features</a>
+      <a href="/#pricing">Pricing</a>
+      <a href="/changelog.html">Changelog</a>
+      <a href="/blog.html">Blog</a>
+      <a href="/faq.html">FAQ</a>
+      <a class="cta-top" href="https://apps.apple.com/us/app/drivevault-offline-catalog/id6751731655?mt=12" target="_blank" rel="noopener">Download on the App Store</a>
+    </nav>
+    <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false" id="hamburgerBtn"><span></span></button>
+  </div>
+</header>
+
+<main>
+<div class="article-container">
+
+  <header class="article-hero">
+    <span class="eyebrow">How-To Guide</span>
+    <h1>How to Fix a Corrupted Hard Drive on Mac (Using Only Built-In Tools)</h1>
+    <p class="post-meta">Published September 7, 2026 &bull; 9 min read &bull; macOS Tahoe and later</p>
+    <div class="cover-image">
+      <img src="https://images.unsplash.com/photo-1597852074816-d933c7d2b988?auto=format&amp;fit=crop&amp;w=1600&amp;q=80" alt="The inside of a hard drive with the cover removed, showing the platter and read arm" loading="eager">
+    </div>
+    <span class="cover-credit">Photo: <a href="https://unsplash.com/photos/black-and-silver-turntable-on-brown-wooden-table-GNyjCePVRs8" target="_blank" rel="noopener">benjamin lehman on Unsplash</a></span>
+  </header>
+
+  <article class="article-content">
+    <p class="intro-text">The drive worked yesterday. Today it either does not appear on the desktop at all, or it appears just long enough to throw up a dialog saying the disk you inserted was not readable by this computer. Somewhere on it is a project you have not finished, or an archive you cannot replace.</p>
+
+    <p>Here is the useful thing to know before you start: most drives described as "corrupted" are not broken. They have file system damage, which is a bookkeeping problem rather than a hardware one. The data is still sitting on the platters or the NAND. What has gone wrong is the index that tells macOS where everything is, and macOS ships with everything you need to rebuild it.</p>
+
+    <p>What matters far more than which tool you use is <strong>the order you use them in</strong>. Repair tools write to the drive. If the drive is physically failing, the repair attempt can be the thing that finishes it off. This guide uses only Disk Utility, Terminal and Time Machine, all of which are already on your Mac, and it puts them in the sequence that gives you the best chance of getting your files back.</p>
+
+    <div class="tldr-box">
+      <h2>The short version</h2>
+      <ul>
+        <li>Stop writing to the drive, and listen to it. Clicking or grinding means stop immediately.</li>
+        <li>Rule out the cable, the port and the hub before you assume the drive is at fault.</li>
+        <li>Check S.M.A.R.T. status in Disk Utility. That tells you whether this is a repair job or a recovery job.</li>
+        <li>Copy your files off <em>before</em> running any repair, mounting the volume read-only if you have to.</li>
+        <li>Run First Aid bottom up: each volume, then each container, then the device itself.</li>
+        <li>If First Aid fails, use <code>diskutil repairVolume</code> in Terminal. You do not need Recovery mode for an external drive.</li>
+        <li>Know the point at which further attempts cost you data rather than saving it.</li>
+      </ul>
+    </div>
+
+    <div class="warn-box">
+      <h3>Three rules before you touch anything</h3>
+      <p><strong>1. Stop writing to the drive.</strong> Do not move files onto it, do not let a backup app touch it, do not reformat it "just to see". Every write is a chance to overwrite something that was still recoverable.</p>
+      <p><strong>2. Listen to it.</strong> Clicking, ticking, grinding, or a repeated spin-up and spin-down cycle means mechanical failure. Unplug it and skip to the section on calling a specialist. No amount of software will help, and leaving it powered on makes things worse.</p>
+      <p><strong>3. Do not open it.</strong> On a spinning hard drive the read and write heads fly a few nanometres above the platter surface, while ordinary household dust particles are thousands of times larger than that gap. A single speck landing on the platter can turn a recoverable drive into a shredded one.</p>
+    </div>
+
+    <h2>Step 1: Rule out the boring causes first</h2>
+
+    <p>A surprising share of "corrupted" drives are perfectly healthy drives with a bad connection. Before you open any repair tool, work through these:</p>
+
+    <ul>
+      <li><strong>Swap the cable.</strong> USB-C cables fail quietly and often, and many are charge-only or too slow to run a drive reliably.</li>
+      <li><strong>Go direct.</strong> Take the drive out of any hub, dock or monitor and plug it straight into the Mac.</li>
+      <li><strong>Try a different port.</strong> Ports on the same Mac do not always behave identically.</li>
+      <li><strong>Check the power.</strong> Bus-powered 2.5 inch drives are often right at the edge of what a port will supply, and desktop drives need their own adapter.</li>
+      <li><strong>Restart the Mac.</strong> This resets the USB controller and the disk mounting logic, which fixes more cases than it has any right to.</li>
+      <li><strong>Try another Mac.</strong> If it mounts there, the drive is fine and the problem is on your machine.</li>
+    </ul>
+
+    <h2>Step 2: Find the drive in Disk Utility</h2>
+
+    <p>Open Disk Utility from Applications, then Utilities. The first thing to do is choose <strong>View &gt; Show All Devices</strong>. Without it, Disk Utility hides most of what you need to see.</p>
+
+    <p>With it turned on, the sidebar shows a nested structure, and understanding it makes the rest of this guide much clearer:</p>
+
+    <ul>
+      <li>The <strong>physical device</strong> at the top level, named after the manufacturer, for example "Samsung Portable SSD T7 Media"</li>
+      <li>The <strong>container</strong> underneath it, if the drive is formatted as APFS</li>
+      <li>The <strong>volume</strong> or volumes inside that, which are the names you see in Finder</li>
+    </ul>
+
+    <p>If the volume is greyed out, macOS can see the drive but cannot mount it. Select the volume and click <strong>Mount</strong>. If that works, go straight to step 4 and start copying files. If the physical device does not appear in the sidebar at all, no software on your Mac can help, and you are looking at a hardware problem.</p>
+
+    <figure class="shot">
+      <img src="/disk-utility-show-all-devices.webp" alt="Disk Utility with Show All Devices enabled, showing the physical device, APFS container and volume for an external drive" loading="lazy">
+      <figcaption>With Show All Devices turned on, the sidebar reveals the full hierarchy: device, container, then volume. Screenshot: DriveVault.</figcaption>
+    </figure>
+
+    <h2>Step 3: Check S.M.A.R.T. status before anything else</h2>
+
+    <p>Select the <em>physical device</em> in the sidebar, not the volume, and look at the S.M.A.R.T. status shown in the panel below. This is the drive reporting on its own health, and it is the single most useful piece of information you will get in the whole process.</p>
+
+    <p><strong>Verified</strong> means the hardware believes it is healthy. Your problem is almost certainly file system damage, and the repair steps below have a good chance of working.</p>
+
+    <p><strong>Failing</strong>, or any variation on it, changes everything. Apple's own guidance is blunt here: if Disk Utility tells you the disk is about to fail, back up your data and replace the disk, because you cannot repair it. Do not run First Aid. Go to step 4, copy off everything you can, and treat the drive as disposable.</p>
+
+    <div class="tip-box">
+      <p><strong>From Terminal:</strong> <code>diskutil info disk4 | grep SMART</code> gives you the same answer, replacing <code>disk4</code> with your drive's identifier from <code>diskutil list</code>. Note that many cheap USB enclosures do not pass S.M.A.R.T. data through at all, in which case you will see "Not Supported" and simply have less information to work with.</p>
+    </div>
+
+    <h2>Step 4: Get your files off before you repair anything</h2>
+
+    <p>This is the step almost everyone skips, and it is the one that matters most. First Aid is a repair tool, which means it writes to the drive. On a drive that is physically struggling, that write can be the last thing it ever does.</p>
+
+    <p><strong>If the volume mounts,</strong> even briefly or unreliably, start copying in Finder right now. Take the irreplaceable material first, not the largest folder. If the drive drops out mid-copy, reconnect and resume with the next most important thing rather than starting again from the top.</p>
+
+    <p><strong>If the volume will not mount,</strong> try mounting it read-only. macOS often suggests this itself in the error dialog, and it lets you read the drive without allowing anything to write to it:</p>
+
+    <pre class="cmd"><code>diskutil list
+diskutil mount readOnly disk4s1</code></pre>
+
+    <p>Run <code>diskutil list</code> first and find your drive in the output by its size and name, then substitute the correct identifier. External drives usually appear as <code>disk4</code> or higher.</p>
+
+    <p><strong>If the drive mounts but keeps dropping out,</strong> make a full disk image of it and do your work on the copy. In Disk Utility, select the drive and choose <strong>File &gt; New Image &gt; Image from [device name]</strong>. Save the image to a healthy drive with enough free space. One limitation to plan around: Disk Utility cannot image individual APFS volumes or containers, only whole devices, so you need the space for the entire drive rather than just the used portion.</p>
+
+    <div class="inline-cta">
+      <div class="inline-cta-text"><strong>Do you know what was actually on the drive?</strong>If you cannot answer that with confidence, that is the more expensive problem. DriveVault catalogues every drive you own so the list is on your Mac whatever happens to the hardware.</div>
+      <a class="inline-cta-btn" href="https://apps.apple.com/us/app/drivevault-offline-catalog/id6751731655?mt=12" target="_blank" rel="noopener">Download Free</a>
+    </div>
+
+    <h2>Step 5: Run First Aid, in the right order</h2>
+
+    <p>Now you can repair. The mistake nearly everyone makes here is selecting one item in the sidebar, running First Aid once, and concluding that it did not work.</p>
+
+    <p>Apple's documented process is to work <strong>bottom up</strong>: run First Aid on each volume in turn, then on each container, then finally on the physical device itself. Each layer sits on top of the one below it, so repairing the volume while the container underneath it is damaged achieves very little.</p>
+
+    <div class="workflow-scenario">
+      <h2>The First Aid sequence</h2>
+      <p>Work from the innermost item in the sidebar outwards, clicking Done between each run.</p>
+      <ul class="workflow-steps">
+        <li class="workflow-step">
+          <div class="step-num">1</div>
+          <div class="step-text"><strong>Select the volume</strong>The indented item with the name you recognise from Finder. Click First Aid, then Run.</div>
+        </li>
+        <li class="workflow-step">
+          <div class="step-num">2</div>
+          <div class="step-text"><strong>Repeat for every other volume</strong>If the drive has more than one volume, do each of them before moving up a level.</div>
+        </li>
+        <li class="workflow-step">
+          <div class="step-num">3</div>
+          <div class="step-text"><strong>Select the container</strong>Present on APFS drives, sitting between the volumes and the device. Run First Aid on it.</div>
+        </li>
+        <li class="workflow-step">
+          <div class="step-num">4</div>
+          <div class="step-text"><strong>Select the physical device</strong>The top-level item named after the manufacturer. Run First Aid one last time.</div>
+        </li>
+        <li class="workflow-step">
+          <div class="step-num">5</div>
+          <div class="step-text"><strong>Eject, unplug, reconnect</strong>A repaired volume often will not mount properly until the drive has been reconnected.</div>
+        </li>
+      </ul>
+    </div>
+
+    <p>If First Aid reports errors it could not fix, run the whole sequence a second time before giving up. Apple explicitly recommends a second attempt, and repair passes are sometimes cumulative, with the second run able to fix what the first one exposed.</p>
+
+    <figure class="shot">
+      <img src="/disk-utility-first-aid.webp" alt="Disk Utility First Aid dialog running a repair on an external volume, showing the operation log" loading="lazy">
+      <figcaption>Expand the details triangle while First Aid runs. The log tells you what it actually found. Screenshot: DriveVault.</figcaption>
+    </figure>
+
+    <h2>Step 6: Terminal, when First Aid gives up</h2>
+
+    <p>Disk Utility is a front end for command line tools that are more capable than the interface lets on. Going to Terminal gives you better error messages and a repair pass you can repeat as many times as you like.</p>
+
+    <p>One myth to clear up first: <strong>you do not need Recovery mode or single-user mode to repair an external drive.</strong> Those exist because you cannot repair the disk your Mac is currently running from. An external drive can simply be unmounted, which is something you can do from a normal Terminal window. Single-user mode is also no longer available on Apple silicon Macs, so most of the older guides recommending it are out of date.</p>
+
+    <p>Start by identifying the drive:</p>
+
+    <pre class="cmd"><code>diskutil list</code></pre>
+
+    <p>Find your drive by size and volume name, and note both the device identifier (such as <code>disk4</code>) and the volume identifier (such as <code>disk4s1</code>). Then verify, and repair:</p>
+
+    <pre class="cmd"><code>diskutil verifyVolume /dev/disk4s1
+diskutil repairVolume /dev/disk4s1</code></pre>
+
+    <p>These are worth trying first because <code>diskutil</code> handles unmounting for you and automatically selects the right repair tool for the format. If you want to run that tool directly, unmount the drive and call it yourself:</p>
+
+    <pre class="cmd"><code>diskutil unmountDisk /dev/disk4
+sudo fsck_apfs -y /dev/disk4s1</code></pre>
+
+    <p>Use <code>fsck_apfs</code> for APFS, <code>fsck_hfs</code> for Mac OS Extended, and <code>fsck_exfat</code> for ExFAT drives shared with Windows. The <code>-y</code> flag answers yes to every repair prompt. If the output ends with a message telling you the file system was modified, run the same command again. Keep going until it reports that the volume appears to be OK, or until two consecutive runs produce the same errors, which means it has done all it can.</p>
+
+    <figure class="shot">
+      <img src="/terminal-diskutil-repairvolume.webp" alt="Terminal showing diskutil list output followed by a diskutil repairVolume run on an external drive" loading="lazy">
+      <figcaption>Terminal gives you the specific errors that Disk Utility summarises as a single failure. Screenshot: DriveVault.</figcaption>
+    </figure>
+
+    <h2>Step 7: Check Time Machine, carefully</h2>
+
+    <p>If the drive is beyond repair, Time Machine may already have a copy. There is one detail that catches almost everybody out, though: <strong>Time Machine excludes external drives from backups by default.</strong> Connecting a drive does not add it, and you have to have removed it from the exclusion list yourself under System Settings, General, Time Machine, Options.</p>
+
+    <p>If you did that at some point, enter Time Machine, browse back to a date before the drive failed, and restore. If you did not, there is no backup of that drive, and it is worth going and fixing that for the drives you still have.</p>
+
+    <h2>Step 8: Know when to stop</h2>
+
+    <p>Every repair attempt on a physically failing drive costs you something. These are the signals that the next thing you try should be a phone call rather than a command:</p>
+
+    <ul>
+      <li>S.M.A.R.T. status reports Failing</li>
+      <li>The drive clicks, ticks, beeps or repeatedly spins up and down</li>
+      <li>The drive vanishes from Disk Utility partway through a copy or a repair</li>
+      <li>First Aid fails at the same point on repeated runs</li>
+      <li>The physical device never appears in Disk Utility at all, on any Mac, with any cable</li>
+    </ul>
+
+    <p>A professional recovery lab is not just running the same tools with more confidence. They image the drive on hardware that can retry individual sectors, work around damaged areas, and read the platters directly if the drive's own electronics have failed. They start from a clone, which means nothing they try can make your situation worse. That is the thing you cannot replicate at a desk.</p>
+
+    <h2>The part that is much easier to do beforehand</h2>
+
+    <p>When you call a recovery lab, one of the first questions is what you need back. It is a reasonable question, because it determines the scope of the work and therefore the quote. Recovering one specific project folder is a different job from recovering four terabytes of unsorted material.</p>
+
+    <p>Almost nobody can answer it. The list of what was on the drive was on the drive.</p>
+
+    <p><strong>This is the case for cataloguing drives while they still work.</strong> DriveVault scans a drive once and keeps a searchable record of everything on it on your Mac. Every folder, every filename, every size and date. The drive then goes back on the shelf, and the catalogue stays.</p>
+
+    <p>When a drive later fails, that catalogue is the difference between guessing and knowing:</p>
+
+    <div class="use-grid">
+      <div class="use-card">
+        <h3>You can scope the recovery</h3>
+        <p>Hand the lab an exact list of the paths and files you need rather than asking them to recover everything, which is usually the difference between a targeted quote and an open-ended one.</p>
+      </div>
+      <div class="use-card">
+        <h3>You know if it even matters</h3>
+        <p>Sometimes the failed drive turns out to hold nothing you do not already have somewhere else. Recovery quotes are expensive things to accept unnecessarily.</p>
+      </div>
+      <div class="use-card">
+        <h3>You can find the duplicates</h3>
+        <p>Drive Comparison checks the lost drive's catalogue against your other drives and shows exactly which files exist elsewhere and which genuinely only lived on the one that died.</p>
+      </div>
+      <div class="use-card">
+        <h3>You have something to show</h3>
+        <p>For an insurance claim, a client conversation or a colleague who needs to know what was affected, a file listing is far more persuasive than a description from memory.</p>
+      </div>
+    </div>
+
+    <div class="cta-box">
+      <strong>Catalogue your drives before you need to.</strong>
+      <p>DriveVault scans each drive once and keeps everything searchable on your Mac, whether the drive is plugged in, on a shelf, or in a recovery lab. Free for your first drive up to 4TB.</p>
+      <a class="cta-button" href="https://apps.apple.com/us/app/drivevault-offline-catalog/id6751731655?mt=12" target="_blank" rel="noopener">Download DriveVault Free</a>
+    </div>
+
+    <div class="faq">
+      <h2>Frequently asked questions</h2>
+
+      <details>
+        <summary>Will running First Aid delete my files?</summary>
+        <p>First Aid is designed to repair the file system rather than erase data, and in normal use it does not delete files. It does write to the drive, though, which is why you should copy off anything irreplaceable before running it, particularly if S.M.A.R.T. status is not Verified.</p>
+      </details>
+
+      <details>
+        <summary>Disk Utility says my drive cannot be repaired. Is the data gone?</summary>
+        <p>Not necessarily. A failed repair means macOS cannot rebuild the file system to a state it trusts, but the underlying data is often still present. Try mounting the volume read-only from Terminal to copy files off, and if that fails and the data matters, a recovery lab can usually read far more than macOS can.</p>
+      </details>
+
+      <details>
+        <summary>Do I need to boot into Recovery mode to repair an external drive?</summary>
+        <p>No. Recovery mode exists so you can repair the disk your Mac is running from, which cannot be unmounted while macOS is using it. An external drive can be unmounted normally, so Disk Utility and Terminal both work from your regular desktop session.</p>
+      </details>
+
+      <details>
+        <summary>What is the difference between erasing the drive and repairing it?</summary>
+        <p>Repairing attempts to fix the existing file system and keep your files. Erasing writes a fresh empty file system over the top, which reliably makes the drive usable again and reliably loses everything on it. Erasing is the last step, never the first one, and only after you have copied off everything you can.</p>
+      </details>
+
+      <details>
+        <summary>Can I recover files from a drive that macOS will not mount at all?</summary>
+        <p>Sometimes. Try <code>diskutil mount readOnly</code> from Terminal first, since a read-only mount bypasses some of the checks that block a normal mount. If the drive appears in <code>diskutil list</code> but no mount succeeds, the file system structures are badly damaged and recovery becomes a specialist job.</p>
+      </details>
+
+      <details>
+        <summary>How do I stop this happening again?</summary>
+        <p>Eject drives properly before unplugging, keep two copies of anything irreplaceable, replace spinning drives after roughly four or five years of regular use, and keep a catalogue of what is on each drive so that a failure is an inconvenience rather than a mystery.</p>
+      </details>
+    </div>
+
+    <h2>The honest summary</h2>
+
+    <p>Most corrupted drives on a Mac are fixable, and fixable with software you already have. Check the cable, check S.M.A.R.T., copy your files off, then run First Aid bottom up and fall back to <code>diskutil repairVolume</code> if it fails. That sequence resolves the large majority of cases.</p>
+
+    <p>The ones it does not resolve are hardware failures, and the useful skill there is recognising them early enough to stop. A drive that is clicking does not need another repair attempt. It needs to be unplugged.</p>
+
+    <p>And the question you will be asked either way is what was on it. That one is much easier to answer if you decided the answer in advance.</p>
+
+  </article>
+
+  <nav class="post-nav" aria-label="Post navigation">
+    <a href="/blog/compare-two-drives.html">
+      <span class="post-nav-label">Related</span>
+      <span class="post-nav-title">How to Compare Two Hard Drives and Detect Missing or Duplicate Files (Mac)</span>
+    </a>
+    <a href="/blog/organize-multiple-drives.html">
+      <span class="post-nav-label">Related</span>
+      <span class="post-nav-title">The Best Way to Organize Multiple External Hard Drives for Creatives</span>
+    </a>
+  </nav>
+
+</div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-content">
+    <div class="footer-brand"><img src="/favicon.png" alt="DriveVault"><span>DriveVault</span></div>
+    <p class="footer-text">© 2026 DriveVault. All rights reserved.</p>
+  </div>
+</footer>
+
+<a class="float-cta" href="https://apps.apple.com/us/app/drivevault-offline-catalog/id6751731655?mt=12" target="_blank" rel="noopener" aria-label="Download DriveVault on the App Store">Download Free →</a>
+
+<script>
+const hamburger = document.getElementById('hamburgerBtn');
+const mobileNav = document.getElementById('mobileNav');
+if (hamburger && mobileNav) {
+  hamburger.addEventListener('click', () => {
+    const isOpen = mobileNav.classList.toggle('open');
+    hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  mobileNav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileNav.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    });
+  });
+}
+</script>
+</body>
+</html>
