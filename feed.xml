@@ -6,7 +6,15 @@
     <atom:link href="https://www.drivevault.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>Honest SSD reviews, gear guides and tips for managing external drives on macOS.</description>
     <language>en</language>
-    <lastBuildDate>Wed, 02 Sep 2026 16:59:08 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 07 Sep 2026 11:07:34 GMT</lastBuildDate>
+    <item>
+      <title>How to Fix a Corrupted Hard Drive on Mac (Using Only Built-In Tools)</title>
+      <link>https://www.drivevault.io/blog/fix-corrupted-hard-drive-mac.html</link>
+      <guid isPermaLink="true">https://www.drivevault.io/blog/fix-corrupted-hard-drive-mac.html</guid>
+      <category>How-To</category>
+      <pubDate>Mon, 07 Sep 2026 09:00:00 GMT</pubDate>
+      <description>A step by step guide to repairing a corrupted external hard drive on macOS using Disk Utility, Terminal and Time Machine. No third-party software, and how to know when to stop and call a specialist.</description>
+    </item>
     <item>
       <title>Mac Studio M5 Max and M5 Ultra: The Honest Buyer's Guide</title>
       <link>https://www.drivevault.io/blog/mac-studio-m5-buyers-guide-worth-upgrading.html</link>
