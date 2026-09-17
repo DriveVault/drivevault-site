@@ -6,7 +6,15 @@
     <atom:link href="https://www.drivevault.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>Honest SSD reviews, gear guides and tips for managing external drives on macOS.</description>
     <language>en</language>
-    <lastBuildDate>Mon, 07 Sep 2026 12:06:59 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 17 Sep 2026 11:59:09 GMT</lastBuildDate>
+    <item>
+      <title>When Will Hard Drive Prices Come Down? The Honest 2026-2028 Outlook</title>
+      <link>https://www.drivevault.io/blog/when-will-hard-drive-prices-come-down.html</link>
+      <guid isPermaLink="true">https://www.drivevault.io/blog/when-will-hard-drive-prices-come-down.html</guid>
+      <category>Storage Market</category>
+      <pubDate>Thu, 17 Sep 2026 09:00:00 GMT</pubDate>
+      <description>SSD prices should start to ease in the second half of 2027. Hard drives will take longer, because their supply is contracted into 2028. Here is the evidence, the timeline, and what to do in the meantime.</description>
+    </item>
     <item>
       <title>The Best Rugged 4TB Portable SSDs for 2026 and 2027</title>
       <link>https://www.drivevault.io/blog/best-rugged-4tb-portable-ssds-2026-2027.html</link>
@@ -158,14 +166,6 @@
       <category>How-To</category>
       <pubDate>Sun, 14 Sep 2025 09:00:00 GMT</pubDate>
       <description>A practical workflow for photographers, filmmakers, and designers to organize multiple external hard drives on macOS: naming, folder templates, tags, notes, smart collections, and backups.</description>
-    </item>
-    <item>
-      <title>How to Compare Two Hard Drives and Detect Missing or Duplicate Files (Mac)</title>
-      <link>https://www.drivevault.io/blog/compare-two-drives.html</link>
-      <guid isPermaLink="true">https://www.drivevault.io/blog/compare-two-drives.html</guid>
-      <category>How-To Guide</category>
-      <pubDate>Fri, 12 Sep 2025 09:00:00 GMT</pubDate>
-      <description>Learn how to compare two hard drives on Mac, detect missing files, and find duplicates with DriveVault. Step-by-step guide for seamless drive comparison on macOS.</description>
     </item>
   </channel>
 </rss>
