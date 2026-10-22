@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a0d16"/>
+      <stop offset="1" stop-color="#121a33"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.62" r="0.5">
+      <stop offset="0" stop-color="#2f6bff" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#2f6bff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="line" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#6aa2ff" stop-opacity="0.15"/>
+      <stop offset="0.6" stop-color="#6aa2ff" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#ef4444" stop-opacity="0.9"/>
+    </linearGradient>
+    <linearGradient id="area" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2f6bff" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#2f6bff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="ssd" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3a4256"/>
+      <stop offset="0.5" stop-color="#232a3b"/>
+      <stop offset="1" stop-color="#171c29"/>
+    </linearGradient>
+    <linearGradient id="ssdEdge" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="tag" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fbbf24"/>
+      <stop offset="1" stop-color="#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="cal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#eef2f8"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%">
+      <feDropShadow dx="0" dy="28" stdDeviation="28" flood-color="#000" flood-opacity="0.55"/>
+    </filter>
+    <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M80 0H0V80" fill="none" stroke="#ffffff" stroke-opacity="0.045" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <!-- background -->
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect width="1600" height="900" fill="url(#grid)"/>
+  <rect width="1600" height="900" fill="url(#glow)"/>
+
+  <!-- rising price chart -->
+  <path d="M0 800 L180 770 L320 785 L470 720 L610 735 L760 650 L900 665 L1040 560 L1180 575 L1320 450 L1460 400 L1600 300 L1600 900 L0 900 Z" fill="url(#area)"/>
+  <path d="M0 800 L180 770 L320 785 L470 720 L610 735 L760 650 L900 665 L1040 560 L1180 575 L1320 450 L1460 400 L1538 344" fill="none" stroke="url(#line)" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+  <g fill="#ef4444">
+    <circle cx="1460" cy="400" r="9"/>
+    <circle cx="1320" cy="450" r="7" fill-opacity="0.7"/>
+  </g>
+  <g transform="translate(1566 324) rotate(-35.5)"><path d="M0 0 L-34 -17 L-34 17 Z" fill="#ef4444"/></g>
+
+  <!-- eyebrow pill -->
+  <g>
+    <rect x="590" y="96" width="420" height="50" rx="25" fill="#ef4444" fill-opacity="0.14" stroke="#ef4444" stroke-opacity="0.45" stroke-width="1.5"/>
+    <text x="800" y="129" text-anchor="middle" font-family="Inter" font-weight="800" font-size="20" letter-spacing="3.2" fill="#fca5a5">BLACK FRIDAY 2026</text>
+  </g>
+
+  <!-- headline -->
+  <text x="800" y="252" text-anchor="middle" font-family="Inter" font-weight="900" font-size="96" letter-spacing="-2.5" fill="#ffffff">Buy now, or wait?</text>
+  <text x="800" y="312" text-anchor="middle" font-family="Inter" font-weight="500" font-size="30" fill="#aeb8cc">Hard drives and SSDs in a rising market</text>
+
+  <!-- portable SSD with price tag -->
+  <g transform="translate(470 450) rotate(-9)" filter="url(#shadow)">
+    <rect x="0" y="0" width="390" height="250" rx="34" fill="url(#ssd)"/>
+    <rect x="0" y="0" width="390" height="250" rx="34" fill="none" stroke="#ffffff" stroke-opacity="0.12" stroke-width="2"/>
+    <rect x="6" y="6" width="378" height="90" rx="30" fill="url(#ssdEdge)"/>
+    <!-- lanyard loop hole -->
+    <circle cx="344" cy="46" r="15" fill="#0f1320" stroke="#ffffff" stroke-opacity="0.15" stroke-width="2"/>
+    <!-- usb-c port -->
+    <rect x="-6" y="105" width="14" height="40" rx="7" fill="#0b0e17" stroke="#5f6775" stroke-width="2"/>
+    <!-- activity LED -->
+    <circle cx="44" cy="214" r="6" fill="#4ade80"/>
+    <circle cx="44" cy="214" r="13" fill="#4ade80" fill-opacity="0.18"/>
+    <!-- capacity label area -->
+    <rect x="70" y="150" width="140" height="10" rx="5" fill="#ffffff" fill-opacity="0.16"/>
+    <rect x="70" y="172" width="90" height="10" rx="5" fill="#ffffff" fill-opacity="0.09"/>
+  </g>
+
+  <!-- string from SSD loop to tag -->
+  <path d="M816 452 C 850 505, 860 560, 868 612" fill="none" stroke="#e5e7eb" stroke-opacity="0.85" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- price tag -->
+  <g transform="translate(868 612) rotate(14)" filter="url(#shadow)">
+    <path d="M-62 0 L62 0 L62 150 Q62 170 42 170 L-42 170 Q-62 170 -62 150 Z M-30 0 L0 -40 L30 0 Z" fill="url(#tag)"/>
+    <path d="M-62 0 L-26 -36 Q0 -58 26 -36 L62 0 Z" fill="url(#tag)"/>
+    <circle cx="0" cy="-12" r="10" fill="#0f1424"/>
+    <text x="0" y="112" text-anchor="middle" font-family="Inter" font-weight="900" font-size="92" fill="#1b1206">&#163;?</text>
+  </g>
+
+  <!-- calendar -->
+  <g transform="translate(1040 438) rotate(6)" filter="url(#shadow)">
+    <rect x="0" y="0" width="230" height="250" rx="26" fill="url(#cal)"/>
+    <path d="M0 26 Q0 0 26 0 L204 0 Q230 0 230 26 L230 70 L0 70 Z" fill="#ef4444"/>
+    <text x="115" y="48" text-anchor="middle" font-family="Inter" font-weight="800" font-size="26" letter-spacing="4" fill="#ffffff">NOV</text>
+    <text x="115" y="188" text-anchor="middle" font-family="Inter" font-weight="900" font-size="120" letter-spacing="-4" fill="#0b0d12">27</text>
+    <text x="115" y="226" text-anchor="middle" font-family="Inter" font-weight="700" font-size="18" letter-spacing="1.5" fill="#5f6775">BLACK FRIDAY</text>
+    <circle cx="62" cy="-6" r="9" fill="#cbd5e1"/>
+    <circle cx="168" cy="-6" r="9" fill="#cbd5e1"/>
+    <rect x="57" y="-22" width="10" height="30" rx="5" fill="#94a3b8"/>
+    <rect x="163" y="-22" width="10" height="30" rx="5" fill="#94a3b8"/>
+  </g>
+
+  <!-- small brand mark -->
+  <text x="800" y="862" text-anchor="middle" font-family="Inter" font-weight="800" font-size="20" letter-spacing="1" fill="#ffffff" fill-opacity="0.45">drivevault.io</text>
+</svg>
