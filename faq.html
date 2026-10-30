@@ -764,6 +764,14 @@
           "@type": "Answer",
           "text": "macOS only. DriveVault is built natively for Mac and integrates with macOS previews, Finder-style navigation, and Apple-native features."
         }
+      },
+      {
+        "@type": "Question",
+        "name": "Does DriveVault work with NAS drives?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, NAS drives are supported, but results can vary. Every NAS is set up differently, and things like network speed and stability, how shares are mounted on your Mac (as separate volumes or nested inside one another), and permissions all affect how well DriveVault can read them. We recommend downloading DriveVault for free and using your free drive slot to test your NAS first. The free slot covers up to 4TB, so if your NAS holds more than that, scan a folder inside it that is under 4TB to check DriveVault can read it. If a NAS is your main reason for using DriveVault, start by adding a single drive ($9.99) rather than a larger tier, and only upgrade once you know it works well with your setup. NAS support is something we're actively working on and improving as we learn more about our users' setups."
+        }
       }
     ]
   }
@@ -1087,6 +1095,27 @@
             <h2>Technical</h2>
           </div>
           <div class="faq-list">
+
+            <details class="faq-item" data-keywords="nas network attached storage server synology qnap smb share network drive mounted volume raid">
+              <summary class="faq-summary">
+                <h3>Does DriveVault work with NAS drives?</h3>
+                <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </summary>
+              <div class="faq-answer">
+                <p><strong>Yes - NAS drives are supported, but we want to be upfront: results can vary.</strong></p>
+                <p>No two NAS setups are quite the same. Network speed and stability, how your shares are mounted on your Mac (as individual volumes, or nested inside one another), the sharing protocol and the NAS's own permissions all play a part. Some NAS drives scan beautifully; others can be slow, incomplete or tricky for DriveVault to read.</p>
+                <p>So our honest advice is <strong>test first, then buy</strong>:</p>
+                <ul>
+                  <li><strong>Try it for free.</strong> Download DriveVault and use your free drive slot to scan your NAS and see how it performs. The free slot covers up to 4TB, so if your NAS holds more than that, scan a folder (or a few folders) inside it that adds up to less than 4TB. That's plenty to see whether DriveVault can read your NAS properly.</li>
+                  <li><strong>Start small.</strong> If a NAS is your main reason for getting DriveVault, add a single drive for just <strong>$9.99</strong> rather than jumping straight into a larger tier.</li>
+                  <li><strong>Grow from there.</strong> Once you're confident it works well with your setup, upgrade to the tier that suits your library.</li>
+                </ul>
+                <p>We'd much rather you find out it works before spending more. And if you do run into problems, please let us know on the <a href="https://drivevault.canny.io/report-bugs" target="_blank" rel="noopener">Bug Reports</a> board - every report helps us improve NAS support.</p>
+                <p>NAS support is something we're actively working on. Every time we learn more about the setups DriveVault users actually have, we can make it better. With your help, we'll get there.</p>
+              </div>
+            </details>
 
             <details class="faq-item" data-keywords="export import share catalog transfer move mac computer team">
               <summary class="faq-summary">
