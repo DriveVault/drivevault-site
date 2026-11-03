@@ -691,8 +691,59 @@ stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 </section>
 <!-- Timeline -->
 <div class="timeline">
+<!-- V1.2.11 - Performance & Reliability -->
+<article class="release open" data-version="1.2.11">
+<div class="release-dot"></div>
+<div class="release-card">
+<div class="release-header"
+onclick="toggleRelease(this.parentElement.parentElement)">
+<div class="release-meta">
+<div class="release-top">
+<span class="release-badge improvement">Performance</span>
+<span class="release-version">v1.2.11</span>
+<span class="release-date">November 2026</span>
+</div>
+<div class="release-tags">
+<span class="release-tag">RAW Video 20x Faster</span>
+<span class="release-tag">Drive Diagnostics</span>
+<span class="release-tag">Backup Mode</span>
+<span class="release-tag">Rescan</span>
+</div>
+</div>
+<svg class="release-chevron" viewBox="0 0 24 24" fill="none"
+stroke="currentColor" stroke-width="2">
+<path d="M6 9l6 6 6-6" />
+</svg>
+</div>
+<div class="release-content">
+<div class="release-highlights">
+<p style="margin-bottom: 16px;">This release focuses on improving performance and reliability, especially for professional video workflows with RAW camera formats.</p>
+<h4>Feature Improvements</h4>
+<ul>
+<li><strong>Smarter Backup Mode Detection</strong> - Fixed a logic flaw where Backup Mode could incorrectly identify a file as backed up (green indicator) if it appeared twice on the same drive. The improved system now correctly identifies files as backed up only when they exist on two different drives.</li>
+<li><strong>More Reliable Drive Rescan and Update</strong> - Completely redesigned the rescan feature for perfect reliability. The previous incremental update approach could miss newly added files, fail to capture updated metadata, or incorrectly maintain file counts when files were deleted. New behavior: When you rescan or update a drive, DriveVault now retains your custom metadata (drive name, custom logo, project associations), completely replaces all file data with a fresh scan, and guarantees you capture all files every time so that your scan reflects how the drive is now.</li>
+<li><strong>Drive Diagnostic Scanner</strong> - Having trouble scanning a drive? Scan stalling? DriveVault feeling slow after scanning a particular drive? The new Drive Diagnostic Scanner in the Diagnostics Center helps identify and troubleshoot scanning issues. Click "Diagnostics" in the bottom right (stethoscope icon), select "Drive Diagnostic", run a lightweight scan, and export a comprehensive report (CSV and JSON formats) to send to <a href="mailto:hello@drivevault.io" style="color: var(--blue);">hello@drivevault.io</a> for analysis.</li>
+</ul>
+<h4 style="margin-top: 20px;">Performance Improvements</h4>
+<ul>
+<li><strong>20x Faster Scanning for RAW Video Formats</strong> - DriveVault no longer attempts to generate offline thumbnails for professional camera RAW formats that require manufacturer-specific drivers for preview (RED, ARRI, Canon RAW, Sony RAW, Blackmagic RAW). This simple change results in average 20x faster scan times when cataloging drives full of professional video footage.</li>
+<li><strong>Professional Camera Logo Identification</strong> - RAW camera files that previously had no thumbnail generation now display their respective camera brand logos, making them instantly recognizable at a glance in Column View, Icon View, and Search Results. Supported formats include RED (R3D, etc.), ARRI (ARRIRAW, etc.), Canon RAW (CRM, MLV, etc.), Sony RAW (MXF, etc.), and Blackmagic RAW (BRAW).</li>
+</ul>
+</div>
+<div class="release-details">
+<h4>Bug Fixes</h4>
+<ul>
+<li><strong>Empty Drive Handling</strong> - Fixed a crash that occurred when scanning completely empty drives. DriveVault now gracefully creates an empty drive catalog, because sometimes you need to catalog a freshly formatted drive before adding content. Can you believe that we'd never scanned an empty drive before?</li>
+</ul>
+<div class="release-note" style="margin-top: 16px;">
+<p>Thank you so much for using DriveVault. This release represents our commitment to rock-solid reliability and performance for professional workflows. 💙</p>
+</div>
+</div>
+</div>
+</div>
+</article>
 <!-- V1.2.10 - Diagnostic Center -->
-<article class="release open" data-version="1.2.10">
+<article class="release" data-version="1.2.10">
 <div class="release-dot"></div>
 <div class="release-card">
 <div class="release-header"
